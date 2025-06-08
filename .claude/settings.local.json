@@ -16,7 +16,10 @@
       "Bash(grep:*)",
       "Bash(npm ls:*)",
       "Bash(chmod:*)",
-      "Bash(npm run test:styling:*)"
+      "Bash(npm run test:styling:*)",
+      "Bash(find:*)",
+      "Bash(git reset:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
