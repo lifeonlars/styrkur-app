@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Workout, WorkoutForm, Exercise, ExerciseConfig, WorkoutExercise } from '@/types'
+import { Workout } from '@/types'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 
 interface BuildScreenProps {

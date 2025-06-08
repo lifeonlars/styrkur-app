@@ -8,18 +8,24 @@ interface ExerciseCardProps {
 }
 
 export default function ExerciseCard({ exercise, onAdd, showAddButton = true }: ExerciseCardProps) {
+  
   return (
     <button
       onClick={() => onAdd(exercise)}
       className="bg-gray-800 p-3 rounded-lg flex items-center hover:bg-gray-700 transition w-full text-left"
     >
-      <span className="text-2xl mr-3">{exercise.icon}</span>
-      <div className="flex-1">
-        <div className="text-white text-sm font-medium">{exercise.name}</div>
+      {/* Exercise Icon */}
+      <div className="w-12 h-12 mr-3 flex-shrink-0 bg-gray-700 rounded-md flex items-center justify-center">
+        <span className="text-lg">{exercise.icon}</span>
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <div className="text-white text-sm font-medium truncate">{exercise.name}</div>
         <div className="text-gray-400 text-xs">
           {exercise.target} • {exercise.equipment}
         </div>
       </div>
+      
       <div className="flex items-center">
         {exercise.isWeighted && (
           <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded mr-2">

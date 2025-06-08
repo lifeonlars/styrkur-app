@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { X, Timer, Check } from 'lucide-react'
 import { Workout, WorkoutSession } from '@/types'
-import { getExerciseById } from '@/lib/wger'
 
 interface TrainScreenProps {
   currentWorkout: Workout | null

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { X } from 'lucide-react'
+import { X, Info } from 'lucide-react'
 import { Exercise, ExerciseConfig } from '@/types'
 
 interface ExerciseConfigModalProps {
@@ -18,8 +18,16 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
     rest: 90,
     rpe: 7,
     tempo: '',
-    notes: ''
+    notes: exercise.cues || '' // Prefill with extracted cues from API
   })
+  
+  const [imageError, setImageError] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
+  const [showFullscreenImage, setShowFullscreenImage] = useState(false)
+  
+  const handleImageError = () => {
+    setImageError(true)
+  }
 
   const handleSubmit = () => {
     onConfirm(config)
@@ -27,7 +35,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden">
+      <div className="bg-gray-900 w-full max-w-md lg:max-w-2xl rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="p-4 border-b border-gray-800 flex justify-between items-center">
           <h3 className="text-white text-lg font-medium">Configure Exercise</h3>
@@ -37,12 +45,81 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
         </div>
 
         <div className="p-4">
-          {/* Exercise Info */}
-          <div className="flex items-center mb-6 p-3 bg-gray-800 rounded-xl">
-            <span className="text-2xl mr-3">{exercise.icon}</span>
-            <div>
-              <div className="text-white font-medium">{exercise.name}</div>
-              <div className="text-gray-400 text-sm">{exercise.target}</div>
+          {/* Exercise Info with Image */}
+          <div className="mb-6">
+            {/* Exercise Image */}
+            <div className="relative mb-4">
+              {exercise.imageUrl && !imageError ? (
+                <div className="w-full max-w-sm mx-auto">
+                  <img
+                    src={exercise.imageUrl}
+                    alt={exercise.name}
+                    className="w-full h-auto object-contain rounded-xl bg-gray-800 max-h-48 cursor-pointer hover:opacity-80 transition"
+                    onError={handleImageError}
+                    onClick={() => setShowFullscreenImage(true)}
+                  />
+                  {exercise.hasRealImage && (
+                    <div className="absolute top-2 right-2 bg-[#C3A869] text-black text-xs px-2 py-1 rounded">
+                      WGER Image
+                    </div>
+                  )}
+                  <div className="text-center mt-2">
+                    <button
+                      onClick={() => setShowFullscreenImage(true)}
+                      className="text-[#C3A869] text-sm hover:text-[#C3A869]/80"
+                    >
+                      Click to view fullscreen
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="w-24 h-24 mx-auto bg-gray-800 rounded-xl flex items-center justify-center">
+                  <span className="text-4xl">{exercise.icon}</span>
+                </div>
+              )}
+            </div>
+            
+            {/* Exercise Details */}
+            <div className="bg-gray-800 rounded-xl p-4">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="text-white font-medium text-lg mb-1">{exercise.name}</div>
+                  <div className="text-gray-400 text-sm mb-2">
+                    {exercise.target} • {exercise.equipment}
+                    {exercise.intensity && exercise.intensity !== 'undefined' && (
+                      <span className="ml-2 text-[#C3A869]">• {exercise.intensity} Intensity</span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="bg-[#C3A869]/20 text-[#C3A869] text-xs px-2 py-1 rounded">
+                      {exercise.muscleGroup.charAt(0).toUpperCase() + exercise.muscleGroup.slice(1)}
+                    </span>
+                    {exercise.isWeighted && (
+                      <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded">
+                        Weighted
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {exercise.description && (
+                  <button
+                    onClick={() => setShowDescription(!showDescription)}
+                    className="text-gray-400 hover:text-white ml-2"
+                  >
+                    <Info className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+              
+              {/* Description */}
+              {exercise.description && showDescription && (
+                <div className="mt-4 pt-4 border-t border-gray-700">
+                  <h4 className="text-white text-sm font-medium mb-2">Description</h4>
+                  <p className="text-gray-300 text-sm leading-relaxed max-h-32 overflow-y-auto">
+                    {exercise.description}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -158,6 +235,32 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Image Modal */}
+      {showFullscreenImage && exercise.imageUrl && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl max-h-full">
+            <button
+              onClick={() => setShowFullscreenImage(false)}
+              className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img
+              src={exercise.imageUrl}
+              alt={exercise.name}
+              className="max-w-full max-h-full object-contain"
+              onError={handleImageError}
+            />
+            <div className="absolute bottom-4 left-4 text-white bg-black bg-opacity-50 px-4 py-2 rounded">
+              <div className="font-medium">{exercise.name}</div>
+              {exercise.hasRealImage && (
+                <div className="text-sm text-[#C3A869]">WGER Exercise Image</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

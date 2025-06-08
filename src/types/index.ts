@@ -19,9 +19,17 @@ export interface Exercise {
   icon: string
   isWeighted: boolean
   wgerData?: WgerExercise
+  // New image and description fields
+  imageUrl?: string
+  thumbnailUrl?: string
+  description?: string
+  hasRealImage?: boolean
+  // Additional metadata
+  intensity?: string
+  cues?: string
 }
 
-// WGER API Exercise Structure
+// WGER API Exercise Structure (supports both mock and real API formats)
 export interface WgerExercise {
   id: number
   uuid: string
@@ -29,10 +37,52 @@ export interface WgerExercise {
   exercise_base: number
   description: string
   category: number
-  muscles: number[]
-  muscles_secondary: number[]
+  muscles: (number | WgerMuscleObject)[]
+  muscles_secondary: (number | WgerMuscleObject)[]
   equipment: number[]
   language: number
+}
+
+// WGER Muscle Object from API
+export interface WgerMuscleObject {
+  id: number
+  name: string
+  name_en: string
+  is_front: boolean
+  image_url_main: string
+  image_url_secondary: string
+}
+
+// WGER Exercise Image from API
+export interface WgerExerciseImage {
+  id: number
+  uuid: string
+  exercise: number
+  exercise_uuid: string
+  image: string
+  is_main: boolean
+  license: number
+  license_author: string
+  license_title: string
+}
+
+// WGER API ExerciseInfo interface (real API structure)
+export interface WgerExerciseInfo {
+  id: number
+  category: number
+  muscles: (number | WgerMuscleObject)[] // Can be IDs or full objects
+  muscles_secondary: (number | WgerMuscleObject)[]
+  equipment: number[]
+  variations: number | null
+  license_author: string
+  uuid: string
+  created: string
+  last_update: string
+  translations: {
+    name: string
+    description: string
+    language: number
+  }[]
 }
 
 // Exercise Configuration

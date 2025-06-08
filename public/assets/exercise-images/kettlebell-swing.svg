@@ -1,0 +1,73 @@
+<svg width="800" height="357" viewBox="0 0 800 357" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="kettlebell" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b7280;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="357" fill="url(#bg)" rx="16"/>
+  
+  <!-- Exercise Title -->
+  <text x="400" y="40" text-anchor="middle" fill="#C3A869" font-family="Arial, sans-serif" font-size="24" font-weight="bold">KETTLEBELL SWING</text>
+  
+  <!-- Stick Figure Position 1 (Start) -->
+  <g transform="translate(200,80)">
+    <!-- Head -->
+    <circle cx="0" cy="0" r="15" fill="url(#body)"/>
+    <!-- Body -->
+    <line x1="0" y1="15" x2="0" y2="80" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Arms -->
+    <line x1="0" y1="35" x2="-25" y2="60" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="35" x2="25" y2="60" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Legs -->
+    <line x1="0" y1="80" x2="-20" y2="120" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="80" x2="20" y2="120" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Kettlebell (down position) -->
+    <ellipse cx="0" cy="85" rx="12" ry="8" fill="url(#kettlebell)"/>
+    <rect x="-3" y="77" width="6" height="8" fill="url(#kettlebell)"/>
+  </g>
+  
+  <!-- Arrow -->
+  <path d="M300 150 L350 120 L340 125 L360 110 L340 135 L350 140 Z" fill="#C3A869"/>
+  
+  <!-- Stick Figure Position 2 (Swing Up) -->
+  <g transform="translate(600,80)">
+    <!-- Head -->
+    <circle cx="0" cy="0" r="15" fill="url(#body)"/>
+    <!-- Body -->
+    <line x1="0" y1="15" x2="0" y2="80" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Arms (extended up) -->
+    <line x1="0" y1="35" x2="-20" y2="10" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="35" x2="20" y2="10" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Legs -->
+    <line x1="0" y1="80" x2="-15" y2="120" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="80" x2="15" y2="120" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Kettlebell (up position) -->
+    <ellipse cx="0" cy="-5" rx="12" ry="8" fill="url(#kettlebell)"/>
+    <rect x="-3" y="-13" width="6" height="8" fill="url(#kettlebell)"/>
+  </g>
+  
+  <!-- Instructions -->
+  <text x="400" y="250" text-anchor="middle" fill="#9ca3af" font-family="Arial, sans-serif" font-size="16">Hip-hinge movement • Drive through heels • Keep core engaged</text>
+  
+  <!-- Muscle Groups -->
+  <text x="50" y="320" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">PRIMARY:</text>
+  <text x="120" y="320" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Glutes, Hamstrings</text>
+  
+  <text x="50" y="340" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SECONDARY:</text>
+  <text x="140" y="340" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Core, Shoulders</text>
+  
+  <!-- Equipment -->
+  <text x="600" y="320" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">EQUIPMENT:</text>
+  <text x="690" y="320" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Kettlebell</text>
+</svg>

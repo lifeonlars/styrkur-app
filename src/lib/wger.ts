@@ -1,6 +1,9 @@
 import { 
   Exercise, 
   WgerExercise, 
+  WgerExerciseInfo,
+  WgerExerciseImage,
+  WgerMuscleObject,
   ExerciseFilter,
   EquipmentMapping,
   MuscleMapping,
@@ -512,8 +515,48 @@ export const getNorseIconForCategory = (categoryId: number): string => {
   return norseIcons[bodyPart] || norseIcons.default
 }
 
+// Improved equipment and weighted logic
 export const determineIfWeighted = (equipmentArray: number[]): boolean => {
-  return equipmentArray && equipmentArray.length > 0 && equipmentArray[0] !== 7
+  if (!equipmentArray || equipmentArray.length === 0) return false
+  
+  // Equipment IDs that indicate weighted exercises
+  const weightedEquipment = [1, 3, 10, 15] // barbell, dumbbell, kettlebell, cable
+  
+  return equipmentArray.some(id => weightedEquipment.includes(id))
+}
+
+// Get equipment category for display
+export const getEquipmentCategory = (equipmentArray: number[]): string => {
+  if (!equipmentArray || equipmentArray.length === 0) return 'Bodyweight'
+  
+  const equipment = equipmentArray[0] // Use primary equipment
+  const equipmentName = equipmentMapping[equipment]
+  
+  if (equipmentName) {
+    return equipmentName.charAt(0).toUpperCase() + equipmentName.slice(1)
+  }
+  
+  // Fallback categories based on equipment ID
+  if ([1, 3, 10].includes(equipment)) return 'Free Weights'
+  if ([15].includes(equipment)) return 'Cable'
+  if ([8, 9].includes(equipment)) return 'Bench'
+  if ([7, 12].includes(equipment)) return 'Bodyweight'
+  
+  return 'Equipment'
+}
+
+// Get exercise intensity/difficulty indicator
+export const getExerciseIntensity = (category: number, isWeighted: boolean): string => {
+  // Categories: 8=Arms, 9=Legs, 10=Abs, 11=Chest, 12=Back, 13=Shoulders, 14=Calves
+  if (isWeighted) {
+    if ([9, 12].includes(category)) return 'High' // Legs, Back (typically compound)
+    if ([11, 13].includes(category)) return 'Medium' // Chest, Shoulders
+    return 'Medium'
+  } else {
+    if ([10].includes(category)) return 'Low' // Abs
+    if ([9, 12].includes(category)) return 'Medium' // Bodyweight legs/back
+    return 'Low'
+  }
 }
 
 export const parseInstructions = (htmlDescription: string): string[] => {
@@ -528,29 +571,256 @@ export const parseInstructions = (htmlDescription: string): string[] => {
   return instructions.length > 0 ? instructions : ['Perform exercise with proper form']
 }
 
+// Extract exercise cues from instructions for prefilling
+export const extractExerciseCues = (instructions: string[]): string => {
+  if (!instructions || instructions.length === 0) return ''
+  
+  // Look for actionable cues and form tips
+  const cueKeywords = [
+    'keep', 'maintain', 'ensure', 'focus', 'squeeze', 'engage', 'breathe',
+    'control', 'slow', 'pause', 'drive', 'push', 'pull', 'hold'
+  ]
+  
+  const cues = instructions
+    .filter(instruction => {
+      const lower = instruction.toLowerCase()
+      return cueKeywords.some(keyword => lower.includes(keyword)) ||
+             lower.includes('form') || 
+             lower.includes('position') ||
+             lower.includes('movement')
+    })
+    .map(cue => {
+      // Clean up and shorten cues
+      return cue
+        .replace(/^(step \d+:?\s*)/i, '') // Remove step numbers
+        .replace(/\s+/g, ' ') // Normalize whitespace
+        .trim()
+    })
+    .filter(cue => cue.length > 0 && cue.length < 100) // Reasonable length
+    .slice(0, 3) // Max 3 cues
+  
+  return cues.join('. ')
+}
+
+// Parse HTML description to clean text
+export const parseDescription = (htmlDescription: string): string => {
+  if (!htmlDescription) return ''
+  
+  // Remove HTML tags and decode entities
+  const cleanText = htmlDescription
+    .replace(/<[^>]*>/g, '') // Remove all HTML tags
+    .replace(/&nbsp;/g, ' ') // Replace non-breaking spaces
+    .replace(/&amp;/g, '&') // Replace HTML entities
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim()
+  
+  // Limit length and add ellipsis if needed
+  if (cleanText.length > 200) {
+    return cleanText.substring(0, 200).trim() + '...'
+  }
+  
+  return cleanText
+}
+
+// Convert image URL to base64 data URL to bypass CORS
+const fetchImageAsBase64 = async (imageUrl: string): Promise<string | null> => {
+  try {
+    // Use a CORS proxy service to fetch the image
+    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(imageUrl)}`
+    console.log(`🔄 Proxying image: ${imageUrl}`)
+    
+    const response = await fetch(proxyUrl, {
+      method: 'GET',
+      mode: 'cors'
+    })
+    
+    if (!response.ok) {
+      throw new Error(`Proxy fetch failed: ${response.status}`)
+    }
+    
+    const blob = await response.blob()
+    
+    return new Promise((resolve) => {
+      const reader = new FileReader()
+      reader.onloadend = () => resolve(reader.result as string)
+      reader.onerror = () => resolve(null)
+      reader.readAsDataURL(blob)
+    })
+  } catch (error) {
+    console.warn(`Failed to convert image to base64: ${imageUrl}`, error)
+    return null
+  }
+}
+
+// Fetch exercise images from WGER API
+export const fetchExerciseImages = async (exerciseId: number): Promise<WgerExerciseImage[]> => {
+  try {
+    const url = `https://wger.de/api/v2/exerciseimage/?exercise=${exerciseId}&format=json`
+    console.log(`🖼️ Fetching images for exercise ${exerciseId}:`, url)
+    
+    const response = await fetch(url, {
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+    
+    console.log(`Image fetch response for ${exerciseId}:`, response.status, response.statusText)
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.log(`No images found for exercise ${exerciseId}`)
+        return []
+      }
+      throw new Error(`Failed to fetch images: ${response.status} ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    const images = data.results || []
+    console.log(`📸 Found ${images.length} images for exercise ${exerciseId}:`, images.map(img => img.image))
+    return images
+  } catch (error) {
+    console.warn(`Failed to fetch images for exercise ${exerciseId}:`, error)
+    return []
+  }
+}
+
+// Get the best image URL for an exercise with CORS workaround
+export const getExerciseImageUrl = async (images: WgerExerciseImage[]): Promise<{ imageUrl?: string; thumbnailUrl?: string }> => {
+  if (!images || images.length === 0) {
+    return {}
+  }
+  
+  // Prefer main image, fallback to first available
+  const mainImage = images.find(img => img.is_main) || images[0]
+  
+  if (!mainImage?.image) {
+    return {}
+  }
+  
+  // Convert WGER image to base64 to bypass CORS restrictions
+  console.log(`🔄 Converting WGER image to base64: ${mainImage.image}`)
+  const base64Image = await fetchImageAsBase64(mainImage.image)
+  
+  if (base64Image) {
+    console.log(`✅ Successfully converted image to base64`)
+    return {
+      imageUrl: base64Image,
+      thumbnailUrl: base64Image
+    }
+  } else {
+    console.log(`❌ Failed to convert image, using original URL as fallback`)
+    return {
+      imageUrl: mainImage.image,
+      thumbnailUrl: mainImage.image
+    }
+  }
+}
+
+// Default placeholder image for exercises without images
+export const getPlaceholderImage = (muscleGroup: MuscleGroup): string => {
+  // Return a data URL for a simple SVG placeholder
+  const color = {
+    'chest': '#C3A869',
+    'back': '#8B9DC3',
+    'shoulders': '#C3A869',
+    'arms': '#DEB887',
+    'legs': '#8FBC8F',
+    'core': '#CD853F',
+    'full-body': '#9370DB'
+  }[muscleGroup] || '#6B7280'
+  
+  const svg = `
+    <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="80" rx="8" fill="${color}" opacity="0.2"/>
+      <circle cx="40" cy="35" r="8" fill="${color}" opacity="0.5"/>
+      <rect x="32" y="45" width="16" height="20" rx="4" fill="${color}" opacity="0.5"/>
+      <rect x="28" y="50" width="6" height="12" rx="3" fill="${color}" opacity="0.3"/>
+      <rect x="46" y="50" width="6" height="12" rx="3" fill="${color}" opacity="0.3"/>
+    </svg>
+  `
+  
+  return `data:image/svg+xml;base64,${btoa(svg)}`
+}
+
 export const mapWgerToExercise = (wgerExercise: WgerExercise): Exercise => {
-  const primaryMuscleIds = wgerExercise.muscles || []
-  const secondaryMuscleIds = wgerExercise.muscles_secondary || []
+  // Handle both number arrays (mock data) and mixed arrays (real API data) 
+  const primaryMuscleIds = Array.isArray(wgerExercise.muscles) 
+    ? wgerExercise.muscles.map(m => typeof m === 'number' ? m : m.id)
+    : []
+  const secondaryMuscleIds = Array.isArray(wgerExercise.muscles_secondary)
+    ? wgerExercise.muscles_secondary.map(m => typeof m === 'number' ? m : m.id)
+    : []
+    
   const muscleGroup = getExerciseMuscleGroup(primaryMuscleIds, secondaryMuscleIds)
+  
+  // Handle potential missing fields from real WGER API
+  const equipment = wgerExercise.equipment || []
+  const category = wgerExercise.category || 10 // Default to 'waist' category
+  const description = wgerExercise.description || ''
+  const uuid = wgerExercise.uuid || `wger_${wgerExercise.id}`
+  
+  // Extract muscle names properly
+  const primaryMuscleNames = Array.isArray(wgerExercise.muscles)
+    ? wgerExercise.muscles.map(m => typeof m === 'number' ? (muscleMapping[m] || `muscle_${m}`) : (m.name_en || m.name || muscleMapping[m.id] || `muscle_${m.id}`))
+    : []
+  const secondaryMuscleNames = Array.isArray(wgerExercise.muscles_secondary)
+    ? wgerExercise.muscles_secondary.map(m => typeof m === 'number' ? (muscleMapping[m] || `muscle_${m}`) : (m.name_en || m.name || muscleMapping[m.id] || `muscle_${m.id}`))
+    : []
+  
+  const instructions = parseInstructions(description)
+  const isWeighted = determineIfWeighted(equipment)
   
   return {
     id: wgerExercise.id.toString(),
-    name: wgerExercise.name,
-    bodyPart: mapCategoryToBodyPart(wgerExercise.category), // Legacy compatibility
-    equipment: mapEquipmentArray(wgerExercise.equipment),
+    name: wgerExercise.name || 'Unknown Exercise',
+    bodyPart: mapCategoryToBodyPart(category), // Legacy compatibility
+    equipment: getEquipmentCategory(equipment), // Improved equipment display
     target: getTargetMuscle(primaryMuscleIds),
-    primaryMuscles: primaryMuscleIds.map(id => muscleMapping[id] || `muscle_${id}`),
-    secondaryMuscles: secondaryMuscleIds.map(id => muscleMapping[id] || `muscle_${id}`),
+    primaryMuscles: primaryMuscleNames,
+    secondaryMuscles: secondaryMuscleNames,
     primaryMuscleIds,
     secondaryMuscleIds,
     muscleGroup,
-    instructions: parseInstructions(wgerExercise.description),
-    category: wgerExercise.category,
-    uuid: wgerExercise.uuid,
+    instructions,
+    category,
+    uuid,
     icon: getMuscleGroupIcon(muscleGroup),
-    isWeighted: determineIfWeighted(wgerExercise.equipment),
-    wgerData: wgerExercise
+    isWeighted,
+    wgerData: wgerExercise,
+    // New fields for images and description
+    description: parseDescription(description),
+    imageUrl: getPlaceholderImage(muscleGroup), // Default placeholder, will be updated with real images
+    thumbnailUrl: getPlaceholderImage(muscleGroup),
+    hasRealImage: false,
+    // Additional metadata
+    intensity: getExerciseIntensity(category, isWeighted),
+    cues: extractExerciseCues(instructions)
   }
+}
+
+// Helper functions to handle muscle data from real WGER API
+export const extractMuscleId = (muscle: number | WgerMuscleObject): number => {
+  return typeof muscle === 'number' ? muscle : muscle.id
+}
+
+export const extractMuscleName = (muscle: number | WgerMuscleObject): string => {
+  if (typeof muscle === 'number') {
+    return muscleMapping[muscle] || `muscle_${muscle}`
+  }
+  // Use name_en if available, otherwise use name, otherwise fallback to mapping
+  return muscle.name_en || muscle.name || muscleMapping[muscle.id] || `muscle_${muscle.id}`
+}
+
+export const extractMuscleIds = (muscles: (number | WgerMuscleObject)[]): number[] => {
+  return muscles.map(extractMuscleId)
+}
+
+export const extractMuscleNames = (muscles: (number | WgerMuscleObject)[]): string[] => {
+  return muscles.map(extractMuscleName)
 }
 
 // Get icon based on muscle group (more accurate than category)
@@ -567,18 +837,218 @@ export const getMuscleGroupIcon = (muscleGroup: MuscleGroup): string => {
   return iconMap[muscleGroup] || '⚔️'
 }
 
+// Enhance exercises with real images from WGER API
+export const enhanceExercisesWithImages = async (exercises: Exercise[]): Promise<Exercise[]> => {
+  console.log(`🎯 Enhancing ${exercises.length} exercises with images...`)
+  
+  const enhancedExercises = await Promise.all(
+    exercises.map(async (exercise) => {
+      try {
+        // Only fetch images for exercises from real WGER API (not mock data)
+        const exerciseId = parseInt(exercise.id)
+        if (isNaN(exerciseId)) {
+          console.log(`⏭️ Skipping mock exercise: ${exercise.name} (ID: ${exercise.id})`)
+          return exercise // Keep mock exercises as-is
+        }
+        
+        console.log(`🔍 Checking images for: ${exercise.name} (ID: ${exerciseId})`)
+        
+        // Fetch images for this exercise
+        const images = await fetchExerciseImages(exerciseId)
+        
+        if (images.length > 0) {
+          const { imageUrl, thumbnailUrl } = await getExerciseImageUrl(images)
+          console.log(`✅ Enhanced ${exercise.name} with image: ${imageUrl ? 'base64 data' : 'original URL'}`)
+          return {
+            ...exercise,
+            imageUrl: imageUrl || exercise.imageUrl,
+            thumbnailUrl: thumbnailUrl || exercise.thumbnailUrl,
+            hasRealImage: !!imageUrl
+          }
+        } else {
+          console.log(`❌ No images found for: ${exercise.name} (ID: ${exerciseId})`)
+        }
+        
+        return exercise
+      } catch (error) {
+        console.warn(`Failed to enhance exercise ${exercise.id} with images:`, error)
+        return exercise
+      }
+    })
+  )
+  
+  console.log(`🏁 Image enhancement complete. ${enhancedExercises.filter(ex => ex.hasRealImage).length} exercises have real images.`)
+  return enhancedExercises
+}
+
+// Search relevance scoring function
+export const calculateSearchRelevance = (exercise: Exercise, searchTerm: string): number => {
+  const query = searchTerm.toLowerCase().trim()
+  const name = exercise.name.toLowerCase()
+  const description = exercise.instructions.join(' ').toLowerCase()
+  const muscles = exercise.primaryMuscles.join(' ').toLowerCase()
+  
+  let score = 0
+  
+  // Exact name match gets highest score
+  if (name === query) score += 100
+  
+  // Name starts with query gets high score
+  else if (name.startsWith(query)) score += 80
+  
+  // Name contains query gets good score
+  else if (name.includes(query)) {
+    // Prioritize matches at word boundaries
+    if (name.includes(` ${query}`) || name.includes(`${query} `)) score += 60
+    else score += 40
+  }
+  
+  // Check for individual words in query
+  const queryWords = query.split(' ').filter(word => word.length > 2)
+  queryWords.forEach(word => {
+    if (name.includes(word)) score += 20
+    if (muscles.includes(word)) score += 10
+    if (description.includes(word)) score += 5
+  })
+  
+  // Bonus for exercise variations that include common terms
+  const variationBonus = [
+    'dumbbell', 'barbell', 'cable', 'machine', 'smith',
+    'incline', 'decline', 'flat', 'seated', 'standing'
+  ]
+  
+  variationBonus.forEach(term => {
+    if (query.includes(term) && name.includes(term)) score += 15
+  })
+  
+  // Penalty for very long names (often less specific)
+  if (name.length > 40) score -= 5
+  
+  return score
+}
+
+// Sort exercises by search relevance
+export const sortByRelevance = (exercises: Exercise[], searchTerm: string): Exercise[] => {
+  if (!searchTerm || searchTerm.length < 2) {
+    return exercises // No sorting for very short queries
+  }
+  
+  return exercises
+    .map(exercise => ({
+      exercise,
+      score: calculateSearchRelevance(exercise, searchTerm)
+    }))
+    .sort((a, b) => b.score - a.score) // Highest score first
+    .map(item => item.exercise)
+}
+
 // Exercise cache
 let exerciseCache: Exercise[] = []
 
-// Main API function
+// Real WGER API function
+export const fetchExercisesFromWger = async (filter: ExerciseFilter = {}): Promise<WgerExercise[]> => {
+  const { search = '', limit = 50 } = filter
+  
+  try {
+    // Use exerciseinfo endpoint which has actual names and descriptions
+    let url = 'https://wger.de/api/v2/exerciseinfo/?format=json'
+    
+    // Add search parameter if provided
+    if (search && search.length > 0) {
+      url += `&search=${encodeURIComponent(search)}`
+    }
+    
+    // Add limit
+    url += `&limit=${limit}`
+    
+    console.log('Fetching from real WGER API (exerciseinfo):', url)
+    
+    const response = await fetch(url)
+    
+    if (!response.ok) {
+      throw new Error(`WGER API error: ${response.status} ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    console.log(`WGER API returned ${data.results?.length || 0} exercise info objects`)
+    
+    // Convert WgerExerciseInfo to WgerExercise format
+    const convertedExercises: WgerExercise[] = (data.results || []).map((info: WgerExerciseInfo) => {
+      // Get English translation (language=2) or first available
+      const englishTranslation = info.translations.find(t => t.language === 2) || info.translations[0]
+      
+      // Extract muscle IDs from potentially mixed format (objects or IDs)
+      const primaryMuscleIds = extractMuscleIds(info.muscles || [])
+      const secondaryMuscleIds = extractMuscleIds(info.muscles_secondary || [])
+      
+      return {
+        id: info.id,
+        uuid: info.uuid,
+        name: englishTranslation?.name || 'Unknown Exercise',
+        exercise_base: info.id, // Use id as exercise_base
+        description: englishTranslation?.description || '',
+        category: info.category,
+        muscles: primaryMuscleIds,
+        muscles_secondary: secondaryMuscleIds,
+        equipment: info.equipment || [],
+        language: 2 // English
+      }
+    })
+    
+    console.log('Converted exercises:', convertedExercises.map(ex => ({ id: ex.id, name: ex.name })))
+    
+    return convertedExercises
+    
+  } catch (error) {
+    console.error('Failed to fetch from WGER API:', error)
+    throw error
+  }
+}
+
+// Main API function with real WGER integration
 export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exercise[]> => {
   const { bodyPart = '', muscleGroup, search = '', limit = 50 } = filter
   
   try {
-    console.log('Using mock WGER API...', filter)
+    // Try real WGER API first
+    if (search && search.length >= 3) {
+      console.log('Searching real WGER API for:', search)
+      
+      try {
+        const wgerExercises = await fetchExercisesFromWger({ search, limit: limit * 2 })
+        
+        if (wgerExercises.length > 0) {
+          // Map WGER exercises to our format
+          let mappedExercises = wgerExercises.map(mapWgerToExercise)
+          
+          // Apply muscle group filter after mapping
+          if (muscleGroup && muscleGroup !== 'all') {
+            mappedExercises = mappedExercises.filter(ex => ex.muscleGroup === muscleGroup)
+          }
+          
+          // Sort by search relevance
+          mappedExercises = sortByRelevance(mappedExercises, search)
+          
+          // Enhance with real images (only for first few results to avoid too many API calls)
+          const limitedResults = mappedExercises.slice(0, limit)
+          const enhancedResults = await enhanceExercisesWithImages(limitedResults.slice(0, 10))
+          
+          // Combine enhanced results with remaining results
+          const finalResults = [
+            ...enhancedResults,
+            ...limitedResults.slice(10)
+          ]
+          
+          console.log(`Real WGER API returned ${finalResults.length} filtered, sorted, and enhanced exercises`)
+          return finalResults
+        }
+      } catch (apiError) {
+        console.warn('WGER API failed, falling back to mock data:', apiError)
+      }
+    }
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 400))
+    // Fallback to mock data for short searches or when API fails
+    console.log('Using mock WGER data...', filter)
     
     // If we have cached exercises and only searching, filter locally
     if (exerciseCache.length > 0 && search.length > 0) {
@@ -597,6 +1067,9 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
         filtered = filtered.filter(ex => ex.muscleGroup === muscleGroup)
       }
       
+      // Sort by relevance for search results
+      filtered = sortByRelevance(filtered, search)
+      
       return filtered.slice(0, limit)
     }
     
@@ -611,7 +1084,7 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
       }
     }
     
-    // Search filter
+    // Search filter for mock data
     if (search && search.length > 0) {
       const searchTerm = search.toLowerCase()
       filtered = filtered.filter(ex => 
@@ -628,79 +1101,131 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
       mappedExercises = mappedExercises.filter(ex => ex.muscleGroup === muscleGroup)
     }
     
+    // Sort by search relevance if searching
+    if (search && search.length > 0) {
+      mappedExercises = sortByRelevance(mappedExercises, search)
+    }
+    
     console.log(`Mock API returned ${mappedExercises.length} exercises`)
     
     // Cache results
-    if (!search && !bodyPart) {
+    if (!search && !bodyPart && !muscleGroup) {
       exerciseCache = mappedExercises
     }
     
     return mappedExercises.slice(0, limit)
     
   } catch (error) {
-    console.error('Mock API error:', error)
+    console.error('All API methods failed:', error)
     return getFallbackExercises()
   }
 }
 
-// Fallback exercises
+// Use real WGER exercises as fallbacks (converted to our format)
 export const getFallbackExercises = (): Exercise[] => {
-  return [
-    { 
-      id: 'fb1', 
-      name: 'Kettlebell Swing', 
-      bodyPart: 'waist', 
-      equipment: 'kettlebell', 
-      target: 'glutes', 
-      icon: '🏔️', 
-      instructions: ['Stand with feet wide', 'Swing kettlebell between legs', 'Drive hips forward'],
-      isWeighted: true,
-      primaryMuscles: ['glutes'],
-      secondaryMuscles: ['core'],
-      primaryMuscleIds: [8], // Gluteus maximus
-      secondaryMuscleIds: [6], // Rectus abdominis
-      muscleGroup: 'legs',
+  // Using real WGER exercise data but with our custom images for better UX
+  const realWgerFallbacks: WgerExercise[] = [
+    {
+      id: 167,
+      uuid: "b186f1f8-4957-44dc-bf30-d0b00064ce6f",
+      name: "Crunches",
+      exercise_base: 84,
+      description: "<p>Lay down on your back a soft surface, the feet are on the floor. Ask a partner or use some other help to ensure your feet remain stable. Place your hands behind your head.</p><p>Now crunch your upper body up, do not use momentum but make it a controlled movement. Go up as much as you can, hold the contraction briefly and slowly let your body down till your head almost touches the floor.</p><p>Don't forget to breathe regularly.</p>",
       category: 10,
-      uuid: 'fb1'
+      muscles: [6], // Rectus abdominis
+      muscles_secondary: [14], // Obliques
+      equipment: [7], // Body weight
+      language: 2
     },
-    { 
-      id: 'fb2', 
-      name: 'Push-ups', 
-      bodyPart: 'chest', 
-      equipment: 'body weight', 
-      target: 'chest', 
-      icon: '🛡️', 
-      instructions: ['Start in plank position', 'Lower chest to floor', 'Push back up'],
-      isWeighted: false,
-      primaryMuscles: ['chest'],
-      secondaryMuscles: ['triceps'],
-      primaryMuscleIds: [4], // Pectoralis major
-      secondaryMuscleIds: [5], // Triceps brachii
-      muscleGroup: 'chest',
+    {
+      id: 135,
+      uuid: "833c5f85-3ee0-4cc5-aceb-9ec097f24d60", 
+      name: "Butterfly",
+      exercise_base: 61,
+      description: "<p>Sit on the butterfly machine, the feet have a good contact with the floor, the upper arms are parallel to the floor. Grab the handles and push your arms together in a hugging motion.</p><p>Slowly let your arms back to the starting position and repeat the movement.</p>",
       category: 11,
-      uuid: 'fb2'
+      muscles: [4], // Pectoralis major
+      muscles_secondary: [2], // Anterior deltoid
+      equipment: [], // Machine (no specific equipment ID)
+      language: 2
     },
-    { 
-      id: 'fb3', 
-      name: 'Barbell Squat', 
-      bodyPart: 'upper legs', 
-      equipment: 'barbell', 
-      target: 'quadriceps', 
-      icon: '🏔️', 
-      instructions: ['Bar on shoulders', 'Squat down', 'Drive up through heels'],
-      isWeighted: true,
-      primaryMuscles: ['quadriceps'],
-      secondaryMuscles: ['glutes'],
-      primaryMuscleIds: [10], // Quadriceps femoris
-      secondaryMuscleIds: [8], // Gluteus maximus
-      muscleGroup: 'legs',
+    {
+      id: 74,
+      uuid: "test-uuid-3",
+      name: "Squat", 
+      exercise_base: 74,
+      description: "<p>Stand with feet shoulder-width apart. Lower your body by pushing your hips back and down as if sitting in a chair. Keep your chest up and core engaged. Lower until your thighs are parallel to the floor, then drive through your heels to return to standing.</p>",
       category: 9,
-      uuid: 'fb3'
+      muscles: [10], // Quadriceps
+      muscles_secondary: [8], // Glutes
+      equipment: [7], // Body weight
+      language: 2
     }
   ]
+
+  return realWgerFallbacks.map((wgerEx, index) => {
+    const mapped = mapWgerToExercise(wgerEx)
+    
+    // Override with our custom images for better visual consistency
+    const customImages = [
+      '/assets/exercise-images/crunches.png', // Use the WGER image we downloaded
+      '/assets/exercise-images/butterfly.png', // Use the WGER image we downloaded
+      '/assets/exercise-images/barbell-squat.svg' // Use our custom SVG
+    ]
+    
+    return {
+      ...mapped,
+      imageUrl: customImages[index],
+      thumbnailUrl: customImages[index],
+      hasRealImage: true
+    }
+  })
 }
 
 // Get exercise by ID
 export const getExerciseById = (id: string, exercises: Exercise[] = exerciseCache): Exercise | undefined => {
   return exercises.find(ex => ex.id === id)
+}
+
+// Test function for WGER API integration
+export const testWgerApi = async (searchTerm = 'chest fly'): Promise<void> => {
+  console.log(`🧪 Testing WGER API with search: "${searchTerm}"`)
+  
+  try {
+    const startTime = Date.now()
+    const exercises = await fetchExercises({ search: searchTerm, limit: 10 })
+    const duration = Date.now() - startTime
+    
+    console.log(`✅ WGER API test completed in ${duration}ms`)
+    console.log(`📊 Found ${exercises.length} exercises:`)
+    
+    exercises.forEach((ex, index) => {
+      const isFromRealAPI = !mockWgerData.some(mock => mock.id.toString() === ex.id)
+      const relevanceScore = calculateSearchRelevance(ex, searchTerm)
+      console.log(`  ${index + 1}. ${ex.name} (ID: ${ex.id}) [Score: ${relevanceScore}]`)
+      console.log(`     Group: ${ex.muscleGroup} | Equipment: ${ex.equipment}`)
+      console.log(`     Source: ${isFromRealAPI ? '🌐 Real WGER API' : '📂 Mock Data'}`)
+      if (ex.primaryMuscles.length > 0) {
+        console.log(`     Muscles: ${ex.primaryMuscles.join(', ')}`)
+      }
+      if (ex.primaryMuscles.some(m => m.includes('[Object object]'))) {
+        console.log(`     ⚠️  Found muscle mapping issue!`)
+      }
+    })
+    
+    // Check if we got real API results vs mock data
+    const realApiResults = exercises.filter(ex => 
+      !mockWgerData.some(mock => mock.id.toString() === ex.id)
+    )
+    
+    if (realApiResults.length > 0) {
+      console.log(`\n🌐 ${realApiResults.length} results from real WGER API`)
+      console.log(`📂 ${exercises.length - realApiResults.length} results from mock data`)
+    } else {
+      console.log(`\n📂 All ${exercises.length} results from mock data (API may have failed or returned no results)`)
+    }
+    
+  } catch (error) {
+    console.error('❌ WGER API test failed:', error)
+  }
 }

@@ -1,0 +1,79 @@
+<svg width="800" height="357" viewBox="0 0 800 357" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="357" fill="url(#bg)" rx="16"/>
+  
+  <!-- Exercise Title -->
+  <text x="400" y="40" text-anchor="middle" fill="#C3A869" font-family="Arial, sans-serif" font-size="24" font-weight="bold">PUSH-UPS</text>
+  
+  <!-- Ground Line -->
+  <line x1="100" y1="200" x2="700" y2="200" stroke="#374151" stroke-width="3"/>
+  
+  <!-- Position 1: Up Position -->
+  <g transform="translate(200,120)">
+    <!-- Head -->
+    <circle cx="80" cy="0" r="15" fill="url(#body)"/>
+    <!-- Body (horizontal) -->
+    <line x1="80" y1="15" x2="80" y2="70" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Arms (supporting) -->
+    <line x1="80" y1="25" x2="20" y2="70" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="80" y1="25" x2="140" y2="70" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Hands on ground -->
+    <circle cx="20" cy="75" r="5" fill="url(#body)"/>
+    <circle cx="140" cy="75" r="5" fill="url(#body)"/>
+    <!-- Legs extended -->
+    <line x1="80" y1="70" x2="80" y2="100" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Feet -->
+    <ellipse cx="75" cy="105" rx="8" ry="5" fill="url(#body)"/>
+    <ellipse cx="85" cy="105" rx="8" ry="5" fill="url(#body)"/>
+  </g>
+  
+  <!-- Arrow -->
+  <path d="M350 150 L400 180 L390 175 L410 190 L390 185 L400 200 Z" fill="#C3A869"/>
+  <path d="M450 200 L400 180 L410 185 L390 170 L410 175 L400 160 Z" fill="#C3A869"/>
+  
+  <!-- Position 2: Down Position -->
+  <g transform="translate(500,150)">
+    <!-- Head -->
+    <circle cx="80" cy="0" r="15" fill="url(#body)"/>
+    <!-- Body (horizontal, lower) -->
+    <line x1="80" y1="15" x2="80" y2="40" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Arms (bent) -->
+    <line x1="80" y1="25" x2="40" y2="35" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="40" y1="35" x2="20" y2="45" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="80" y1="25" x2="120" y2="35" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="35" x2="140" y2="45" stroke="url(#body)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Hands on ground -->
+    <circle cx="20" cy="48" r="5" fill="url(#body)"/>
+    <circle cx="140" cy="48" r="5" fill="url(#body)"/>
+    <!-- Legs extended -->
+    <line x1="80" y1="40" x2="80" y2="70" stroke="url(#body)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Feet -->
+    <ellipse cx="75" cy="75" rx="8" ry="5" fill="url(#body)"/>
+    <ellipse cx="85" cy="75" rx="8" ry="5" fill="url(#body)"/>
+  </g>
+  
+  <!-- Instructions -->
+  <text x="400" y="270" text-anchor="middle" fill="#9ca3af" font-family="Arial, sans-serif" font-size="16">Keep straight line from head to heels • Lower chest to floor • Push up explosively</text>
+  
+  <!-- Muscle Groups -->
+  <text x="50" y="310" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">PRIMARY:</text>
+  <text x="120" y="310" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Chest, Triceps</text>
+  
+  <text x="50" y="330" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SECONDARY:</text>
+  <text x="140" y="330" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Shoulders, Core</text>
+  
+  <!-- Equipment -->
+  <text x="600" y="310" fill="#C3A869" font-family="Arial, sans-serif" font-size="14" font-weight="bold">EQUIPMENT:</text>
+  <text x="690" y="310" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="14">Body Weight</text>
+</svg>
