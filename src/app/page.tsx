@@ -53,7 +53,7 @@ export default function StyrkurheimApp() {
       case 'workouts':
         return <WorkoutsScreen workouts={workouts} onSaveWorkout={handleSaveWorkout} onUpdateWorkout={handleUpdateWorkout} currentWorkout={currentWorkout} onEndWorkout={() => setCurrentWorkout(null)} />
       case 'plan':
-        return <PlanScreen />
+        return <PlanScreen workouts={workouts} onSaveWorkout={handleSaveWorkout} onUpdateWorkout={handleUpdateWorkout} />
       case 'history':
         return <HistoryScreen />
       case 'settings':

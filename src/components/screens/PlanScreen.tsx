@@ -1,6 +1,34 @@
-import { Calendar, Plus, Target, RotateCcw, Clock, Settings } from 'lucide-react'
+'use client'
 
-export default function PlanScreen() {
+import { useState } from 'react'
+import { Calendar, Plus, Target, RotateCcw, Clock, Settings, Dumbbell } from 'lucide-react'
+import { Workout } from '@/types'
+import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
+
+interface PlanScreenProps {
+  workouts?: Workout[]
+  onSaveWorkout?: (workout: Workout) => void
+  onUpdateWorkout?: (workout: Workout) => void
+}
+
+export default function PlanScreen({ workouts = [], onSaveWorkout, onUpdateWorkout }: PlanScreenProps) {
+  const [showCreateWorkout, setShowCreateWorkout] = useState(false)
+  const [editingWorkout, setEditingWorkout] = useState<Workout | null>(null)
+
+  const handleSaveWorkout = (workout: Workout) => {
+    if (editingWorkout) {
+      onUpdateWorkout?.(workout)
+    } else {
+      onSaveWorkout?.(workout)
+    }
+    setShowCreateWorkout(false)
+    setEditingWorkout(null)
+  }
+
+  const handleCloseModal = () => {
+    setShowCreateWorkout(false)
+    setEditingWorkout(null)
+  }
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-20">
       {/* Mobile Header */}
@@ -98,6 +126,39 @@ export default function PlanScreen() {
         </div>
       </section>
 
+      {/* Create Workout Section */}
+      <section className="p-4 lg:p-6">
+        <h2 className="text-white font-medium mb-4 flex items-center">
+          <Dumbbell className="w-5 h-5 mr-2 text-[#C3A869]" />
+          Workout Builder
+        </h2>
+        <div className="bg-gray-800 rounded-xl p-6">
+          <div className="text-center">
+            <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Plus className="w-6 h-6 text-[#C3A869]" />
+            </div>
+            <h3 className="text-white font-medium mb-2">Create Individual Workout</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Build standalone workouts that can be used in programs or logged independently
+            </p>
+            <button
+              onClick={() => setShowCreateWorkout(true)}
+              className="bg-[#C3A869] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#C3A869]/80 transition flex items-center gap-2 mx-auto"
+            >
+              <Dumbbell className="w-5 h-5" />
+              Create Workout
+            </button>
+            
+            {/* Show saved workouts count */}
+            {workouts.length > 0 && (
+              <div className="mt-4 text-xs text-gray-500">
+                {workouts.length} workout{workouts.length !== 1 ? 's' : ''} saved
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Create Program CTA */}
       <section className="p-4 lg:p-6">
         <div className="bg-gradient-to-r from-[#C3A869]/20 to-[#C3A869]/10 rounded-xl p-6 border border-[#C3A869]/30">
@@ -143,6 +204,15 @@ export default function PlanScreen() {
           </div>
         </div>
       </section>
+
+      {/* Create Workout Modal */}
+      {showCreateWorkout && (
+        <WorkoutFormModal
+          onSave={handleSaveWorkout}
+          onClose={handleCloseModal}
+          initialWorkout={editingWorkout || undefined}
+        />
+      )}
     </div>
   )
 }
