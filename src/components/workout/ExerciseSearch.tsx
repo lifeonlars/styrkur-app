@@ -7,10 +7,18 @@ import { fetchExercises, muscleGroupFilters } from '@/lib/wger'
 import ExerciseCard from './ExerciseCard'
 
 interface ExerciseSearchProps {
-  onExerciseSelect: (exercise: Exercise) => void
+  onExerciseSelect?: (exercise: Exercise) => void
+  onSelectExercise?: (exercise: Exercise) => void // Alternative prop name for consistency
+  onClose?: () => void
+  selectedExercises?: string[] // Array of exercise IDs that are already selected
 }
 
-export default function ExerciseSearch({ onExerciseSelect }: ExerciseSearchProps) {
+export default function ExerciseSearch({ 
+  onExerciseSelect, 
+  onSelectExercise, 
+  onClose,
+  selectedExercises = []
+}: ExerciseSearchProps) {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [filteredExercises, setFilteredExercises] = useState<Exercise[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -99,6 +107,21 @@ export default function ExerciseSearch({ onExerciseSelect }: ExerciseSearchProps
 
   return (
     <div className="space-y-4">
+      {/* Header with Close Button */}
+      {onClose && (
+        <div className="flex justify-between items-center p-4 border-b border-gray-700">
+          <h3 className="text-white font-medium">Select Exercise</h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+      
       {/* Search Bar */}
       <div className="relative">
         <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
@@ -165,11 +188,14 @@ export default function ExerciseSearch({ onExerciseSelect }: ExerciseSearchProps
         ) : (
           <>
             <div className="space-y-2">
-              {filteredExercises.slice(0, 15).map(exercise => (
+              {filteredExercises
+                .filter(exercise => !selectedExercises.includes(exercise.id))
+                .slice(0, 15)
+                .map(exercise => (
                 <ExerciseCard
                   key={exercise.id}
                   exercise={exercise}
-                  onAdd={onExerciseSelect}
+                  onAdd={onExerciseSelect || onSelectExercise || (() => {})}
                 />
               ))}
             </div>

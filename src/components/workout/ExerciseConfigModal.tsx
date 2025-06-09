@@ -12,6 +12,7 @@ interface ExerciseConfigModalProps {
 
 export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: ExerciseConfigModalProps) {
   const [config, setConfig] = useState<ExerciseConfig>({
+    exerciseId: exercise.id,
     sets: 3,
     reps: 10,
     weight: exercise.isWeighted ? 20 : 0,

@@ -87,13 +87,31 @@ export interface WgerExerciseInfo {
 
 // Exercise Configuration
 export interface ExerciseConfig {
-  sets: number
-  reps: number
-  weight: number
-  rest: number
-  rpe: number
-  tempo: string
-  notes: string
+  exerciseId: string
+  sets?: number
+  reps?: number
+  weight?: number
+  rest?: number
+  rpe?: number
+  tempo?: string
+  notes?: string
+}
+
+// Exercise Group Types
+export type ExerciseGroupType = 'single' | 'superset' | 'circuit'
+export type TimingStyle = 'AMRAP' | 'EMOM' | 'HIIT'
+
+// Workout Entry - supports singles, supersets, and circuits
+export interface WorkoutEntry {
+  id: string
+  type: ExerciseGroupType
+  label?: string                      // e.g., "Superset A" or "Circuit 1"
+  exercises: ExerciseConfig[]         // 1+ exercises per entry
+  sets: number                        // number of sets for the entire group
+  restBetweenExercises?: number       // optional: for circuits (seconds)
+  rounds?: number                     // optional: for circuits
+  timingStyle?: TimingStyle           // optional metadata
+  restAfterGroup?: number             // rest after completing the group (seconds)
 }
 
 // Workout Exercise (Exercise + Configuration)
@@ -137,12 +155,14 @@ export interface Workout {
   id: number
   title: string
   description: string
-  exercises: WorkoutExercise[]
-  supersets: Superset[]
-  circuits: Circuit[]
+  entries: WorkoutEntry[]              // New unified structure for all exercise groups
   tags: string[]
   createdAt?: Date
   updatedAt?: Date
+  // Legacy fields for backward compatibility
+  exercises?: WorkoutExercise[]
+  supersets?: Superset[]
+  circuits?: Circuit[]
 }
 
 // Workout Session (for tracking during workout)
@@ -203,9 +223,11 @@ export interface ExerciseFilter {
 export interface WorkoutForm {
   title: string
   description: string
-  exercises: WorkoutExercise[]
-  supersets: Superset[]
-  circuits: Circuit[]
+  entries: WorkoutEntry[]              // New unified structure
+  // Legacy fields for backward compatibility
+  exercises?: WorkoutExercise[]
+  supersets?: Superset[]
+  circuits?: Circuit[]
 }
 
 // Tab Navigation

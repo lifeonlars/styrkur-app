@@ -5,10 +5,9 @@ import { Workout, WorkoutSession } from '@/types'
 interface TrainScreenProps {
   currentWorkout: Workout | null
   onEndWorkout: () => void
-  onNavigate?: (tab: string) => void
 }
 
-export default function TrainScreen({ currentWorkout, onEndWorkout, onNavigate }: TrainScreenProps) {
+export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScreenProps) {
   const [workoutSession, setWorkoutSession] = useState<WorkoutSession | null>(null)
 
   // Update workoutSession when currentWorkout changes
@@ -27,12 +26,10 @@ export default function TrainScreen({ currentWorkout, onEndWorkout, onNavigate }
 
   const handleEndWorkout = () => {
     onEndWorkout()
-    onNavigate?.('home')
   }
 
   const handleCloseWorkout = () => {
     onEndWorkout()
-    onNavigate?.('home')
   }
 
   const completeSet = (exerciseIndex: number, setIndex: number) => {
@@ -54,13 +51,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout, onNavigate }
         <div className="text-center">
           <div className="text-6xl mb-4">⚔️</div>
           <h2 className="text-white text-xl font-medium mb-2">Ready for Battle</h2>
-          <p className="text-gray-400 mb-6">Select a workout to begin your training</p>
-          <button 
-            onClick={() => onNavigate?.('home')}
-            className="btn-primary px-6 py-3 rounded-xl font-medium"
-          >
-            Choose Workout
-          </button>
+          <p className="text-gray-400 mb-6">Starting workout session...</p>
         </div>
       </div>
     )
@@ -88,7 +79,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout, onNavigate }
 
       {/* Exercise List */}
       <div className="p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        {workoutSession.exercises.map((exercise, exerciseIndex) => {
+        {workoutSession.exercises?.map((exercise, exerciseIndex) => {
           const exerciseData = exercise.exerciseData
           return (
             <div key={exerciseIndex} className="bg-gray-800 rounded-xl p-4">

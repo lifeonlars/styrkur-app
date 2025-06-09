@@ -9,7 +9,7 @@ interface WorkoutCardProps {
 export default function WorkoutCard({ workout, onStart, onNavigate }: WorkoutCardProps) {
   const handleStart = () => {
     onStart(workout)
-    onNavigate?.('train')
+    onNavigate?.('workouts')
   }
   return (
     <div className="bg-gray-800 rounded-xl p-4 card-hover">
@@ -25,10 +25,10 @@ export default function WorkoutCard({ workout, onStart, onNavigate }: WorkoutCar
       <p className="text-gray-400 text-sm mb-3">{workout.description}</p>
       <div className="flex items-center justify-between mb-2">
         <div className="text-gray-400 text-xs">
-          {workout.exercises.length} exercises
+          {workout.entries?.length || workout.exercises?.length || 0} groups
         </div>
         <div className="text-gray-400 text-xs">
-          ~{Math.ceil((workout.exercises.length * 3 + workout.supersets.length * 2 + workout.circuits.length * 2) * 1.5)} min
+          ~{Math.ceil(((workout.exercises?.length || 0) * 3 + (workout.supersets?.length || 0) * 2 + (workout.circuits?.length || 0) * 2) * 1.5)} min
         </div>
       </div>
       <div className="flex flex-wrap gap-2">

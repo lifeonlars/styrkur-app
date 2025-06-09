@@ -1,167 +1,233 @@
 'use client'
 
-import { useState } from 'react'
-import { X } from 'lucide-react'
-import { Workout, WorkoutForm, Exercise, ExerciseConfig, WorkoutExercise } from '@/types'
-import ExerciseSearch from './ExerciseSearch'
-import ExerciseConfigModal from './ExerciseConfigModal'
+import { useState, useEffect } from 'react'
+import { X, Plus } from 'lucide-react'
+import { Workout, WorkoutForm, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
+import { fetchExercises } from '@/lib/wger'
+import WorkoutEntryCard from './WorkoutEntryCard'
+import AddGroupModal from './AddGroupModal'
 
 interface WorkoutFormModalProps {
   onSave: (workout: Workout) => void
   onClose: () => void
+  initialWorkout?: Workout
 }
 
-export default function WorkoutFormModal({ onSave, onClose }: WorkoutFormModalProps) {
+export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: WorkoutFormModalProps) {
   const [workoutForm, setWorkoutForm] = useState<WorkoutForm>({
-    title: '',
-    description: '',
-    exercises: [],
-    supersets: [],
-    circuits: []
+    title: initialWorkout?.title || '',
+    description: initialWorkout?.description || '',
+    entries: initialWorkout?.entries || []
   })
-  const [showExerciseConfig, setShowExerciseConfig] = useState<Exercise | null>(null)
+  const [exercises, setExercises] = useState<Exercise[]>([])
+  const [showAddGroup, setShowAddGroup] = useState(false)
+  const [editingEntry, setEditingEntry] = useState<WorkoutEntry | null>(null)
 
-  const handleExerciseSelect = (exercise: Exercise) => {
-    setShowExerciseConfig(exercise)
-  }
-
-  const handleExerciseConfig = (config: ExerciseConfig) => {
-    if (!showExerciseConfig) return
-    
-    const newExercise: WorkoutExercise = {
-      id: Date.now(),
-      exerciseId: showExerciseConfig.id,
-      exerciseData: showExerciseConfig,
-      sets: config.sets,
-      reps: config.reps,
-      weight: config.weight,
-      load: config.weight,
-      rest: config.rest,
-      rpe: config.rpe,
-      tempo: config.tempo,
-      notes: config.notes,
-      type: 'single'
+  // Load exercises for lookup
+  useEffect(() => {
+    const loadExercises = async () => {
+      try {
+        const allExercises = await fetchExercises({ limit: 100 })
+        setExercises(allExercises)
+      } catch (error) {
+        console.error('Failed to load exercises:', error)
+      }
     }
-    
+    loadExercises()
+  }, [])
+
+  const handleAddGroup = (entry: WorkoutEntry) => {
     setWorkoutForm(prev => ({
       ...prev,
-      exercises: [...prev.exercises, newExercise]
+      entries: [...prev.entries, entry]
     }))
-    
-    setShowExerciseConfig(null)
+    setShowAddGroup(false)
   }
 
-  const removeExercise = (exerciseId: number) => {
+  const handleEditGroup = (entry: WorkoutEntry) => {
     setWorkoutForm(prev => ({
       ...prev,
-      exercises: prev.exercises.filter(ex => ex.id !== exerciseId)
+      entries: prev.entries.map(e => e.id === entry.id ? entry : e)
     }))
+    setEditingEntry(null)
+  }
+
+  const handleDeleteGroup = (entryId: string) => {
+    setWorkoutForm(prev => ({
+      ...prev,
+      entries: prev.entries.filter(e => e.id !== entryId)
+    }))
+  }
+
+  const handleEditExercise = (entryId: string, exerciseIndex: number, config: ExerciseConfig) => {
+    setWorkoutForm(prev => ({
+      ...prev,
+      entries: prev.entries.map(entry => 
+        entry.id === entryId
+          ? {
+              ...entry,
+              exercises: entry.exercises.map((ex, i) => 
+                i === exerciseIndex ? { ...ex, ...config } : ex
+              )
+            }
+          : entry
+      )
+    }))
+  }
+
+  const moveEntryUp = (index: number) => {
+    if (index > 0) {
+      setWorkoutForm(prev => {
+        const newEntries = [...prev.entries]
+        const temp = newEntries[index]
+        newEntries[index] = newEntries[index - 1]
+        newEntries[index - 1] = temp
+        return { ...prev, entries: newEntries }
+      })
+    }
+  }
+
+  const moveEntryDown = (index: number) => {
+    if (index < workoutForm.entries.length - 1) {
+      setWorkoutForm(prev => {
+        const newEntries = [...prev.entries]
+        const temp = newEntries[index]
+        newEntries[index] = newEntries[index + 1]
+        newEntries[index + 1] = temp
+        return { ...prev, entries: newEntries }
+      })
+    }
   }
 
   const handleSave = () => {
-    if (!workoutForm.title || workoutForm.exercises.length === 0) return
-    
-    const newWorkout: Workout = {
-      id: Date.now(),
+    const workout: Workout = {
+      id: initialWorkout?.id || Date.now(),
       title: workoutForm.title,
       description: workoutForm.description,
-      exercises: workoutForm.exercises,
-      supersets: workoutForm.supersets,
-      circuits: workoutForm.circuits,
-      tags: ['custom'],
-      createdAt: new Date()
+      entries: workoutForm.entries,
+      tags: initialWorkout?.tags || [],
+      createdAt: initialWorkout?.createdAt || new Date(),
+      updatedAt: new Date()
     }
-    
-    onSave(newWorkout)
-    onClose()
+    onSave(workout)
   }
 
+  const canSave = workoutForm.title.trim() && workoutForm.entries.length > 0
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-end lg:items-center lg:justify-center z-50">
-      <div className="bg-gray-900 w-full h-5/6 lg:h-4/5 lg:max-w-4xl lg:max-h-[90vh] rounded-t-2xl lg:rounded-2xl overflow-hidden lg:mx-4">
-        {/* Modal Header */}
-        <div className="p-4 border-b border-gray-800 flex justify-between items-center">
-          <h2 className="text-white text-lg font-medium">Create Workout</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-900 w-full max-w-4xl rounded-2xl max-h-[90vh] overflow-hidden flex flex-col">
+        {/* Header */}
+        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
+          <h2 className="text-white text-xl font-medium">
+            {initialWorkout ? 'Edit Workout' : 'Create Workout'}
+          </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4">
-          {/* Workout Details */}
-          <div className="mb-6">
-            <input
-              type="text"
-              placeholder="Workout name (e.g., Odin's Power)"
-              value={workoutForm.title}
-              onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
-              className="w-full bg-gray-800 text-white p-3 rounded-xl mb-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <textarea
-              placeholder="Description (optional)"
-              value={workoutForm.description}
-              onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full bg-gray-800 text-white p-3 rounded-xl placeholder-gray-400 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-
-          {/* Exercise Search */}
-          <div className="mb-6">
-            <h3 className="text-white font-medium mb-3">Add Exercises</h3>
-            <ExerciseSearch onExerciseSelect={handleExerciseSelect} />
-          </div>
-
-          {/* Current Workout Structure */}
-          {workoutForm.exercises.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-white font-medium mb-3">Workout Structure</h3>
-              <div className="space-y-3">
-                {workoutForm.exercises.map((exercise) => (
-                  <div key={exercise.id} className="bg-gray-800 p-3 rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <span className="text-xl mr-2">{exercise.exerciseData?.icon}</span>
-                        <div>
-                          <div className="text-white text-sm font-medium">{exercise.exerciseData?.name}</div>
-                          <div className="text-gray-400 text-xs">
-                            {exercise.sets} × {exercise.reps}
-                            {exercise.weight > 0 && ` @ ${exercise.weight}kg`}
-                            {exercise.rpe && ` • RPE ${exercise.rpe}`}
-                          </div>
-                        </div>
-                      </div>
-                      <button 
-                        onClick={() => removeExercise(exercise.id)}
-                        className="text-red-400 hover:text-red-300"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-6 space-y-6">
+            {/* Workout Details */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-300 text-sm font-medium mb-2">Workout Name</label>
+                <input
+                  type="text"
+                  value={workoutForm.title}
+                  onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="e.g., Upper Body Strength, HIIT Circuit"
+                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-gray-300 text-sm font-medium mb-2">Description (optional)</label>
+                <textarea
+                  value={workoutForm.description}
+                  onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Brief description of the workout..."
+                  className="w-full bg-gray-800 text-white p-3 rounded-lg h-20 resize-none focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                />
               </div>
             </div>
-          )}
+
+            {/* Workout Entries */}
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-white font-medium">
+                  Workout Structure ({workoutForm.entries.length} groups)
+                </h3>
+                <button
+                  onClick={() => setShowAddGroup(true)}
+                  className="flex items-center gap-2 bg-[#C3A869] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Group
+                </button>
+              </div>
+
+              {workoutForm.entries.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <div className="text-4xl mb-4">💪</div>
+                  <div className="text-lg mb-2">No exercises yet</div>
+                  <div className="text-sm">Add your first exercise, superset, or circuit</div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {workoutForm.entries.map((entry, index) => (
+                    <WorkoutEntryCard
+                      key={entry.id}
+                      entry={entry}
+                      exercises={exercises}
+                      onEdit={(entry) => setEditingEntry(entry)}
+                      onDelete={handleDeleteGroup}
+                      onEditExercise={handleEditExercise}
+                      onMoveUp={() => moveEntryUp(index)}
+                      onMoveDown={() => moveEntryDown(index)}
+                      canMoveUp={index > 0}
+                      canMoveDown={index < workoutForm.entries.length - 1}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Save Button */}
-        <div className="p-4 border-t border-gray-800">
+        {/* Footer */}
+        <div className="p-6 border-t border-gray-800 flex gap-3">
           <button
             onClick={handleSave}
-            disabled={!workoutForm.title || workoutForm.exercises.length === 0}
-            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed py-3 rounded-xl font-medium"
+            disabled={!canSave}
+            className="flex-1 bg-[#C3A869] text-black py-3 rounded-xl font-medium hover:bg-[#C3A869]/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Save Workout
+            {initialWorkout ? 'Update Workout' : 'Create Workout'}
+          </button>
+          <button
+            onClick={onClose}
+            className="flex-1 bg-gray-700 text-white py-3 rounded-xl font-medium hover:bg-gray-600 transition"
+          >
+            Cancel
           </button>
         </div>
       </div>
 
-      {/* Exercise Configuration Modal */}
-      {showExerciseConfig && (
-        <ExerciseConfigModal
-          exercise={showExerciseConfig}
-          onConfirm={handleExerciseConfig}
-          onCancel={() => setShowExerciseConfig(null)}
+      {/* Add Group Modal */}
+      {showAddGroup && (
+        <AddGroupModal
+          onSave={handleAddGroup}
+          onCancel={() => setShowAddGroup(false)}
+        />
+      )}
+
+      {/* Edit Group Modal */}
+      {editingEntry && (
+        <AddGroupModal
+          onSave={handleEditGroup}
+          onCancel={() => setEditingEntry(null)}
+          initialEntry={editingEntry}
         />
       )}
     </div>

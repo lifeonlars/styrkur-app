@@ -19,7 +19,11 @@
       "Bash(npm run test:styling:*)",
       "Bash(find:*)",
       "Bash(git reset:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(true)",
+      "Bash(mv:*)",
+      "Bash(git push:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

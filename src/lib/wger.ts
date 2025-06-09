@@ -10,6 +10,7 @@ import {
   CategoryMapping,
   NorseIcons
 } from '@/types'
+import Fuse, { IFuseOptions } from 'fuse.js'
 
 // Norse mythology icons mapping for body parts and equipment
 export const norseIcons: NorseIcons = {
@@ -680,7 +681,7 @@ export const fetchExerciseImages = async (exerciseId: number): Promise<WgerExerc
     
     const data = await response.json()
     const images = data.results || []
-    console.log(`📸 Found ${images.length} images for exercise ${exerciseId}:`, images.map(img => img.image))
+    console.log(`📸 Found ${images.length} images for exercise ${exerciseId}:`, images.map((img: WgerExerciseImage) => img.image))
     return images
   } catch (error) {
     console.warn(`Failed to fetch images for exercise ${exerciseId}:`, error)
@@ -945,6 +946,68 @@ export const sortByRelevance = (exercises: Exercise[], searchTerm: string): Exer
 // Exercise cache
 let exerciseCache: Exercise[] = []
 
+// Fuse.js configuration for fuzzy search
+const fuseOptions: IFuseOptions<Exercise> = {
+  keys: [
+    {
+      name: 'name',
+      weight: 3 // Highest weight for exercise name
+    },
+    {
+      name: 'description',
+      weight: 2 // Medium weight for description
+    },
+    {
+      name: 'instructions',
+      weight: 1.5 // Medium-low weight for instructions
+    },
+    {
+      name: 'primaryMuscles',
+      weight: 1.2 // Low-medium weight for muscle groups
+    },
+    {
+      name: 'target',
+      weight: 1 // Lower weight for target muscle
+    },
+    {
+      name: 'equipment',
+      weight: 0.8 // Lower weight for equipment
+    },
+    {
+      name: 'bodyPart',
+      weight: 0.5 // Lowest weight for body part
+    }
+  ],
+  threshold: 0.4, // Lower threshold = more strict matching (0.0 = perfect match, 1.0 = match anything)
+  distance: 100, // Maximum allowed distance for fuzzy matching
+  minMatchCharLength: 2, // Minimum characters to trigger search
+  ignoreLocation: true, // Don't care about match location in string
+  includeScore: true, // Include relevance score in results
+  includeMatches: true, // Include match information
+  shouldSort: true, // Sort results by relevance
+  findAllMatches: false, // Stop at first match per field
+  useExtendedSearch: false // Don't use advanced search syntax
+}
+
+// Perform fuzzy search on exercises
+export const fuzzySearchExercises = (exercises: Exercise[], searchQuery: string): Exercise[] => {
+  if (!searchQuery || searchQuery.trim().length < 2) {
+    return exercises
+  }
+
+  // Create a new fuse instance for each search to ensure fresh data
+  const fuse = new Fuse(exercises, fuseOptions)
+  const results = fuse.search(searchQuery)
+  
+  // Extract exercises from fuse results and maintain their scores
+  return results.map(result => {
+    const exercise = result.item
+    // Add search score as metadata (lower score = better match)
+    ;(exercise as any)._fuseScore = result.score
+    return exercise
+  })
+}
+
 // Real WGER API function
 export const fetchExercisesFromWger = async (filter: ExerciseFilter = {}): Promise<WgerExercise[]> => {
   const { search = '', limit = 50 } = filter
@@ -1026,8 +1089,8 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
             mappedExercises = mappedExercises.filter(ex => ex.muscleGroup === muscleGroup)
           }
           
-          // Sort by search relevance
-          mappedExercises = sortByRelevance(mappedExercises, search)
+          // Apply fuzzy search for better relevance
+          mappedExercises = fuzzySearchExercises(mappedExercises, search)
           
           // Enhance with real images (only for first few results to avoid too many API calls)
           const limitedResults = mappedExercises.slice(0, limit)
@@ -1050,27 +1113,22 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
     // Fallback to mock data for short searches or when API fails
     console.log('Using mock WGER data...', filter)
     
-    // If we have cached exercises and only searching, filter locally
+    // If we have cached exercises and only searching, use fuzzy search locally
     if (exerciseCache.length > 0 && search.length > 0) {
-      console.log('Using cached exercises for search')
-      const searchTerm = search.toLowerCase()
-      let filtered = exerciseCache.filter(ex => 
-        ex.name.toLowerCase().includes(searchTerm) ||
-        ex.target.toLowerCase().includes(searchTerm) ||
-        ex.bodyPart.toLowerCase().includes(searchTerm) ||
-        ex.equipment.toLowerCase().includes(searchTerm) ||
-        ex.instructions.some(instruction => instruction.toLowerCase().includes(searchTerm))
-      )
+      console.log('Using cached exercises for fuzzy search')
       
-      // Apply muscle group filter
+      // Apply muscle group filter first if specified
+      let searchableExercises = exerciseCache
       if (muscleGroup && muscleGroup !== 'all') {
-        filtered = filtered.filter(ex => ex.muscleGroup === muscleGroup)
+        searchableExercises = exerciseCache.filter(ex => ex.muscleGroup === muscleGroup)
       }
       
-      // Sort by relevance for search results
-      filtered = sortByRelevance(filtered, search)
+      // Perform fuzzy search
+      const fuzzyResults = fuzzySearchExercises(searchableExercises, search)
       
-      return filtered.slice(0, limit)
+      console.log(`🔍 Fuzzy search for "${search}" returned ${fuzzyResults.length} results`)
+      
+      return fuzzyResults.slice(0, limit)
     }
     
     // Filter mock data
@@ -1084,16 +1142,7 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
       }
     }
     
-    // Search filter for mock data
-    if (search && search.length > 0) {
-      const searchTerm = search.toLowerCase()
-      filtered = filtered.filter(ex => 
-        ex.name.toLowerCase().includes(searchTerm) ||
-        ex.description.toLowerCase().includes(searchTerm)
-      )
-    }
-    
-    // Map to our format
+    // Map to our format first
     let mappedExercises = filtered.map(mapWgerToExercise)
     
     // Apply muscle group filter after mapping (since muscleGroup is computed)
@@ -1101,9 +1150,10 @@ export const fetchExercises = async (filter: ExerciseFilter = {}): Promise<Exerc
       mappedExercises = mappedExercises.filter(ex => ex.muscleGroup === muscleGroup)
     }
     
-    // Sort by search relevance if searching
+    // Apply fuzzy search if searching
     if (search && search.length > 0) {
-      mappedExercises = sortByRelevance(mappedExercises, search)
+      mappedExercises = fuzzySearchExercises(mappedExercises, search)
+      console.log(`🔍 Fuzzy search on mock data for "${search}" returned ${mappedExercises.length} results`)
     }
     
     console.log(`Mock API returned ${mappedExercises.length} exercises`)
@@ -1185,6 +1235,51 @@ export const getFallbackExercises = (): Exercise[] => {
 // Get exercise by ID
 export const getExerciseById = (id: string, exercises: Exercise[] = exerciseCache): Exercise | undefined => {
   return exercises.find(ex => ex.id === id)
+}
+
+// Test function for fuzzy search
+export const testFuzzySearch = async (searchTerm = 'goblit'): Promise<void> => {
+  console.log(`🧪 Testing fuzzy search with: "${searchTerm}"`)
+  
+  try {
+    const startTime = Date.now()
+    const exercises = await fetchExercises({ search: searchTerm, limit: 10 })
+    const duration = Date.now() - startTime
+    
+    console.log(`✅ Fuzzy search test completed in ${duration}ms`)
+    console.log(`📊 Found ${exercises.length} exercises:`)
+    
+    exercises.forEach((ex, index) => {
+      const fuseScore = (ex as any)._fuseScore
+      console.log(`  ${index + 1}. ${ex.name} (ID: ${ex.id})`)
+      console.log(`     Equipment: ${ex.equipment} | Group: ${ex.muscleGroup}`)
+      if (fuseScore !== undefined) {
+        console.log(`     Fuse Score: ${fuseScore.toFixed(3)} (lower = better match)`)
+      }
+      if (ex.primaryMuscles.length > 0) {
+        console.log(`     Muscles: ${ex.primaryMuscles.join(', ')}`)
+      }
+    })
+    
+    // Test specific typo tolerance
+    if (searchTerm.toLowerCase() === 'goblit') {
+      const gobletMatches = exercises.filter(ex => 
+        ex.name.toLowerCase().includes('goblet')
+      )
+      
+      if (gobletMatches.length > 0) {
+        console.log(`\n✅ SUCCESS: Fuzzy search found ${gobletMatches.length} "goblet" matches for typo "${searchTerm}"`)
+        gobletMatches.forEach(match => {
+          console.log(`  - ${match.name}`)
+        })
+      } else {
+        console.log(`\n❌ FAIL: No "goblet" matches found for typo "${searchTerm}"`)
+      }
+    }
+    
+  } catch (error) {
+    console.error('❌ Fuzzy search test failed:', error)
+  }
 }
 
 // Test function for WGER API integration
