@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { Plus, Search, Tag, Edit, Trash2, Calendar } from 'lucide-react'
+import { useState, useCallback } from 'react'
+import { Plus, Search, CheckCircle } from 'lucide-react'
 import { Workout } from '@/types'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
+import EnhancedWorkoutCard from './EnhancedWorkoutCard'
 
 interface WorkoutTabProps {
   workouts: Workout[]
@@ -19,32 +20,55 @@ export default function WorkoutTab({
   const [showCreateWorkout, setShowCreateWorkout] = useState(false)
   const [editingWorkout, setEditingWorkout] = useState<Workout | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
 
-  const handleSaveWorkout = (workout: Workout) => {
-    if (editingWorkout) {
-      onUpdateWorkout(workout)
+  const showSuccessToast = useCallback((message: string) => {
+    setToastMessage(message)
+    setShowToast(true)
+    setTimeout(() => setShowToast(false), 3000)
+  }, [])
+
+  const handleSaveWorkout = useCallback((workout: Workout) => {
+    // Ensure unique ID for new workouts to prevent duplicates
+    if (!editingWorkout) {
+      const newWorkout = {
+        ...workout,
+        id: Date.now(), // Use timestamp for unique ID
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      onSaveWorkout(newWorkout)
+      showSuccessToast('Workout created successfully!')
     } else {
-      onSaveWorkout(workout)
+      const updatedWorkout = {
+        ...workout,
+        updatedAt: new Date()
+      }
+      onUpdateWorkout(updatedWorkout)
+      showSuccessToast('Workout updated successfully!')
     }
+    
     setShowCreateWorkout(false)
     setEditingWorkout(null)
-  }
+  }, [editingWorkout, onSaveWorkout, onUpdateWorkout, showSuccessToast])
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setShowCreateWorkout(false)
     setEditingWorkout(null)
-  }
+  }, [])
 
-  const handleEditWorkout = (workout: Workout) => {
+  const handleEditWorkout = useCallback((workout: Workout) => {
     setEditingWorkout(workout)
     setShowCreateWorkout(true)
-  }
+  }, [])
 
-  const handleDeleteWorkout = (workout: Workout) => {
+  const handleDeleteWorkout = useCallback((workout: Workout) => {
     if (window.confirm(`Delete "${workout.title}"? This action cannot be undone.`)) {
       onDeleteWorkout?.(workout.id)
+      showSuccessToast('Workout deleted successfully!')
     }
-  }
+  }, [onDeleteWorkout, showSuccessToast])
 
   const filteredWorkouts = workouts.filter(workout =>
     workout.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -119,53 +143,13 @@ export default function WorkoutTab({
         {filteredWorkouts.length > 0 ? (
           <div className="space-y-3">
             {filteredWorkouts.map(workout => (
-              <div key={workout.id} className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <h4 className="text-white font-medium mb-1">{workout.title}</h4>
-                    <p className="text-gray-400 text-sm mb-2">{workout.description}</p>
-                    
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
-                      <span>{workout.entries?.length || workout.exercises?.length || 0} exercises</span>
-                      {workout.tags && workout.tags.length > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Tag className="w-3 h-3" />
-                          <span>{workout.tags.join(', ')}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-2 ml-4">
-                    <button
-                      onClick={() => handleEditWorkout(workout)}
-                      className="bg-gray-700 text-white p-1 rounded hover:bg-gray-600 transition"
-                      title="Edit workout"
-                    >
-                      <Edit className="w-4 h-4" />
-                    </button>
-                    
-                    {onDeleteWorkout && (
-                      <button
-                        onClick={() => handleDeleteWorkout(workout)}
-                        className="bg-red-900/50 text-red-400 p-1 rounded hover:bg-red-900 transition"
-                        title="Delete workout"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
-                    
-                    {/* Placeholder for future "Assign to Week" functionality */}
-                    <button
-                      className="bg-gray-700/50 text-gray-500 p-1 rounded cursor-not-allowed"
-                      title="Assign to Week (Coming Soon)"
-                      disabled
-                    >
-                      <Calendar className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <EnhancedWorkoutCard
+                key={`workout-${workout.id}-${workout.updatedAt?.getTime() || workout.createdAt?.getTime()}`}
+                workout={workout}
+                onEdit={handleEditWorkout}
+                onDelete={handleDeleteWorkout}
+                searchTerm={searchTerm}
+              />
             ))}
           </div>
         ) : (
@@ -199,6 +183,16 @@ export default function WorkoutTab({
           onClose={handleCloseModal}
           initialWorkout={editingWorkout || undefined}
         />
+      )}
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top duration-300">
+          <div className="bg-green-800 border border-green-600 text-green-100 px-4 py-3 rounded-lg shadow-lg flex items-center gap-2">
+            <CheckCircle className="w-5 h-5 text-green-400" />
+            <span className="text-sm font-medium">{toastMessage}</span>
+          </div>
+        </div>
       )}
     </div>
   )
