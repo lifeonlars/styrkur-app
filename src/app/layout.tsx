@@ -18,7 +18,7 @@ export default function RootLayout({
   const _ = forceIncludeClasses()
   
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className} bg-gray-900 text-white min-h-screen`}>
         <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl">
           {children}
