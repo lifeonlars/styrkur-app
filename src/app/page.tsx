@@ -46,6 +46,11 @@ export default function StyrkurheimApp() {
     setWorkouts(updatedWorkouts)
   }
 
+  const handleDeleteWorkout = (workoutId: number) => {
+    const updatedWorkouts = workoutStorage.deleteWorkout(workoutId)
+    setWorkouts(updatedWorkouts)
+  }
+
   const renderActiveScreen = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -53,7 +58,7 @@ export default function StyrkurheimApp() {
       case 'workouts':
         return <WorkoutsScreen workouts={workouts} onSaveWorkout={handleSaveWorkout} onUpdateWorkout={handleUpdateWorkout} currentWorkout={currentWorkout} onEndWorkout={() => setCurrentWorkout(null)} />
       case 'plan':
-        return <PlanScreen workouts={workouts} onSaveWorkout={handleSaveWorkout} onUpdateWorkout={handleUpdateWorkout} />
+        return <PlanScreen workouts={workouts} onSaveWorkout={handleSaveWorkout} onUpdateWorkout={handleUpdateWorkout} onDeleteWorkout={handleDeleteWorkout} />
       case 'history':
         return <HistoryScreen />
       case 'settings':
