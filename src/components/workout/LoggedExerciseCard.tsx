@@ -54,7 +54,7 @@ export default function LoggedExerciseCard({
       {/* Exercise Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
-          <h3 className="text-white font-medium text-lg mb-1">{exercise.name}</h3>
+          <h3 className="text-white font-heading font-medium text-lg mb-1">{exercise.name}</h3>
           <div className="flex items-center gap-4 text-sm text-gray-400">
             <span>{completedSets}/{totalSets} sets completed</span>
             <span className="capitalize">{exercise.target || 'target muscle'}</span>
@@ -91,7 +91,7 @@ export default function LoggedExerciseCard({
 
       {/* Sets Table */}
       <div className="space-y-2">
-        <div className="grid grid-cols-12 gap-2 text-xs font-medium text-gray-400 px-2">
+        <div className="grid grid-cols-12 gap-2 text-sm font-medium text-gray-400 px-2">
           <div className="col-span-1">Set</div>
           <div className="col-span-3">Reps</div>
           <div className="col-span-3">Weight</div>
@@ -144,7 +144,7 @@ export default function LoggedExerciseCard({
               <select
                 value={setLog.rpe || ''}
                 onChange={(e) => handleRpeChange(index, parseInt(e.target.value) || 0)}
-                className="w-full bg-gray-600 text-white px-1 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869] text-xs"
+                className="w-full bg-gray-600 text-white px-1 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869] text-sm"
               >
                 <option value="">-</option>
                 {Array.from({ length: 10 }, (_, i) => i + 1).map(rpe => (
@@ -157,7 +157,7 @@ export default function LoggedExerciseCard({
             <div className="col-span-2 flex justify-center">
               <button
                 onClick={() => handleSetComplete(index, !setLog.isCompleted)}
-                className={`px-3 py-1 rounded-lg text-xs font-medium transition flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
                   setLog.isCompleted
                     ? 'bg-green-600 text-white border border-green-500'
                     : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
@@ -200,7 +200,7 @@ export default function LoggedExerciseCard({
           <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-300">
             View exercise instructions
           </summary>
-          <div className="mt-2 text-xs text-gray-500 space-y-1">
+          <div className="mt-2 text-sm text-gray-500 space-y-1">
             {exercise.instructions.slice(0, 3).map((instruction, index) => (
               <p key={index}>• {instruction}</p>
             ))}

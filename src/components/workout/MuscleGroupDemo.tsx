@@ -89,7 +89,7 @@ export default function MuscleGroupDemo() {
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold text-white mb-2">
-          🏋️ Styrkurheim Muscle Group Filter Demo
+          🏋️ Syrkur Saga Muscle Group Filter Demo
         </h1>
         <p className="text-gray-400">
           Improved filtering using actual WGER API muscle data

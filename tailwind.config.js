@@ -65,6 +65,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-cinzel)', 'serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

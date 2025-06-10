@@ -124,22 +124,22 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
   const displayWorkouts = workouts.length > 0 ? workouts : sampleWorkouts
 
   return (
-    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-20">
+    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header (hidden on desktop) */}
       <div className="lg:hidden bg-gray-900 p-6 border-b border-gray-800">
-        <h1 className="text-2xl font-light text-white mb-2">Styrkurheim</h1>
-        <p className="text-gray-400 text-sm">Strength through the ages</p>
+        <h1 className="text-2xl font-heading font-light text-white mb-2">Syrkur Saga</h1>
+        <p className="text-gray-400 text-sm">Your strength journey unfolds</p>
       </div>
 
       {/* Greeting Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-light mb-2">Welcome back, Lars</h1>
+        <h1 className="text-white text-2xl font-heading font-light mb-2">Welcome back, Lars</h1>
         <p className="text-gray-400">Ready to conquer today's challenges</p>
       </div>
 
       {/* Upcoming Workout Section */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center">
+        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
           <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
           Today's Focus
         </h2>
@@ -159,7 +159,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* Weekly Progress Card */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center">
+        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
           <TrendingUp className="w-5 h-5 mr-2 text-[#C3A869]" />
           This Week
         </h2>
@@ -167,15 +167,15 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-white text-lg font-medium">3</div>
-              <div className="text-gray-400 text-xs">Workouts</div>
+              <div className="text-gray-400 text-sm">Workouts</div>
             </div>
             <div>
               <div className="text-white text-lg font-medium">2.5h</div>
-              <div className="text-gray-400 text-xs">Time</div>
+              <div className="text-gray-400 text-sm">Time</div>
             </div>
             <div>
               <div className="text-white text-lg font-medium">95%</div>
-              <div className="text-gray-400 text-xs">Consistency</div>
+              <div className="text-gray-400 text-sm">Consistency</div>
             </div>
           </div>
         </div>
@@ -183,7 +183,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* PR Highlight */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center">
+        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
           <Target className="w-5 h-5 mr-2 text-[#C3A869]" />
           Recent Achievement
         </h2>
@@ -192,7 +192,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
             <div className="text-2xl mb-2">🏆</div>
             <p className="text-white font-medium">New Deadlift PR!</p>
             <p className="text-gray-400 text-sm">140kg x 5 reps</p>
-            <p className="text-[#C3A869] text-xs mt-1">2 days ago</p>
+            <p className="text-[#C3A869] text-sm mt-1">2 days ago</p>
           </div>
         </div>
       </section>
@@ -202,23 +202,23 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
         <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
           <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
           <div className="text-white font-medium">12</div>
-          <div className="text-gray-400 text-xs">Sessions</div>
+          <div className="text-gray-400 text-sm">Sessions</div>
         </div>
         <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
           <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
           <div className="text-white font-medium">3</div>
-          <div className="text-gray-400 text-xs">PRs</div>
+          <div className="text-gray-400 text-sm">PRs</div>
         </div>
         <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
           <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
           <div className="text-white font-medium">7</div>
-          <div className="text-gray-400 text-xs">Streak</div>
+          <div className="text-gray-400 text-sm">Streak</div>
         </div>
       </div>
 
       {/* Recent Workouts */}
       <div className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center">
+        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
           <Trophy className="w-5 h-5 mr-2 text-[#C3A869]" />
           Your Arsenal
         </h2>

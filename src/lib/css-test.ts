@@ -111,7 +111,7 @@ export const CRITICAL_CSS_CLASSES = [
   'overflow-x-auto',
   'pb-20',
   'lg:pb-0',
-  'lg:pt-20',
+  'lg:pt-24',
   'min-w-0',
   'text-center',
   'whitespace-nowrap'

@@ -21,14 +21,14 @@ export default function ExerciseCard({ exercise, onAdd, showAddButton = true }: 
       
       <div className="flex-1 min-w-0">
         <div className="text-white text-sm font-medium truncate">{exercise.name}</div>
-        <div className="text-gray-400 text-xs">
+        <div className="text-gray-400 text-sm">
           {exercise.target} • {exercise.equipment}
         </div>
       </div>
       
       <div className="flex items-center">
         {exercise.isWeighted && (
-          <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded mr-2">
+          <span className="text-sm bg-gray-700 text-gray-300 px-2 py-1 rounded mr-2">
             Weighted
           </span>
         )}

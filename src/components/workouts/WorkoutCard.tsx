@@ -47,7 +47,7 @@ export default function WorkoutCard({
       <div className="flex justify-between items-start mb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-white font-medium truncate">
+            <h3 className="text-white font-heading font-medium truncate">
               {highlightText(workout.title, searchTerm)}
             </h3>
             <span className="text-lg" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
@@ -63,7 +63,7 @@ export default function WorkoutCard({
           
           {/* Exercise Preview */}
           {exercisePreview && (
-            <p className="text-gray-500 text-xs mb-2 truncate">
+            <p className="text-gray-500 text-sm mb-2 truncate">
               {exercisePreview}
               {hasMoreExercises && (
                 <span className="text-gray-600"> +{metrics.exerciseNames.length - 3} more</span>
@@ -97,25 +97,25 @@ export default function WorkoutCard({
 
       {/* Workout Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1 text-sm">
           <Hash className="w-3 h-3 text-[#C3A869]" />
           <span className="text-gray-400">Sets:</span>
           <span className="text-white font-medium">{metrics.totalSets}</span>
         </div>
         
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1 text-sm">
           <RotateCcw className="w-3 h-3 text-[#C3A869]" />
           <span className="text-gray-400">Reps:</span>
           <span className="text-white font-medium">{metrics.totalReps}</span>
         </div>
         
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1 text-sm">
           <Weight className="w-3 h-3 text-[#C3A869]" />
           <span className="text-gray-400">Volume:</span>
           <span className="text-white font-medium">{formatWeight(metrics.totalWeight)}</span>
         </div>
         
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1 text-sm">
           <Clock className="w-3 h-3 text-[#C3A869]" />
           <span className="text-gray-400">~Duration:</span>
           <span className="text-white font-medium">{estimatedDuration}min</span>
@@ -124,13 +124,13 @@ export default function WorkoutCard({
 
       {/* Tags */}
       {workout.tags && workout.tags.length > 0 && (
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1 text-sm">
           <Tag className="w-3 h-3 text-gray-500" />
           <div className="flex gap-1 flex-wrap">
             {workout.tags.map(tag => (
               <span 
                 key={tag} 
-                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs"
+                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-sm"
               >
                 {highlightText(tag, searchTerm)}
               </span>

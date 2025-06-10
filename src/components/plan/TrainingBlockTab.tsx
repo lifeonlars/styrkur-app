@@ -92,7 +92,7 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
           <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Target className="w-6 h-6 text-[#C3A869]" />
           </div>
-          <h3 className="text-white font-medium mb-2">Create Training Block</h3>
+          <h3 className="text-white font-heading font-medium mb-2">Create Training Block</h3>
           <p className="text-gray-400 text-sm mb-4">
             Organize workouts into focused training phases (3-8 weeks)
           </p>
@@ -109,8 +109,8 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
       {/* Training Blocks List */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-white font-medium">Training Blocks ({trainingBlocks.length})</h3>
-          <div className="text-xs text-gray-500">
+          <h3 className="text-white font-heading font-medium">Training Blocks ({trainingBlocks.length})</h3>
+          <div className="text-sm text-gray-500">
             Organize your training progression
           </div>
         </div>
@@ -122,15 +122,15 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h4 className="text-white font-medium">{block.name}</h4>
-                      <span className={`px-2 py-1 rounded text-xs border ${getStatusColor(block.status)}`}>
+                      <h4 className="text-white font-heading font-medium">{block.name}</h4>
+                      <span className={`px-2 py-1 rounded text-sm border ${getStatusColor(block.status)}`}>
                         {getStatusLabel(block.status)}
                       </span>
                     </div>
                     
                     <p className="text-gray-400 text-sm mb-2">{block.description}</p>
                     
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {block.duration}
@@ -166,7 +166,7 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
 
                 {block.status === 'active' && (
                   <div className="mt-3 pt-3 border-t border-[#C3A869]/20">
-                    <div className="flex justify-between items-center text-xs">
+                    <div className="flex justify-between items-center text-sm">
                       <span className="text-gray-400">Week 2 of 6</span>
                       <span className="text-[#C3A869]">33% complete</span>
                     </div>
@@ -181,11 +181,11 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
         ) : (
           <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
             <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-white font-medium mb-2">No Training Blocks</h3>
+            <h3 className="text-white font-heading font-medium mb-2">No Training Blocks</h3>
             <p className="text-gray-400 text-sm mb-4">
               Create training blocks to organize your workouts into focused phases
             </p>
-            <div className="text-xs text-gray-500 space-y-1">
+            <div className="text-sm text-gray-500 space-y-1">
               <p>• 3-8 week training phases</p>
               <p>• Specific focus (strength, hypertrophy, etc.)</p>
               <p>• Progressive workout planning</p>

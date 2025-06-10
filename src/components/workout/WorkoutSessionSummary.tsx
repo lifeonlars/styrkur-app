@@ -23,29 +23,32 @@ export default function WorkoutSessionSummary({
   }
 
   const formatWeight = (weight: number): string => {
-    if (weight >= 1000) {
-      return `${(weight / 1000).toFixed(1)}k kg`
-    }
-    return `${weight.toFixed(0)} kg`
+    // Format with spaces for thousands separator
+    const formattedNumber = new Intl.NumberFormat('en-US', {
+      useGrouping: true,
+      maximumFractionDigits: 1
+    }).format(weight).replace(/,/g, ' ')
+    
+    return `${formattedNumber} kg`
   }
 
   const completionRate = Math.round((summary.completedSets / summary.totalSets) * 100)
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
       <div className="bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="text-center p-6 border-b border-gray-700">
           <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <Trophy className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-white text-2xl font-medium mb-2">Workout Complete!</h2>
+          <h2 className="text-white text-2xl font-heading font-medium mb-2">Workout Complete!</h2>
           <p className="text-gray-400">Great job finishing your workout</p>
         </div>
 
         {/* Workout Info */}
         <div className="p-6 border-b border-gray-700">
-          <h3 className="text-white font-medium text-lg mb-4">{summary.workoutTitle}</h3>
+          <h3 className="text-white font-heading font-medium text-lg mb-4">{summary.workoutTitle}</h3>
           
           {/* Key Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -54,7 +57,7 @@ export default function WorkoutSessionSummary({
                 <Clock className="w-4 h-4" />
               </div>
               <div className="text-white font-medium">{formatTime(summary.duration)}</div>
-              <div className="text-gray-400 text-xs">Duration</div>
+              <div className="text-gray-400 text-sm">Duration</div>
             </div>
             
             <div className="text-center">
@@ -62,7 +65,7 @@ export default function WorkoutSessionSummary({
                 <Hash className="w-4 h-4" />
               </div>
               <div className="text-white font-medium">{summary.completedSets}/{summary.totalSets}</div>
-              <div className="text-gray-400 text-xs">Sets</div>
+              <div className="text-gray-400 text-sm">Sets</div>
             </div>
             
             <div className="text-center">
@@ -70,7 +73,7 @@ export default function WorkoutSessionSummary({
                 <RotateCcw className="w-4 h-4" />
               </div>
               <div className="text-white font-medium">{summary.totalReps}</div>
-              <div className="text-gray-400 text-xs">Total Reps</div>
+              <div className="text-gray-400 text-sm">Total Reps</div>
             </div>
             
             <div className="text-center">
@@ -78,7 +81,7 @@ export default function WorkoutSessionSummary({
                 <Weight className="w-4 h-4" />
               </div>
               <div className="text-white font-medium">{formatWeight(summary.totalWeight)}</div>
-              <div className="text-gray-400 text-xs">Volume</div>
+              <div className="text-gray-400 text-sm">Volume</div>
             </div>
           </div>
 
@@ -99,7 +102,7 @@ export default function WorkoutSessionSummary({
 
         {/* Exercise Breakdown */}
         <div className="p-6 border-b border-gray-700">
-          <h4 className="text-white font-medium mb-4 flex items-center gap-2">
+          <h4 className="text-white font-heading font-medium mb-4 flex items-center gap-2">
             <CheckCircle className="w-5 h-5 text-green-500" />
             Exercises Completed
           </h4>
@@ -118,7 +121,7 @@ export default function WorkoutSessionSummary({
                     <div className="text-[#C3A869] font-medium">
                       {formatWeight(exercise.weight)}
                     </div>
-                    <div className="text-gray-400 text-xs">Total Volume</div>
+                    <div className="text-gray-400 text-sm">Total Volume</div>
                   </div>
                 </div>
               </div>
@@ -129,7 +132,7 @@ export default function WorkoutSessionSummary({
         {/* Session Notes */}
         {summary.notes && (
           <div className="p-6 border-b border-gray-700">
-            <h4 className="text-white font-medium mb-2">Session Notes</h4>
+            <h4 className="text-white font-heading font-medium mb-2">Session Notes</h4>
             <p className="text-gray-400 text-sm">{summary.notes}</p>
           </div>
         )}

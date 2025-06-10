@@ -135,11 +135,11 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4">
       <div className="bg-gray-900 w-full max-w-4xl rounded-2xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
-          <h2 className="text-white text-xl font-medium">
+          <h2 className="text-white text-xl font-medium font-heading">
             {initialEntry ? 'Edit Group' : 'Add Group'}
           </h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-white">
@@ -167,7 +167,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                     {type === 'single' ? '💪' : type === 'superset' ? '🔗' : '⚡'}
                   </div>
                   <div className="font-medium capitalize">{type}</div>
-                  <div className="text-xs opacity-75 mt-1">
+                  <div className="text-sm opacity-75 mt-1">
                     {type === 'single' && '1 exercise'}
                     {type === 'superset' && '2-3 exercises'}
                     {type === 'circuit' && '3-10 exercises'}
@@ -293,7 +293,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                           <div className="text-white font-medium">
                             {exerciseData?.name || 'Unknown Exercise'}
                           </div>
-                          <div className="text-xs text-gray-400">
+                          <div className="text-sm text-gray-400">
                             {exerciseData?.target} • {exerciseData?.equipment}
                           </div>
                         </div>
@@ -330,7 +330,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                     
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-gray-400 text-xs mb-1">Reps</label>
+                      <label className="block text-gray-400 text-sm mb-1">Reps</label>
                       <input
                         type="number"
                         min="1"
@@ -341,7 +341,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-400 text-xs mb-1">Weight (kg)</label>
+                      <label className="block text-gray-400 text-sm mb-1">Weight (kg)</label>
                       <input
                         type="number"
                         min="0"
@@ -352,7 +352,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-400 text-xs mb-1">RPE</label>
+                      <label className="block text-gray-400 text-sm mb-1">RPE</label>
                       <select
                         value={exerciseConfig.rpe || 7}
                         onChange={(e) => updateExercise(index, { rpe: parseInt(e.target.value) })}
@@ -399,7 +399,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
 
       {/* Exercise Search Modal */}
       {showExerciseSearch && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-60 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[110] p-4">
           <div className="bg-gray-800 w-full max-w-2xl rounded-xl max-h-[80vh] overflow-hidden">
             <ExerciseSearch
               onSelectExercise={addExercise}

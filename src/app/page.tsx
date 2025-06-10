@@ -14,7 +14,7 @@ import ClientOnly from '@/components/ClientOnly'
 import { Workout, Program } from '@/types'
 import { workoutStorage, programStorage } from '@/lib/localStorage'
 
-export default function StyrkurheimApp() {
+export default function SyrkurSagaApp() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const [workouts, setWorkouts] = useState<Workout[]>([])
   const [programs, setPrograms] = useState<Program[]>([])
@@ -82,22 +82,22 @@ export default function StyrkurheimApp() {
         {activeTab === 'dashboard' && (
           <div className="hidden lg:block lg:col-span-3 xl:col-span-2 bg-gray-800 border-l border-gray-700">
             <div className="p-6">
-              <h3 className="text-white font-medium mb-4">Quick Stats</h3>
+              <h3 className="text-white font-heading font-medium mb-4">Quick Stats</h3>
               <div className="space-y-4">
                 <div className="text-center">
                   <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
                   <div className="text-white font-medium">12</div>
-                  <div className="text-gray-400 text-xs">Sessions</div>
+                  <div className="text-gray-400 text-sm">Sessions</div>
                 </div>
                 <div className="text-center">
                   <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
                   <div className="text-white font-medium">3</div>
-                  <div className="text-gray-400 text-xs">PRs</div>
+                  <div className="text-gray-400 text-sm">PRs</div>
                 </div>
                 <div className="text-center">
                   <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
                   <div className="text-white font-medium">7</div>
-                  <div className="text-gray-400 text-xs">Streak</div>
+                  <div className="text-gray-400 text-sm">Streak</div>
                 </div>
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function StyrkurheimApp() {
           <ClientOnly>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-8">
-                <h1 className="text-xl font-light text-white">Styrkurheim</h1>
+                <h1 className="text-xl font-heading font-light text-white">Syrkur Saga</h1>
                 <nav className="flex space-x-6">
                   {navigationTabs.map(tab => (
                     <button

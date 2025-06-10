@@ -19,7 +19,7 @@ export default function BottomNavigation({ tabs, activeTab, onTabChange }: Botto
             }`}
           >
             <tab.icon className="w-5 h-5 mb-1" />
-            <span className="text-xs">{tab.label}</span>
+            <span className="text-sm">{tab.label}</span>
           </button>
         ))}
       </div>

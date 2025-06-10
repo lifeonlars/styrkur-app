@@ -36,7 +36,7 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
 
   return (
     <section className="p-4 lg:p-6">
-      <h2 className="text-white font-medium mb-4 flex items-center">
+      <h2 className="text-white font-heading font-medium mb-4 flex items-center">
         <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
         Active Training Context
       </h2>
@@ -45,16 +45,16 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
         <div className="space-y-4">
           {/* Active Plan Summary */}
           <div className="bg-[#C3A869]/10 border border-[#C3A869]/30 rounded-xl p-4">
-            <h3 className="text-white font-medium mb-1">{activePlan.name}</h3>
+            <h3 className="text-white font-heading font-medium mb-1">{activePlan.name}</h3>
             <p className="text-[#C3A869] text-sm mb-1">{activePlan.block}</p>
-            <p className="text-gray-400 text-xs">{activePlan.description}</p>
+            <p className="text-gray-400 text-sm">{activePlan.description}</p>
           </div>
 
           {/* Weekly Schedule Overview */}
           <div className="bg-gray-800 rounded-xl p-4">
             <div className="flex justify-between items-center mb-3">
-              <h3 className="text-white font-medium text-sm">This Week</h3>
-              <button className="text-[#C3A869] text-xs hover:text-[#C3A869]/80">
+              <h3 className="text-white font-heading font-medium text-sm">This Week</h3>
+              <button className="text-[#C3A869] text-sm hover:text-[#C3A869]/80">
                 Edit Schedule
               </button>
             </div>
@@ -62,14 +62,14 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
               {weeklySchedule.map((day, index) => (
                 <div 
                   key={day.day} 
-                  className={`rounded p-2 text-center text-xs ${
+                  className={`rounded p-2 text-center text-sm ${
                     day.day === todayName 
                       ? 'bg-[#C3A869]/20 border border-[#C3A869]/30' 
                       : 'bg-gray-700'
                   }`}
                 >
                   <div className="text-white font-medium mb-1">{day.day}</div>
-                  <div className={`text-xs ${
+                  <div className={`text-sm ${
                     day.assigned ? 'text-[#C3A869]' : 'text-gray-400'
                   }`}>
                     {day.workout}
@@ -83,9 +83,9 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
           <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <h3 className="text-white font-medium mb-1">Next: {nextWorkout.name}</h3>
+                <h3 className="text-white font-heading font-medium mb-1">Next: {nextWorkout.name}</h3>
                 <p className="text-gray-400 text-sm mb-2">{nextWorkout.day}</p>
-                <div className="flex gap-4 text-xs text-gray-500">
+                <div className="flex gap-4 text-sm text-gray-500">
                   <span>{nextWorkout.exercises} exercises</span>
                   <span>{nextWorkout.estimatedTime}</span>
                 </div>
@@ -106,11 +106,11 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
       ) : (
         <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
           <div className="text-3xl mb-3">🎯</div>
-          <h3 className="text-white font-medium mb-2">No Active Training Plan</h3>
+          <h3 className="text-white font-heading font-medium mb-2">No Active Training Plan</h3>
           <p className="text-gray-400 text-sm mb-4">
             Create workouts and organize them into training blocks to get started
           </p>
-          <div className="text-xs text-gray-500 space-y-1">
+          <div className="text-sm text-gray-500 space-y-1">
             <p>• Build individual workouts</p>
             <p>• Organize into training blocks</p>
             <p>• Schedule your weekly routine</p>

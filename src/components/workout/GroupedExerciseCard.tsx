@@ -89,7 +89,7 @@ export default function GroupedExerciseCard({
           <div className="flex items-center gap-3">
             <span className="text-lg">{getGroupTypeDisplay()}</span>
             <div>
-              <h3 className="text-white font-medium">
+              <h3 className="text-white font-heading font-medium">
                 {groupLog.label || `${groupLog.groupType.charAt(0).toUpperCase() + groupLog.groupType.slice(1)}`}
               </h3>
               <div className="flex items-center gap-4 text-sm text-gray-400">
@@ -150,14 +150,14 @@ export default function GroupedExerciseCard({
             >
               {/* Set/Round Header */}
               <div className="flex justify-between items-center mb-3">
-                <h4 className="text-white font-medium">
+                <h4 className="text-white font-heading font-medium">
                   {setLabel} {setLog.setNumber}
                 </h4>
                 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleSetComplete(setIndex, !setLog.isCompleted)}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium transition flex items-center gap-1 ${
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
                       setLog.isCompleted
                         ? 'bg-green-600 text-white border border-green-500'
                         : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500'
@@ -170,7 +170,7 @@ export default function GroupedExerciseCard({
                   {groupLog.setLogs.length > 1 && (
                     <button
                       onClick={() => onRemoveSet(setIndex)}
-                      className="px-2 py-1 bg-red-900/50 text-red-400 rounded-lg text-xs hover:bg-red-900 transition"
+                      className="px-2 py-1 bg-red-900/50 text-red-400 rounded-lg text-sm hover:bg-red-900 transition"
                       title={`Remove ${setLabel.toLowerCase()}`}
                     >
                       Remove
@@ -182,7 +182,7 @@ export default function GroupedExerciseCard({
               {/* Exercise Grid */}
               <div className="space-y-3">
                 {/* Headers */}
-                <div className="grid grid-cols-12 gap-2 text-xs font-medium text-gray-400 px-2">
+                <div className="grid grid-cols-12 gap-2 text-sm font-medium text-gray-400 px-2">
                   <div className="col-span-3">Exercise</div>
                   <div className="col-span-2">Reps</div>
                   <div className="col-span-2">Weight</div>

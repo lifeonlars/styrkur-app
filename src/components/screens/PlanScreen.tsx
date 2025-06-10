@@ -22,16 +22,16 @@ export default function PlanScreen({
 }: PlanScreenProps) {
   const [activeTab, setActiveTab] = useState<'workouts' | 'blocks'>('workouts')
   return (
-    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-20">
+    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
       <div className="lg:hidden bg-gray-900 p-4 border-b border-gray-800">
-        <h1 className="text-white text-xl font-medium">Plan</h1>
+        <h1 className="text-white text-xl font-heading font-medium">Plan</h1>
         <p className="text-gray-400 text-sm">Training planning and organization</p>
       </div>
 
       {/* Page Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-light mb-2">Training Plan</h1>
+        <h1 className="text-white text-2xl font-heading font-light mb-2">Training Plan</h1>
         <p className="text-gray-400">Organize your workouts and training blocks</p>
       </div>
 

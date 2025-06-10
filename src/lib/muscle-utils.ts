@@ -11,7 +11,7 @@ import { mapMuscleIdToGroup, getExerciseMuscleGroup, fetchMuscles } from './wger
  * Demo function showing how to fetch and categorize muscles from WGER API
  */
 export async function demonstrateMuscleGrouping() {
-  console.log('🏋️ Styrkurheim Muscle Grouping Demo')
+  console.log('🏋️ Syrkur Saga Muscle Grouping Demo')
   console.log('=====================================')
   
   try {

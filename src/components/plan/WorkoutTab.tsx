@@ -84,7 +84,7 @@ export default function WorkoutTab({
           <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Plus className="w-6 h-6 text-[#C3A869]" />
           </div>
-          <h3 className="text-white font-medium mb-2">Create New Workout</h3>
+          <h3 className="text-white font-heading font-medium mb-2">Create New Workout</h3>
           <p className="text-gray-400 text-sm mb-4">
             Build standalone workouts with exercises, supersets, and circuits
           </p>
@@ -118,7 +118,7 @@ export default function WorkoutTab({
             {['strength', 'upper', 'lower', 'cardio', 'circuit'].map(tag => (
               <button
                 key={tag}
-                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs hover:bg-gray-600 transition"
+                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-sm hover:bg-gray-600 transition"
               >
                 {tag}
               </button>
@@ -130,11 +130,11 @@ export default function WorkoutTab({
       {/* Workout List */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-white font-medium">
+          <h3 className="text-white font-heading font-medium">
             Your Workouts ({filteredWorkouts.length})
           </h3>
           {workouts.length > 0 && (
-            <div className="text-xs text-gray-500">
+            <div className="text-sm text-gray-500">
               {workouts.length} total workout{workouts.length !== 1 ? 's' : ''}
             </div>
           )}
@@ -155,7 +155,7 @@ export default function WorkoutTab({
         ) : (
           <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
             <div className="text-4xl mb-4">💪</div>
-            <h3 className="text-white font-medium mb-2">
+            <h3 className="text-white font-heading font-medium mb-2">
               {searchTerm ? 'No workouts found' : 'No workouts yet'}
             </h3>
             <p className="text-gray-400 text-sm mb-4">
@@ -187,7 +187,7 @@ export default function WorkoutTab({
 
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top duration-300">
+        <div className="fixed top-4 right-4 z-[100] animate-in slide-in-from-top duration-300">
           <div className="bg-green-800 border border-green-600 text-green-100 px-4 py-3 rounded-lg shadow-lg flex items-center gap-2">
             <CheckCircle className="w-5 h-5 text-green-400" />
             <span className="text-sm font-medium">{toastMessage}</span>

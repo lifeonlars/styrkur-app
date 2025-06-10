@@ -47,10 +47,10 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
 
   if (!workoutSession) {
     return (
-      <div className="flex-1 flex items-center justify-center pb-20 lg:pb-0 lg:pt-20">
+      <div className="flex-1 flex items-center justify-center pb-20 lg:pb-0 lg:pt-24">
         <div className="text-center">
           <div className="text-6xl mb-4">⚔️</div>
-          <h2 className="text-white text-xl font-medium mb-2">Ready for Battle</h2>
+          <h2 className="text-white text-xl font-medium mb-2 font-heading">Ready for Battle</h2>
           <p className="text-gray-400 mb-6">Starting workout session...</p>
         </div>
       </div>
@@ -58,12 +58,12 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
   }
 
   return (
-    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-20">
+    <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Workout Header */}
-      <div className="bg-gray-900 p-4 border-b border-gray-800 sticky top-0 lg:top-20 z-10">
+      <div className="bg-gray-900 p-4 border-b border-gray-800 sticky top-0 lg:top-24 z-10">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-white text-lg font-medium">{workoutSession.title}</h1>
+            <h1 className="text-white text-lg font-medium font-heading">{workoutSession.title}</h1>
             <p className="text-gray-400 text-sm">
               {workoutSession.startTime.toLocaleTimeString()}
             </p>
@@ -86,7 +86,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
               <div className="flex items-center mb-3">
                 <span className="text-2xl mr-3">{exerciseData?.icon}</span>
                 <div className="flex-1">
-                  <h3 className="text-white font-medium">{exerciseData?.name}</h3>
+                  <h3 className="text-white font-medium font-heading">{exerciseData?.name}</h3>
                   <p className="text-gray-400 text-sm">
                     {exercise.sets} × {exercise.reps} @ {exercise.weight || exercise.load}kg
                   </p>
@@ -108,7 +108,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
                       }`}
                     >
                       <div className="text-sm font-medium">Set {setIndex + 1}</div>
-                      <div className="text-xs opacity-75">{exercise.reps} reps</div>
+                      <div className="text-sm opacity-75">{exercise.reps} reps</div>
                       {isCompleted && <Check className="w-4 h-4 mx-auto mt-1" />}
                     </button>
                   )

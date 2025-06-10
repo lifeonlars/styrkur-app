@@ -114,10 +114,13 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
 }
 
 export function formatWeight(weight: number): string {
-  if (weight >= 1000) {
-    return `${(weight / 1000).toFixed(1)}k kg`
-  }
-  return `${weight.toFixed(0)} kg`
+  // Format with spaces for thousands separator
+  const formattedNumber = new Intl.NumberFormat('en-US', {
+    useGrouping: true,
+    maximumFractionDigits: 1
+  }).format(weight).replace(/,/g, ' ')
+  
+  return `${formattedNumber} kg`
 }
 
 export function getGroupTypeIcon(hasSuperset: boolean, hasCircuit: boolean): string {

@@ -33,13 +33,13 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
       <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-gray-700">
         {/* Header */}
         <div className="p-6 border-b border-gray-800">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-white text-xl font-medium">Quick Start</h2>
+              <h2 className="text-white text-xl font-medium font-heading">Quick Start</h2>
               <p className="text-gray-400 text-sm">Choose how to begin your workout</p>
             </div>
             <button
@@ -100,10 +100,10 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
                     <div key={workout.id} className="bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition">
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex-1">
-                          <h3 className="text-white font-medium mb-1">{workout.title}</h3>
+                          <h3 className="text-white font-medium mb-1 font-heading">{workout.title}</h3>
                           <p className="text-gray-400 text-sm mb-2">{workout.description}</p>
                           
-                          <div className="flex items-center gap-4 text-xs text-gray-500">
+                          <div className="flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
                               <Tag className="w-3 h-3" />
                               {workout.tags?.join(', ') || 'No tags'}
@@ -129,7 +129,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
               ) : (
                 <div className="text-center py-8">
                   <div className="text-4xl mb-4">📋</div>
-                  <h3 className="text-white font-medium mb-2">No Saved Workouts</h3>
+                  <h3 className="text-white font-medium mb-2 font-heading">No Saved Workouts</h3>
                   <p className="text-gray-400 text-sm mb-4">
                     You haven't created any workouts yet. Try building a new one!
                   </p>
@@ -148,7 +148,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
             <div className="text-center py-8">
               <div className="bg-gray-800 rounded-xl p-8 border border-gray-700">
                 <Zap className="w-12 h-12 mx-auto mb-4 text-[#C3A869]" />
-                <h3 className="text-white font-medium mb-2">Build New Workout</h3>
+                <h3 className="text-white font-medium mb-2 font-heading">Build New Workout</h3>
                 <p className="text-gray-400 text-sm mb-6">
                   Create a custom workout from scratch. After saving, you'll immediately start the training session.
                 </p>
@@ -167,14 +167,14 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
             <div className="text-center py-8">
               <div className="bg-gray-800/50 rounded-xl p-8 border border-gray-700 border-dashed">
                 <Bot className="w-12 h-12 mx-auto mb-4 text-gray-500" />
-                <h3 className="text-white font-medium mb-2">AI Workout Generation</h3>
+                <h3 className="text-white font-medium mb-2 font-heading">AI Workout Generation</h3>
                 <p className="text-gray-400 text-sm mb-4">
                   Generate personalized workouts using AI based on your goals, available time, and equipment.
                 </p>
                 <div className="bg-gray-700/50 rounded-lg px-4 py-2 inline-block">
-                  <span className="text-gray-500 text-xs">Coming Soon</span>
+                  <span className="text-gray-500 text-sm">Coming Soon</span>
                 </div>
-                <div className="mt-4 text-xs text-gray-500 space-y-1">
+                <div className="mt-4 text-sm text-gray-500 space-y-1">
                   <p>• Personalized workout plans</p>
                   <p>• Equipment-based suggestions</p>
                   <p>• Goal-oriented programming</p>
