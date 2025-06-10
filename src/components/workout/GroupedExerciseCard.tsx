@@ -48,7 +48,17 @@ export default function GroupedExerciseCard({
   }
 
   const handleExerciseUpdate = (setIndex: number, exerciseIndex: number, field: keyof ExerciseInSetLog, value: any) => {
-    onUpdateExerciseInSet(setIndex, exerciseIndex, { [field]: value })
+    // Create a more defensive update that preserves existing data
+    const currentExercise = groupLog.setLogs[setIndex]?.exercises[exerciseIndex]
+    if (!currentExercise) return
+
+    // Always preserve existing data when updating
+    const updates = {
+      ...currentExercise,
+      [field]: value
+    }
+    
+    onUpdateExerciseInSet(setIndex, exerciseIndex, updates)
     
     // If we're updating the completion status of an exercise, check if the whole set should be marked complete
     if (field === 'isCompleted') {
@@ -251,13 +261,15 @@ export default function GroupedExerciseCard({
                     <div className="col-span-2 flex justify-center">
                       <button
                         onClick={() => handleExerciseUpdate(setIndex, exerciseIndex, 'isCompleted', !exercise.isCompleted)}
-                        className={`w-5 h-5 rounded border-2 flex items-center justify-center transition ${
+                        className={`px-2 py-1 rounded text-sm font-medium transition flex items-center gap-1 min-w-[60px] ${
                           exercise.isCompleted
-                            ? 'bg-green-600 border-green-600 text-white'
-                            : 'border-gray-500 hover:border-gray-400'
+                            ? 'bg-green-600 text-white border border-green-500'
+                            : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
                         }`}
+                        title={exercise.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
                       >
-                        {exercise.isCompleted && <Check className="w-3 h-3" />}
+                        <Check className="w-3 h-3" />
+                        <span className="text-sm">{exercise.isCompleted ? 'Done' : 'Mark'}</span>
                       </button>
                     </div>
 

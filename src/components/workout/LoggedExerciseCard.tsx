@@ -28,22 +28,37 @@ export default function LoggedExerciseCard({
   }
 
   const handleSetComplete = (setIndex: number, isCompleted: boolean) => {
+    // Get current set data to preserve existing values
+    const currentSet = exerciseLog.setLogs[setIndex]
+    if (!currentSet) return
+
+    // Preserve all existing data when updating completion status
     onUpdateSetLog(setIndex, {
+      ...currentSet,
       isCompleted,
       completedAt: isCompleted ? new Date() : undefined
     })
   }
 
   const handleRepsChange = (setIndex: number, reps: number) => {
-    onUpdateSetLog(setIndex, { reps })
+    const currentSet = exerciseLog.setLogs[setIndex]
+    if (!currentSet) return
+    
+    onUpdateSetLog(setIndex, { ...currentSet, reps })
   }
 
   const handleWeightChange = (setIndex: number, weight: number) => {
-    onUpdateSetLog(setIndex, { weight })
+    const currentSet = exerciseLog.setLogs[setIndex]
+    if (!currentSet) return
+    
+    onUpdateSetLog(setIndex, { ...currentSet, weight })
   }
 
   const handleRpeChange = (setIndex: number, rpe: number) => {
-    onUpdateSetLog(setIndex, { rpe })
+    const currentSet = exerciseLog.setLogs[setIndex]
+    if (!currentSet) return
+    
+    onUpdateSetLog(setIndex, { ...currentSet, rpe })
   }
 
   const completedSets = exerciseLog.setLogs.filter(set => set.isCompleted).length
