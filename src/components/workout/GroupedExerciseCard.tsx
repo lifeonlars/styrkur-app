@@ -29,14 +29,46 @@ export default function GroupedExerciseCard({
   }
 
   const handleSetComplete = (setIndex: number, isCompleted: boolean) => {
+    // Update the set completion status
     onUpdateSet(setIndex, {
       isCompleted,
       completedAt: isCompleted ? new Date() : undefined
     })
+    
+    // When marking a set as complete, also mark all exercises in that set as complete
+    // When marking as incomplete, mark all exercises as incomplete
+    const setLog = groupLog.setLogs[setIndex]
+    if (setLog) {
+      setLog.exercises.forEach((_, exerciseIndex) => {
+        onUpdateExerciseInSet(setIndex, exerciseIndex, {
+          isCompleted
+        })
+      })
+    }
   }
 
   const handleExerciseUpdate = (setIndex: number, exerciseIndex: number, field: keyof ExerciseInSetLog, value: any) => {
     onUpdateExerciseInSet(setIndex, exerciseIndex, { [field]: value })
+    
+    // If we're updating the completion status of an exercise, check if the whole set should be marked complete
+    if (field === 'isCompleted') {
+      const setLog = groupLog.setLogs[setIndex]
+      if (setLog) {
+        // Check if all exercises in this set are completed
+        const allExercisesCompleted = setLog.exercises.every((exercise, idx) => {
+          if (idx === exerciseIndex) {
+            return value // Use the new value being set
+          }
+          return exercise.isCompleted
+        })
+        
+        // Update the set completion status accordingly
+        onUpdateSet(setIndex, {
+          isCompleted: allExercisesCompleted,
+          completedAt: allExercisesCompleted ? new Date() : undefined
+        })
+      }
+    }
   }
 
   const completedSets = groupLog.setLogs.filter(set => set.isCompleted).length
