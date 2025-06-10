@@ -1,11 +1,15 @@
 'use client'
 
-import { useState } from 'react'
-import { Zap, Calendar, Play, RotateCcw } from 'lucide-react'
-import { Workout } from '@/types'
+import { useState, useEffect } from 'react'
+import { Zap, Calendar, Play } from 'lucide-react'
+import { Workout, WorkoutSessionState, WorkoutSessionSummary } from '@/types'
+import { loadWorkoutSession, hasActiveSession } from '@/lib/sessionStorage'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 import QuickStartModal from '@/components/workout/QuickStartModal'
 import WorkoutSummaryCard from '@/components/workout/WorkoutSummaryCard'
+import WorkoutTabs from '@/components/workouts/WorkoutTabs'
+import WorkoutLoggingModal from '@/components/workout/WorkoutLoggingModal'
+import WorkoutSessionSummaryModal from '@/components/workout/WorkoutSessionSummary'
 import TrainScreen from './TrainScreen'
 
 interface WorkoutsScreenProps {
@@ -20,6 +24,20 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
   const [showQuickStart, setShowQuickStart] = useState(false)
   const [showWorkoutForm, setShowWorkoutForm] = useState(false)
   const [editingWorkout, setEditingWorkout] = useState<Workout | null>(null)
+  const [activeSession, setActiveSession] = useState<WorkoutSessionState | null>(null)
+  const [loggingWorkout, setLoggingWorkout] = useState<Workout | null>(null)
+  const [sessionSummary, setSessionSummary] = useState<WorkoutSessionSummary | null>(null)
+
+  // Check for existing active session on mount
+  useEffect(() => {
+    if (hasActiveSession()) {
+      const existingSession = loadWorkoutSession()
+      if (existingSession) {
+        setActiveSession(existingSession)
+        setLoggingWorkout(existingSession.workout)
+      }
+    }
+  }, [])
 
   const handleSaveWorkout = (workout: Workout) => {
     if (editingWorkout) {
@@ -38,7 +56,8 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
   }
 
   const handleStartWorkout = (workout: Workout) => {
-    onSaveWorkout(workout)
+    setLoggingWorkout(workout)
+    setActiveSession(null) // Clear any existing session to start fresh
   }
 
   const handleRepeatWorkout = (workout: Workout) => {
@@ -46,20 +65,40 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
     const repeatedWorkout: Workout = {
       ...workout,
       id: Date.now(),
-      title: `${workout.title} (Repeat)`,
+      title: `${workout.title}`,
       createdAt: new Date(),
       updatedAt: new Date()
     }
-    onSaveWorkout(repeatedWorkout)
+    setLoggingWorkout(repeatedWorkout)
+    setActiveSession(null) // Clear any existing session to start fresh
   }
 
   const handleCreateWorkout = () => {
     setShowWorkoutForm(true)
   }
 
+  const handleFinishSession = (summary: WorkoutSessionSummary) => {
+    setSessionSummary(summary)
+    setLoggingWorkout(null)
+    setActiveSession(null)
+  }
+
+  const handleCloseLoggingModal = () => {
+    // Session is automatically saved, just hide the modal
+    setLoggingWorkout(null)
+  }
+
+  const handleCloseSummary = () => {
+    setSessionSummary(null)
+  }
+
+  const handleReturnToWorkouts = () => {
+    setSessionSummary(null)
+  }
+
   // Mock data for demonstration - in real app this would come from scheduling system
   const todaysScheduledWorkout = null // workouts.find(w => w.scheduledDate === today)
-  const recentWorkouts = workouts.slice(-3).reverse() // Last 3 workouts
+  const recentWorkouts = workouts.slice(-5).reverse() // Last 5 workouts for recent sessions
 
   // If there's an active workout, show the training interface
   if (currentWorkout) {
@@ -116,55 +155,14 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
         </div>
       </section>
 
-      {/* Recent Workouts */}
-      {recentWorkouts.length > 0 && (
-        <section className="p-4 lg:p-6">
-          <h2 className="text-white font-medium mb-4 flex items-center">
-            <RotateCcw className="w-5 h-5 mr-2 text-[#C3A869]" />
-            Recent Sessions
-          </h2>
-          <div className="space-y-3">
-            {recentWorkouts.map(workout => (
-              <WorkoutSummaryCard
-                key={workout.id}
-                workout={workout}
-                onStart={handleStartWorkout}
-                onRepeat={handleRepeatWorkout}
-                variant="recent"
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Your Workouts Library */}
+      {/* Tabbed Workout Interface */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4">Your Workout Library</h2>
-        {workouts.length > 0 ? (
-          <div className="space-y-3">
-            {workouts.map(workout => (
-              <WorkoutSummaryCard
-                key={workout.id}
-                workout={workout}
-                onStart={handleStartWorkout}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
-            <div className="text-4xl mb-4">📚</div>
-            <h3 className="text-white font-medium mb-2">No Saved Workouts</h3>
-            <p className="text-gray-400 text-sm mb-4">
-              You haven't created any workouts yet. Use Quick Start to begin training or build your first workout.
-            </p>
-            <button
-              onClick={() => setShowQuickStart(true)}
-              className="bg-[#C3A869] text-black px-6 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
-            >
-              Get Started
-            </button>
-          </div>
-        )}
+        <WorkoutTabs
+          workouts={workouts}
+          recentSessions={recentWorkouts}
+          onStartWorkout={handleStartWorkout}
+          onRepeatWorkout={handleRepeatWorkout}
+        />
       </section>
 
       {/* Modals */}
@@ -182,6 +180,25 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
           onSave={handleSaveWorkout}
           onClose={handleCloseWorkoutForm}
           initialWorkout={editingWorkout || undefined}
+        />
+      )}
+
+      {/* Workout Logging Modal */}
+      {loggingWorkout && (
+        <WorkoutLoggingModal
+          workout={loggingWorkout}
+          initialSession={activeSession || undefined}
+          onFinishSession={handleFinishSession}
+          onClose={handleCloseLoggingModal}
+        />
+      )}
+
+      {/* Session Summary Modal */}
+      {sessionSummary && (
+        <WorkoutSessionSummaryModal
+          summary={sessionSummary}
+          onClose={handleCloseSummary}
+          onReturnToWorkouts={handleReturnToWorkouts}
         />
       )}
     </div>

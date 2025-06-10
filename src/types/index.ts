@@ -187,7 +187,77 @@ export interface SetLog {
   weight: number
   rpe?: number
   isCompleted: boolean
-  completedAt: Date
+  completedAt?: Date
+  notes?: string
+}
+
+// Enhanced Workout Session Types for Logging Modal
+export interface WorkoutSessionState {
+  sessionId: string
+  workout: Workout
+  startTime: Date
+  currentGroupIndex: number
+  groupLogs: Record<string, GroupSessionLog> // Key: groupId
+  isCompleted: boolean
+  endTime?: Date
+  // Legacy support for backward compatibility
+  logs?: Record<string, ExerciseSessionLog>
+}
+
+export interface GroupSessionLog {
+  groupId: string
+  groupType: ExerciseGroupType
+  label?: string
+  plannedSets: number // For supersets/circuits, this is rounds
+  setLogs: GroupSetLog[]
+  groupNotes?: string
+}
+
+export interface GroupSetLog {
+  setNumber: number // Set number or round number
+  exercises: ExerciseInSetLog[]
+  isCompleted: boolean
+  completedAt?: Date
+}
+
+export interface ExerciseInSetLog {
+  exerciseId: string
+  exerciseData: Exercise
+  reps: number
+  weight: number
+  rpe?: number
+  isCompleted: boolean
+  notes?: string
+}
+
+// Legacy interface for backward compatibility
+export interface ExerciseSessionLog {
+  exerciseId: string
+  exerciseData: Exercise
+  groupId: string
+  groupType: ExerciseGroupType
+  plannedSets: number
+  setLogs: SetLog[]
+  exerciseNotes?: string
+}
+
+export interface WorkoutSessionSummary {
+  sessionId: string
+  workoutTitle: string
+  startTime: Date
+  endTime: Date
+  totalSets: number
+  completedSets: number
+  totalWeight: number
+  totalReps: number
+  duration: number // minutes
+  exercises: {
+    name: string
+    sets: number
+    reps: number
+    weight: number
+  }[]
+  notes?: string
 }
 
 // Program Types
