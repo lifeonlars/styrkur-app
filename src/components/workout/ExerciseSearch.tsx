@@ -162,7 +162,7 @@ export default function ExerciseSearch({
       </div>
       
       {/* Exercise List */}
-      <div className="max-h-96 overflow-y-auto">
+      <div className="max-h-[32rem] overflow-y-auto">
         {loading ? (
           <div className="text-center py-8">
             <div className="text-primary text-2xl mb-2">⚡</div>
