@@ -106,10 +106,10 @@ export default function ExerciseSearch({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-4">
       {/* Header with Close Button */}
       {onClose && (
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-700">
           <h3 className="text-white font-medium">Select Exercise</h3>
           <button
             onClick={onClose}
@@ -145,25 +145,24 @@ export default function ExerciseSearch({
       </div>
 
       {/* Muscle Group Filter */}
-      <div className="flex gap-2 overflow-x-auto">
+      <div className="flex gap-2 overflow-x-auto pb-2">
         {muscleGroupFilters.map(filter => (
           <button
             key={filter.id}
             onClick={() => handleMuscleGroupFilter(filter.id as MuscleGroup | 'all')}
-            className={`px-3 py-1 rounded-lg text-xs whitespace-nowrap transition flex items-center gap-1 ${
+            className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap transition ${
               selectedMuscleGroup === filter.id
                 ? 'bg-[#C3A869] text-black font-medium'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
           >
-            <span className="text-sm">{filter.icon}</span>
             {filter.label}
           </button>
         ))}
       </div>
       
       {/* Exercise List */}
-      <div className="max-h-60 overflow-y-auto">
+      <div className="max-h-96 overflow-y-auto">
         {loading ? (
           <div className="text-center py-8">
             <div className="text-primary text-2xl mb-2">⚡</div>

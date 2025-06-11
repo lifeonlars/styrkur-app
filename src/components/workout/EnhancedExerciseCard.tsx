@@ -30,25 +30,18 @@ export default function EnhancedExerciseCard({
 
   return (
     <>
-      <div className="bg-gray-800 p-3 rounded-lg flex items-center hover:bg-gray-700 transition w-full">
-        {/* Exercise Icon */}
-        <div className="w-12 h-12 mr-3 flex-shrink-0 bg-gray-700 rounded-md flex items-center justify-center">
-          <span className="text-lg">{exercise.icon}</span>
-        </div>
-        
+      <div className="bg-gray-800 p-4 rounded-lg flex items-center hover:bg-gray-700 transition w-full">
         <div className="flex-1 min-w-0">
           <div className="text-white text-sm font-medium truncate">{exercise.name}</div>
           <div className="text-gray-400 text-sm">
-            {exercise.target} • {exercise.equipment}
+            {exercise.equipment}
+            {exercise.primaryMuscles && exercise.primaryMuscles.length > 0 && (
+              <span className="text-[#C3A869] ml-2">
+                • {exercise.primaryMuscles.slice(0, 2).join(', ')}
+                {exercise.primaryMuscles.length > 2 && ` +${exercise.primaryMuscles.length - 2}`}
+              </span>
+            )}
           </div>
-          
-          {/* Primary muscles worked */}
-          {exercise.primaryMuscles && exercise.primaryMuscles.length > 0 && (
-            <div className="text-[#C3A869] text-sm mt-1">
-              Primary: {exercise.primaryMuscles.slice(0, 2).join(', ')}
-              {exercise.primaryMuscles.length > 2 && ` +${exercise.primaryMuscles.length - 2} more`}
-            </div>
-          )}
         </div>
         
         <div className="flex items-center gap-2">
