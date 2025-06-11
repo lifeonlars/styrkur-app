@@ -106,7 +106,7 @@ export default function ExerciseSearch({
   }
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="flex flex-col h-full p-4">
       {/* Header with Close Button */}
       {onClose && (
         <div className="flex justify-between items-center pb-4 border-b border-gray-700">
@@ -123,7 +123,7 @@ export default function ExerciseSearch({
       )}
       
       {/* Search Bar */}
-      <div className="relative">
+      <div className="relative mb-4">
         <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
         <input
           type="text"
@@ -145,7 +145,7 @@ export default function ExerciseSearch({
       </div>
 
       {/* Muscle Group Filter */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
         {muscleGroupFilters.map(filter => (
           <button
             key={filter.id}
@@ -162,7 +162,7 @@ export default function ExerciseSearch({
       </div>
       
       {/* Exercise List */}
-      <div className="max-h-[32rem] overflow-y-auto">
+      <div className="flex-1 overflow-y-auto">
         {loading ? (
           <div className="text-center py-8">
             <div className="text-primary text-2xl mb-2">⚡</div>
