@@ -92,9 +92,9 @@ export interface ExerciseConfig {
   reps?: number
   weight?: number
   rest?: number
-  rpe?: number
   tempo?: string
   notes?: string
+  // RPE is now handled at the group level, not per exercise
 }
 
 // Exercise Group Types
@@ -112,6 +112,9 @@ export interface WorkoutEntry {
   rounds?: number                     // optional: for circuits
   timingStyle?: TimingStyle           // optional metadata
   restAfterGroup?: number             // rest after completing the group (seconds)
+  // RPE configuration based on group type:
+  groupRPE?: number                   // For single and superset groups: one RPE for the entire group
+  // Circuits do not have RPE fields
 }
 
 // Workout Exercise (Exercise + Configuration)
@@ -211,6 +214,9 @@ export interface GroupSessionLog {
   plannedSets: number // For supersets/circuits, this is rounds
   setLogs: GroupSetLog[]
   groupNotes?: string
+  // RPE tracking based on group type:
+  groupRPE?: number                   // For single and superset groups: one RPE for the entire group
+  // Circuits do not have RPE fields
 }
 
 export interface GroupSetLog {
@@ -218,6 +224,8 @@ export interface GroupSetLog {
   exercises: ExerciseInSetLog[]
   isCompleted: boolean
   completedAt?: Date
+  // RPE is no longer stored at the set level - moved to group level for single/superset
+  // For circuits: no RPE
 }
 
 export interface ExerciseInSetLog {
@@ -225,9 +233,9 @@ export interface ExerciseInSetLog {
   exerciseData: Exercise
   reps: number
   weight: number
-  rpe?: number
   isCompleted: boolean
   notes?: string
+  // RPE is no longer at the exercise level - moved to group or set level
 }
 
 // Legacy interface for backward compatibility
@@ -239,6 +247,7 @@ export interface ExerciseSessionLog {
   plannedSets: number
   setLogs: SetLog[]
   exerciseNotes?: string
+  groupRPE?: number
 }
 
 export interface WorkoutSessionSummary {

@@ -60,7 +60,6 @@ export default function WorkoutLoggingModal({
             },
             reps: exerciseConfig.reps || 0,
             weight: exerciseConfig.weight || 0,
-            rpe: exerciseConfig.rpe,
             isCompleted: false,
             notes: exerciseConfig.notes
           }))
@@ -74,7 +73,10 @@ export default function WorkoutLoggingModal({
               setNumber: setIndex + 1,
               exercises: exercises.map(ex => ({ ...ex })), // Clone exercises for each set
               isCompleted: false
-            }))
+            })),
+            // RPE configuration based on group type
+            ...(entry.type !== 'circuit' && entry.groupRPE && { groupRPE: entry.groupRPE })
+            // Circuits have no RPE fields
           }
         })
       }
@@ -94,7 +96,6 @@ export default function WorkoutLoggingModal({
                 exerciseData: exercise.exerciseData,
                 reps: exercise.reps,
                 weight: exercise.weight,
-                rpe: exercise.rpe,
                 isCompleted: false,
                 notes: exercise.notes
               }],
@@ -112,7 +113,6 @@ export default function WorkoutLoggingModal({
             exerciseData: exercise.exerciseData,
             reps: exercise.reps,
             weight: exercise.weight,
-            rpe: exercise.rpe,
             isCompleted: false,
             notes: exercise.notes
           }))
@@ -139,7 +139,6 @@ export default function WorkoutLoggingModal({
             exerciseData: exercise.exerciseData,
             reps: exercise.reps,
             weight: exercise.weight,
-            rpe: exercise.rpe,
             isCompleted: false,
             notes: exercise.notes
           }))
@@ -335,6 +334,20 @@ export default function WorkoutLoggingModal({
     }))
   }, [])
 
+  const updateGroupRPE = useCallback((groupId: string, rpe: number) => {
+    setSession(prev => ({
+      ...prev,
+      groupLogs: {
+        ...prev.groupLogs,
+        [groupId]: {
+          ...prev.groupLogs[groupId],
+          groupRPE: rpe
+        }
+      }
+    }))
+  }, [])
+
+
   const handleFinishSession = () => {
     const endTime = new Date()
     const duration = Math.floor((endTime.getTime() - startTime.getTime()) / 60000) // minutes
@@ -418,8 +431,8 @@ export default function WorkoutLoggingModal({
   )
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-      <div className="bg-gray-900 rounded-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <div className="flex items-center gap-4">
@@ -444,7 +457,7 @@ export default function WorkoutLoggingModal({
               className="bg-[#C3A869] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition flex items-center gap-2"
             >
               <Check className="w-4 h-4" />
-              Finish Session
+              <span className="hidden md:inline">Finish Session</span>
             </button>
             <button
               onClick={handleClose}
@@ -482,7 +495,7 @@ export default function WorkoutLoggingModal({
                   setNumber: setLog.setNumber,
                   reps: setLog.exercises[0]?.reps || 0,
                   weight: setLog.exercises[0]?.weight || 0,
-                  rpe: setLog.exercises[0]?.rpe,
+                  rpe: groupLog.groupRPE, // RPE is now at group level for single exercises
                   isCompleted: setLog.exercises[0]?.isCompleted || false,
                   completedAt: setLog.completedAt,
                   notes: setLog.exercises[0]?.notes
@@ -507,7 +520,6 @@ export default function WorkoutLoggingModal({
                     const exerciseUpdates: Partial<ExerciseInSetLog> = {
                       reps: updates.reps,
                       weight: updates.weight,
-                      rpe: updates.rpe,
                       isCompleted: updates.isCompleted || false,
                       notes: updates.notes
                     }
@@ -516,6 +528,7 @@ export default function WorkoutLoggingModal({
                   onAddSet={() => addGroupSet(groupId)}
                   onRemoveSet={(setIndex) => removeGroupSet(groupId, setIndex)}
                   onUpdateNotes={(notes) => updateGroupNotes(groupId, notes)}
+                  onUpdateGroupRPE={(rpe) => updateGroupRPE(groupId, rpe)}
                 />
               )
             }
@@ -532,6 +545,7 @@ export default function WorkoutLoggingModal({
                 onAddSet={() => addGroupSet(groupId)}
                 onRemoveSet={(setIndex) => removeGroupSet(groupId, setIndex)}
                 onUpdateGroupNotes={(notes) => updateGroupNotes(groupId, notes)}
+                onUpdateGroupRPE={groupLog.groupType !== 'circuit' ? (rpe) => updateGroupRPE(groupId, rpe) : undefined}
               />
             )
           })}

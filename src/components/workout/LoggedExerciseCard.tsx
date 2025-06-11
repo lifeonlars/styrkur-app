@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, Plus, Minus, StickyNote, Info } from 'lucide-react'
+import { Check, Plus, StickyNote, Info } from 'lucide-react'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
 import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
 
@@ -10,6 +10,7 @@ interface LoggedExerciseCardProps {
   onAddSet: () => void
   onRemoveSet: (setIndex: number) => void
   onUpdateNotes: (notes: string) => void
+  onUpdateGroupRPE?: (rpe: number) => void
 }
 
 export default function LoggedExerciseCard({
@@ -18,7 +19,8 @@ export default function LoggedExerciseCard({
   onUpdateSetLog,
   onAddSet,
   onRemoveSet,
-  onUpdateNotes
+  onUpdateNotes,
+  onUpdateGroupRPE
 }: LoggedExerciseCardProps) {
   const [showNotes, setShowNotes] = useState(false)
   const [showExerciseDetail, setShowExerciseDetail] = useState(false)
@@ -56,12 +58,6 @@ export default function LoggedExerciseCard({
     onUpdateSetLog(setIndex, { ...currentSet, weight })
   }
 
-  const handleRpeChange = (setIndex: number, rpe: number) => {
-    const currentSet = exerciseLog.setLogs[setIndex]
-    if (!currentSet) return
-    
-    onUpdateSetLog(setIndex, { ...currentSet, rpe })
-  }
 
   const completedSets = exerciseLog.setLogs.filter(set => set.isCompleted).length
   const totalSets = exerciseLog.setLogs.length
@@ -71,7 +67,21 @@ export default function LoggedExerciseCard({
       {/* Exercise Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
-          <h3 className="text-white font-heading font-medium text-lg mb-1">{exercise.name}</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs px-2 py-1 rounded font-medium bg-gray-500/20 text-gray-400">
+              Single
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-sm mb-2">
+            <span className="text-gray-300">{exercise.name}</span>
+            <button
+              onClick={() => setShowExerciseDetail(true)}
+              className="p-1 rounded bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
+              title="Exercise details & muscle map"
+            >
+              <Info className="w-3 h-3" />
+            </button>
+          </div>
           <div className="flex items-center gap-4 text-sm text-gray-400">
             <span>{completedSets}/{totalSets} sets completed</span>
             <span className="capitalize">{exercise.target || 'target muscle'}</span>
@@ -79,13 +89,6 @@ export default function LoggedExerciseCard({
         </div>
         
         <div className="flex gap-2">
-          <button
-            onClick={() => setShowExerciseDetail(true)}
-            className="p-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
-            title="Exercise details & muscle map"
-          >
-            <Info className="w-4 h-4" />
-          </button>
           <button
             onClick={() => setShowNotes(!showNotes)}
             className={`p-2 rounded-lg transition ${
@@ -113,21 +116,43 @@ export default function LoggedExerciseCard({
         </div>
       )}
 
+      {/* Group RPE */}
+      <div className="mb-4 bg-gray-700/30 rounded-lg p-3">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-300 font-medium">Exercise RPE (all sets):</span>
+          <div className="w-32">
+            <select
+              value={exerciseLog.groupRPE || 7}
+              onChange={(e) => onUpdateGroupRPE?.(parseFloat(e.target.value))}
+              className="w-full bg-gray-600 text-white px-2 py-1 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
+            >
+              <option value={6}>6 - Light</option>
+              <option value={6.5}>6.5</option>
+              <option value={7}>7 - Moderate</option>
+              <option value={7.5}>7.5</option>
+              <option value={8}>8 - Hard</option>
+              <option value={8.5}>8.5</option>
+              <option value={9}>9 - Very Hard</option>
+              <option value={9.5}>9.5</option>
+              <option value={10}>10 - Max Effort</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Sets Table */}
-      <div className="space-y-2">
-        <div className="grid grid-cols-12 gap-2 text-sm font-medium text-gray-400 px-2">
+      <div className="space-y-2 overflow-x-auto">
+        <div className="grid grid-cols-6 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[300px] md:min-w-0">
           <div className="col-span-1">Set</div>
-          <div className="col-span-3">Reps</div>
-          <div className="col-span-3">Weight</div>
-          <div className="col-span-2">RPE</div>
-          <div className="col-span-2">Complete</div>
-          <div className="col-span-1"></div>
+          <div className="col-span-2">Reps</div>
+          <div className="col-span-2">Weight (kgs)</div>
+          <div className="col-span-1">Done</div>
         </div>
 
         {exerciseLog.setLogs.map((setLog, index) => (
           <div
             key={index}
-            className={`grid grid-cols-12 gap-2 items-center p-2 rounded-lg transition ${
+            className={`grid grid-cols-6 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[300px] md:min-w-0 ${
               setLog.isCompleted 
                 ? 'bg-green-900/20 border border-green-700/30' 
                 : 'bg-gray-700'
@@ -139,10 +164,10 @@ export default function LoggedExerciseCard({
             </div>
 
             {/* Reps Input */}
-            <div className="col-span-3">
+            <div className="col-span-2">
               <input
-                type="number"
-                min="0"
+                type="text"
+                inputMode="numeric"
                 value={setLog.reps || ''}
                 onChange={(e) => handleRepsChange(index, parseInt(e.target.value) || 0)}
                 className="w-full bg-gray-600 text-white px-2 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
@@ -151,11 +176,10 @@ export default function LoggedExerciseCard({
             </div>
 
             {/* Weight Input */}
-            <div className="col-span-3">
+            <div className="col-span-2">
               <input
-                type="number"
-                min="0"
-                step="0.5"
+                type="text"
+                inputMode="decimal"
                 value={setLog.weight || ''}
                 onChange={(e) => handleWeightChange(index, parseFloat(e.target.value) || 0)}
                 className="w-full bg-gray-600 text-white px-2 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
@@ -163,25 +187,11 @@ export default function LoggedExerciseCard({
               />
             </div>
 
-            {/* RPE Select */}
-            <div className="col-span-2">
-              <select
-                value={setLog.rpe || ''}
-                onChange={(e) => handleRpeChange(index, parseInt(e.target.value) || 0)}
-                className="w-full bg-gray-600 text-white px-1 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869] text-sm"
-              >
-                <option value="">-</option>
-                {Array.from({ length: 10 }, (_, i) => i + 1).map(rpe => (
-                  <option key={rpe} value={rpe}>{rpe}</option>
-                ))}
-              </select>
-            </div>
-
             {/* Complete Button */}
-            <div className="col-span-2 flex justify-center">
+            <div className="col-span-1 flex justify-center">
               <button
                 onClick={() => handleSetComplete(index, !setLog.isCompleted)}
-                className={`px-3 py-1 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
+                className={`p-1 rounded text-sm font-medium transition flex items-center justify-center ${
                   setLog.isCompleted
                     ? 'bg-green-600 text-white border border-green-500'
                     : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
@@ -189,22 +199,9 @@ export default function LoggedExerciseCard({
                 title={setLog.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
               >
                 <Check className="w-3 h-3" />
-                {setLog.isCompleted ? 'Done' : 'Complete'}
               </button>
             </div>
 
-            {/* Remove Set Button */}
-            <div className="col-span-1 flex justify-center">
-              {exerciseLog.setLogs.length > 1 && (
-                <button
-                  onClick={() => onRemoveSet(index)}
-                  className="w-6 h-6 rounded-full bg-red-900/50 text-red-400 flex items-center justify-center hover:bg-red-900 transition"
-                  title="Remove set"
-                >
-                  <Minus className="w-3 h-3" />
-                </button>
-              )}
-            </div>
           </div>
         ))}
 
@@ -214,8 +211,27 @@ export default function LoggedExerciseCard({
           className="w-full mt-2 py-2 border-2 border-dashed border-gray-600 rounded-lg text-gray-400 hover:border-gray-500 hover:text-gray-300 transition flex items-center justify-center gap-2"
         >
           <Plus className="w-4 h-4" />
-          Add Set
+          <span className="hidden md:inline">Add Set</span>
         </button>
+
+        {/* Remove Set Buttons */}
+        {exerciseLog.setLogs.length > 1 && (
+          <div className="mt-2 text-center">
+            <div className="text-xs text-gray-400 mb-2">Remove sets:</div>
+            <div className="flex justify-center gap-2">
+              {exerciseLog.setLogs.map((_, setIndex) => (
+                <button
+                  key={setIndex}
+                  onClick={() => onRemoveSet(setIndex)}
+                  className="px-2 py-1 bg-red-900/50 text-red-400 rounded text-xs hover:bg-red-900 transition"
+                  title={`Remove set ${setIndex + 1}`}
+                >
+                  Set {setIndex + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Exercise Instructions/Tips */}
