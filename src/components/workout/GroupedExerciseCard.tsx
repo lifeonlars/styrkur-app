@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Check, Plus, ChevronDown, ChevronUp, StickyNote } from 'lucide-react'
+import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info } from 'lucide-react'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
+import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
 
 interface GroupedExerciseCardProps {
   groupLog: GroupSessionLog
@@ -21,6 +22,8 @@ export default function GroupedExerciseCard({
 }: GroupedExerciseCardProps) {
   const [isExpanded, setIsExpanded] = useState(true)
   const [showNotes, setShowNotes] = useState(false)
+  const [showExerciseDetail, setShowExerciseDetail] = useState(false)
+  const [selectedExerciseIndex, setSelectedExerciseIndex] = useState(0)
   const [notes, setNotes] = useState(groupLog.groupNotes || '')
 
   const handleNotesChange = (value: string) => {
@@ -91,6 +94,17 @@ export default function GroupedExerciseCard({
     return '💪'
   }
 
+  // Get unique exercises from the first set (all sets should have the same exercises)
+  const getUniqueExercises = () => {
+    if (groupLog.setLogs.length === 0) return []
+    return groupLog.setLogs[0].exercises.map(ex => ex.exerciseData)
+  }
+
+  const handleShowExerciseDetail = (exerciseIndex: number) => {
+    setSelectedExerciseIndex(exerciseIndex)
+    setShowExerciseDetail(true)
+  }
+
   return (
     <div className="bg-gray-800 rounded-lg border border-gray-700">
       {/* Group Header */}
@@ -110,6 +124,15 @@ export default function GroupedExerciseCard({
           </div>
           
           <div className="flex gap-2">
+            {getUniqueExercises().length > 0 && (
+              <button
+                onClick={() => handleShowExerciseDetail(0)}
+                className="p-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
+                title="Exercise details & muscle map"
+              >
+                <Info className="w-4 h-4" />
+              </button>
+            )}
             <button
               onClick={() => setShowNotes(!showNotes)}
               className={`p-2 rounded-lg transition ${
@@ -213,9 +236,13 @@ export default function GroupedExerciseCard({
                   >
                     {/* Exercise Name */}
                     <div className="col-span-3">
-                      <span className="text-white text-sm font-medium truncate block">
+                      <button
+                        onClick={() => handleShowExerciseDetail(exerciseIndex)}
+                        className="text-white text-sm font-medium truncate block hover:text-[#C3A869] transition text-left"
+                        title="View exercise details"
+                      >
                         {exercise.exerciseData.name}
-                      </span>
+                      </button>
                     </div>
 
                     {/* Reps */}
@@ -301,6 +328,15 @@ export default function GroupedExerciseCard({
             Add {setLabel}
           </button>
         </div>
+      )}
+
+      {/* Exercise Detail Modal */}
+      {getUniqueExercises().length > 0 && (
+        <MuscleMapModal
+          isOpen={showExerciseDetail}
+          onClose={() => setShowExerciseDetail(false)}
+          exercise={getUniqueExercises()[selectedExerciseIndex]}
+        />
       )}
     </div>
   )

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
 import { Exercise, ExerciseFilter, MuscleGroup } from '@/types'
 import { fetchExercises, muscleGroupFilters } from '@/lib/wger'
-import ExerciseCard from './ExerciseCard'
+import EnhancedExerciseCard from './EnhancedExerciseCard'
 
 interface ExerciseSearchProps {
   onExerciseSelect?: (exercise: Exercise) => void
@@ -192,7 +192,7 @@ export default function ExerciseSearch({
                 .filter(exercise => !selectedExercises.includes(exercise.id))
                 .slice(0, 15)
                 .map(exercise => (
-                <ExerciseCard
+                <EnhancedExerciseCard
                   key={exercise.id}
                   exercise={exercise}
                   onAdd={onExerciseSelect || onSelectExercise || (() => {})}

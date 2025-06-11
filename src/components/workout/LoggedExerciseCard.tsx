@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Check, Plus, Minus, StickyNote } from 'lucide-react'
+import { Check, Plus, Minus, StickyNote, Info } from 'lucide-react'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
+import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
 
 interface LoggedExerciseCardProps {
   exercise: Exercise
@@ -20,6 +21,7 @@ export default function LoggedExerciseCard({
   onUpdateNotes
 }: LoggedExerciseCardProps) {
   const [showNotes, setShowNotes] = useState(false)
+  const [showExerciseDetail, setShowExerciseDetail] = useState(false)
   const [notes, setNotes] = useState(exerciseLog.exerciseNotes || '')
 
   const handleNotesChange = (value: string) => {
@@ -77,6 +79,13 @@ export default function LoggedExerciseCard({
         </div>
         
         <div className="flex gap-2">
+          <button
+            onClick={() => setShowExerciseDetail(true)}
+            className="p-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
+            title="Exercise details & muscle map"
+          >
+            <Info className="w-4 h-4" />
+          </button>
           <button
             onClick={() => setShowNotes(!showNotes)}
             className={`p-2 rounded-lg transition ${
@@ -222,6 +231,13 @@ export default function LoggedExerciseCard({
           </div>
         </details>
       )}
+
+      {/* Exercise Detail Modal */}
+      <MuscleMapModal
+        isOpen={showExerciseDetail}
+        onClose={() => setShowExerciseDetail(false)}
+        exercise={exercise}
+      />
     </div>
   )
 }
