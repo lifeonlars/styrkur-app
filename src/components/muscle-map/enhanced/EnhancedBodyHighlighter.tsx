@@ -39,6 +39,13 @@ const EnhancedBodyHighlighter: React.FC<EnhancedBodyHighlighterProps> = ({
     if (highlighted) {
       return highlighted.color || getColorForIntensity(highlighted.intensity);
     }
+    
+    // Check if there's a default color in the body data for this part
+    const bodyPart = bodyDataSource.find(part => part.slug === slug);
+    if (bodyPart && bodyPart.color) {
+      return bodyPart.color;
+    }
+    
     // Return a subtle background color for non-highlighted muscles so they're visible
     // Use a darker gray that works well with the app's dark theme
     return '#6b7280'; // Medium gray for non-highlighted muscles
@@ -63,7 +70,7 @@ const EnhancedBodyHighlighter: React.FC<EnhancedBodyHighlighterProps> = ({
     const fillColor = getFillColor(bodyPart.slug as MuscleSlug);
     const strokeColor = getStrokeColor();
 
-    const paths = [];
+    const paths: React.ReactElement[] = [];
 
     // Render common paths (for both sides)
     if (bodyPart.path?.common) {
