@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Edit, Trash2, Clock, Repeat, Info } from 'lucide-react'
-import { WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
+import { ChevronDown, ChevronUp, Edit, Trash2, Clock, Repeat } from 'lucide-react'
+import { WorkoutEntry, Exercise } from '@/types'
+import { categoryMapping } from '@/lib/wger'
 import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
 
 interface WorkoutEntryCardProps {
@@ -10,7 +11,6 @@ interface WorkoutEntryCardProps {
   exercises: Exercise[] // Available exercises for lookup
   onEdit: (entry: WorkoutEntry) => void
   onDelete: (entryId: string) => void
-  onEditExercise: (entryId: string, exerciseIndex: number, config: ExerciseConfig) => void
   onMoveUp?: () => void
   onMoveDown?: () => void
   canMoveUp?: boolean
@@ -22,7 +22,6 @@ export default function WorkoutEntryCard({
   exercises, 
   onEdit, 
   onDelete, 
-  onEditExercise,
   onMoveUp,
   onMoveDown,
   canMoveUp,
@@ -36,6 +35,24 @@ export default function WorkoutEntryCard({
     return exercises.find(ex => ex.id === exerciseId)
   }
 
+  const formatExerciseInfo = (exercise: Exercise): string => {
+    const equipment = exercise.equipment || 'Unknown'
+    
+    // Use WGER category if available, otherwise use muscle group
+    let category = ''
+    if (exercise.category && categoryMapping[exercise.category]) {
+      category = categoryMapping[exercise.category]
+      // Capitalize first letter
+      category = category.charAt(0).toUpperCase() + category.slice(1)
+    } else if (exercise.muscleGroup) {
+      category = exercise.muscleGroup.charAt(0).toUpperCase() + exercise.muscleGroup.slice(1)
+    } else {
+      category = 'Unknown'
+    }
+
+    return `${equipment} | ${category}`
+  }
+
   const handleShowExerciseDetail = (exerciseId: string) => {
     const exercise = getExerciseData(exerciseId)
     if (exercise) {
@@ -44,16 +61,6 @@ export default function WorkoutEntryCard({
     }
   }
 
-  const getTypeIcon = () => {
-    switch (entry.type) {
-      case 'superset':
-        return '🔗'
-      case 'circuit':
-        return '⚡'
-      default:
-        return '💪'
-    }
-  }
 
   const getTypeBadge = () => {
     const baseClass = "text-xs px-2 py-1 rounded font-medium"
@@ -97,7 +104,6 @@ export default function WorkoutEntryCard({
       <div className="p-4 border-b border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{getTypeIcon()}</span>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-white font-medium">{getHeaderLabel()}</h3>
@@ -188,53 +194,32 @@ export default function WorkoutEntryCard({
                 className="bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 flex-1 cursor-pointer" onClick={() => onEditExercise(entry.id, index, exerciseConfig)}>
-                    <span className="text-lg">{exerciseData?.icon || '💪'}</span>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="flex-1">
+                      <button
+                        onClick={() => handleShowExerciseDetail(exerciseConfig.exerciseId)}
+                        className="text-white font-medium text-sm hover:text-[#C3A869] transition text-left block"
+                        title="View exercise details & muscle map"
+                      >
                         {exerciseData?.name || 'Unknown Exercise'}
-                      </h4>
+                      </button>
                       <div className="text-xs text-gray-400">
-                        {exerciseData?.target} • {exerciseData?.equipment}
+                        {exerciseData ? formatExerciseInfo(exerciseData) : 'Unknown'}
                       </div>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    {exerciseData && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleShowExerciseDetail(exerciseConfig.exerciseId)
-                        }}
-                        className="p-1 rounded bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
-                        title="Exercise details & muscle map"
-                      >
-                        <Info className="w-3 h-3" />
-                      </button>
-                    )}
-                    
                     <div className="text-right">
                       <div className="text-white text-sm font-medium">
-                        {entry.sets} × {exerciseConfig.reps || 10}
+                        {entry.sets} × {exerciseConfig.reps && exerciseConfig.reps > 0 ? exerciseConfig.reps : '-'}
                         {exerciseConfig.weight && exerciseConfig.weight > 0 && (
                           <span className="text-[#C3A869] ml-1">@ {exerciseConfig.weight}kg</span>
                         )}
                       </div>
-                      {exerciseConfig.rest && exerciseConfig.rest > 0 && (
-                        <div className="text-xs text-gray-400">
-                          {formatRestTime(exerciseConfig.rest)} rest
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
-                
-                {exerciseConfig.notes && (
-                  <div className="mt-2 text-xs text-gray-300 italic">
-                    "{exerciseConfig.notes}"
-                  </div>
-                )}
               </div>
             )
           })}

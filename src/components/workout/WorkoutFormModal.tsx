@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { X, Plus } from 'lucide-react'
-import { Workout, WorkoutForm, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
+import { Workout, WorkoutForm, WorkoutEntry, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
 import WorkoutEntryCard from './WorkoutEntryCard'
 import AddGroupModal from './AddGroupModal'
@@ -59,21 +59,6 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
     }))
   }
 
-  const handleEditExercise = (entryId: string, exerciseIndex: number, config: ExerciseConfig) => {
-    setWorkoutForm(prev => ({
-      ...prev,
-      entries: prev.entries.map(entry => 
-        entry.id === entryId
-          ? {
-              ...entry,
-              exercises: entry.exercises.map((ex, i) => 
-                i === exerciseIndex ? { ...ex, ...config } : ex
-              )
-            }
-          : entry
-      )
-    }))
-  }
 
   const moveEntryUp = (index: number) => {
     if (index > 0) {
@@ -115,8 +100,8 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
   const canSave = workoutForm.title.trim() && workoutForm.entries.length > 0
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4">
-      <div className="bg-gray-900 w-full max-w-4xl rounded-2xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-gray-900 w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
           <h2 className="text-white text-xl font-medium">
@@ -183,7 +168,6 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                       exercises={exercises}
                       onEdit={(entry) => setEditingEntry(entry)}
                       onDelete={handleDeleteGroup}
-                      onEditExercise={handleEditExercise}
                       onMoveUp={() => moveEntryUp(index)}
                       onMoveDown={() => moveEntryDown(index)}
                       canMoveUp={index > 0}
