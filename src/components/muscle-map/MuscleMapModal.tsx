@@ -43,6 +43,7 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
               showBothSides={true}
               showLegend={true}
               showMuscleList={true}
+              forceSingleView={true}
             />
           )}
           
@@ -52,6 +53,7 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
               size="large"
               showBothSides={true}
               showLegend={true}
+              forceSingleView={true}
             />
           )}
         </div>

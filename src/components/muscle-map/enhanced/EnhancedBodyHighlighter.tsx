@@ -120,9 +120,19 @@ const EnhancedBodyHighlighter: React.FC<EnhancedBodyHighlighterProps> = ({
   };
 
   // Calculate viewBox and dimensions based on the body data
-  const viewBox = side === 'front' ? '0 0 800 1400' : '0 0 800 1400';
+  // Analyzed coordinate bounds:
+  // Front view: X: ~180-480, Y: ~90-1340 (width: ~300, height: ~1250)
+  // Back view: X: ~780-1400, Y: ~90-1340 (width: ~620, height: ~1250)
+  // 
+  // Using consistent viewBox to align both views:
+  // - Same width (400) and height (1300) for both
+  // - Vertically aligned from top (Y: 80) to bottom
+  // - Horizontally centered within the viewBox
+  const viewBox = side === 'front' 
+    ? '180 80 300 1300'  // Front: centered on actual content
+    : '890 80 300 1300'; // Back: centered and cropped to match front width
   const width = 300 * scale;
-  const height = 525 * scale;
+  const height = 650 * scale;
 
   return (
     <div

@@ -15,6 +15,8 @@ interface EnhancedMuscleMapProps {
   exerciseName?: string;
   showLegend?: boolean;
   className?: string;
+  /** Force single view mode (useful for mobile or specific layouts) */
+  forceSingleView?: boolean;
 }
 
 const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
@@ -25,9 +27,13 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
   exerciseName,
   showLegend = true,
   className,
+  forceSingleView = false,
 }) => {
   const [selectedSide, setSelectedSide] = useState<'front' | 'back'>('front');
   const [selectedBodyPart, setSelectedBodyPart] = useState<ExtendedBodyPart | null>(null);
+
+  // Determine if we should show dual view based on screen size (unless forced single)
+  const shouldShowDualView = !forceSingleView;
 
   // Convert muscle data to enhanced format
   const { exerciseData, colorMap } = isWorkoutMode 
@@ -45,12 +51,8 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
     console.log(`Clicked on ${getMuscleDisplayName(bodyPart.slug)}${side ? ` (${side})` : ''}`);
   };
 
-  const toggleSide = () => {
-    setSelectedSide(prev => prev === 'front' ? 'back' : 'front');
-  };
-
   return (
-    <div className={`flex flex-col items-center space-y-4 ${className}`}>
+    <div className={`flex flex-col space-y-4 ${className}`}>
       {/* Title */}
       <div className="text-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -63,29 +65,79 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
         )}
       </div>
 
-      {/* Controls */}
-      <div className="flex items-center space-x-4">
-        <button
-          onClick={toggleSide}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
-        >
-          {selectedSide === 'front' ? 'Show Back' : 'Show Front'}
-        </button>
-        <div className="text-sm text-gray-600 dark:text-gray-400">
-          Current view: {selectedSide}
-        </div>
-      </div>
+      {/* Responsive Body Views */}
+      <div className="w-full">
+        {/* Single View with Tabs (Mobile/Tablet or when forced) */}
+        <div className={forceSingleView ? 'block' : 'lg:hidden'}>
+          {/* Tab Navigation */}
+          <div className="flex bg-gray-800 rounded-lg p-1 mb-4 max-w-xs mx-auto">
+            <button
+              onClick={() => setSelectedSide('front')}
+              className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
+                selectedSide === 'front'
+                  ? 'bg-[#C3A869] text-white'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+              }`}
+            >
+              Front
+            </button>
+            <button
+              onClick={() => setSelectedSide('back')}
+              className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
+                selectedSide === 'back'
+                  ? 'bg-[#C3A869] text-white'
+                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+              }`}
+            >
+              Back
+            </button>
+          </div>
 
-      {/* Body Highlighter */}
-      <div className="flex justify-center">
-        <EnhancedBodyHighlighter
-          data={exerciseData}
-          side={selectedSide}
-          scale={0.8}
-          onBodyPartPress={handleBodyPartPress}
-          border="#1f2937"
-          className="drop-shadow-md"
-        />
+          {/* Single Body View */}
+          <div className="flex justify-center">
+            <EnhancedBodyHighlighter
+              data={exerciseData}
+              side={selectedSide}
+              scale={0.8}
+              onBodyPartPress={handleBodyPartPress}
+              border="#1f2937"
+              className="drop-shadow-md"
+            />
+          </div>
+        </div>
+
+        {/* Desktop: Dual View (only when not forced single) */}
+        {!forceSingleView && (
+          <div className="hidden lg:block">
+            <div className="flex justify-center gap-8">
+              {/* Front View */}
+              <div className="text-center">
+                <h4 className="text-sm font-medium text-gray-400 mb-2">Front</h4>
+                <EnhancedBodyHighlighter
+                  data={exerciseData}
+                  side="front"
+                  scale={0.7}
+                  onBodyPartPress={handleBodyPartPress}
+                  border="#1f2937"
+                  className="drop-shadow-md"
+                />
+              </div>
+
+              {/* Back View */}
+              <div className="text-center">
+                <h4 className="text-sm font-medium text-gray-400 mb-2">Back</h4>
+                <EnhancedBodyHighlighter
+                  data={exerciseData}
+                  side="back"
+                  scale={0.7}
+                  onBodyPartPress={handleBodyPartPress}
+                  border="#1f2937"
+                  className="drop-shadow-md"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Legend */}
