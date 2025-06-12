@@ -134,18 +134,13 @@ textarea::placeholder {
   margin: 0 !important;
 }
 
-/* Hide workout summary muscle map heading */
-.workout-summary .muscle-map h4 {
-  display: none !important;
-}
-
 /* Hide Front/Back labels in workout summary muscle map */
-.workout-summary .muscle-map .text-center h4 {
+.workout-muscle-map .text-center h4 {
   display: none !important;
 }
 
 /* Hide legend heading in workout summary muscle map */
-.workout-summary .muscle-map .bg-gray-800 h4 {
+.workout-muscle-map .bg-gray-800 h4 {
   display: none !important;
 }
 

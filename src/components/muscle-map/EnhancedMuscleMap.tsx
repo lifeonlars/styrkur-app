@@ -59,17 +59,14 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
 
   return (
     <div className={`flex flex-col space-y-4 ${className}`}>
-      {/* Title */}
-      <div className="text-center">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {isWorkoutMode ? 'Workout Muscle Activation' : `${exerciseName || 'Exercise'} Muscles`}
-        </h3>
-        {selectedBodyPart && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+      {/* Selected body part info only */}
+      {selectedBodyPart && (
+        <div className="text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Selected: {getMuscleDisplayName(selectedBodyPart.slug)}
           </p>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Responsive Body Views */}
       <div className="w-full">
@@ -117,8 +114,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
           <div className="hidden lg:block">
             <div className="flex justify-center gap-8">
               {/* Front View */}
-              <div className="text-center">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Front</h4>
+              <div>
                 <EnhancedBodyHighlighter
                   data={exerciseData}
                   side="front"
@@ -130,8 +126,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
               </div>
 
               {/* Back View */}
-              <div className="text-center">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Back</h4>
+              <div>
                 <EnhancedBodyHighlighter
                   data={exerciseData}
                   side="back"
@@ -149,7 +144,6 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
       {/* Enhanced Legend with Muscle Activation */}
       {showLegend && (
         <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 w-full">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Activated Muscles</h4>
           
           {muscleActivation.length > 0 ? (
             <div className="space-y-3">

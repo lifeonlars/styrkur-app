@@ -105,30 +105,24 @@ const MuscleMap: React.FC<MuscleMapProps> = ({
       {/* Body visualizations */}
       <div className="flex justify-center gap-4 mb-4">
         {showFront && (
-          <div className="text-center">
-            <h4 className="text-white font-heading font-medium mb-2 text-sm">Front</h4>
-            <div className="bg-gray-800 rounded-lg p-4">
-              <BodyHighlighter
-                data={bodyHighlighterData}
-                type="anterior"
-                highlightedColors={Object.values(colorMap)}
-                style={{ width, height }}
-              />
-            </div>
+          <div className="bg-gray-800 rounded-lg p-4">
+            <BodyHighlighter
+              data={bodyHighlighterData}
+              type="anterior"
+              highlightedColors={Object.values(colorMap)}
+              style={{ width, height }}
+            />
           </div>
         )}
         
         {showBack && (
-          <div className="text-center">
-            <h4 className="text-white font-heading font-medium mb-2 text-sm">Back</h4>
-            <div className="bg-gray-800 rounded-lg p-4">
-              <BodyHighlighter
-                data={bodyHighlighterData}
-                type="posterior"
-                highlightedColors={Object.values(colorMap)}
-                style={{ width, height }}
-              />
-            </div>
+          <div className="bg-gray-800 rounded-lg p-4">
+            <BodyHighlighter
+              data={bodyHighlighterData}
+              type="posterior"
+              highlightedColors={Object.values(colorMap)}
+              style={{ width, height }}
+            />
           </div>
         )}
       </div>
@@ -136,7 +130,6 @@ const MuscleMap: React.FC<MuscleMapProps> = ({
       {/* Legend */}
       {showLegend && (
         <div className="bg-gray-800 rounded-lg p-4 mb-4">
-          <h4 className="text-white font-heading font-medium mb-3 text-sm">Intensity Legend</h4>
           <div className="flex gap-4 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded" style={{ backgroundColor: '#DC2626' }}></div>

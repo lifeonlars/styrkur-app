@@ -160,19 +160,20 @@ export default function WorkoutSummary({ workout, exercises }: WorkoutSummaryPro
 
       {/* Muscle Map */}
       <div>
-        <h4 className="text-white font-heading font-medium mb-4">Muscle Activation Map</h4>
         <div className="bg-gray-900 rounded-lg p-4">
           {muscleMapExercises.length > 0 ? (
-            <MuscleMap
-              exercises={muscleMapExercises}
-              showFront={true}
-              showBack={true}
-              showLegend={true}
-              showMuscleList={false}
-              size="medium"
-              useEnhanced={true}
-              exerciseName="Workout Summary"
-            />
+            <div className="workout-muscle-map">
+              <MuscleMap
+                exercises={muscleMapExercises}
+                showFront={true}
+                showBack={true}
+                showLegend={true}
+                showMuscleList={false}
+                size="medium"
+                useEnhanced={true}
+                exerciseName="Workout Summary"
+              />
+            </div>
           ) : (
             <div className="text-center py-8 text-gray-400">
               <div className="text-2xl mb-2">💪</div>

@@ -116,27 +116,15 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
         <div className="flex-1 overflow-y-auto">
           <div className="p-6 space-y-6">
             {/* Workout Details */}
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Workout Name</label>
-                <input
-                  type="text"
-                  value={workoutForm.title}
-                  onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
-                  placeholder="e.g., Upper Body Strength, HIIT Circuit"
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Description (optional)</label>
-                <textarea
-                  value={workoutForm.description}
-                  onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
-                  placeholder="Brief description of the workout..."
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg h-20 resize-none focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
-                />
-              </div>
+            <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">Workout Name</label>
+              <input
+                type="text"
+                value={workoutForm.title}
+                onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
+                placeholder="e.g., Upper Body Strength, HIIT Circuit"
+                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              />
             </div>
 
             {/* Workout Entries */}
@@ -175,6 +163,15 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                       canMoveDown={index < workoutForm.entries.length - 1}
                     />
                   ))}
+                  
+                  {/* Add Another Group Button */}
+                  <button
+                    onClick={() => setShowAddGroup(true)}
+                    className="w-full py-4 border-2 border-dashed border-gray-600 hover:border-[#C3A869] text-gray-400 hover:text-[#C3A869] rounded-lg transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Exercises
+                  </button>
                 </div>
               )}
             </div>
@@ -192,6 +189,17 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                 exercises={exercises}
               />
             )}
+
+            {/* Description - Moved to Bottom */}
+            <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">Description (optional)</label>
+              <textarea
+                value={workoutForm.description}
+                onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
+                placeholder="Brief description of the workout..."
+                className="w-full bg-gray-800 text-white p-3 rounded-lg h-20 resize-none focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              />
+            </div>
           </div>
         </div>
 
