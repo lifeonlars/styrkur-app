@@ -19,8 +19,8 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-      <div className="bg-gray-900 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <h2 className="text-white text-xl font-heading font-medium">
@@ -43,7 +43,6 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
               showBothSides={true}
               showLegend={true}
               showMuscleList={true}
-              forceSingleView={true}
             />
           )}
           
@@ -53,7 +52,6 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
               size="large"
               showBothSides={true}
               showLegend={true}
-              forceSingleView={true}
             />
           )}
         </div>

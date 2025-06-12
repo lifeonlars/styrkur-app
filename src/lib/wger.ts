@@ -1282,6 +1282,64 @@ export const testFuzzySearch = async (searchTerm = 'goblit'): Promise<void> => {
   }
 }
 
+// Fetch detailed exercise information from WGER API
+export const fetchExerciseInfo = async (exerciseId: number): Promise<WgerExerciseInfo | null> => {
+  try {
+    const url = `https://wger.de/api/v2/exerciseinfo/${exerciseId}/`
+    console.log(`🔍 Fetching exercise info for ID: ${exerciseId}`)
+    
+    const response = await fetch(url, {
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.log(`Exercise ${exerciseId} not found`)
+        return null
+      }
+      throw new Error(`Failed to fetch exercise info: ${response.status} ${response.statusText}`)
+    }
+    
+    const exerciseInfo: WgerExerciseInfo = await response.json()
+    console.log(`📋 Exercise info for ${exerciseId}:`, exerciseInfo)
+    
+    return exerciseInfo
+  } catch (error) {
+    console.error(`Failed to fetch exercise info for ${exerciseId}:`, error)
+    throw error
+  }
+}
+
+// Calculate muscle activation percentages (enhanced version)
+export const calculateMuscleActivation = (primaryMuscleIds: number[], secondaryMuscleIds: number[] = []): { muscle: string; percentage: number }[] => {
+  const activations: { muscle: string; percentage: number }[] = []
+  
+  // Primary muscles get 80-100% activation
+  primaryMuscleIds.forEach((muscleId, index) => {
+    const muscleName = muscleMapping[muscleId] || `Muscle ${muscleId}`
+    const percentage = Math.max(100 - (index * 15), 70) // First primary muscle gets 100%, subsequent get less
+    activations.push({
+      muscle: muscleName.charAt(0).toUpperCase() + muscleName.slice(1),
+      percentage
+    })
+  })
+  
+  // Secondary muscles get 40-60% activation
+  secondaryMuscleIds.forEach((muscleId, index) => {
+    const muscleName = muscleMapping[muscleId] || `Muscle ${muscleId}`
+    const percentage = Math.max(60 - (index * 10), 30) // First secondary muscle gets 60%, subsequent get less
+    activations.push({
+      muscle: muscleName.charAt(0).toUpperCase() + muscleName.slice(1),
+      percentage
+    })
+  })
+  
+  return activations.sort((a, b) => b.percentage - a.percentage) // Sort by activation level
+}
+
 // Test function for WGER API integration
 export const testWgerApi = async (searchTerm = 'chest fly'): Promise<void> => {
   console.log(`🧪 Testing WGER API with search: "${searchTerm}"`)

@@ -20,13 +20,13 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           id: 'entry_1',
           type: 'single',
           sets: 5,
+          groupRPE: 8,
           exercises: [
             {
               exerciseId: '2001',
               reps: 5,
               weight: 100,
-              rest: 180,
-              rpe: 8
+              rest: 180
             }
           ]
         }
@@ -74,13 +74,13 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           id: 'entry_2',
           type: 'single',
           sets: 4,
+          groupRPE: 7,
           exercises: [
             {
               exerciseId: '2004',
               reps: 6,
               weight: 60,
-              rest: 150,
-              rpe: 7
+              rest: 150
             }
           ]
         }

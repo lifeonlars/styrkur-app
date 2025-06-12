@@ -31,6 +31,11 @@ interface MuscleMapProps {
   useEnhanced?: boolean
   /** Exercise name for display */
   exerciseName?: string
+  /** Optional muscle activation data for enhanced legend */
+  muscleActivation?: Array<{
+    muscle: string
+    percentage: number
+  }>
 }
 
 const MuscleMap: React.FC<MuscleMapProps> = ({
@@ -44,7 +49,8 @@ const MuscleMap: React.FC<MuscleMapProps> = ({
   className = '',
   size = 'medium',
   useEnhanced = true,
-  exerciseName
+  exerciseName,
+  muscleActivation = []
 }) => {
   // Determine if we're in workout mode or single exercise mode
   const isWorkoutMode = exercises.length > 0
@@ -67,6 +73,7 @@ const MuscleMap: React.FC<MuscleMapProps> = ({
         exerciseName={exerciseName}
         showLegend={showLegend}
         className={className}
+        muscleActivation={muscleActivation}
       />
     )
   }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Exercise } from '@/types'
 import { Plus, Eye } from 'lucide-react'
-import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
+import { categoryMapping } from '@/lib/wger'
+import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
 interface EnhancedExerciseCardProps {
   exercise: Exercise
@@ -16,16 +17,34 @@ export default function EnhancedExerciseCard({
   showAddButton = true,
   showMuscleMapButton = true 
 }: EnhancedExerciseCardProps) {
-  const [showMuscleMap, setShowMuscleMap] = useState(false)
+  const [showExerciseInfo, setShowExerciseInfo] = useState(false)
 
-  const handleMuscleMapClick = (e: React.MouseEvent) => {
+  const handleInfoClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setShowMuscleMap(true)
+    setShowExerciseInfo(true)
   }
 
   const handleAddClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     onAdd(exercise)
+  }
+
+  const formatExerciseInfo = (exercise: Exercise): string => {
+    const equipment = exercise.equipment || 'Unknown'
+    
+    // Use WGER category if available, otherwise use muscle group
+    let category = ''
+    if (exercise.category && categoryMapping[exercise.category]) {
+      category = categoryMapping[exercise.category]
+      // Capitalize first letter
+      category = category.charAt(0).toUpperCase() + category.slice(1)
+    } else if (exercise.muscleGroup) {
+      category = exercise.muscleGroup.charAt(0).toUpperCase() + exercise.muscleGroup.slice(1)
+    } else {
+      category = 'Unknown'
+    }
+
+    return `${equipment} | ${category}`
   }
 
   return (
@@ -34,13 +53,7 @@ export default function EnhancedExerciseCard({
         <div className="flex-1 min-w-0">
           <div className="text-white text-sm font-medium truncate">{exercise.name}</div>
           <div className="text-gray-400 text-sm">
-            {exercise.equipment}
-            {exercise.primaryMuscles && exercise.primaryMuscles.length > 0 && (
-              <span className="text-[#C3A869] ml-2">
-                • {exercise.primaryMuscles.slice(0, 2).join(', ')}
-                {exercise.primaryMuscles.length > 2 && ` +${exercise.primaryMuscles.length - 2}`}
-              </span>
-            )}
+            {formatExerciseInfo(exercise)}
           </div>
         </div>
         
@@ -53,9 +66,9 @@ export default function EnhancedExerciseCard({
           
           {showMuscleMapButton && (
             <button
-              onClick={handleMuscleMapClick}
+              onClick={handleInfoClick}
               className="p-2 bg-gray-700 text-gray-400 rounded hover:bg-gray-600 hover:text-[#C3A869] transition"
-              title="View muscle map"
+              title="View exercise info"
             >
               <Eye className="w-4 h-4" />
             </button>
@@ -73,10 +86,10 @@ export default function EnhancedExerciseCard({
         </div>
       </div>
 
-      {/* Muscle Map Modal */}
-      <MuscleMapModal
-        isOpen={showMuscleMap}
-        onClose={() => setShowMuscleMap(false)}
+      {/* Exercise Info Modal */}
+      <ExerciseInfoModal
+        isOpen={showExerciseInfo}
+        onClose={() => setShowExerciseInfo(false)}
         exercise={exercise}
       />
     </>

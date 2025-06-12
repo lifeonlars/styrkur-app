@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { X, Info } from 'lucide-react'
+import { X } from 'lucide-react'
 import { Exercise, ExerciseConfig } from '@/types'
+import { categoryMapping } from '@/lib/wger'
 
 interface ExerciseConfigModalProps {
   exercise: Exercise
@@ -17,13 +18,11 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
     reps: 10,
     weight: exercise.isWeighted ? 20 : 0,
     rest: 90,
-    rpe: 7,
     tempo: '',
     notes: exercise.cues || '' // Prefill with extracted cues from API
   })
   
   const [imageError, setImageError] = useState(false)
-  const [showDescription, setShowDescription] = useState(false)
   const [showFullscreenImage, setShowFullscreenImage] = useState(false)
   
   const handleImageError = () => {
@@ -34,9 +33,27 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
     onConfirm(config)
   }
 
+  const formatExerciseInfo = (exercise: Exercise): string => {
+    const equipment = exercise.equipment || 'Unknown'
+    
+    // Use WGER category if available, otherwise use muscle group
+    let category = ''
+    if (exercise.category && categoryMapping[exercise.category]) {
+      category = categoryMapping[exercise.category]
+      // Capitalize first letter
+      category = category.charAt(0).toUpperCase() + category.slice(1)
+    } else if (exercise.muscleGroup) {
+      category = exercise.muscleGroup.charAt(0).toUpperCase() + exercise.muscleGroup.slice(1)
+    } else {
+      category = 'Unknown'
+    }
+
+    return `${equipment} | ${category}`
+  }
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4">
-      <div className="bg-gray-900 w-full max-w-md lg:max-w-2xl rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-gray-900 w-full max-w-md lg:max-w-2xl md:rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="p-4 border-b border-gray-800 flex justify-between items-center">
           <h3 className="text-white text-lg font-medium">Configure Exercise</h3>
@@ -75,7 +92,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                 </div>
               ) : (
                 <div className="w-24 h-24 mx-auto bg-gray-800 rounded-xl flex items-center justify-center">
-                  <span className="text-4xl">{exercise.icon}</span>
+                  <span className="text-2xl text-gray-400">No Image</span>
                 </div>
               )}
             </div>
@@ -86,7 +103,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                 <div className="flex-1">
                   <div className="text-white font-medium text-lg mb-1">{exercise.name}</div>
                   <div className="text-gray-400 text-sm mb-2">
-                    {exercise.target} • {exercise.equipment}
+                    {formatExerciseInfo(exercise)}
                     {exercise.intensity && exercise.intensity !== 'undefined' && (
                       <span className="ml-2 text-[#C3A869]">• {exercise.intensity} Intensity</span>
                     )}
@@ -102,25 +119,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                     )}
                   </div>
                 </div>
-                {exercise.description && (
-                  <button
-                    onClick={() => setShowDescription(!showDescription)}
-                    className="text-gray-400 hover:text-white ml-2"
-                  >
-                    <Info className="w-5 h-5" />
-                  </button>
-                )}
               </div>
-              
-              {/* Description */}
-              {exercise.description && showDescription && (
-                <div className="mt-4 pt-4 border-t border-gray-700">
-                  <h4 className="text-white text-sm font-medium mb-2">Description</h4>
-                  <p className="text-gray-300 text-sm leading-relaxed max-h-32 overflow-y-auto">
-                    {exercise.description}
-                  </p>
-                </div>
-              )}
             </div>
           </div>
 
@@ -180,18 +179,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   onChange={(e) => setConfig(prev => ({ ...prev, rest: parseInt(e.target.value) || 60 }))}
                   className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 />
-              </div>
-              <div>
-                <label className="block text-gray-300 text-sm mb-2">RPE Target</label>
-                <select
-                  value={config.rpe}
-                  onChange={(e) => setConfig(prev => ({ ...prev, rpe: parseInt(e.target.value) }))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {[6, 7, 8, 9, 10].map(rpe => (
-                    <option key={rpe} value={rpe}>{rpe}</option>
-                  ))}
-                </select>
               </div>
             </div>
 

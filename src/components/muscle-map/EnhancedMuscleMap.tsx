@@ -17,6 +17,11 @@ interface EnhancedMuscleMapProps {
   className?: string;
   /** Force single view mode (useful for mobile or specific layouts) */
   forceSingleView?: boolean;
+  /** Optional muscle activation data for enhanced legend */
+  muscleActivation?: Array<{
+    muscle: string;
+    percentage: number;
+  }>;
 }
 
 const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
@@ -28,6 +33,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
   showLegend = true,
   className,
   forceSingleView = false,
+  muscleActivation = [],
 }) => {
   const [selectedSide, setSelectedSide] = useState<'front' | 'back'>('front');
   const [selectedBodyPart, setSelectedBodyPart] = useState<ExtendedBodyPart | null>(null);
@@ -140,55 +146,70 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
         )}
       </div>
 
-      {/* Legend */}
-      {showLegend && Object.keys(colorMap).length > 0 && (
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 w-full max-w-md">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Legend</h4>
-          <div className="space-y-2">
-            {Object.entries(colorMap).map(([label, color]) => (
-              <div key={label} className="flex items-center space-x-2">
-                <div
-                  className="w-4 h-4 rounded"
-                  style={{ backgroundColor: color }}
-                />
-                <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
-              </div>
-            ))}
-          </div>
+      {/* Enhanced Legend with Muscle Activation */}
+      {showLegend && (
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 w-full">
+          <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Activated Muscles</h4>
+          
+          {muscleActivation.length > 0 ? (
+            <div className="space-y-3">
+              {/* Primary Muscles */}
+              {muscleActivation.filter(m => m.percentage >= 60).length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff6b6b' }}></div>
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Primary muscles</span>
+                  </div>
+                  <div className="space-y-1 ml-5">
+                    {muscleActivation
+                      .filter(m => m.percentage >= 60)
+                      .map((activation, index) => (
+                        <div key={index} className="flex justify-between text-xs">
+                          <span className="text-gray-600 dark:text-gray-400">{activation.muscle}</span>
+                          <span className="text-gray-900 dark:text-white font-medium">{activation.percentage}%</span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Secondary Muscles */}
+              {muscleActivation.filter(m => m.percentage < 60).length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff8e53' }}></div>
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Secondary muscles</span>
+                  </div>
+                  <div className="space-y-1 ml-5">
+                    {muscleActivation
+                      .filter(m => m.percentage < 60)
+                      .map((activation, index) => (
+                        <div key={index} className="flex justify-between text-xs">
+                          <span className="text-gray-600 dark:text-gray-400">{activation.muscle}</span>
+                          <span className="text-gray-900 dark:text-white font-medium">{activation.percentage}%</span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            // Fallback to basic legend
+            <div className="space-y-2">
+              {Object.entries(colorMap).map(([label, color]) => (
+                <div key={label} className="flex items-center space-x-2">
+                  <div
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
-      {/* Activated Muscles List */}
-      {exerciseData.length > 0 && (
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 w-full max-w-md">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Activated Muscles
-          </h4>
-          <div className="grid grid-cols-2 gap-2">
-            {exerciseData
-              .sort((a, b) => (b.intensity || 0) - (a.intensity || 0))
-              .map((muscle) => (
-                <div
-                  key={muscle.slug}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {getMuscleDisplayName(muscle.slug)}
-                  </span>
-                  <div className="flex items-center space-x-1">
-                    <div
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: muscle.color }}
-                    />
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {Math.round((muscle.intensity || 0) * 100)}%
-                    </span>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

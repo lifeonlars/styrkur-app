@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info } from 'lucide-react'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
-import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
+import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
 interface GroupedExerciseCardProps {
   groupLog: GroupSessionLog
@@ -308,7 +308,7 @@ export default function GroupedExerciseCard({
 
       {/* Exercise Detail Modal */}
       {getUniqueExercises().length > 0 && (
-        <MuscleMapModal
+        <ExerciseInfoModal
           isOpen={showExerciseDetail}
           onClose={() => setShowExerciseDetail(false)}
           exercise={getUniqueExercises()[selectedExerciseIndex]}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Plus, Minus, ChevronUp, ChevronDown } from 'lucide-react'
 import { ExerciseGroupType, TimingStyle, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
-import { fetchExercises } from '@/lib/wger'
+import { fetchExercises, categoryMapping } from '@/lib/wger'
 import ExerciseSearch from './ExerciseSearch'
 
 interface AddGroupModalProps {
@@ -17,12 +17,14 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
   const [label, setLabel] = useState(initialEntry?.label || '')
   const [exercises, setExercises] = useState<ExerciseConfig[]>(initialEntry?.exercises || [])
   const [sets, setSets] = useState(initialEntry?.sets || 3)
-  const [rounds, setRounds] = useState(initialEntry?.rounds || 3)
   const [restBetweenExercises, setRestBetweenExercises] = useState(initialEntry?.restBetweenExercises || 15)
   const [restAfterGroup, setRestAfterGroup] = useState(initialEntry?.restAfterGroup || 90)
   const [timingStyle, setTimingStyle] = useState<TimingStyle | ''>(initialEntry?.timingStyle || '')
   const [showExerciseSearch, setShowExerciseSearch] = useState(false)
   const [availableExercises, setAvailableExercises] = useState<Exercise[]>([])
+  
+  // RPE state management - single RPE for both single and superset groups
+  const [groupRPE, setGroupRPE] = useState<number>(initialEntry?.groupRPE || 7)
 
   // Load exercises for lookup
   useEffect(() => {
@@ -39,6 +41,24 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
 
   const getExerciseData = (exerciseId: string): Exercise | undefined => {
     return availableExercises.find(ex => ex.id === exerciseId)
+  }
+
+  const formatExerciseInfo = (exercise: Exercise): string => {
+    const equipment = exercise.equipment || 'Unknown'
+    
+    // Use WGER category if available, otherwise use muscle group
+    let category = ''
+    if (exercise.category && categoryMapping[exercise.category]) {
+      category = categoryMapping[exercise.category]
+      // Capitalize first letter
+      category = category.charAt(0).toUpperCase() + category.slice(1)
+    } else if (exercise.muscleGroup) {
+      category = exercise.muscleGroup.charAt(0).toUpperCase() + exercise.muscleGroup.slice(1)
+    } else {
+      category = 'Unknown'
+    }
+
+    return `${equipment} | ${category}`
   }
 
   const getMinExercises = () => {
@@ -67,9 +87,9 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
       reps: 10,
       weight: exercise.isWeighted ? 20 : 0,
       rest: groupType === 'single' ? 90 : 0,
-      rpe: 7,
       tempo: '',
       notes: exercise.cues || ''
+      // RPE removed - now handled at group level
     }
     
     setExercises(prev => [...prev, newConfig])
@@ -117,10 +137,12 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
       label: label.trim() || undefined,
       exercises,
       sets,
-      rounds: groupType === 'circuit' && rounds > 1 ? rounds : undefined,
       restBetweenExercises: groupType === 'circuit' && restBetweenExercises > 0 ? restBetweenExercises : undefined,
       restAfterGroup: restAfterGroup > 0 ? restAfterGroup : undefined,
-      timingStyle: timingStyle || undefined
+      timingStyle: timingStyle || undefined,
+      // Add RPE fields based on group type
+      ...(groupType !== 'circuit' && { groupRPE }),
+      // Circuits have no RPE fields
     }
     
     onSave(entry)
@@ -135,8 +157,8 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4">
-      <div className="bg-gray-900 w-full max-w-4xl rounded-2xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-gray-900 w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
           <h2 className="text-white text-xl font-medium font-heading">
@@ -163,9 +185,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                       : 'border-gray-700 text-gray-300 hover:border-gray-600'
                   }`}
                 >
-                  <div className="text-2xl mb-2">
-                    {type === 'single' ? '💪' : type === 'superset' ? '🔗' : '⚡'}
-                  </div>
                   <div className="font-medium capitalize">{type}</div>
                   <div className="text-sm opacity-75 mt-1">
                     {type === 'single' && '1 exercise'}
@@ -191,45 +210,70 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
             </div>
           )}
 
-          {/* Sets */}
-          <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Sets</label>
-            <input
-              type="number"
-              min="1"
-              max="10"
-              value={sets}
-              onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-              className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
-            />
-          </div>
-
-          {/* Circuit Settings */}
-          {groupType === 'circuit' && (
+          {/* Sets and RPE (side by side for single/superset) */}
+          {groupType !== 'circuit' ? (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Rounds</label>
+                <label className="block text-gray-300 text-sm font-medium mb-2">
+                  Sets
+                </label>
                 <input
                   type="number"
                   min="1"
                   max="10"
-                  value={rounds}
-                  onChange={(e) => setRounds(parseInt(e.target.value) || 1)}
+                  value={sets}
+                  onChange={(e) => setSets(parseInt(e.target.value) || 1)}
                   className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
                 />
               </div>
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Rest Between Exercises (sec)</label>
-                <input
-                  type="number"
-                  min="0"
-                  max="120"
-                  step="5"
-                  value={restBetweenExercises}
-                  onChange={(e) => setRestBetweenExercises(parseInt(e.target.value) || 0)}
+                <label className="block text-gray-300 text-sm font-medium mb-2">
+                  RPE (Rate of Perceived Exertion)
+                </label>
+                <select
+                  value={groupRPE}
+                  onChange={(e) => setGroupRPE(parseFloat(e.target.value))}
                   className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
-                />
+                >
+                  <option value={6}>6 - Light</option>
+                  <option value={6.5}>6.5</option>
+                  <option value={7}>7 - Moderate</option>
+                  <option value={7.5}>7.5</option>
+                  <option value={8}>8 - Hard</option>
+                  <option value={8.5}>8.5</option>
+                  <option value={9}>9 - Very Hard</option>
+                  <option value={9.5}>9.5</option>
+                  <option value={10}>10 - Max Effort</option>
+                </select>
               </div>
+            </div>
+          ) : (
+            <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">Rounds</label>
+              <input
+                type="number"
+                min="1"
+                max="10"
+                value={sets}
+                onChange={(e) => setSets(parseInt(e.target.value) || 1)}
+                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              />
+            </div>
+          )}
+
+          {/* Circuit Settings */}
+          {groupType === 'circuit' && (
+            <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">Rest Between Exercises (sec)</label>
+              <input
+                type="number"
+                min="0"
+                max="120"
+                step="5"
+                value={restBetweenExercises}
+                onChange={(e) => setRestBetweenExercises(parseInt(e.target.value) || 0)}
+                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              />
             </div>
           )}
 
@@ -288,13 +332,12 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                   <div key={index} className="bg-gray-800 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-lg">{exerciseData?.icon || '💪'}</span>
                         <div>
                           <div className="text-white font-medium">
                             {exerciseData?.name || 'Unknown Exercise'}
                           </div>
                           <div className="text-sm text-gray-400">
-                            {exerciseData?.target} • {exerciseData?.equipment}
+                            {exerciseData ? formatExerciseInfo(exerciseData) : 'Unknown'}
                           </div>
                         </div>
                       </div>
@@ -328,7 +371,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-gray-400 text-sm mb-1">Reps</label>
                       <input
@@ -351,18 +394,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                         className="w-full bg-gray-700 text-white p-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
                       />
                     </div>
-                    <div>
-                      <label className="block text-gray-400 text-sm mb-1">RPE</label>
-                      <select
-                        value={exerciseConfig.rpe || 7}
-                        onChange={(e) => updateExercise(index, { rpe: parseInt(e.target.value) })}
-                        className="w-full bg-gray-700 text-white p-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
-                      >
-                        {[6, 7, 8, 9, 10].map(rpe => (
-                          <option key={rpe} value={rpe}>{rpe}</option>
-                        ))}
-                      </select>
-                    </div>
                   </div>
                   </div>
                 )
@@ -371,7 +402,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
 
             {exercises.length < getMinExercises() && (
               <div className="text-center py-8 text-gray-400">
-                <div className="text-lg mb-2">👆</div>
                 <div>Add at least {getMinExercises()} exercise{getMinExercises() > 1 ? 's' : ''} to continue</div>
               </div>
             )}
@@ -399,8 +429,8 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
 
       {/* Exercise Search Modal */}
       {showExerciseSearch && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[110] p-4">
-          <div className="bg-gray-800 w-full max-w-2xl rounded-xl max-h-[80vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[110] md:p-4">
+          <div className="bg-gray-800 w-full max-w-2xl md:rounded-xl h-full md:h-auto md:max-h-[80vh] overflow-hidden">
             <ExerciseSearch
               onSelectExercise={addExercise}
               onClose={() => setShowExerciseSearch(false)}

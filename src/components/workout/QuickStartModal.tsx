@@ -33,8 +33,8 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-      <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-gray-700">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
+      <div className="bg-gray-900 md:rounded-2xl w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden border border-gray-700">
         {/* Header */}
         <div className="p-6 border-b border-gray-800">
           <div className="flex justify-between items-center">

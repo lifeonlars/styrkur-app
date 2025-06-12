@@ -47,8 +47,8 @@ export default function WorkoutCard({
 
   return (
     <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition">
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex-1 min-w-0">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+        <div className="flex-1 min-w-0 mb-3 md:mb-0">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-white font-heading font-medium truncate">
               {highlightText(workout.title, searchTerm)}
@@ -75,7 +75,7 @@ export default function WorkoutCard({
           )}
         </div>
         
-        <div className="flex gap-2 ml-4 flex-shrink-0">
+        <div className="flex gap-2 md:ml-4 flex-shrink-0">
           <button
             onClick={(e) => {
               e.stopPropagation()
@@ -94,7 +94,7 @@ export default function WorkoutCard({
               title="Repeat workout"
             >
               <RotateCcw className="w-4 h-4" />
-              Repeat
+              <span className="hidden md:inline">Repeat</span>
             </button>
           )}
           
@@ -104,7 +104,7 @@ export default function WorkoutCard({
             title={variant === 'recent' ? 'Start new session' : 'Start workout'}
           >
             <Play className="w-4 h-4" />
-            Start
+            <span className="hidden md:inline">Start</span>
           </button>
         </div>
       </div>

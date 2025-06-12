@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Check, Plus, StickyNote, Info } from 'lucide-react'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
-import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
+import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
 interface LoggedExerciseCardProps {
   exercise: Exercise
@@ -249,7 +249,7 @@ export default function LoggedExerciseCard({
       )}
 
       {/* Exercise Detail Modal */}
-      <MuscleMapModal
+      <ExerciseInfoModal
         isOpen={showExerciseDetail}
         onClose={() => setShowExerciseDetail(false)}
         exercise={exercise}

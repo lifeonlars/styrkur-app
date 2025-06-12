@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ChevronDown, ChevronUp, Edit, Trash2, Clock, Repeat } from 'lucide-react'
 import { WorkoutEntry, Exercise } from '@/types'
 import { categoryMapping } from '@/lib/wger'
-import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
+import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
 interface WorkoutEntryCardProps {
   entry: WorkoutEntry
@@ -228,7 +228,7 @@ export default function WorkoutEntryCard({
 
       {/* Exercise Detail Modal */}
       {selectedExercise && (
-        <MuscleMapModal
+        <ExerciseInfoModal
           isOpen={showExerciseDetail}
           onClose={() => setShowExerciseDetail(false)}
           exercise={selectedExercise}
