@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { 
-  LayoutDashboard, Dumbbell, Calendar, History, Settings 
-} from 'lucide-react'
+  NavDashboard, NavWorkouts, NavPlan, NavHistory, NavSettings 
+} from '@/components/icons'
 import DashboardScreen from '@/components/screens/DashboardScreen'
 import WorkoutsScreen from '@/components/screens/WorkoutsScreen'
 import PlanScreen from '@/components/screens/PlanScreen'
@@ -29,11 +29,11 @@ export default function SyrkurSagaApp() {
   }, [])
 
   const navigationTabs = [
-    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { id: 'workouts', icon: Dumbbell, label: 'Workouts' },
-    { id: 'plan', icon: Calendar, label: 'Plan' },
-    { id: 'history', icon: History, label: 'History' },
-    { id: 'settings', icon: Settings, label: 'Settings' }
+    { id: 'dashboard', icon: NavDashboard, label: 'Dashboard' },
+    { id: 'workouts', icon: NavWorkouts, label: 'Workouts' },
+    { id: 'plan', icon: NavPlan, label: 'Plan' },
+    { id: 'history', icon: NavHistory, label: 'History' },
+    { id: 'settings', icon: NavSettings, label: 'Settings' }
   ]
 
   const handleSaveWorkout = (workout: Workout) => {
@@ -122,7 +122,13 @@ export default function SyrkurSagaApp() {
           <ClientOnly>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-8">
-                <h1 className="text-xl font-heading font-light text-white">Syrkur Saga</h1>
+                <div className="h-8">
+                  <img 
+                    src="/assets/branding/LogoHorizontal.svg" 
+                    alt="Styrkur" 
+                    className="h-full w-auto"
+                  />
+                </div>
                 <nav className="flex space-x-6">
                   {navigationTabs.map(tab => (
                     <button

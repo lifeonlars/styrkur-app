@@ -1,6 +1,7 @@
 import { Edit, Trash2, Calendar, Tag, Hash, Weight, RotateCcw } from 'lucide-react'
 import { Workout } from '@/types'
-import { calculateWorkoutMetrics, formatWeight, getGroupTypeIcon, getGroupTypeLabel } from '@/lib/workoutUtils'
+import { calculateWorkoutMetrics, formatWeight, getGroupTypeLabel } from '@/lib/workoutUtils'
+import { getWorkoutGroupTypeIcon } from '@/lib/groupTypeUtils'
 
 interface EnhancedWorkoutCardProps {
   workout: Workout
@@ -45,9 +46,9 @@ export default function EnhancedWorkoutCard({
             <h4 className="text-white font-heading font-medium truncate">
               {highlightText(workout.title, searchTerm)}
             </h4>
-            <span className="text-lg" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
-              {getGroupTypeIcon(metrics.hasSuperset, metrics.hasCircuit)}
-            </span>
+            <div className="text-[#C3A869]" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
+              {getWorkoutGroupTypeIcon(metrics.hasSuperset, metrics.hasCircuit, { className: "w-5 h-5" })}
+            </div>
           </div>
           
           {workout.description && (

@@ -269,4 +269,9 @@ textarea::placeholder {
     background: #B19651;
     transform: scale(1.1);
   }
+
+  /* Override Tailwind text-xs with 13px globally */
+  .text-xs {
+    font-size: 13px !important;
+  }
 }

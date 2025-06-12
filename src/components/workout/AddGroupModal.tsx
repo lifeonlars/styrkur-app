@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { X, Plus, Minus, ChevronUp, ChevronDown } from 'lucide-react'
 import { ExerciseGroupType, TimingStyle, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
 import { fetchExercises, categoryMapping } from '@/lib/wger'
+import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
 import ExerciseSearch from './ExerciseSearch'
 
 interface AddGroupModalProps {
@@ -162,7 +163,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
         {/* Header */}
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
           <h2 className="text-white text-xl font-medium font-heading">
-            {initialEntry ? 'Edit Group' : 'Add Group'}
+            {initialEntry ? 'Edit Exercises' : 'Add Exercises'}
           </h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-white">
             <X className="w-6 h-6" />
@@ -175,24 +176,36 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-3">Group Type</label>
             <div className="grid grid-cols-3 gap-3">
-              {(['single', 'superset', 'circuit'] as ExerciseGroupType[]).map(type => (
-                <button
-                  key={type}
-                  onClick={() => setGroupType(type)}
-                  className={`p-4 rounded-xl border text-center transition ${
-                    groupType === type
-                      ? 'border-[#C3A869] bg-[#C3A869]/10 text-[#C3A869]'
-                      : 'border-gray-700 text-gray-300 hover:border-gray-600'
-                  }`}
-                >
-                  <div className="font-medium capitalize">{type}</div>
-                  <div className="text-sm opacity-75 mt-1">
-                    {type === 'single' && '1 exercise'}
-                    {type === 'superset' && '2-3 exercises'}
-                    {type === 'circuit' && '3-10 exercises'}
-                  </div>
-                </button>
-              ))}
+              {(['single', 'superset', 'circuit'] as ExerciseGroupType[]).map(type => {
+                const getIcon = () => {
+                  switch (type) {
+                    case 'single': return <ExerciseGroupSingle className="w-12 h-12 mx-auto mb-2" />
+                    case 'superset': return <ExerciseGroupSuperset className="w-12 h-12 mx-auto mb-2" />
+                    case 'circuit': return <ExerciseGroupCircuit className="w-12 h-12 mx-auto mb-2" />
+                    default: return null
+                  }
+                }
+                
+                return (
+                  <button
+                    key={type}
+                    onClick={() => setGroupType(type)}
+                    className={`p-4 rounded-xl border text-center transition ${
+                      groupType === type
+                        ? 'border-[#C3A869] bg-[#C3A869]/10 text-[#C3A869]'
+                        : 'border-gray-700 text-gray-300 hover:border-gray-600'
+                    }`}
+                  >
+                    {getIcon()}
+                    <div className="font-medium capitalize">{type}</div>
+                    <div className="text-sm opacity-75 mt-1">
+                      {type === 'single' && '1 exercise'}
+                      {type === 'superset' && '2-3 exercises'}
+                      {type === 'circuit' && '3-10 exercises'}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
@@ -320,7 +333,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                   className="flex items-center gap-2 bg-[#C3A869] text-black px-3 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
                 >
                   <Plus className="w-4 h-4" />
-                  Add Exercise
+                  {groupType === 'single' ? 'Select Exercise' : 'Select Exercises'}
                 </button>
               )}
             </div>

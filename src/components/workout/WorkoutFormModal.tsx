@@ -149,7 +149,7 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                   className="flex items-center gap-2 bg-[#C3A869] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
                 >
                   <Plus className="w-4 h-4" />
-                  Add Group
+                  Add Exercises
                 </button>
               </div>
 

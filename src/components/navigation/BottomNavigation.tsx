@@ -18,7 +18,7 @@ export default function BottomNavigation({ tabs, activeTab, onTabChange }: Botto
               activeTab === tab.id ? 'text-[#C3A869]' : 'text-gray-400'
             }`}
           >
-            <tab.icon className="w-5 h-5 mb-1" />
+            <tab.icon className="w-8 h-8 mb-1" />
             <span className="text-sm">{tab.label}</span>
             {activeTab === tab.id && (
               <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#C3A869]" />

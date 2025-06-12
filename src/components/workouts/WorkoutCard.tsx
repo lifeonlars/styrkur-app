@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Play, RotateCcw, Clock, Hash, Weight, Tag, Eye } from 'lucide-react'
 import { Workout } from '@/types'
-import { calculateWorkoutMetrics, formatWeight, getGroupTypeIcon, getGroupTypeLabel } from '@/lib/workoutUtils'
+import { calculateWorkoutMetrics, formatWeight, getGroupTypeLabel } from '@/lib/workoutUtils'
+import { getWorkoutGroupTypeIcon } from '@/lib/groupTypeUtils'
 import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
 
 interface WorkoutCardProps {
@@ -53,9 +54,9 @@ export default function WorkoutCard({
             <h3 className="text-white font-heading font-medium truncate">
               {highlightText(workout.title, searchTerm)}
             </h3>
-            <span className="text-lg" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
-              {getGroupTypeIcon(metrics.hasSuperset, metrics.hasCircuit)}
-            </span>
+            <div className="text-[#C3A869]" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
+              {getWorkoutGroupTypeIcon(metrics.hasSuperset, metrics.hasCircuit, { className: "w-5 h-5" })}
+            </div>
           </div>
           
           {workout.description && (

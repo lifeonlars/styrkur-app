@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ChevronDown, ChevronUp, Edit, Trash2, Clock, Repeat } from 'lucide-react'
 import { WorkoutEntry, Exercise } from '@/types'
 import { categoryMapping } from '@/lib/wger'
+import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
 interface WorkoutEntryCardProps {
@@ -27,7 +28,6 @@ export default function WorkoutEntryCard({
   canMoveUp,
   canMoveDown
 }: WorkoutEntryCardProps) {
-  const [isExpanded, setIsExpanded] = useState(true)
   const [showExerciseDetail, setShowExerciseDetail] = useState(false)
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null)
 
@@ -62,8 +62,19 @@ export default function WorkoutEntryCard({
   }
 
 
+  const getTypeIcon = () => {
+    switch (entry.type) {
+      case 'superset':
+        return <ExerciseGroupSuperset className="w-10 h-10 text-[#C3A869]" />
+      case 'circuit':
+        return <ExerciseGroupCircuit className="w-10 h-10 text-[#C3A869]" />
+      default:
+        return <ExerciseGroupSingle className="w-10 h-10 text-[#C3A869]" />
+    }
+  }
+
   const getTypeBadge = () => {
-    const baseClass = "text-xs px-2 py-1 rounded font-medium"
+    const baseClass = "px-2 py-1 rounded font-medium text-xs"
     
     switch (entry.type) {
       case 'superset':
@@ -75,18 +86,6 @@ export default function WorkoutEntryCard({
     }
   }
 
-  const getHeaderLabel = () => {
-    if (entry.label) return entry.label
-    
-    switch (entry.type) {
-      case 'superset':
-        return 'Superset'
-      case 'circuit':
-        return 'Circuit'
-      default:
-        return 'Exercise'
-    }
-  }
 
   const formatRestTime = (seconds?: number) => {
     if (!seconds) return ''
@@ -102,11 +101,16 @@ export default function WorkoutEntryCard({
     <div className="bg-gray-800 rounded-xl overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-gray-700">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div>
+        <div className="flex items-start justify-between">
+          <div className="flex items-start gap-3">
+            {/* Group Type Icon - spans both rows */}
+            <div className="flex-shrink-0 pt-1">
+              {getTypeIcon()}
+            </div>
+            
+            {/* Content */}
+            <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="text-white font-medium">{getHeaderLabel()}</h3>
                 {getTypeBadge()}
                 {entry.timingStyle && (
                   <span className="text-xs bg-[#C3A869]/20 text-[#C3A869] px-2 py-1 rounded">
@@ -172,59 +176,51 @@ export default function WorkoutEntryCard({
             >
               <Trash2 className="w-4 h-4" />
             </button>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
-            >
-              {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
           </div>
         </div>
       </div>
 
       {/* Exercise List */}
-      {isExpanded && (
-        <div className="p-4 space-y-3">
-          {entry.exercises.map((exerciseConfig, index) => {
-            const exerciseData = getExerciseData(exerciseConfig.exerciseId)
-            
-            return (
-              <div
-                key={`${exerciseConfig.exerciseId}-${index}`}
-                className="bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className="flex-1">
-                      <button
-                        onClick={() => handleShowExerciseDetail(exerciseConfig.exerciseId)}
-                        className="text-white font-medium text-sm hover:text-[#C3A869] transition text-left block"
-                        title="View exercise details & muscle map"
-                      >
-                        {exerciseData?.name || 'Unknown Exercise'}
-                      </button>
-                      <div className="text-xs text-gray-400">
-                        {exerciseData ? formatExerciseInfo(exerciseData) : 'Unknown'}
-                      </div>
+      <div className="p-4 space-y-3">
+        {entry.exercises.map((exerciseConfig, index) => {
+          const exerciseData = getExerciseData(exerciseConfig.exerciseId)
+          
+          return (
+            <div
+              key={`${exerciseConfig.exerciseId}-${index}`}
+              className="bg-gray-900 rounded-lg p-3 hover:bg-gray-700/50 transition"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="flex-1">
+                    <button
+                      onClick={() => handleShowExerciseDetail(exerciseConfig.exerciseId)}
+                      className="text-white font-medium text-sm hover:text-[#C3A869] transition text-left block"
+                      title="View exercise details & muscle map"
+                    >
+                      {exerciseData?.name || 'Unknown Exercise'}
+                    </button>
+                    <div className="text-xs text-gray-400">
+                      {exerciseData ? formatExerciseInfo(exerciseData) : 'Unknown'}
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <div className="text-right">
-                      <div className="text-white text-sm font-medium">
-                        {entry.sets} × {exerciseConfig.reps && exerciseConfig.reps > 0 ? exerciseConfig.reps : '-'}
-                        {exerciseConfig.weight && exerciseConfig.weight > 0 && (
-                          <span className="text-[#C3A869] ml-1">@ {exerciseConfig.weight}kg</span>
-                        )}
-                      </div>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="text-right">
+                    <div className="text-white text-sm font-medium">
+                      {entry.sets} × {exerciseConfig.reps && exerciseConfig.reps > 0 ? exerciseConfig.reps : '-'}
+                      {exerciseConfig.weight && exerciseConfig.weight > 0 && (
+                        <span className="text-[#C3A869] ml-1">@ {exerciseConfig.weight}kg</span>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
-            )
-          })}
-        </div>
-      )}
+            </div>
+          )
+        })}
+      </div>
 
       {/* Exercise Detail Modal */}
       {selectedExercise && (
