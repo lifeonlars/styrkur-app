@@ -6,6 +6,7 @@ import { Workout, WorkoutForm, WorkoutEntry, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
 import WorkoutEntryCard from './WorkoutEntryCard'
 import AddGroupModal from './AddGroupModal'
+import WorkoutSummary from './WorkoutSummary'
 
 interface WorkoutFormModalProps {
   onSave: (workout: Workout) => void
@@ -177,6 +178,20 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                 </div>
               )}
             </div>
+
+            {/* Workout Summary */}
+            {workoutForm.entries.length > 0 && (
+              <WorkoutSummary
+                workout={{
+                  ...workoutForm,
+                  id: initialWorkout?.id || Date.now(),
+                  tags: initialWorkout?.tags || [],
+                  createdAt: initialWorkout?.createdAt || new Date(),
+                  updatedAt: new Date()
+                }}
+                exercises={exercises}
+              />
+            )}
           </div>
         </div>
 
