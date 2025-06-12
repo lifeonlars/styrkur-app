@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { X, Check, Clock, Target } from 'lucide-react'
 import { Workout, Exercise, WorkoutSessionState, GroupSessionLog, GroupSetLog, ExerciseInSetLog, WorkoutSessionSummary } from '@/types'
-import { saveWorkoutSession, clearWorkoutSession, saveWorkoutToHistory } from '@/lib/sessionStorage'
+import { saveWorkoutSession, clearWorkoutSession, saveWorkoutToHistory, savePausedWorkoutSession, hasCompletedSets } from '@/lib/sessionStorage'
 import { fetchExercises } from '@/lib/wger'
 import LoggedExerciseCard from './LoggedExerciseCard'
 import GroupedExerciseCard from './GroupedExerciseCard'
@@ -11,13 +11,15 @@ interface WorkoutLoggingModalProps {
   initialSession?: WorkoutSessionState
   onFinishSession: (summary: WorkoutSessionSummary) => void
   onClose: () => void
+  onPauseSession?: (session: WorkoutSessionState) => void
 }
 
 export default function WorkoutLoggingModal({
   workout,
   initialSession,
   onFinishSession,
-  onClose
+  onClose,
+  onPauseSession
 }: WorkoutLoggingModalProps) {
   const [availableExercises, setAvailableExercises] = useState<Exercise[]>([])
   const [isLoadingExercises, setIsLoadingExercises] = useState(true)
@@ -172,6 +174,9 @@ export default function WorkoutLoggingModal({
 
   const [startTime] = useState(session.startTime)
   const [elapsedTime, setElapsedTime] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const pausedTimeRef = useRef<number>(0)
 
   // Load exercises for proper exercise data lookup
   useEffect(() => {
@@ -190,14 +195,41 @@ export default function WorkoutLoggingModal({
     loadExercises()
   }, [])
 
-  // Update elapsed time every second
+  // Timer management with pause/resume support
   useEffect(() => {
-    const interval = setInterval(() => {
-      setElapsedTime(Math.floor((Date.now() - startTime.getTime()) / 1000))
-    }, 1000)
+    const startTimer = () => {
+      if (!isPaused) {
+        timerRef.current = setInterval(() => {
+          setElapsedTime(Math.floor((Date.now() - startTime.getTime() - pausedTimeRef.current) / 1000))
+        }, 1000)
+      }
+    }
 
-    return () => clearInterval(interval)
-  }, [startTime])
+    const stopTimer = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+        timerRef.current = null
+      }
+    }
+
+    if (isPaused) {
+      stopTimer()
+    } else {
+      startTimer()
+    }
+
+    return stopTimer
+  }, [startTime, isPaused])
+
+  // Initialize timer on mount (calculate from existing session if resuming)
+  useEffect(() => {
+    if (initialSession?.pausedAt) {
+      // Calculate paused time if resuming from paused state
+      const pausedDuration = initialSession.pausedAt.getTime() - startTime.getTime()
+      pausedTimeRef.current = 0 // Reset paused time when resuming
+      setElapsedTime(Math.floor(pausedDuration / 1000))
+    }
+  }, [])
 
   // Auto-save session to localStorage
   useEffect(() => {
@@ -418,7 +450,35 @@ export default function WorkoutLoggingModal({
   }
 
   const handleClose = () => {
-    // Session is automatically saved via useEffect
+    // Smart exit logic based on session completion status
+    if (hasCompletedSets(session)) {
+      // If any sets have been completed, pause the session
+      handlePauseSession()
+    } else {
+      // If no sets completed, cancel the session completely
+      clearWorkoutSession()
+      onClose()
+    }
+  }
+
+  const handlePauseSession = () => {
+    // Pause the timer
+    setIsPaused(true)
+    
+    // Save session as paused
+    savePausedWorkoutSession(session)
+    
+    // Notify parent component about the pause
+    if (onPauseSession) {
+      onPauseSession(session)
+    }
+    
+    onClose()
+  }
+
+  const handleCancelSession = () => {
+    // Force cancel the session regardless of completion status
+    clearWorkoutSession()
     onClose()
   }
 

@@ -203,6 +203,7 @@ export interface WorkoutSessionState {
   groupLogs: Record<string, GroupSessionLog> // Key: groupId
   isCompleted: boolean
   endTime?: Date
+  pausedAt?: Date // Timestamp when session was paused
   // Legacy support for backward compatibility
   logs?: Record<string, ExerciseSessionLog>
 }
