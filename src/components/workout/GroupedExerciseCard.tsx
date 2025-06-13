@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info } from 'lucide-react'
+import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info, X } from 'lucide-react'
 import { Select, SelectItem } from '@heroui/select'
 import { Input } from '@heroui/input'
 import { Textarea } from '@heroui/input'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
+import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
 
 // RPE options for select components
 const rpeOptions = [
@@ -89,9 +90,7 @@ export default function GroupedExerciseCard({
   const setLabel = groupLog.groupType === 'circuit' ? 'Round' : 'Set'
 
   const getGroupTypeDisplay = () => {
-    if (groupLog.groupType === 'superset') return '🔗'
-    if (groupLog.groupType === 'circuit') return '🔄'
-    return '💪'
+    return getGroupTypeIconComponent(groupLog.groupType, { className: 'w-9 h-9' })
   }
 
   // Get unique exercises from the first set (all sets should have the same exercises)
@@ -110,8 +109,8 @@ export default function GroupedExerciseCard({
       {/* Group Header */}
       <div className="p-4 border-b border-divider">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="text-lg">{getGroupTypeDisplay()}</span>
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 mt-1">{getGroupTypeDisplay()}</div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <span className={`text-xs px-2 py-1 rounded font-medium ${
@@ -232,82 +231,111 @@ export default function GroupedExerciseCard({
       {/* Exercise Table */}
       {isExpanded && (
         <div className="px-4 pb-4">
-          <div className="space-y-2 overflow-x-auto">
+          <div className="space-y-6 overflow-x-auto">
             {/* Headers */}
-            <div className="grid grid-cols-6 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[300px] md:min-w-0">
-              <div className="col-span-1">Set</div>
-              <div className="col-span-2">Reps</div>
-              <div className="col-span-2">Weight (kgs)</div>
-              <div className="col-span-1">Done</div>
+            <div className="grid grid-cols-8 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[380px] md:min-w-0">
+              <div className="col-span-1 text-center">Round</div>
+              <div className="col-span-1 text-center">Ex</div>
+              <div className="col-span-2 text-center">Reps</div>
+              <div className="col-span-2 text-center">Weight (kgs)</div>
+              <div className="col-span-1 text-center">Done</div>
+              <div className="col-span-1 text-center">Remove</div>
             </div>
 
-            {/* Exercise Rows - flattened from all sets */}
-            {groupLog.setLogs.map((setLog, setIndex) => 
-              setLog.exercises.map((exercise, exerciseIndex) => (
-                <div
-                  key={`${setIndex}-${exerciseIndex}`}
-                  className={`grid grid-cols-6 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[300px] md:min-w-0 ${
-                    exercise.isCompleted 
-                      ? 'bg-green-900/20 border border-green-700/30' 
-                      : 'bg-content2'
-                  }`}
-                >
-                  {/* Set Label (e.g., 1A, 1B, 2A, 2B) */}
-                  <div className="col-span-1 text-center text-white font-medium">
-                    {setLog.setNumber}{String.fromCharCode(65 + exerciseIndex)}
-                  </div>
-
-                  {/* Reps */}
-                  <div className="col-span-2">
-                    <Input
-                      type="text"
-                      inputMode="numeric"
-                      value={exercise.reps?.toString() || ''}
-                      onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'reps', parseInt(e.target.value) || 0)}
-                      placeholder="0"
-                      variant="bordered"
-                      size="sm"
-                      classNames={{
-                        input: "text-white text-center",
-                        inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
-                      }}
-                    />
-                  </div>
-
-                  {/* Weight */}
-                  <div className="col-span-2">
-                    <Input
-                      type="text"
-                      inputMode="decimal"
-                      value={exercise.weight?.toString() || ''}
-                      onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'weight', parseFloat(e.target.value) || 0)}
-                      placeholder="0"
-                      variant="bordered"
-                      size="sm"
-                      classNames={{
-                        input: "text-white text-center",
-                        inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
-                      }}
-                    />
-                  </div>
-
-                  {/* Exercise Complete */}
-                  <div className="col-span-1 flex justify-center">
-                    <button
-                      onClick={() => handleExerciseUpdate(setIndex, exerciseIndex, 'isCompleted', !exercise.isCompleted)}
-                      className={`p-1 rounded text-sm font-medium transition flex items-center justify-center ${
-                        exercise.isCompleted
-                          ? 'bg-green-600 text-white border border-green-500'
-                          : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
+            {/* Round Groups */}
+            {groupLog.setLogs.map((setLog, setIndex) => (
+              <div key={setIndex} className="relative">
+                {/* Round Container */}
+                <div className="space-y-1">
+                  {setLog.exercises.map((exercise, exerciseIndex) => (
+                    <div
+                      key={`${setIndex}-${exerciseIndex}`}
+                      className={`grid grid-cols-8 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[380px] md:min-w-0 ${
+                        exercise.isCompleted 
+                          ? 'bg-green-900/20 border border-green-700/30' 
+                          : 'bg-content2'
                       }`}
-                      title={exercise.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
                     >
-                      <Check className="w-3 h-3" />
-                    </button>
-                  </div>
+                      {/* Round Number - only show for first exercise */}
+                      <div className="col-span-1 text-center">
+                        {exerciseIndex === 0 && (
+                          <div className="text-white font-bold text-lg">
+                            {setLog.setNumber}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Exercise Letter (A, B, C) */}
+                      <div className="col-span-1 text-center text-white font-medium">
+                        {String.fromCharCode(65 + exerciseIndex)}
+                      </div>
+
+                      {/* Reps */}
+                      <div className="col-span-2">
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          value={exercise.reps?.toString() || ''}
+                          onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'reps', parseInt(e.target.value) || 0)}
+                          placeholder="0"
+                          variant="bordered"
+                          size="sm"
+                          classNames={{
+                            input: "text-white text-center",
+                            inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
+                          }}
+                        />
+                      </div>
+
+                      {/* Weight */}
+                      <div className="col-span-2">
+                        <Input
+                          type="text"
+                          inputMode="decimal"
+                          value={exercise.weight?.toString() || ''}
+                          onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'weight', parseFloat(e.target.value) || 0)}
+                          placeholder="0"
+                          variant="bordered"
+                          size="sm"
+                          classNames={{
+                            input: "text-white text-center",
+                            inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
+                          }}
+                        />
+                      </div>
+
+                      {/* Exercise Complete */}
+                      <div className="col-span-1 flex justify-center">
+                        <button
+                          onClick={() => handleExerciseUpdate(setIndex, exerciseIndex, 'isCompleted', !exercise.isCompleted)}
+                          className={`p-1 rounded text-sm font-medium transition flex items-center justify-center ${
+                            exercise.isCompleted
+                              ? 'bg-green-600 text-white border border-green-500'
+                              : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
+                          }`}
+                          title={exercise.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
+                        >
+                          <Check className="w-3 h-3" />
+                        </button>
+                      </div>
+
+                      {/* Delete Round Button - only show for first exercise and if more than 1 round */}
+                      <div className="col-span-1 flex justify-center">
+                        {exerciseIndex === 0 && groupLog.setLogs.length > 1 && (
+                          <button
+                            onClick={() => onRemoveSet(setIndex)}
+                            className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
+                            title={`Remove round ${setIndex + 1}`}
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))
-            )}
+              </div>
+            ))}
 
           </div>
 
@@ -320,24 +348,6 @@ export default function GroupedExerciseCard({
             <span className="hidden md:inline">Add {setLabel}</span>
           </button>
 
-          {/* Remove Set Buttons */}
-          {groupLog.setLogs.length > 1 && (
-            <div className="mt-2 text-center">
-              <div className="text-xs text-gray-400 mb-2">Remove sets:</div>
-              <div className="flex justify-center gap-2">
-                {groupLog.setLogs.map((_, setIndex) => (
-                  <button
-                    key={setIndex}
-                    onClick={() => onRemoveSet(setIndex)}
-                    className="px-2 py-1 bg-red-900/50 text-red-400 rounded text-xs hover:bg-red-900 transition"
-                    title={`Remove set ${setIndex + 1}`}
-                  >
-                    Set {setIndex + 1}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       )}
 

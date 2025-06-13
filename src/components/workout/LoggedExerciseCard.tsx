@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Check, Plus, StickyNote, Info } from 'lucide-react'
+import { Check, Plus, StickyNote, Info, ChevronDown, ChevronUp, X } from 'lucide-react'
 import { Select, SelectItem } from '@heroui/select'
 import { Input } from '@heroui/input'
 import { Textarea } from '@heroui/input'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
+import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
 
 // RPE options for select components
 const rpeOptions = [
@@ -38,6 +39,7 @@ export default function LoggedExerciseCard({
   onUpdateNotes,
   onUpdateGroupRPE
 }: LoggedExerciseCardProps) {
+  const [isExpanded, setIsExpanded] = useState(true)
   const [showNotes, setShowNotes] = useState(false)
   const [showExerciseDetail, setShowExerciseDetail] = useState(false)
   const [notes, setNotes] = useState(exerciseLog.exerciseNotes || '')
@@ -82,25 +84,32 @@ export default function LoggedExerciseCard({
     <div className="bg-content1 rounded-lg p-4 border border-divider">
       {/* Exercise Header */}
       <div className="flex justify-between items-start mb-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs px-2 py-1 rounded font-medium bg-gray-500/20 text-gray-400">
-              Single
-            </span>
+        <div className="flex items-start gap-3 flex-1">
+          {/* Group Type Icon */}
+          <div className="flex-shrink-0 mt-1">
+            {getGroupTypeIconComponent('single', { className: 'w-9 h-9' })}
           </div>
-          <div className="flex items-center gap-2 text-sm mb-2">
-            <span className="text-gray-300">{exercise.name}</span>
-            <button
-              onClick={() => setShowExerciseDetail(true)}
-              className="p-1 rounded bg-content2 text-gray-400 hover:bg-gray-600 transition"
-              title="Exercise details & muscle map"
-            >
-              <Info className="w-3 h-3" />
-            </button>
-          </div>
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <span>{completedSets}/{totalSets} sets completed</span>
-            <span className="capitalize">{exercise.target || 'target muscle'}</span>
+          
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs px-2 py-1 rounded font-medium bg-gray-500/20 text-gray-400">
+                Single
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm mb-2">
+              <span className="text-gray-300">{exercise.name}</span>
+              <button
+                onClick={() => setShowExerciseDetail(true)}
+                className="p-1 rounded bg-content2 text-gray-400 hover:bg-gray-600 transition"
+                title="Exercise details & muscle map"
+              >
+                <Info className="w-3 h-3" />
+              </button>
+            </div>
+            <div className="flex items-center gap-4 text-sm text-gray-400">
+              <span>{completedSets}/{totalSets} sets completed</span>
+              <span className="capitalize">{exercise.target || 'target muscle'}</span>
+            </div>
           </div>
         </div>
         
@@ -116,11 +125,19 @@ export default function LoggedExerciseCard({
           >
             <StickyNote className="w-4 h-4" />
           </button>
+          
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-2 bg-content2 text-gray-400 rounded-lg hover:bg-gray-600 transition"
+            title={isExpanded ? 'Collapse' : 'Expand'}
+          >
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
         </div>
       </div>
 
       {/* Notes Section */}
-      {showNotes && (
+      {showNotes && isExpanded && (
         <div className="mb-4">
           <Textarea
             value={notes}
@@ -138,7 +155,8 @@ export default function LoggedExerciseCard({
       )}
 
       {/* Group RPE */}
-      <div className="mb-4 bg-content2/30 rounded-lg p-3">
+      {isExpanded && (
+        <div className="mb-4 bg-content2/30 rounded-lg p-3">
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-300 font-medium">Exercise RPE (all sets):</span>
           <div className="w-32">
@@ -164,20 +182,23 @@ export default function LoggedExerciseCard({
           </div>
         </div>
       </div>
+      )}
 
       {/* Sets Table */}
+      {isExpanded && (
       <div className="space-y-2 overflow-x-auto">
-        <div className="grid grid-cols-6 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[300px] md:min-w-0">
-          <div className="col-span-1">Set</div>
-          <div className="col-span-2">Reps</div>
-          <div className="col-span-2">Weight (kgs)</div>
-          <div className="col-span-1">Done</div>
+        <div className="grid grid-cols-7 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[350px] md:min-w-0">
+          <div className="col-span-1 text-center">Set</div>
+          <div className="col-span-2 text-center">Reps</div>
+          <div className="col-span-2 text-center">Weight (kgs)</div>
+          <div className="col-span-1 text-center">Done</div>
+          <div className="col-span-1 text-center">Remove</div>
         </div>
 
         {exerciseLog.setLogs.map((setLog, index) => (
           <div
             key={index}
-            className={`grid grid-cols-6 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[300px] md:min-w-0 ${
+            className={`grid grid-cols-7 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[350px] md:min-w-0 ${
               setLog.isCompleted 
                 ? 'bg-green-900/20 border border-green-700/30' 
                 : 'bg-content2'
@@ -237,6 +258,19 @@ export default function LoggedExerciseCard({
               </button>
             </div>
 
+            {/* Remove Set Button */}
+            <div className="col-span-1 flex justify-center">
+              {exerciseLog.setLogs.length > 1 && (
+                <button
+                  onClick={() => onRemoveSet(index)}
+                  className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
+                  title={`Remove set ${index + 1}`}
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+
           </div>
         ))}
 
@@ -249,28 +283,12 @@ export default function LoggedExerciseCard({
           <span className="hidden md:inline">Add Set</span>
         </button>
 
-        {/* Remove Set Buttons */}
-        {exerciseLog.setLogs.length > 1 && (
-          <div className="mt-2 text-center">
-            <div className="text-xs text-gray-400 mb-2">Remove sets:</div>
-            <div className="flex justify-center gap-2">
-              {exerciseLog.setLogs.map((_, setIndex) => (
-                <button
-                  key={setIndex}
-                  onClick={() => onRemoveSet(setIndex)}
-                  className="px-2 py-1 bg-red-900/50 text-red-400 rounded text-xs hover:bg-red-900 transition"
-                  title={`Remove set ${setIndex + 1}`}
-                >
-                  Set {setIndex + 1}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
+      )}
+
       {/* Exercise Instructions/Tips */}
-      {exercise.instructions && exercise.instructions.length > 0 && (
+      {isExpanded && exercise.instructions && exercise.instructions.length > 0 && (
         <details className="mt-4">
           <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-300">
             View exercise instructions
