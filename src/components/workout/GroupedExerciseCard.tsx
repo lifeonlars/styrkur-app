@@ -234,12 +234,12 @@ export default function GroupedExerciseCard({
           <div className="space-y-6 overflow-x-auto">
             {/* Headers */}
             <div className="grid grid-cols-8 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[380px] md:min-w-0">
+              <div className="col-span-1 text-center">Remove</div>
               <div className="col-span-1 text-center">Round</div>
               <div className="col-span-1 text-center">Ex</div>
               <div className="col-span-2 text-center">Reps</div>
               <div className="col-span-2 text-center">Weight (kgs)</div>
               <div className="col-span-1 text-center">Done</div>
-              <div className="col-span-1 text-center">Remove</div>
             </div>
 
             {/* Round Groups */}
@@ -256,6 +256,19 @@ export default function GroupedExerciseCard({
                           : 'bg-content2'
                       }`}
                     >
+                      {/* Delete Round Button - only show for first exercise and if more than 1 round */}
+                      <div className="col-span-1 flex justify-center">
+                        {exerciseIndex === 0 && groupLog.setLogs.length > 1 && (
+                          <button
+                            onClick={() => onRemoveSet(setIndex)}
+                            className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
+                            title={`Remove round ${setIndex + 1}`}
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+
                       {/* Round Number - only show for first exercise */}
                       <div className="col-span-1 text-center">
                         {exerciseIndex === 0 && (
@@ -319,18 +332,6 @@ export default function GroupedExerciseCard({
                         </button>
                       </div>
 
-                      {/* Delete Round Button - only show for first exercise and if more than 1 round */}
-                      <div className="col-span-1 flex justify-center">
-                        {exerciseIndex === 0 && groupLog.setLogs.length > 1 && (
-                          <button
-                            onClick={() => onRemoveSet(setIndex)}
-                            className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
-                            title={`Remove round ${setIndex + 1}`}
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        )}
-                      </div>
                     </div>
                   ))}
                 </div>

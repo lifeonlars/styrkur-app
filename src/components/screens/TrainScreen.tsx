@@ -60,7 +60,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Workout Header */}
-      <div className="bg-gray-900 p-4 border-b border-gray-800 sticky top-0 lg:top-24 z-10">
+      <div className="bg-background p-4 border-b border-divider sticky top-0 lg:top-24 z-10">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-white text-lg font-medium font-heading">{workoutSession.title}</h1>

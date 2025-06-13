@@ -188,11 +188,11 @@ export default function LoggedExerciseCard({
       {isExpanded && (
       <div className="space-y-2 overflow-x-auto">
         <div className="grid grid-cols-7 gap-1 md:gap-2 text-sm font-medium text-gray-400 px-2 min-w-[350px] md:min-w-0">
+          <div className="col-span-1 text-center">Remove</div>
           <div className="col-span-1 text-center">Set</div>
           <div className="col-span-2 text-center">Reps</div>
           <div className="col-span-2 text-center">Weight (kgs)</div>
           <div className="col-span-1 text-center">Done</div>
-          <div className="col-span-1 text-center">Remove</div>
         </div>
 
         {exerciseLog.setLogs.map((setLog, index) => (
@@ -204,6 +204,19 @@ export default function LoggedExerciseCard({
                 : 'bg-content2'
             }`}
           >
+            {/* Remove Set Button */}
+            <div className="col-span-1 flex justify-center">
+              {exerciseLog.setLogs.length > 1 && (
+                <button
+                  onClick={() => onRemoveSet(index)}
+                  className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
+                  title={`Remove set ${index + 1}`}
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+
             {/* Set Number */}
             <div className="col-span-1 text-center text-white font-medium">
               {setLog.setNumber}
@@ -258,18 +271,6 @@ export default function LoggedExerciseCard({
               </button>
             </div>
 
-            {/* Remove Set Button */}
-            <div className="col-span-1 flex justify-center">
-              {exerciseLog.setLogs.length > 1 && (
-                <button
-                  onClick={() => onRemoveSet(index)}
-                  className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
-                  title={`Remove set ${index + 1}`}
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              )}
-            </div>
 
           </div>
         ))}

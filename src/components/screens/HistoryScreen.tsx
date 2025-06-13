@@ -5,7 +5,7 @@ export default function HistoryScreen() {
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-gray-900 p-4 border-b border-gray-800">
+      <div className="lg:hidden bg-background p-4 border-b border-divider">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 pt-1">
             <NavHistory className="w-16 h-16 text-[#C3A869]" />
