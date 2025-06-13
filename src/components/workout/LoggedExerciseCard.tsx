@@ -1,7 +1,21 @@
 import { useState } from 'react'
 import { Check, Plus, StickyNote, Info } from 'lucide-react'
+import { Select, SelectItem } from '@heroui/select'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
+
+// RPE options for select components
+const rpeOptions = [
+  { value: "6", label: "6 - Light" },
+  { value: "6.5", label: "6.5" },
+  { value: "7", label: "7 - Moderate" },
+  { value: "7.5", label: "7.5" },
+  { value: "8", label: "8 - Hard" },
+  { value: "8.5", label: "8.5" },
+  { value: "9", label: "9 - Very Hard" },
+  { value: "9.5", label: "9.5" },
+  { value: "10", label: "10 - Max Effort" }
+]
 
 interface LoggedExerciseCardProps {
   exercise: Exercise
@@ -121,21 +135,25 @@ export default function LoggedExerciseCard({
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-300 font-medium">Exercise RPE (all sets):</span>
           <div className="w-32">
-            <select
-              value={exerciseLog.groupRPE || 7}
-              onChange={(e) => onUpdateGroupRPE?.(parseFloat(e.target.value))}
-              className="w-full bg-gray-600 text-white px-2 py-1 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
+            <Select
+              size="sm"
+              selectedKeys={[(exerciseLog.groupRPE || 7).toString()]}
+              onSelectionChange={(keys) => {
+                const value = Array.from(keys)[0] as string
+                onUpdateGroupRPE?.(parseFloat(value))
+              }}
+              variant="bordered"
+              classNames={{
+                trigger: "bg-content2 border-divider min-h-8",
+                value: "text-white text-sm"
+              }}
             >
-              <option value={6}>6 - Light</option>
-              <option value={6.5}>6.5</option>
-              <option value={7}>7 - Moderate</option>
-              <option value={7.5}>7.5</option>
-              <option value={8}>8 - Hard</option>
-              <option value={8.5}>8.5</option>
-              <option value={9}>9 - Very Hard</option>
-              <option value={9.5}>9.5</option>
-              <option value={10}>10 - Max Effort</option>
-            </select>
+              {rpeOptions.map((option) => (
+                <SelectItem key={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
         </div>
       </div>

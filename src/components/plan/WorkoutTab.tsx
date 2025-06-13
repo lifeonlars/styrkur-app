@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Plus, Search, CheckCircle } from 'lucide-react'
+import { Input } from '@heroui/input'
 import { Workout } from '@/types'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 import EnhancedWorkoutCard from './EnhancedWorkoutCard'
@@ -101,16 +102,19 @@ export default function WorkoutTab({
       {/* Search and Filter */}
       {workouts.length > 0 && (
         <div className="space-y-3">
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search workouts by name, description, or tags..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869] border border-gray-700"
-            />
-          </div>
+          <Input
+            type="text"
+            placeholder="Search workouts by name, description, or tags..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            startContent={<Search className="w-4 h-4 text-default-400" />}
+            variant="bordered"
+            size="lg"
+            classNames={{
+              input: "text-white",
+              inputWrapper: "bg-content1 border-divider"
+            }}
+          />
           
           {/* Tag Filter Placeholder */}
           <div className="flex gap-2 flex-wrap">

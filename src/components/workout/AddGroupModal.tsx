@@ -2,10 +2,32 @@
 
 import { useState, useEffect } from 'react'
 import { X, Plus, Minus, ChevronUp, ChevronDown } from 'lucide-react'
+import { Select, SelectItem } from '@heroui/select'
 import { ExerciseGroupType, TimingStyle, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
 import { fetchExercises, categoryMapping } from '@/lib/wger'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
 import ExerciseSearch from './ExerciseSearch'
+
+// RPE options for select components
+const rpeOptions = [
+  { value: "6", label: "6 - Light" },
+  { value: "6.5", label: "6.5" },
+  { value: "7", label: "7 - Moderate" },
+  { value: "7.5", label: "7.5" },
+  { value: "8", label: "8 - Hard" },
+  { value: "8.5", label: "8.5" },
+  { value: "9", label: "9 - Very Hard" },
+  { value: "9.5", label: "9.5" },
+  { value: "10", label: "10 - Max Effort" }
+]
+
+// Timing style options
+const timingStyleOptions = [
+  { value: "", label: "None" },
+  { value: "AMRAP", label: "AMRAP (As Many Rounds As Possible)" },
+  { value: "EMOM", label: "EMOM (Every Minute On the Minute)" },
+  { value: "HIIT", label: "HIIT (High Intensity Interval Training)" }
+]
 
 interface AddGroupModalProps {
   onSave: (entry: WorkoutEntry) => void
@@ -240,24 +262,27 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 />
               </div>
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
-                  RPE (Rate of Perceived Exertion)
-                </label>
-                <select
-                  value={groupRPE}
-                  onChange={(e) => setGroupRPE(parseFloat(e.target.value))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                <Select
+                  label="RPE (Rate of Perceived Exertion)"
+                  placeholder="Select RPE"
+                  selectedKeys={[groupRPE.toString()]}
+                  onSelectionChange={(keys) => {
+                    const value = Array.from(keys)[0] as string
+                    setGroupRPE(parseFloat(value))
+                  }}
+                  variant="bordered"
+                  classNames={{
+                    label: "text-gray-300 text-sm font-medium",
+                    trigger: "bg-content1 border-divider",
+                    value: "text-white"
+                  }}
                 >
-                  <option value={6}>6 - Light</option>
-                  <option value={6.5}>6.5</option>
-                  <option value={7}>7 - Moderate</option>
-                  <option value={7.5}>7.5</option>
-                  <option value={8}>8 - Hard</option>
-                  <option value={8.5}>8.5</option>
-                  <option value={9}>9 - Very Hard</option>
-                  <option value={9.5}>9.5</option>
-                  <option value={10}>10 - Max Effort</option>
-                </select>
+                  {rpeOptions.map((option) => (
+                    <SelectItem key={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </Select>
               </div>
             </div>
           ) : (
@@ -293,17 +318,27 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {/* Timing Style */}
           {groupType === 'circuit' && (
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-2">Timing Style (optional)</label>
-              <select
-                value={timingStyle}
-                onChange={(e) => setTimingStyle(e.target.value as TimingStyle | '')}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              <Select
+                label="Timing Style (optional)"
+                placeholder="Select timing style"
+                selectedKeys={timingStyle ? [timingStyle] : [""]}
+                onSelectionChange={(keys) => {
+                  const value = Array.from(keys)[0] as string
+                  setTimingStyle(value as TimingStyle | '')
+                }}
+                variant="bordered"
+                classNames={{
+                  label: "text-gray-300 text-sm font-medium",
+                  trigger: "bg-content1 border-divider",
+                  value: "text-white"
+                }}
               >
-                <option value="">None</option>
-                <option value="AMRAP">AMRAP (As Many Rounds As Possible)</option>
-                <option value="EMOM">EMOM (Every Minute On the Minute)</option>
-                <option value="HIIT">HIIT (High Intensity Interval Training)</option>
-              </select>
+                {timingStyleOptions.map((option) => (
+                  <SelectItem key={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </Select>
             </div>
           )}
 

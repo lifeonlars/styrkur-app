@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Search, Clock, Dumbbell } from 'lucide-react'
+import { Input } from '@heroui/input'
 import { Workout } from '@/types'
 import { searchWorkouts } from '@/lib/fuzzySearch'
 import WorkoutCard from './WorkoutCard'
@@ -101,16 +102,19 @@ export default function WorkoutTabs({
       {/* Search and Filters */}
       <div className="space-y-4">
         {/* Search Bar */}
-        <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            placeholder={`Search ${activeTab === 'recent' ? 'recent sessions' : 'workout library'}...`}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869] border border-gray-700"
-          />
-        </div>
+        <Input
+          type="text"
+          placeholder={`Search ${activeTab === 'recent' ? 'recent sessions' : 'workout library'}...`}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          startContent={<Search className="w-4 h-4 text-default-400" />}
+          variant="bordered"
+          size="lg"
+          classNames={{
+            input: "text-white",
+            inputWrapper: "bg-content1 border-divider"
+          }}
+        />
 
         {/* Tag Filter */}
         <TagFilter

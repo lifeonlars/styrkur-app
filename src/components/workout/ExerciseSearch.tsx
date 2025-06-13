@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
+import { Input } from '@heroui/input'
 import { Exercise, ExerciseFilter, MuscleGroup } from '@/types'
 import { fetchExercises, muscleGroupFilters } from '@/lib/wger'
 import EnhancedExerciseCard from './EnhancedExerciseCard'
@@ -123,25 +124,27 @@ export default function ExerciseSearch({
       )}
       
       {/* Search Bar */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-        <input
+      <div className="mb-4">
+        <Input
           type="text"
           placeholder="Search exercises... (e.g., kettlebell, squat, press)"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
-          className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+          startContent={<Search className="w-4 h-4 text-default-400" />}
+          endContent={
+            searchTerm.length > 0 && searchTerm.length < 3 ? (
+              <div className="text-xs text-default-500">
+                {3 - searchTerm.length} more chars
+              </div>
+            ) : null
+          }
+          variant="bordered"
+          size="lg"
+          classNames={{
+            input: "text-white",
+            inputWrapper: "bg-content1 border-divider"
+          }}
         />
-        {searchTerm.length > 0 && searchTerm.length < 3 && (
-          <div className="absolute right-3 top-3 text-xs text-gray-500">
-            {3 - searchTerm.length} more chars for search
-          </div>
-        )}
-        {loading && (
-          <div className="absolute right-3 top-3">
-            <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
       </div>
 
       {/* Muscle Group Filter */}
