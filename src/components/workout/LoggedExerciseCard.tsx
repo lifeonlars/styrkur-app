@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Check, Plus, StickyNote, Info } from 'lucide-react'
 import { Select, SelectItem } from '@heroui/select'
+import { Input } from '@heroui/input'
+import { Textarea } from '@heroui/input'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 
@@ -120,12 +122,17 @@ export default function LoggedExerciseCard({
       {/* Notes Section */}
       {showNotes && (
         <div className="mb-4">
-          <textarea
+          <Textarea
             value={notes}
             onChange={(e) => handleNotesChange(e.target.value)}
             placeholder="Add notes about this exercise..."
-            className="w-full bg-gray-700 text-white p-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#C3A869] resize-none"
-            rows={2}
+            variant="bordered"
+            minRows={2}
+            maxRows={3}
+            classNames={{
+              input: "text-white",
+              inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+            }}
           />
         </div>
       )}
@@ -183,25 +190,35 @@ export default function LoggedExerciseCard({
 
             {/* Reps Input */}
             <div className="col-span-2">
-              <input
+              <Input
                 type="text"
                 inputMode="numeric"
-                value={setLog.reps || ''}
+                value={setLog.reps?.toString() || ''}
                 onChange={(e) => handleRepsChange(index, parseInt(e.target.value) || 0)}
-                className="w-full bg-gray-600 text-white px-2 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
                 placeholder="0"
+                variant="bordered"
+                size="sm"
+                classNames={{
+                  input: "text-white text-center",
+                  inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
+                }}
               />
             </div>
 
             {/* Weight Input */}
             <div className="col-span-2">
-              <input
+              <Input
                 type="text"
                 inputMode="decimal"
-                value={setLog.weight || ''}
+                value={setLog.weight?.toString() || ''}
                 onChange={(e) => handleWeightChange(index, parseFloat(e.target.value) || 0)}
-                className="w-full bg-gray-600 text-white px-2 py-1 rounded text-center focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
                 placeholder="0"
+                variant="bordered"
+                size="sm"
+                classNames={{
+                  input: "text-white text-center",
+                  inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
+                }}
               />
             </div>
 

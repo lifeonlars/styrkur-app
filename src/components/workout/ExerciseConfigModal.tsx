@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import { Input } from '@heroui/input'
+import { Textarea } from '@heroui/input'
 import { Exercise, ExerciseConfig } from '@/types'
 import { categoryMapping } from '@/lib/wger'
 
@@ -129,24 +131,32 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-300 text-sm mb-2">Sets</label>
-                <input
+                <Input
                   type="number"
                   min="1"
                   max="10"
-                  value={config.sets}
+                  value={config.sets?.toString() || '3'}
                   onChange={(e) => setConfig(prev => ({ ...prev, sets: parseInt(e.target.value) || 1 }))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  variant="bordered"
+                  classNames={{
+                    input: "text-white",
+                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                  }}
                 />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm mb-2">Reps</label>
-                <input
+                <Input
                   type="number"
                   min="1"
                   max="50"
-                  value={config.reps}
+                  value={config.reps?.toString() || '10'}
                   onChange={(e) => setConfig(prev => ({ ...prev, reps: parseInt(e.target.value) || 1 }))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  variant="bordered"
+                  classNames={{
+                    input: "text-white",
+                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                  }}
                 />
               </div>
             </div>
@@ -155,13 +165,17 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
             {exercise.isWeighted && (
               <div>
                 <label className="block text-gray-300 text-sm mb-2">Weight (kg)</label>
-                <input
+                <Input
                   type="number"
                   min="0"
                   step="0.5"
-                  value={config.weight}
+                  value={config.weight?.toString() || '0'}
                   onChange={(e) => setConfig(prev => ({ ...prev, weight: parseFloat(e.target.value) || 0 }))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  variant="bordered"
+                  classNames={{
+                    input: "text-white",
+                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                  }}
                 />
               </div>
             )}
@@ -170,14 +184,18 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-300 text-sm mb-2">Rest (sec)</label>
-                <input
+                <Input
                   type="number"
                   min="15"
                   max="300"
                   step="15"
-                  value={config.rest}
+                  value={config.rest?.toString() || '90'}
                   onChange={(e) => setConfig(prev => ({ ...prev, rest: parseInt(e.target.value) || 60 }))}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  variant="bordered"
+                  classNames={{
+                    input: "text-white",
+                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                  }}
                 />
               </div>
             </div>
@@ -185,23 +203,33 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
             {/* Tempo */}
             <div>
               <label className="block text-gray-300 text-sm mb-2">Tempo (optional)</label>
-              <input
+              <Input
                 type="text"
                 placeholder="e.g., 3-0-1-1"
                 value={config.tempo}
                 onChange={(e) => setConfig(prev => ({ ...prev, tempo: e.target.value }))}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                variant="bordered"
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "bg-content1 border-divider hover:border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
 
             {/* Notes */}
             <div>
               <label className="block text-gray-300 text-sm mb-2">Notes (optional)</label>
-              <textarea
+              <Textarea
                 placeholder="Exercise cues, modifications, etc."
                 value={config.notes}
                 onChange={(e) => setConfig(prev => ({ ...prev, notes: e.target.value }))}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg placeholder-gray-400 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                variant="bordered"
+                minRows={3}
+                maxRows={4}
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "bg-content1 border-divider hover:border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
           </div>

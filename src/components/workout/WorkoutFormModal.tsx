@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { X, Plus } from 'lucide-react'
+import { Input } from '@heroui/input'
+import { Textarea } from '@heroui/input'
 import { Workout, WorkoutForm, WorkoutEntry, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
 import WorkoutEntryCard from './WorkoutEntryCard'
@@ -118,12 +120,17 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
             {/* Workout Details */}
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Workout Name</label>
-              <input
+              <Input
                 type="text"
                 value={workoutForm.title}
                 onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
                 placeholder="e.g., Upper Body Strength, HIIT Circuit"
-                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                variant="bordered"
+                size="lg"
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
 
@@ -193,11 +200,17 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
             {/* Description - Moved to Bottom */}
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Description (optional)</label>
-              <textarea
+              <Textarea
                 value={workoutForm.description}
                 onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Brief description of the workout..."
-                className="w-full bg-gray-800 text-white p-3 rounded-lg h-20 resize-none focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                variant="bordered"
+                minRows={3}
+                maxRows={4}
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
           </div>

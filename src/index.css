@@ -158,12 +158,12 @@ body {
 }
 
 /* Custom input and button styles */
-input, textarea, select, button {
+input:not([data-slot]), textarea:not([data-slot]), select:not([data-slot]), button:not([data-slot]) {
   font-family: inherit;
   outline: none;
 }
 
-input:focus, textarea:focus, select:focus {
+input:not([data-slot]):focus, textarea:not([data-slot]):focus, select:not([data-slot]):focus {
   outline: 2px solid #C3A869;
   outline-offset: 2px;
 }

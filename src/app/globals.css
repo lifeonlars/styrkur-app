@@ -71,11 +71,11 @@ a {
   background: #B19651;
 }
 
-/* Focus styles */
-input:focus,
-textarea:focus,
-select:focus,
-button:focus {
+/* Focus styles - exclude HeroUI components */
+input:not([data-slot]):focus,
+textarea:not([data-slot]):focus,
+select:not([data-slot]):focus,
+button:not([data-slot]):focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }

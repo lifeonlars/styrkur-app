@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Plus, Minus, ChevronUp, ChevronDown } from 'lucide-react'
 import { Select, SelectItem } from '@heroui/select'
+import { Input } from '@heroui/input'
 import { ExerciseGroupType, TimingStyle, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
 import { fetchExercises, categoryMapping } from '@/lib/wger'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
@@ -235,12 +236,16 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {groupType !== 'single' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Label (optional)</label>
-              <input
+              <Input
                 type="text"
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 placeholder={getDefaultLabel()}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                variant="bordered"
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
           )}
@@ -252,18 +257,22 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Sets
                 </label>
-                <input
+                <Input
                   type="number"
                   min="1"
                   max="10"
-                  value={sets}
+                  value={sets.toString()}
                   onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                  className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                  variant="bordered"
+                  classNames={{
+                    input: "text-white",
+                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                  }}
                 />
               </div>
               <div>
+                <label className="block text-gray-300 text-sm font-medium mb-2">RPE (Rate of Perceived Exertion)</label>
                 <Select
-                  label="RPE (Rate of Perceived Exertion)"
                   placeholder="Select RPE"
                   selectedKeys={[groupRPE.toString()]}
                   onSelectionChange={(keys) => {
@@ -272,8 +281,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                   }}
                   variant="bordered"
                   classNames={{
-                    label: "text-gray-300 text-sm font-medium",
-                    trigger: "bg-content1 border-divider",
+                    trigger: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2",
                     value: "text-white"
                   }}
                 >
@@ -288,13 +296,17 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           ) : (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Rounds</label>
-              <input
+              <Input
                 type="number"
                 min="1"
                 max="10"
-                value={sets}
+                value={sets.toString()}
                 onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                variant="bordered"
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
           )}
@@ -303,14 +315,18 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {groupType === 'circuit' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Rest Between Exercises (sec)</label>
-              <input
+              <Input
                 type="number"
                 min="0"
                 max="120"
                 step="5"
-                value={restBetweenExercises}
+                value={restBetweenExercises.toString()}
                 onChange={(e) => setRestBetweenExercises(parseInt(e.target.value) || 0)}
-                className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+                variant="bordered"
+                classNames={{
+                  input: "text-white",
+                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                }}
               />
             </div>
           )}
@@ -318,8 +334,8 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {/* Timing Style */}
           {groupType === 'circuit' && (
             <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">Timing Style (optional)</label>
               <Select
-                label="Timing Style (optional)"
                 placeholder="Select timing style"
                 selectedKeys={timingStyle ? [timingStyle] : [""]}
                 onSelectionChange={(keys) => {
@@ -328,8 +344,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 }}
                 variant="bordered"
                 classNames={{
-                  label: "text-gray-300 text-sm font-medium",
-                  trigger: "bg-content1 border-divider",
+                  trigger: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2",
                   value: "text-white"
                 }}
               >
@@ -345,14 +360,18 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {/* Rest After Group */}
           <div>
             <label className="block text-gray-300 text-sm font-medium mb-2">Rest After Group (sec)</label>
-            <input
+            <Input
               type="number"
               min="0"
               max="300"
               step="15"
-              value={restAfterGroup}
+              value={restAfterGroup.toString()}
               onChange={(e) => setRestAfterGroup(parseInt(e.target.value) || 0)}
-              className="w-full bg-gray-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C3A869]"
+              variant="bordered"
+              classNames={{
+                input: "text-white",
+                inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+              }}
             />
           </div>
 
@@ -422,24 +441,34 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                     <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-gray-400 text-sm mb-1">Reps</label>
-                      <input
+                      <Input
                         type="number"
                         min="1"
                         max="50"
-                        value={exerciseConfig.reps || 10}
+                        value={(exerciseConfig.reps || 10).toString()}
                         onChange={(e) => updateExercise(index, { reps: parseInt(e.target.value) || 10 })}
-                        className="w-full bg-gray-700 text-white p-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
+                        variant="bordered"
+                        size="sm"
+                        classNames={{
+                          input: "text-white",
+                          inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                        }}
                       />
                     </div>
                     <div>
                       <label className="block text-gray-400 text-sm mb-1">Weight (kg)</label>
-                      <input
+                      <Input
                         type="number"
                         min="0"
                         step="0.5"
-                        value={exerciseConfig.weight || 0}
+                        value={(exerciseConfig.weight || 0).toString()}
                         onChange={(e) => updateExercise(index, { weight: parseFloat(e.target.value) || 0 })}
-                        className="w-full bg-gray-700 text-white p-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-[#C3A869]"
+                        variant="bordered"
+                        size="sm"
+                        classNames={{
+                          input: "text-white",
+                          inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
+                        }}
                       />
                     </div>
                   </div>

@@ -112,7 +112,7 @@ export default function WorkoutTab({
             size="lg"
             classNames={{
               input: "text-white",
-              inputWrapper: "bg-content1 border-divider"
+              inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
             }}
           />
           
