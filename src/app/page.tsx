@@ -70,39 +70,13 @@ export default function SyrkurSagaApp() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      <div className="flex-1 lg:grid lg:grid-cols-12 lg:gap-6">
+      <div className="flex-1">
         {/* Main Content */}
-        <div className={`${activeTab === 'dashboard' ? 'lg:col-span-9 xl:col-span-10' : 'lg:col-span-12'}`}>
+        <div className="w-full">
           <ClientOnly fallback={<div className="p-4 text-center text-gray-400">Loading...</div>}>
             {renderActiveScreen()}
           </ClientOnly>
         </div>
-        
-        {/* Desktop Sidebar (hidden on mobile, only show on dashboard screen) */}
-        {activeTab === 'dashboard' && (
-          <div className="hidden lg:block lg:col-span-3 xl:col-span-2 bg-gray-800 border-l border-gray-700">
-            <div className="p-6">
-              <h3 className="text-white font-heading font-medium mb-4">Quick Stats</h3>
-              <div className="space-y-4">
-                <div className="text-center">
-                  <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
-                  <div className="text-white font-medium">12</div>
-                  <div className="text-gray-400 text-sm">Sessions</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
-                  <div className="text-white font-medium">3</div>
-                  <div className="text-gray-400 text-sm">PRs</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
-                  <div className="text-white font-medium">7</div>
-                  <div className="text-gray-400 text-sm">Streak</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
       
       {/* Mobile Bottom Navigation */}

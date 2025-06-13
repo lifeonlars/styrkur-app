@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Zap, Calendar, Play } from 'lucide-react'
 import { Workout, WorkoutSessionState, WorkoutSessionSummary } from '@/types'
+import { NavWorkouts } from '@/components/icons'
 import { loadWorkoutSession, hasActiveSession, loadPausedWorkoutSession, hasPausedSession, resumePausedSession, clearPausedWorkoutSession } from '@/lib/sessionStorage'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 import QuickStartModal from '@/components/workout/QuickStartModal'
@@ -146,14 +147,28 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
       <div className="lg:hidden bg-gray-900 p-4 border-b border-gray-800">
-        <h1 className="text-white text-xl font-heading font-medium">Workouts</h1>
-        <p className="text-gray-400 text-sm">Start and log your training sessions</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavWorkouts className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-xl font-heading font-medium">Workouts</h1>
+            <p className="text-gray-400 text-sm">Start and log your training sessions</p>
+          </div>
+        </div>
       </div>
 
       {/* Page Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-heading font-light mb-2">Training Sessions</h1>
-        <p className="text-gray-400">Ready to train? Start a workout below</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavWorkouts className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-2xl font-heading font-light mb-2">Training Sessions</h1>
+            <p className="text-gray-400">Ready to train? Start a workout below</p>
+          </div>
+        </div>
       </div>
 
       {/* Today's Scheduled Workout */}

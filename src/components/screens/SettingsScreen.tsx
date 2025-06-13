@@ -1,18 +1,33 @@
 import { Settings, User, Scale, Dumbbell, Bot, Shield, Download } from 'lucide-react'
+import { NavSettings } from '@/components/icons'
 
 export default function SettingsScreen() {
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
       <div className="lg:hidden bg-gray-900 p-4 border-b border-gray-800">
-        <h1 className="text-white text-xl font-medium font-heading">Settings</h1>
-        <p className="text-gray-400 text-sm">Customize your experience</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavSettings className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-xl font-medium font-heading">Settings</h1>
+            <p className="text-gray-400 text-sm">Customize your experience</p>
+          </div>
+        </div>
       </div>
 
       {/* Page Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-light mb-2 font-heading">Settings</h1>
-        <p className="text-gray-400">Configure your training preferences</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavSettings className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-2xl font-light mb-2 font-heading">Settings</h1>
+            <p className="text-gray-400">Configure your training preferences</p>
+          </div>
+        </div>
       </div>
 
       {/* Personal Units & Preferences */}

@@ -1,6 +1,7 @@
 import { Trophy, Plus, Calendar, TrendingUp, Target } from 'lucide-react'
 import { Workout } from '@/types'
 import WorkoutCard from '@/components/workout/WorkoutCard'
+import { NavDashboard } from '@/components/icons'
 
 interface DashboardScreenProps {
   workouts: Workout[]
@@ -127,14 +128,28 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header (hidden on desktop) */}
       <div className="lg:hidden bg-gray-900 p-6 border-b border-gray-800">
-        <h1 className="text-2xl font-heading font-light text-white mb-2">Syrkur Saga</h1>
-        <p className="text-gray-400 text-sm">Your strength journey unfolds</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavDashboard className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-2xl font-heading font-light text-white mb-2">Syrkur Saga</h1>
+            <p className="text-gray-400 text-sm">Your strength journey unfolds</p>
+          </div>
+        </div>
       </div>
 
       {/* Greeting Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-heading font-light mb-2">Welcome back, Lars</h1>
-        <p className="text-gray-400">Ready to conquer today's challenges</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavDashboard className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-2xl font-heading font-light mb-2">Welcome back, Lars</h1>
+            <p className="text-gray-400">Ready to conquer today's challenges</p>
+          </div>
+        </div>
       </div>
 
       {/* Upcoming Workout Section */}
@@ -181,12 +196,33 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
         </div>
       </section>
 
-      {/* PR Highlight */}
+      {/* Progress & Achievements */}
       <section className="p-4 lg:p-6">
         <h2 className="text-white font-heading font-medium mb-4 flex items-center">
           <Target className="w-5 h-5 mr-2 text-[#C3A869]" />
-          Recent Achievement
+          Progress & Achievements
         </h2>
+        
+        {/* Stats Grid */}
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
+            <div className="text-white font-medium text-lg">12</div>
+            <div className="text-gray-400 text-xs">Sessions</div>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
+            <div className="text-white font-medium text-lg">3</div>
+            <div className="text-gray-400 text-xs">PRs</div>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
+            <div className="text-white font-medium text-lg">7</div>
+            <div className="text-gray-400 text-xs">Day Streak</div>
+          </div>
+        </div>
+
+        {/* Recent Achievement Highlight */}
         <div className="bg-gray-800 rounded-xl p-4 border border-[#C3A869]/20">
           <div className="text-center">
             <div className="text-2xl mb-2">🏆</div>
@@ -196,25 +232,6 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           </div>
         </div>
       </section>
-
-      {/* Quick Stats (mobile only) */}
-      <div className="lg:hidden p-4 grid grid-cols-3 gap-4">
-        <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
-          <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
-          <div className="text-white font-medium">12</div>
-          <div className="text-gray-400 text-sm">Sessions</div>
-        </div>
-        <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
-          <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
-          <div className="text-white font-medium">3</div>
-          <div className="text-gray-400 text-sm">PRs</div>
-        </div>
-        <div className="bg-gray-800 rounded-xl p-4 text-center card-hover">
-          <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
-          <div className="text-white font-medium">7</div>
-          <div className="text-gray-400 text-sm">Streak</div>
-        </div>
-      </div>
 
       {/* Recent Workouts */}
       <div className="p-4 lg:p-6">

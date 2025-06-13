@@ -3,7 +3,7 @@ import { Play, RotateCcw, Clock, Hash, Weight, Tag, Eye } from 'lucide-react'
 import { Workout } from '@/types'
 import { calculateWorkoutMetrics, formatWeight, getGroupTypeLabel } from '@/lib/workoutUtils'
 import { getWorkoutGroupTypeIcon } from '@/lib/groupTypeUtils'
-import MuscleMapModal from '@/components/muscle-map/MuscleMapModal'
+import WorkoutSummaryModal from '@/components/workout/WorkoutSummaryModal'
 
 interface WorkoutCardProps {
   workout: Workout
@@ -20,7 +20,7 @@ export default function WorkoutCard({
   onRepeat, 
   searchTerm = '' 
 }: WorkoutCardProps) {
-  const [showMuscleMap, setShowMuscleMap] = useState(false)
+  const [showSummary, setShowSummary] = useState(false)
   const metrics = calculateWorkoutMetrics(workout)
   
   // Get first 2-3 exercise names for preview
@@ -80,10 +80,10 @@ export default function WorkoutCard({
           <button
             onClick={(e) => {
               e.stopPropagation()
-              setShowMuscleMap(true)
+              setShowSummary(true)
             }}
             className="bg-gray-700 text-gray-400 p-2 rounded-lg hover:bg-gray-600 hover:text-[#C3A869] transition"
-            title="View muscle map"
+            title="View workout summary"
           >
             <Eye className="w-4 h-4" />
           </button>
@@ -154,10 +154,10 @@ export default function WorkoutCard({
         </div>
       )}
 
-      {/* Muscle Map Modal */}
-      <MuscleMapModal
-        isOpen={showMuscleMap}
-        onClose={() => setShowMuscleMap(false)}
+      {/* Workout Summary Modal */}
+      <WorkoutSummaryModal
+        isOpen={showSummary}
+        onClose={() => setShowSummary(false)}
         workout={workout}
       />
     </div>

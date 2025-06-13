@@ -1,18 +1,33 @@
 import { History, Calendar, TrendingUp, Filter, BarChart3 } from 'lucide-react'
+import { NavHistory } from '@/components/icons'
 
 export default function HistoryScreen() {
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
       <div className="lg:hidden bg-gray-900 p-4 border-b border-gray-800">
-        <h1 className="text-white text-xl font-medium font-heading">History</h1>
-        <p className="text-gray-400 text-sm">Your workout history and progress</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavHistory className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-xl font-medium font-heading">History</h1>
+            <p className="text-gray-400 text-sm">Your workout history and progress</p>
+          </div>
+        </div>
       </div>
 
       {/* Page Header */}
       <div className="hidden lg:block p-6">
-        <h1 className="text-white text-2xl font-light mb-2 font-heading">Workout History</h1>
-        <p className="text-gray-400">Track your progress and analyze your training</p>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 pt-1">
+            <NavHistory className="w-16 h-16 text-[#C3A869]" />
+          </div>
+          <div className="flex-1">
+            <h1 className="text-white text-2xl font-light mb-2 font-heading">Workout History</h1>
+            <p className="text-gray-400">Track your progress and analyze your training</p>
+          </div>
+        </div>
       </div>
 
       {/* Quick Stats */}
