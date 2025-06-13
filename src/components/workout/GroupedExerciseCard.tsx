@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info, X } from 'lucide-react'
-import { Select, SelectItem } from '@heroui/select'
-import { Input } from '@heroui/input'
-import { Textarea } from '@heroui/input'
+import { Select, SelectItem } from '@/ui/select-neu'
+import { Input } from '@/ui/input-neu'
+import { Textarea } from '@/ui/textarea-neu'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
@@ -105,7 +105,7 @@ export default function GroupedExerciseCard({
   }
 
   return (
-    <div className="bg-content1 rounded-lg border border-divider">
+    <div className="shadow-neu-card-raised bg-gradient-to-br from-content1 to-content2 rounded-lg border-none">
       {/* Group Header */}
       <div className="p-4 border-b border-divider">
         <div className="flex justify-between items-center">
@@ -155,10 +155,10 @@ export default function GroupedExerciseCard({
           <div className="flex gap-2">
             <button
               onClick={() => setShowNotes(!showNotes)}
-              className={`p-2 rounded-lg transition ${
+              className={`p-2 rounded-lg transition-all duration-200 ${
                 showNotes || notes.trim()
-                  ? 'bg-[#C3A869]/20 text-[#C3A869]'
-                  : 'bg-content2 text-gray-400 hover:bg-gray-600'
+                  ? 'shadow-neu-pressed bg-gradient-to-br from-primary-200 to-primary-300 text-primary-800 scale-95'
+                  : 'shadow-neu-raised bg-gradient-to-br from-content2 to-content1 text-gray-400 hover:shadow-neu-raised-hover hover:scale-105'
               }`}
               title="Group notes"
             >
@@ -167,7 +167,7 @@ export default function GroupedExerciseCard({
             
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 bg-content2 text-gray-400 rounded-lg hover:bg-gray-600 transition"
+              className="p-2 shadow-neu-raised bg-gradient-to-br from-content2 to-content1 text-gray-400 rounded-lg hover:shadow-neu-raised-hover hover:scale-105 active:shadow-neu-pressed active:scale-95 transition-all duration-200"
               title={isExpanded ? 'Collapse' : 'Expand'}
             >
               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}

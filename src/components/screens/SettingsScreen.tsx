@@ -1,5 +1,6 @@
 import { Settings, User, Scale, Dumbbell, Bot, Shield, Download } from 'lucide-react'
 import { NavSettings } from '@/components/icons'
+import NeumorphicTest from '@/components/debug/NeumorphicTest'
 
 export default function SettingsScreen() {
   return (
@@ -199,6 +200,15 @@ export default function SettingsScreen() {
             Edit Profile →
           </button>
         </div>
+      </section>
+
+      {/* Neumorphic Design Test */}
+      <section className="p-4 lg:p-6">
+        <h2 className="text-white font-medium mb-4 flex items-center font-heading">
+          <Settings className="w-5 h-5 mr-2 text-[#C3A869]" />
+          Neumorphic Design System Test
+        </h2>
+        <NeumorphicTest />
       </section>
     </div>
   )

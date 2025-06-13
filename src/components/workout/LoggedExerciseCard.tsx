@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Check, Plus, StickyNote, Info, ChevronDown, ChevronUp, X } from 'lucide-react'
-import { Select, SelectItem } from '@heroui/select'
-import { Input } from '@heroui/input'
-import { Textarea } from '@heroui/input'
+import { Select, SelectItem } from '@/ui/select-neu'
+import { Input } from '@/ui/input-neu'
+import { Textarea } from '@/ui/textarea-neu'
 import { Exercise, SetLog, ExerciseSessionLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
@@ -81,7 +81,7 @@ export default function LoggedExerciseCard({
   const totalSets = exerciseLog.setLogs.length
 
   return (
-    <div className="bg-content1 rounded-lg p-4 border border-divider">
+    <div className="shadow-neu-card-raised bg-gradient-to-br from-content1 to-content2 rounded-lg p-4 border-none">
       {/* Exercise Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-start gap-3 flex-1">
@@ -116,10 +116,10 @@ export default function LoggedExerciseCard({
         <div className="flex gap-2">
           <button
             onClick={() => setShowNotes(!showNotes)}
-            className={`p-2 rounded-lg transition ${
+            className={`p-2 rounded-lg transition-all duration-200 ${
               showNotes || notes.trim()
-                ? 'bg-[#C3A869]/20 text-[#C3A869]'
-                : 'bg-content2 text-gray-400 hover:bg-gray-600'
+                ? 'shadow-neu-pressed bg-gradient-to-br from-primary-200 to-primary-300 text-primary-800 scale-95'
+                : 'shadow-neu-raised bg-gradient-to-br from-content2 to-content1 text-gray-400 hover:shadow-neu-raised-hover hover:scale-105'
             }`}
             title="Exercise notes"
           >
@@ -128,7 +128,7 @@ export default function LoggedExerciseCard({
           
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 bg-content2 text-gray-400 rounded-lg hover:bg-gray-600 transition"
+            className="p-2 shadow-neu-raised bg-gradient-to-br from-content2 to-content1 text-gray-400 rounded-lg hover:shadow-neu-raised-hover hover:scale-105 active:shadow-neu-pressed active:scale-95 transition-all duration-200"
             title={isExpanded ? 'Collapse' : 'Expand'}
           >
             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -156,7 +156,7 @@ export default function LoggedExerciseCard({
 
       {/* Group RPE */}
       {isExpanded && (
-        <div className="mb-4 bg-content2/30 rounded-lg p-3">
+        <div className="mb-4 shadow-neu-inset bg-gradient-to-br from-content2 to-content1 rounded-lg p-3">
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-300 font-medium">Exercise RPE (all sets):</span>
           <div className="w-32">
@@ -198,10 +198,10 @@ export default function LoggedExerciseCard({
         {exerciseLog.setLogs.map((setLog, index) => (
           <div
             key={index}
-            className={`grid grid-cols-7 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[350px] md:min-w-0 ${
+            className={`grid grid-cols-7 gap-1 md:gap-2 items-center p-2 rounded-lg transition-all duration-200 min-w-[350px] md:min-w-0 ${
               setLog.isCompleted 
-                ? 'bg-green-900/20 border border-green-700/30' 
-                : 'bg-content2'
+                ? 'shadow-neu-inset bg-gradient-to-br from-green-900/30 to-green-800/20' 
+                : 'shadow-neu-subtle bg-gradient-to-br from-content2 to-content1 hover:shadow-neu-raised'
             }`}
           >
             {/* Remove Set Button */}
@@ -209,7 +209,7 @@ export default function LoggedExerciseCard({
               {exerciseLog.setLogs.length > 1 && (
                 <button
                   onClick={() => onRemoveSet(index)}
-                  className="p-1 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition flex items-center justify-center"
+                  className="p-1 shadow-neu-raised bg-gradient-to-br from-red-900/50 to-red-800/30 text-red-400 rounded hover:shadow-neu-raised-hover hover:scale-105 active:shadow-neu-pressed active:scale-95 transition-all duration-200 flex items-center justify-center"
                   title={`Remove set ${index + 1}`}
                 >
                   <X className="w-3 h-3" />
@@ -260,10 +260,10 @@ export default function LoggedExerciseCard({
             <div className="col-span-1 flex justify-center">
               <button
                 onClick={() => handleSetComplete(index, !setLog.isCompleted)}
-                className={`p-1 rounded text-sm font-medium transition flex items-center justify-center ${
+                className={`p-1 rounded text-sm font-medium transition-all duration-200 flex items-center justify-center ${
                   setLog.isCompleted
-                    ? 'bg-green-600 text-white border border-green-500'
-                    : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 hover:border-gray-400'
+                    ? 'shadow-neu-pressed bg-gradient-to-br from-green-600 to-green-700 text-white scale-95'
+                    : 'shadow-neu-raised bg-gradient-to-br from-content3 to-content2 text-gray-300 hover:shadow-neu-raised-hover hover:scale-105 active:shadow-neu-pressed active:scale-95'
                 }`}
                 title={setLog.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
               >
@@ -278,7 +278,7 @@ export default function LoggedExerciseCard({
         {/* Add Set Button */}
         <button
           onClick={onAddSet}
-          className="w-full mt-2 py-2 border-2 border-dashed border-gray-600 rounded-lg text-gray-400 hover:border-gray-500 hover:text-gray-300 transition flex items-center justify-center gap-2"
+          className="w-full mt-2 py-2 shadow-neu-raised bg-gradient-to-br from-content2 to-content1 border-2 border-dashed border-gray-600/50 rounded-lg text-gray-400 hover:shadow-neu-raised-hover hover:text-gray-300 hover:scale-[1.01] active:shadow-neu-pressed active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden md:inline">Add Set</span>
