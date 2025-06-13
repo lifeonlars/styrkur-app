@@ -104,9 +104,9 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-gray-900 w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-background w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
+        <div className="p-6 border-b border-divider flex justify-between items-center">
           <h2 className="text-white text-xl font-medium">
             {initialWorkout ? 'Edit Workout' : 'Create Workout'}
           </h2>
@@ -217,7 +217,7 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-800 flex gap-3">
+        <div className="p-6 border-t border-divider flex gap-3">
           <button
             onClick={handleSave}
             disabled={!canSave}

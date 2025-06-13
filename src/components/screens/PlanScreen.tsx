@@ -56,14 +56,14 @@ export default function PlanScreen({
       {/* 2. Workout & Block Tabs */}
       <section className="p-4 lg:p-6">
         {/* Tab Navigation */}
-        <div className="bg-gray-800 rounded-xl overflow-hidden mb-6">
+        <div className="bg-content1 rounded-xl overflow-hidden mb-6">
           <div className="flex">
             <button
               onClick={() => setActiveTab('workouts')}
               className={`flex-1 px-6 py-4 text-sm font-medium transition flex items-center justify-center gap-2 ${
                 activeTab === 'workouts'
                   ? 'bg-[#C3A869] text-black'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                  : 'text-gray-400 hover:text-white hover:bg-content2'
               }`}
             >
               <Dumbbell className="w-4 h-4" />
@@ -74,7 +74,7 @@ export default function PlanScreen({
               className={`flex-1 px-6 py-4 text-sm font-medium transition flex items-center justify-center gap-2 ${
                 activeTab === 'blocks'
                   ? 'bg-[#C3A869] text-black'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                  : 'text-gray-400 hover:text-white hover:bg-content2'
               }`}
             >
               <Target className="w-4 h-4" />

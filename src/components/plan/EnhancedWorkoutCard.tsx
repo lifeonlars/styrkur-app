@@ -39,7 +39,7 @@ export default function EnhancedWorkoutCard({
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition">
+    <div className="bg-content1 rounded-xl p-4 border border-divider hover:border-gray-600 transition">
       <div className="flex justify-between items-start mb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
@@ -71,7 +71,7 @@ export default function EnhancedWorkoutCard({
         <div className="flex gap-2 ml-4 flex-shrink-0">
           <button
             onClick={() => onEdit(workout)}
-            className="bg-gray-700 text-white p-1 rounded hover:bg-gray-600 transition"
+            className="bg-content2 text-white p-1 rounded hover:bg-gray-600 transition"
             title="Edit workout"
           >
             <Edit className="w-4 h-4" />
@@ -87,7 +87,7 @@ export default function EnhancedWorkoutCard({
           
           {/* Placeholder for future "Assign to Week" functionality */}
           <button
-            className="bg-gray-700/50 text-gray-500 p-1 rounded cursor-not-allowed"
+            className="bg-content2/50 text-gray-500 p-1 rounded cursor-not-allowed"
             title="Assign to Week (Coming Soon)"
             disabled
           >
@@ -131,7 +131,7 @@ export default function EnhancedWorkoutCard({
             {workout.tags.map(tag => (
               <span 
                 key={tag} 
-                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-sm"
+                className="px-2 py-1 bg-content2 text-gray-300 rounded text-sm"
               >
                 {highlightText(tag, searchTerm)}
               </span>

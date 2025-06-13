@@ -80,7 +80,7 @@ export default function WorkoutTab({
   return (
     <div className="space-y-6">
       {/* Create Workout Section */}
-      <div className="bg-gray-800 rounded-xl p-6">
+      <div className="bg-content1 rounded-xl p-6">
         <div className="text-center">
           <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Plus className="w-6 h-6 text-[#C3A869]" />
@@ -122,7 +122,7 @@ export default function WorkoutTab({
             {['strength', 'upper', 'lower', 'cardio', 'circuit'].map(tag => (
               <button
                 key={tag}
-                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-sm hover:bg-gray-600 transition"
+                className="px-2 py-1 bg-content2 text-gray-300 rounded text-sm hover:bg-gray-600 transition"
               >
                 {tag}
               </button>
@@ -157,7 +157,7 @@ export default function WorkoutTab({
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
+          <div className="bg-content1/50 rounded-xl p-8 text-center border border-divider">
             <div className="text-4xl mb-4">💪</div>
             <h3 className="text-white font-heading font-medium mb-2">
               {searchTerm ? 'No workouts found' : 'No workouts yet'}

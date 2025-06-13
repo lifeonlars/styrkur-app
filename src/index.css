@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #111827;
+  background-color: #111111;
   color: white;
 }
 
@@ -13,10 +13,10 @@ body {
 
 /* Tailwind-like utility classes */
 .min-h-screen { min-height: 100vh; }
-.bg-gray-900 { background-color: #111827; }
-.bg-gray-800 { background-color: #1f2937; }
-.bg-gray-700 { background-color: #374151; }
-.bg-gray-600 { background-color: #4b5563; }
+.bg-gray-900 { background-color: #111111; }
+.bg-gray-800 { background-color: #1E1E1E; }
+.bg-gray-700 { background-color: #2A2A2A; }
+.bg-gray-600 { background-color: #3a3a3f; }
 .text-white { color: #ffffff; }
 .text-gray-400 { color: #9ca3af; }
 .text-gray-300 { color: #d1d5db; }
@@ -101,9 +101,9 @@ body {
 .border-2 { border-width: 2px; }
 .border-t { border-top-width: 1px; }
 .border-b { border-bottom-width: 1px; }
-.border-gray-600 { border-color: #4b5563; }
-.border-gray-700 { border-color: #374151; }
-.border-gray-800 { border-color: #1f2937; }
+.border-gray-600 { border-color: #3a3a3f; }
+.border-gray-700 { border-color: #2A2A2A; }
+.border-gray-800 { border-color: #1E1E1E; }
 .border-yellow-600 { border-color: #ca8a04; }
 .border-red-600 { border-color: #dc2626; }
 .bg-yellow-900 { background-color: #713f12; }
@@ -140,11 +140,12 @@ body {
 .space-y-4 > * + * { margin-top: 1rem; }
 .transition { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
 .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-.hover\:bg-gray-700:hover { background-color: #374151; }
+.hover\:bg-gray-700:hover { background-color: #2A2A2A; }
+.hover\:bg-gray-800:hover { background-color: #1E1E1E; }
 .hover\:bg-gray-300:hover { background-color: #d1d5db; }
 .hover\:text-red-300:hover { color: #fca5a5; }
 .hover\:text-gray-300:hover { color: #d1d5db; }
-.disabled\:bg-gray-600:disabled { background-color: #4b5563; }
+.disabled\:bg-gray-600:disabled { background-color: #3a3a3f; }
 .disabled\:text-gray-400:disabled { color: #9ca3af; }
 .placeholder-gray-400::placeholder { color: #9ca3af; }
 .text-center { text-align: center; }

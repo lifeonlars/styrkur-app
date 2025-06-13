@@ -59,7 +59,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #374151;
+  background: #2A2A2A;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -212,7 +212,7 @@ textarea::placeholder {
   @media (min-width: 1024px) {
     .desktop-scroll {
       scrollbar-width: thin;
-      scrollbar-color: #C3A869 #374151;
+      scrollbar-color: #C3A869 #2A2A2A;
     }
     
     .desktop-scroll::-webkit-scrollbar {
@@ -220,7 +220,7 @@ textarea::placeholder {
     }
     
     .desktop-scroll::-webkit-scrollbar-track {
-      background: #374151;
+      background: #2A2A2A;
       border-radius: 4px;
     }
     
@@ -238,7 +238,7 @@ textarea::placeholder {
   }
 
   .slider::-webkit-slider-track {
-    background: #374151;
+    background: #2A2A2A;
     height: 8px;
     border-radius: 4px;
   }
@@ -259,7 +259,7 @@ textarea::placeholder {
   }
 
   .slider::-moz-range-track {
-    background: #374151;
+    background: #2A2A2A;
     height: 8px;
     border-radius: 4px;
     border: none;

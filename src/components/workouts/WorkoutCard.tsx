@@ -47,7 +47,7 @@ export default function WorkoutCard({
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition">
+    <div className="bg-content1 rounded-xl p-4 border border-divider hover:border-gray-600 transition">
       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
         <div className="flex-1 min-w-0 mb-3 md:mb-0">
           <div className="flex items-center gap-2 mb-1">
@@ -82,7 +82,7 @@ export default function WorkoutCard({
               e.stopPropagation()
               setShowSummary(true)
             }}
-            className="bg-gray-700 text-gray-400 p-2 rounded-lg hover:bg-gray-600 hover:text-[#C3A869] transition"
+            className="bg-content2 text-gray-400 p-2 rounded-lg hover:bg-gray-600 hover:text-[#C3A869] transition"
             title="View workout summary"
           >
             <Eye className="w-4 h-4" />
@@ -91,7 +91,7 @@ export default function WorkoutCard({
           {variant === 'recent' && onRepeat && (
             <button
               onClick={() => onRepeat(workout)}
-              className="bg-gray-700 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition flex items-center gap-1"
+              className="bg-content2 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition flex items-center gap-1"
               title="Repeat workout"
             >
               <RotateCcw className="w-4 h-4" />
@@ -145,7 +145,7 @@ export default function WorkoutCard({
             {workout.tags.map(tag => (
               <span 
                 key={tag} 
-                className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-sm"
+                className="px-2 py-1 bg-content2 text-gray-300 rounded text-sm"
               >
                 {highlightText(tag, searchTerm)}
               </span>

@@ -20,9 +20,9 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
-      <div className="bg-gray-900 md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
+      <div className="bg-background md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-700">
+        <div className="flex justify-between items-center p-6 border-b border-divider">
           <h2 className="text-white text-xl font-heading font-medium">
             {exercise ? 'Exercise Muscle Map' : 'Workout Muscle Map'}
           </h2>
@@ -57,7 +57,7 @@ const MuscleMapModal: React.FC<MuscleMapModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-700 flex justify-end">
+        <div className="p-6 border-t border-divider flex justify-end">
           <button
             onClick={onClose}
             className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"

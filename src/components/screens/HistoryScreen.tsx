@@ -33,22 +33,22 @@ export default function HistoryScreen() {
       {/* Quick Stats */}
       <section className="p-4 lg:p-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-2">💪</div>
             <div className="text-white text-lg font-medium">24</div>
             <div className="text-gray-400 text-sm">Total Workouts</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-2">🔥</div>
             <div className="text-white text-lg font-medium">7</div>
             <div className="text-gray-400 text-sm">Current Streak</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-2">⏱️</div>
             <div className="text-white text-lg font-medium">18h</div>
             <div className="text-gray-400 text-sm">Total Time</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-2">🏆</div>
             <div className="text-white text-lg font-medium">3</div>
             <div className="text-gray-400 text-sm">This Month</div>
@@ -63,18 +63,18 @@ export default function HistoryScreen() {
           Progress Charts
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="bg-gray-800 rounded-xl p-4">
+          <div className="bg-content1 rounded-xl p-4">
             <h3 className="text-white font-medium mb-3 font-heading">Volume Progression</h3>
-            <div className="h-32 bg-gray-700 rounded flex items-center justify-center">
+            <div className="h-32 bg-content2 rounded flex items-center justify-center">
               <div className="text-center text-gray-400">
                 <TrendingUp className="w-8 h-8 mx-auto mb-2" />
                 <p className="text-sm">Chart will appear here</p>
               </div>
             </div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4">
+          <div className="bg-content1 rounded-xl p-4">
             <h3 className="text-white font-medium mb-3 font-heading">Personal Records</h3>
-            <div className="h-32 bg-gray-700 rounded flex items-center justify-center">
+            <div className="h-32 bg-content2 rounded flex items-center justify-center">
               <div className="text-center text-gray-400">
                 <BarChart3 className="w-8 h-8 mx-auto mb-2" />
                 <p className="text-sm">PR timeline chart</p>
@@ -105,7 +105,7 @@ export default function HistoryScreen() {
               className={`px-3 py-1 rounded-lg text-sm whitespace-nowrap transition ${
                 filter === 'All'
                   ? 'bg-[#C3A869] text-black font-medium'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  : 'bg-content2 text-gray-300 hover:bg-gray-600'
               }`}
             >
               {filter}
@@ -118,7 +118,7 @@ export default function HistoryScreen() {
       <section className="p-4 lg:p-6">
         <div className="space-y-3">
           {/* Empty State */}
-          <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
+          <div className="bg-content1/50 rounded-xl p-8 text-center border border-divider">
             <div className="text-4xl mb-4">📊</div>
             <h3 className="text-white font-medium mb-2 font-heading">No Workouts Logged Yet</h3>
             <p className="text-gray-400 text-sm mb-4">
@@ -133,7 +133,7 @@ export default function HistoryScreen() {
 
           {/* Example workout entries - TODO: Replace with real data */}
           {/* 
-          <div className="bg-gray-800 rounded-xl p-4">
+          <div className="bg-content1 rounded-xl p-4">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="text-white font-medium font-heading">Odin's Strength</h3>
@@ -160,7 +160,7 @@ export default function HistoryScreen() {
           <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
           Training Consistency
         </h2>
-        <div className="bg-gray-800 rounded-xl p-4">
+        <div className="bg-content1 rounded-xl p-4">
           <div className="text-center text-gray-400 py-8">
             <Calendar className="w-12 h-12 mx-auto mb-3" />
             <p className="text-sm">Consistency calendar will show here</p>

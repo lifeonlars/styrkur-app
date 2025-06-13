@@ -396,7 +396,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
               {exercises.map((exerciseConfig, index) => {
                 const exerciseData = getExerciseData(exerciseConfig.exerciseId)
                 return (
-                  <div key={index} className="bg-gray-800 rounded-lg p-4">
+                  <div key={index} className="bg-background rounded-lg p-4 border border-divider">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center gap-3">
                         <div>

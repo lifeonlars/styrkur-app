@@ -34,9 +34,9 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
-      <div className="bg-gray-900 md:rounded-2xl w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden border border-gray-700">
+      <div className="bg-background md:rounded-2xl w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden border border-gray-700">
         {/* Header */}
-        <div className="p-6 border-b border-gray-800">
+        <div className="p-6 border-b border-divider">
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-white text-xl font-medium font-heading">Quick Start</h2>
@@ -44,7 +44,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
             </div>
             <button
               onClick={onClose}
-              className="bg-gray-800 p-2 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition"
+              className="bg-content1 p-2 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition"
             >
               <X className="w-5 h-5" />
             </button>
@@ -52,13 +52,13 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-gray-800">
+        <div className="flex border-b border-divider">
           <button
             onClick={() => setSelectedTab('existing')}
             className={`flex-1 px-6 py-4 text-sm font-medium transition ${
               selectedTab === 'existing'
-                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-gray-800/50'
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
+                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-content1/50'
+                : 'text-gray-400 hover:text-white hover:bg-content1/30'
             }`}
           >
             <Play className="w-4 h-4 mr-2 inline" />
@@ -68,8 +68,8 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
             onClick={() => setSelectedTab('build')}
             className={`flex-1 px-6 py-4 text-sm font-medium transition ${
               selectedTab === 'build'
-                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-gray-800/50'
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
+                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-content1/50'
+                : 'text-gray-400 hover:text-white hover:bg-content1/30'
             }`}
           >
             <Plus className="w-4 h-4 mr-2 inline" />
@@ -79,8 +79,8 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
             onClick={() => setSelectedTab('ai')}
             className={`flex-1 px-6 py-4 text-sm font-medium transition ${
               selectedTab === 'ai'
-                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-gray-800/50'
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/30'
+                ? 'text-[#C3A869] border-b-2 border-[#C3A869] bg-content1/50'
+                : 'text-gray-400 hover:text-white hover:bg-content1/30'
             }`}
           >
             <Bot className="w-4 h-4 mr-2 inline" />
@@ -97,7 +97,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
               {workouts.length > 0 ? (
                 <div className="space-y-3">
                   {workouts.map(workout => (
-                    <div key={workout.id} className="bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition">
+                    <div key={workout.id} className="bg-content1 rounded-xl p-4 hover:bg-gray-700 transition">
                       <div className="flex justify-between items-start mb-3">
                         <div className="flex-1">
                           <h3 className="text-white font-medium mb-1 font-heading">{workout.title}</h3>
@@ -146,7 +146,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
 
           {selectedTab === 'build' && (
             <div className="text-center py-8">
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700">
+              <div className="bg-content1 rounded-xl p-8 border border-gray-700">
                 <Zap className="w-12 h-12 mx-auto mb-4 text-[#C3A869]" />
                 <h3 className="text-white font-medium mb-2 font-heading">Build New Workout</h3>
                 <p className="text-gray-400 text-sm mb-6">
@@ -165,7 +165,7 @@ export default function QuickStartModal({ workouts, onClose, onStartWorkout, onC
 
           {selectedTab === 'ai' && (
             <div className="text-center py-8">
-              <div className="bg-gray-800/50 rounded-xl p-8 border border-gray-700 border-dashed">
+              <div className="bg-content1/50 rounded-xl p-8 border border-gray-700 border-dashed">
                 <Bot className="w-12 h-12 mx-auto mb-4 text-gray-500" />
                 <h3 className="text-white font-medium mb-2 font-heading">AI Workout Generation</h3>
                 <p className="text-gray-400 text-sm mb-4">

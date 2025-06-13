@@ -127,7 +127,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header (hidden on desktop) */}
-      <div className="lg:hidden bg-gray-900 p-6 border-b border-gray-800">
+      <div className="lg:hidden bg-content1 p-6 border-b border-divider">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 pt-1">
             <NavDashboard className="w-16 h-16 text-[#C3A869]" />
@@ -158,7 +158,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
           Today's Focus
         </h2>
-        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+        <div className="bg-content1 rounded-xl p-4 border border-gray-700">
           <div className="text-center text-gray-400">
             <div className="text-2xl mb-2">📅</div>
             <p className="text-sm">No workout scheduled for today</p>
@@ -178,7 +178,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
           <TrendingUp className="w-5 h-5 mr-2 text-[#C3A869]" />
           This Week
         </h2>
-        <div className="bg-gray-800 rounded-xl p-4">
+        <div className="bg-content1 rounded-xl p-4">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-white text-lg font-medium">3</div>
@@ -205,17 +205,17 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
         
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-4 mb-4">
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-1">⚡</div>
             <div className="text-white font-medium text-lg">12</div>
             <div className="text-gray-400 text-xs">Sessions</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-1">🏔️</div>
             <div className="text-white font-medium text-lg">3</div>
             <div className="text-gray-400 text-xs">PRs</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
+          <div className="bg-content1 rounded-xl p-4 text-center">
             <div className="text-[#C3A869] text-2xl mb-1">🔥</div>
             <div className="text-white font-medium text-lg">7</div>
             <div className="text-gray-400 text-xs">Day Streak</div>
@@ -223,7 +223,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
         </div>
 
         {/* Recent Achievement Highlight */}
-        <div className="bg-gray-800 rounded-xl p-4 border border-[#C3A869]/20">
+        <div className="bg-content1 rounded-xl p-4 border border-[#C3A869]/20">
           <div className="text-center">
             <div className="text-2xl mb-2">🏆</div>
             <p className="text-white font-medium">New Deadlift PR!</p>

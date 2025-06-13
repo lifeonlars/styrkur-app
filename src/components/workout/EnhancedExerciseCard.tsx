@@ -49,7 +49,7 @@ export default function EnhancedExerciseCard({
 
   return (
     <>
-      <div className="bg-gray-800 p-4 rounded-lg flex items-center hover:bg-gray-700 transition w-full">
+      <div className="bg-content1 p-4 rounded-lg flex items-center hover:bg-content2 transition w-full">
         <div className="flex-1 min-w-0">
           <div className="text-white text-sm font-medium truncate">{exercise.name}</div>
           <div className="text-gray-400 text-sm">

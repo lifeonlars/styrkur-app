@@ -69,10 +69,10 @@ export default function SyrkurSagaApp() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col">
+    <div className="min-h-screen bg-background text-white flex flex-col">
       <div className="flex-1">
         {/* Main Content */}
-        <div className="w-full">
+        <div className="w-full lg:pt-20">
           <ClientOnly fallback={<div className="p-4 text-center text-gray-400">Loading...</div>}>
             {renderActiveScreen()}
           </ClientOnly>
@@ -91,7 +91,7 @@ export default function SyrkurSagaApp() {
       </div>
       
       {/* Desktop Top Navigation */}
-      <div className="hidden lg:block fixed top-0 left-0 right-0 bg-gray-900 border-b border-gray-800 z-50">
+      <div className="hidden lg:block fixed top-0 left-0 right-0 bg-background border-b border-divider z-50">
         <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl px-6 py-4">
           <ClientOnly>
             <div className="flex items-center justify-between">
@@ -111,7 +111,7 @@ export default function SyrkurSagaApp() {
                       className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
                         activeTab === tab.id 
                           ? 'bg-[#C3A869] text-black' 
-                          : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                          : 'text-gray-400 hover:text-white hover:bg-content2'
                       }`}
                     >
                       <tab.icon className="w-4 h-4" />

@@ -492,9 +492,9 @@ export default function WorkoutLoggingModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center md:p-4">
-      <div className="bg-gray-900 md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] flex flex-col">
+      <div className="bg-background md:rounded-xl max-w-4xl w-full h-full md:h-auto md:max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-700">
+        <div className="flex justify-between items-center p-6 border-b border-divider">
           <div className="flex items-center gap-4">
             <div>
               <h2 className="text-white text-xl font-medium">{workout.title}</h2>

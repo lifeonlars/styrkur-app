@@ -79,7 +79,7 @@ export default function LoggedExerciseCard({
   const totalSets = exerciseLog.setLogs.length
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+    <div className="bg-content1 rounded-lg p-4 border border-divider">
       {/* Exercise Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
@@ -92,7 +92,7 @@ export default function LoggedExerciseCard({
             <span className="text-gray-300">{exercise.name}</span>
             <button
               onClick={() => setShowExerciseDetail(true)}
-              className="p-1 rounded bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
+              className="p-1 rounded bg-content2 text-gray-400 hover:bg-gray-600 transition"
               title="Exercise details & muscle map"
             >
               <Info className="w-3 h-3" />
@@ -110,7 +110,7 @@ export default function LoggedExerciseCard({
             className={`p-2 rounded-lg transition ${
               showNotes || notes.trim()
                 ? 'bg-[#C3A869]/20 text-[#C3A869]'
-                : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                : 'bg-content2 text-gray-400 hover:bg-gray-600'
             }`}
             title="Exercise notes"
           >
@@ -138,7 +138,7 @@ export default function LoggedExerciseCard({
       )}
 
       {/* Group RPE */}
-      <div className="mb-4 bg-gray-700/30 rounded-lg p-3">
+      <div className="mb-4 bg-content2/30 rounded-lg p-3">
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-300 font-medium">Exercise RPE (all sets):</span>
           <div className="w-32">
@@ -180,7 +180,7 @@ export default function LoggedExerciseCard({
             className={`grid grid-cols-6 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[300px] md:min-w-0 ${
               setLog.isCompleted 
                 ? 'bg-green-900/20 border border-green-700/30' 
-                : 'bg-gray-700'
+                : 'bg-content2'
             }`}
           >
             {/* Set Number */}

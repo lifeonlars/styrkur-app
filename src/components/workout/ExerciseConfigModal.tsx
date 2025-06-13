@@ -55,7 +55,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-gray-900 w-full max-w-md lg:max-w-2xl md:rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
+      <div className="bg-background w-full max-w-md lg:max-w-2xl md:rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="p-4 border-b border-gray-800 flex justify-between items-center">
           <h3 className="text-white text-lg font-medium">Configure Exercise</h3>
@@ -74,7 +74,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   <img
                     src={exercise.imageUrl}
                     alt={exercise.name}
-                    className="w-full h-auto object-contain rounded-xl bg-gray-800 max-h-48 cursor-pointer hover:opacity-80 transition"
+                    className="w-full h-auto object-contain rounded-xl bg-content1 max-h-48 cursor-pointer hover:opacity-80 transition"
                     onError={handleImageError}
                     onClick={() => setShowFullscreenImage(true)}
                   />
@@ -93,14 +93,14 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   </div>
                 </div>
               ) : (
-                <div className="w-24 h-24 mx-auto bg-gray-800 rounded-xl flex items-center justify-center">
+                <div className="w-24 h-24 mx-auto bg-content1 rounded-xl flex items-center justify-center">
                   <span className="text-2xl text-gray-400">No Image</span>
                 </div>
               )}
             </div>
             
             {/* Exercise Details */}
-            <div className="bg-gray-800 rounded-xl p-4">
+            <div className="bg-content1 rounded-xl p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="text-white font-medium text-lg mb-1">{exercise.name}</div>
@@ -244,7 +244,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
             </button>
             <button
               onClick={onCancel}
-              className="flex-1 bg-gray-700 text-white py-3 rounded-xl font-medium hover:bg-gray-600 transition"
+              className="flex-1 bg-content2 text-white py-3 rounded-xl font-medium hover:bg-gray-600 transition"
             >
               Cancel
             </button>

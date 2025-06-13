@@ -103,7 +103,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
               side={selectedSide}
               scale={0.8}
               onBodyPartPress={handleBodyPartPress}
-              border="#1f2937"
+              border="#1E1E1E"
               className="drop-shadow-md"
             />
           </div>
@@ -120,7 +120,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
                   side="front"
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
-                  border="#1f2937"
+                  border="#1E1E1E"
                   className="drop-shadow-md"
                 />
               </div>
@@ -132,7 +132,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
                   side="back"
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
-                  border="#1f2937"
+                  border="#1E1E1E"
                   className="drop-shadow-md"
                 />
               </div>

@@ -106,9 +106,9 @@ export default function GroupedExerciseCard({
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg border border-gray-700">
+    <div className="bg-content1 rounded-lg border border-divider">
       {/* Group Header */}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-divider">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <span className="text-lg">{getGroupTypeDisplay()}</span>
@@ -136,7 +136,7 @@ export default function GroupedExerciseCard({
                       <span className="text-gray-300">{exercise.name}</span>
                       <button
                         onClick={() => handleShowExerciseDetail(index)}
-                        className="p-1 rounded bg-gray-700 text-gray-400 hover:bg-gray-600 transition"
+                        className="p-1 rounded bg-content2 text-gray-400 hover:bg-gray-600 transition"
                         title="Exercise details & muscle map"
                       >
                         <Info className="w-3 h-3" />
@@ -159,7 +159,7 @@ export default function GroupedExerciseCard({
               className={`p-2 rounded-lg transition ${
                 showNotes || notes.trim()
                   ? 'bg-[#C3A869]/20 text-[#C3A869]'
-                  : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                  : 'bg-content2 text-gray-400 hover:bg-gray-600'
               }`}
               title="Group notes"
             >
@@ -168,7 +168,7 @@ export default function GroupedExerciseCard({
             
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 bg-gray-700 text-gray-400 rounded-lg hover:bg-gray-600 transition"
+              className="p-2 bg-content2 text-gray-400 rounded-lg hover:bg-gray-600 transition"
               title={isExpanded ? 'Collapse' : 'Expand'}
             >
               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -198,7 +198,7 @@ export default function GroupedExerciseCard({
       {/* Group RPE (for single and superset groups) */}
       {isExpanded && groupLog.groupType !== 'circuit' && (
         <div className="p-4 pb-0">
-          <div className="mb-4 bg-gray-700/30 rounded-lg p-3">
+          <div className="mb-4 bg-content2/30 rounded-lg p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-300 font-medium">
                 {groupLog.groupType === 'single' ? 'Exercise RPE (all sets):' : 'Superset RPE (all sets):'}
@@ -249,7 +249,7 @@ export default function GroupedExerciseCard({
                   className={`grid grid-cols-6 gap-1 md:gap-2 items-center p-2 rounded-lg transition min-w-[300px] md:min-w-0 ${
                     exercise.isCompleted 
                       ? 'bg-green-900/20 border border-green-700/30' 
-                      : 'bg-gray-700'
+                      : 'bg-content2'
                   }`}
                 >
                   {/* Set Label (e.g., 1A, 1B, 2A, 2B) */}

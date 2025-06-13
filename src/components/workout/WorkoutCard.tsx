@@ -12,7 +12,7 @@ export default function WorkoutCard({ workout, onStart, onNavigate }: WorkoutCar
     onNavigate?.('workouts')
   }
   return (
-    <div className="bg-gray-800 rounded-xl p-4 card-hover">
+    <div className="bg-content1 rounded-xl p-4 card-hover">
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-white font-medium font-heading">{workout.title}</h3>
         <button
