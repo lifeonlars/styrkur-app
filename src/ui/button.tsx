@@ -1,49 +1,50 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import { Button as HeroUIButton, ButtonProps as HeroUIButtonProps } from "@heroui/button"
 import { cn } from "@/lib/utils"
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+// Map shadcn variants to HeroUI variants
+const variantMap = {
+  default: { color: "primary" as const, variant: "solid" as const },
+  destructive: { color: "danger" as const, variant: "solid" as const },
+  outline: { color: "default" as const, variant: "bordered" as const },
+  secondary: { color: "secondary" as const, variant: "solid" as const },
+  ghost: { color: "default" as const, variant: "ghost" as const },
+  link: { color: "primary" as const, variant: "light" as const },
+}
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+// Map shadcn sizes to HeroUI sizes
+const sizeMap = {
+  default: "md" as const,
+  sm: "sm" as const,
+  lg: "lg" as const,
+  icon: "sm" as const,
+}
+
+export interface ButtonProps extends Omit<HeroUIButtonProps, 'color' | 'variant' | 'size'> {
+  variant?: keyof typeof variantMap
+  size?: keyof typeof sizeMap
   asChild?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant = "default", size = "default", asChild = false, ...props }, ref) => {
+    const mappedVariant = variantMap[variant]
+    const mappedSize = sizeMap[size]
+    const isIconOnly = size === "icon"
+
+    if (asChild) {
+      // For asChild functionality, we'd need to implement this separately
+      console.warn("asChild prop is not supported with HeroUI Button")
+    }
+
     return (
-      <button
-        className={cn(buttonVariants({ variant, size, className }))}
+      <HeroUIButton
         ref={ref}
+        color={mappedVariant.color}
+        variant={mappedVariant.variant}
+        size={mappedSize}
+        isIconOnly={isIconOnly}
+        className={cn(className)}
         {...props}
       />
     )
@@ -51,4 +52,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
-export { Button, buttonVariants }
+export { Button }

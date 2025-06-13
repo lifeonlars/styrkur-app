@@ -1,6 +1,7 @@
 import { Inter, Cinzel } from 'next/font/google'
 import './globals.css'
 import { forceIncludeClasses } from '@/lib/css-test'
+import { HeroUIProvider } from '@heroui/system'
 
 const inter = Inter({ subsets: ['latin'] })
 const cinzel = Cinzel({ 
@@ -24,10 +25,12 @@ export default function RootLayout({
   
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} ${cinzel.variable} bg-gray-900 text-white min-h-screen`}>
-        <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl">
-          {children}
-        </div>
+      <body className={`${inter.className} ${cinzel.variable} bg-background text-foreground min-h-screen`}>
+        <HeroUIProvider>
+          <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl">
+            {children}
+          </div>
+        </HeroUIProvider>
       </body>
     </html>
   )
