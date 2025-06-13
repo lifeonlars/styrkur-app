@@ -34,7 +34,7 @@ export default function PausedWorkoutPanel({
 
   return (
     <div className="bg-gradient-to-r from-orange-900/20 to-red-900/20 border border-orange-800/30 rounded-xl p-6 mb-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-center w-12 h-12 bg-orange-600/20 rounded-full">
             <Clock className="w-6 h-6 text-orange-400" />
@@ -61,10 +61,10 @@ export default function PausedWorkoutPanel({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
           <button
             onClick={onCancelWorkout}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors"
           >
             <X className="w-4 h-4" />
             <span>Cancel</span>
@@ -72,7 +72,7 @@ export default function PausedWorkoutPanel({
           
           <button
             onClick={onResumeWorkout}
-            className="flex items-center gap-2 px-6 py-2 bg-[#C3A869] hover:bg-[#B19651] text-black font-medium rounded-lg transition-colors"
+            className="flex items-center justify-center gap-2 px-6 py-2 bg-[#C3A869] hover:bg-[#B19651] text-black font-medium rounded-lg transition-colors"
           >
             <Play className="w-4 h-4" />
             <span>Resume Workout</span>
