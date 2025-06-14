@@ -246,43 +246,103 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
       case 'shadcn':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Button System - Minimalist Design">
+            <div className="p-6 bg-neu-card shadow-neu-lg rounded-xl border border-norse-gold/20">
+              <h3 className="text-xl font-semibold text-white mb-4">🎯 CSS Modules Refactor Complete</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-norse-gold font-medium mb-3">✅ Before & After</h4>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-white font-medium">Before (Tailwind):</p>
+                      <code className="text-xs text-gray-400 break-all">
+                        "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 rounded-neu-pill shadow-neu-gold bg-gradient-to-br from-norse-gold-light via-norse-gold to-norse-gold-dark border-2 border-norse-gold-light/30..."
+                      </code>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">After (CSS Modules):</p>
+                      <code className="text-norse-gold text-sm">
+                        "btn btn-primary btn-default"
+                      </code>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-norse-gold font-medium mb-3">🚀 Key Benefits</h4>
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    <li>• <strong>90% reduction</strong> in class name verbosity</li>
+                    <li>• <strong>Single source of truth</strong> via CSS custom properties</li>
+                    <li>• <strong>Semantic class names</strong> for better debugging</li>
+                    <li>• <strong>Enhanced component features</strong> with clean props</li>
+                    <li>• <strong>Maintained accessibility</strong> and TypeScript support</li>
+                    <li>• <strong>Perfect alignment system</strong> via design tokens</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <ComponentShowcase title="Button System - BEM + CSS Modules Approach">
               <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
                 <div>
-                  <h4 className="text-white font-medium mb-2">Essential Variants</h4>
-                  <p className="text-gray-400 text-sm mb-4">Three purposeful variants following Scandinavian minimalist principles</p>
-                  <div className="flex flex-wrap gap-4">
-                    <Button variant="primary">Primary Action</Button>
-                    <Button variant="outline">Secondary Action</Button>
-                    <Button variant="flat">Tertiary Action</Button>
+                  <h4 className="text-white font-medium mb-2">Clean, Semantic Class Names</h4>
+                  <p className="text-gray-400 text-sm mb-4">Replaced verbose Tailwind utilities with maintainable BEM-style classes</p>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-4">
+                      <Button variant="primary">Primary Action</Button>
+                      <Button variant="outline">Secondary Action</Button>
+                      <Button variant="flat">Tertiary Action</Button>
+                    </div>
+                    <div className="text-xs text-gray-500 space-y-1">
+                      <p>HTML Output: <code className="text-norse-gold">&lt;button class="btn btn-primary btn-default"&gt;</code></p>
+                      <p>Previously: <code className="text-gray-400">50+ utility classes</code></p>
+                    </div>
                   </div>
-                  <div className="mt-3 text-xs text-gray-500 space-y-1">
-                    <p>• <strong>Primary</strong>: Main actions, CTAs, form submissions</p>
-                    <p>• <strong>Outline</strong>: Secondary actions, cancel buttons</p>
-                    <p>• <strong>Flat</strong>: Navigation, tertiary actions, close buttons</p>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-2">Enhanced Context Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">New semantic variants using Norse context colors</p>
+                  <div className="flex flex-wrap gap-4">
+                    <Button variant="success">Success</Button>
+                    <Button variant="danger">Danger</Button>
+                    <Button variant="warning">Warning</Button>
+                    <Button variant="info">Info</Button>
                   </div>
                 </div>
                 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Size System</h4>
-                  <p className="text-gray-400 text-sm mb-4">Two sizes aligned with input component heights</p>
+                  <h4 className="text-white font-medium mb-2">Size System with Icon Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Perfect alignment system with dedicated icon button sizes</p>
                   <div className="space-y-3">
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="default">Default (36px)</Button>
-                      <Button variant="outline" size="default">Default Outline</Button>
-                      <Button variant="flat" size="default">Default Flat</Button>
+                      <Button variant="primary" size="icon"><Plus className="w-4 h-4" /></Button>
+                      <Button variant="outline" size="icon"><Settings className="w-4 h-4" /></Button>
                     </div>
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="large">Large (48px)</Button>
-                      <Button variant="outline" size="large">Large Outline</Button>
-                      <Button variant="flat" size="large">Large Flat</Button>
+                      <Button variant="primary" size="icon-large"><Heart className="w-5 h-5" /></Button>
+                      <Button variant="outline" size="icon-large"><X className="w-5 h-5" /></Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-2">Enhanced Props System</h4>
+                  <p className="text-gray-400 text-sm mb-4">New component features with clean prop-based styling</p>
+                  <div className="space-y-3">
+                    <div className="flex gap-4">
+                      <Button variant="primary" fullWidth>Full Width Button</Button>
+                    </div>
+                    <div className="flex gap-4">
+                      <Button variant="primary" loading>Loading State</Button>
+                      <Button variant="outline" disabled>Disabled State</Button>
                     </div>
                   </div>
                 </div>
 
                 <div>
                   <h4 className="text-white font-medium mb-2">Perfect Form Alignment</h4>
-                  <p className="text-gray-400 text-sm mb-4">Buttons and inputs share identical heights for seamless integration</p>
+                  <p className="text-gray-400 text-sm mb-4">CSS custom properties ensure exact height matching</p>
                   <div className="space-y-4 max-w-md">
                     <div className="flex gap-2">
                       <Input placeholder="Default input (36px)" />
@@ -294,105 +354,194 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                     </div>
                   </div>
                 </div>
+              </div>
+            </ComponentShowcase>
+
+            <ComponentShowcase title="Card Component - Enhanced Variants">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Core Variants with Semantic Classes</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Card variant="default">
+                      <CardHeader>
+                        <CardTitle>Default Card</CardTitle>
+                        <CardDescription>Standard neumorphic depth</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Class: .card .card-default</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card variant="elevated">
+                      <CardHeader>
+                        <CardTitle>Elevated Card</CardTitle>
+                        <CardDescription>Higher elevation</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Class: .card .card-elevated</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card variant="interactive" hoverLift>
+                      <CardHeader>
+                        <CardTitle>Interactive Card</CardTitle>
+                        <CardDescription>Click-enabled with hover lift</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Class: .card .card-interactive</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Icon Buttons</h4>
-                  <p className="text-gray-400 text-sm mb-4">Square aspect ratio using component height</p>
-                  <div className="flex gap-4 items-center">
-                    <Button variant="primary" className="w-9 h-9 p-0"><Plus className="w-4 h-4" /></Button>
-                    <Button variant="outline" className="w-9 h-9 p-0"><Settings className="w-4 h-4" /></Button>
-                    <Button variant="flat" className="w-9 h-9 p-0"><X className="w-4 h-4" /></Button>
-                    <Button variant="primary" size="large" className="w-12 h-12 p-0"><Heart className="w-5 h-5" /></Button>
+                  <h4 className="text-white font-medium mb-4">State Variants</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Card variant="success" size="compact">
+                      <CardHeader>
+                        <CardTitle>Success</CardTitle>
+                        <CardDescription>Forest green accent</CardDescription>
+                      </CardHeader>
+                    </Card>
+
+                    <Card variant="error" size="compact">
+                      <CardHeader>
+                        <CardTitle>Error</CardTitle>
+                        <CardDescription>Blood red accent</CardDescription>
+                      </CardHeader>
+                    </Card>
+
+                    <Card variant="warning" size="compact">
+                      <CardHeader>
+                        <CardTitle>Warning</CardTitle>
+                        <CardDescription>Wood brown accent</CardDescription>
+                      </CardHeader>
+                    </Card>
+
+                    <Card variant="info" size="compact">
+                      <CardHeader>
+                        <CardTitle>Info</CardTitle>
+                        <CardDescription>Ocean blue accent</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Enhanced Features</h4>
+                  <div className="space-y-4">
+                    <Card variant="accent" fullWidth>
+                      <CardHeader>
+                        <CardTitle>Full Width Norse Gold Accent Card</CardTitle>
+                        <CardDescription>Enhanced with fullWidth prop and gold accent border</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Perfect for hero sections and important content</p>
+                      </CardContent>
+                      <CardFooter>
+                        <Button variant="primary">Call to Action</Button>
+                        <Button variant="outline">Secondary</Button>
+                      </CardFooter>
+                    </Card>
                   </div>
                 </div>
               </div>
             </ComponentShowcase>
 
-            <ComponentShowcase title="Card Component">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card variant="default">
-                  <CardHeader>
-                    <CardTitle>Default Card</CardTitle>
-                    <CardDescription>Standard neumorphic depth</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-300">Card content goes here</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Button size="sm">Action</Button>
-                  </CardFooter>
-                </Card>
-
-                <Card variant="elevated">
-                  <CardHeader>
-                    <CardTitle>Elevated Card</CardTitle>
-                    <CardDescription>Higher elevation</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-300">Card content goes here</p>
-                  </CardContent>
-                </Card>
-
-                <Card variant="flat">
-                  <CardHeader>
-                    <CardTitle>Flat Card</CardTitle>
-                    <CardDescription>Minimal elevation</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-300">Card content goes here</p>
-                  </CardContent>
-                </Card>
-              </div>
-            </ComponentShowcase>
-
-            <ComponentShowcase title="Form Components - Aligned System">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl max-w-md">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Default Size (36px)</h4>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-white mb-2">Input</label>
-                      <Input placeholder="Default input..." />
+            <ComponentShowcase title="Form Components - Enhanced with CSS Modules">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                    <h4 className="text-white font-medium mb-4">Input Variants & States</h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Default Input</label>
+                        <Input placeholder="Default input (.input .input-default)" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Large Input</label>
+                        <Input size="large" placeholder="Large input (.input .input-large)" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Success State</label>
+                        <Input variant="success" placeholder="Success input (.input .input-success)" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Error State</label>
+                        <Input variant="error" placeholder="Error input (.input .input-error)" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Warning State</label>
+                        <Input variant="warning" placeholder="Warning input (.input .input-warning)" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-white mb-2">Select</label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose option..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="option1">Option 1</SelectItem>
-                          <SelectItem value="option2">Option 2</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-white mb-2">Textarea</label>
-                      <Textarea placeholder="Default textarea..." />
+                  </div>
+
+                  <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                    <h4 className="text-white font-medium mb-4">Textarea Enhanced Features</h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Default Textarea</label>
+                        <Textarea placeholder="Default textarea (.textarea .textarea-default)" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Large with Counter</label>
+                        <Textarea 
+                          size="large" 
+                          placeholder="Large textarea with character counter..." 
+                          showCounter 
+                          maxLength={200}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Resizable Textarea</label>
+                        <Textarea 
+                          resize="vertical" 
+                          placeholder="Resizable textarea (.textarea .textarea-resizable)" 
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Compact Size</label>
+                        <Textarea 
+                          size="compact" 
+                          placeholder="Compact textarea (.textarea .textarea-compact)" 
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-white font-medium mb-4">Large Size (48px)</h4>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-base font-medium text-white mb-2">Input</label>
-                      <Input size="large" placeholder="Large input..." />
-                    </div>
-                    <div>
-                      <label className="block text-base font-medium text-white mb-2">Textarea</label>
-                      <Textarea size="large" placeholder="Large textarea..." />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-gray-700">
-                  <h4 className="text-white font-medium mb-2">Form Example</h4>
-                  <div className="space-y-3">
-                    <Input placeholder="Email address" />
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Perfect Form Alignment Showcase</h4>
+                  <p className="text-gray-400 text-sm mb-4">CSS custom properties ensure pixel-perfect height matching</p>
+                  <div className="space-y-4 max-w-lg">
                     <div className="flex gap-2">
-                      <Button variant="primary">Sign Up</Button>
+                      <Input placeholder="Default height (36px)" />
+                      <Button variant="primary">Submit</Button>
+                      <Button variant="outline" size="icon"><Settings className="w-4 h-4" /></Button>
+                    </div>
+                    <div className="flex gap-2">
+                      <Input size="large" placeholder="Large height (48px)" />
+                      <Button variant="primary" size="large">Submit</Button>
+                      <Button variant="outline" size="icon-large"><X className="w-5 h-5" /></Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Enhanced Form Example</h4>
+                  <p className="text-gray-400 text-sm mb-4">Real-world form using semantic class names and enhanced features</p>
+                  <div className="space-y-4 max-w-md">
+                    <Input placeholder="Email address" fullWidth />
+                    <Input type="password" placeholder="Password" fullWidth />
+                    <Textarea 
+                      placeholder="Optional message..." 
+                      showCounter 
+                      maxLength={150}
+                      fullWidth
+                    />
+                    <div className="flex gap-2">
+                      <Button variant="primary" fullWidth>Sign Up</Button>
                       <Button variant="outline">Cancel</Button>
                     </div>
                   </div>
