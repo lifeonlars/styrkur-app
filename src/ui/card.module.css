@@ -173,41 +173,6 @@
   }
 }
 
-/* Card with success state */
-.card-success {
-  border-color: var(--forest-500);
-  
-  &:hover {
-    border-color: var(--forest-400);
-  }
-}
-
-/* Card with error state */
-.card-error {
-  border-color: var(--blood-500);
-  
-  &:hover {
-    border-color: var(--blood-400);
-  }
-}
-
-/* Card with warning state */
-.card-warning {
-  border-color: var(--wood-500);
-  
-  &:hover {
-    border-color: var(--wood-400);
-  }
-}
-
-/* Card with info state */
-.card-info {
-  border-color: var(--ocean-500);
-  
-  &:hover {
-    border-color: var(--ocean-400);
-  }
-}
 
 /* === CARD MODIFIERS === */
 

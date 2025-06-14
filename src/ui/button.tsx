@@ -18,12 +18,6 @@ const buttonVariants = cva(
         
         // Flat - Transparent background for navigation, tertiary actions, close buttons
         flat: styles['btn-flat'],
-        
-        // Context variants
-        success: styles['btn-success'],
-        danger: styles['btn-danger'],
-        warning: styles['btn-warning'],
-        info: styles['btn-info'],
       },
       size: {
         // Default: 36px height to align with input components

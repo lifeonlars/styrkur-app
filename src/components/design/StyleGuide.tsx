@@ -299,14 +299,14 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Enhanced Context Variants</h4>
-                  <p className="text-gray-400 text-sm mb-4">New semantic variants using Norse context colors</p>
+                  <h4 className="text-white font-medium mb-2">Minimalist Approach</h4>
+                  <p className="text-gray-400 text-sm mb-4">Three essential variants only - states conveyed through icons and toasts</p>
                   <div className="flex flex-wrap gap-4">
-                    <Button variant="success">Success</Button>
-                    <Button variant="danger">Danger</Button>
-                    <Button variant="warning">Warning</Button>
-                    <Button variant="info">Info</Button>
+                    <Button variant="primary"><Check className="w-4 h-4" />Success Action</Button>
+                    <Button variant="outline"><X className="w-4 h-4" />Cancel Action</Button>
+                    <Button variant="flat"><Trash2 className="w-4 h-4" />Delete</Button>
                   </div>
+                  <p className="text-xs text-gray-500 mt-2">Icons and toasts provide context - buttons remain semantically clean</p>
                 </div>
                 
                 <div>
@@ -395,33 +395,26 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-4">State Variants</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <Card variant="success" size="compact">
+                  <h4 className="text-white font-medium mb-4">Size Variants</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card variant="default" size="compact">
                       <CardHeader>
-                        <CardTitle>Success</CardTitle>
-                        <CardDescription>Forest green accent</CardDescription>
+                        <CardTitle>Compact</CardTitle>
+                        <CardDescription>Reduced padding for dense layouts</CardDescription>
                       </CardHeader>
                     </Card>
 
-                    <Card variant="error" size="compact">
+                    <Card variant="default" size="default">
                       <CardHeader>
-                        <CardTitle>Error</CardTitle>
-                        <CardDescription>Blood red accent</CardDescription>
+                        <CardTitle>Default</CardTitle>
+                        <CardDescription>Standard card sizing</CardDescription>
                       </CardHeader>
                     </Card>
 
-                    <Card variant="warning" size="compact">
+                    <Card variant="elevated" size="large">
                       <CardHeader>
-                        <CardTitle>Warning</CardTitle>
-                        <CardDescription>Wood brown accent</CardDescription>
-                      </CardHeader>
-                    </Card>
-
-                    <Card variant="info" size="compact">
-                      <CardHeader>
-                        <CardTitle>Info</CardTitle>
-                        <CardDescription>Ocean blue accent</CardDescription>
+                        <CardTitle>Large</CardTitle>
+                        <CardDescription>Increased padding for hero content</CardDescription>
                       </CardHeader>
                     </Card>
                   </div>
@@ -452,7 +445,8 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
-                    <h4 className="text-white font-medium mb-4">Input Variants & States</h4>
+                    <h4 className="text-white font-medium mb-4">Input States - Essential for Accessibility</h4>
+                    <p className="text-gray-400 text-xs mb-4">Form validation states are kept for accessibility and UX - different from button context variants</p>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Default Input</label>
@@ -464,15 +458,18 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Success State</label>
-                        <Input variant="success" placeholder="Success input (.input .input-success)" />
+                        <Input variant="success" placeholder="Valid email format" />
+                        <p className="text-xs text-forest-400 mt-1">✓ Form validation feedback</p>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Error State</label>
-                        <Input variant="error" placeholder="Error input (.input .input-error)" />
+                        <Input variant="error" placeholder="Invalid email format" />
+                        <p className="text-xs text-blood-400 mt-1">✗ Required for accessibility</p>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Warning State</label>
-                        <Input variant="warning" placeholder="Warning input (.input .input-warning)" />
+                        <Input variant="warning" placeholder="Password too weak" />
+                        <p className="text-xs text-wood-400 mt-1">⚠ UX guidance feedback</p>
                       </div>
                     </div>
                   </div>

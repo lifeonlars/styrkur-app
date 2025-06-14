@@ -27,12 +27,6 @@ const cardVariants = cva(
         // Special variants
         gradient: styles['card-gradient'],
         accent: styles['card-accent'],
-        
-        // State variants
-        success: styles['card-success'],
-        error: styles['card-error'],
-        warning: styles['card-warning'],
-        info: styles['card-info'],
       },
       size: {
         default: '',
