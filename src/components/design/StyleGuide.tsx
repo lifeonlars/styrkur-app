@@ -246,35 +246,63 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
       case 'shadcn':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Button Component">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
+            <ComponentShowcase title="Button System - Minimalist Design">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
                 <div>
-                  <h4 className="text-white font-medium mb-3">Basic Variants</h4>
+                  <h4 className="text-white font-medium mb-2">Essential Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Three purposeful variants following Scandinavian minimalist principles</p>
                   <div className="flex flex-wrap gap-4">
-                    <Button variant="default">Default</Button>
-                    <Button variant="primary">Primary</Button>
-                    <Button variant="secondary">Secondary</Button>
-                    <Button variant="outline">Outline</Button>
-                    <Button variant="ghost">Ghost</Button>
-                    <Button variant="link">Link</Button>
+                    <Button variant="primary">Primary Action</Button>
+                    <Button variant="outline">Secondary Action</Button>
+                    <Button variant="flat">Tertiary Action</Button>
+                  </div>
+                  <div className="mt-3 text-xs text-gray-500 space-y-1">
+                    <p>• <strong>Primary</strong>: Main actions, CTAs, form submissions</p>
+                    <p>• <strong>Outline</strong>: Secondary actions, cancel buttons</p>
+                    <p>• <strong>Flat</strong>: Navigation, tertiary actions, close buttons</p>
                   </div>
                 </div>
+                
                 <div>
-                  <h4 className="text-white font-medium mb-3">Context Variants</h4>
-                  <div className="flex flex-wrap gap-4">
-                    <Button variant="success">Success</Button>
-                    <Button variant="warning">Warning</Button>
-                    <Button variant="info">Info</Button>
-                    <Button variant="destructive">Destructive</Button>
+                  <h4 className="text-white font-medium mb-2">Size System</h4>
+                  <p className="text-gray-400 text-sm mb-4">Two sizes aligned with input component heights</p>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-4 items-center">
+                      <Button variant="primary" size="default">Default (36px)</Button>
+                      <Button variant="outline" size="default">Default Outline</Button>
+                      <Button variant="flat" size="default">Default Flat</Button>
+                    </div>
+                    <div className="flex flex-wrap gap-4 items-center">
+                      <Button variant="primary" size="large">Large (48px)</Button>
+                      <Button variant="outline" size="large">Large Outline</Button>
+                      <Button variant="flat" size="large">Large Flat</Button>
+                    </div>
                   </div>
                 </div>
+
                 <div>
-                  <h4 className="text-white font-medium mb-3">Sizes</h4>
-                  <div className="flex flex-wrap gap-4 items-center">
-                    <Button variant="primary" size="sm">Small</Button>
-                    <Button variant="primary">Default</Button>
-                    <Button variant="primary" size="lg">Large</Button>
-                    <Button variant="primary" size="icon"><Plus className="w-4 h-4" /></Button>
+                  <h4 className="text-white font-medium mb-2">Perfect Form Alignment</h4>
+                  <p className="text-gray-400 text-sm mb-4">Buttons and inputs share identical heights for seamless integration</p>
+                  <div className="space-y-4 max-w-md">
+                    <div className="flex gap-2">
+                      <Input placeholder="Default input (36px)" />
+                      <Button variant="primary">Submit</Button>
+                    </div>
+                    <div className="flex gap-2">
+                      <Input size="large" placeholder="Large input (48px)" />
+                      <Button variant="primary" size="large">Submit</Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-2">Icon Buttons</h4>
+                  <p className="text-gray-400 text-sm mb-4">Square aspect ratio using component height</p>
+                  <div className="flex gap-4 items-center">
+                    <Button variant="primary" className="w-9 h-9 p-0"><Plus className="w-4 h-4" /></Button>
+                    <Button variant="outline" className="w-9 h-9 p-0"><Settings className="w-4 h-4" /></Button>
+                    <Button variant="flat" className="w-9 h-9 p-0"><X className="w-4 h-4" /></Button>
+                    <Button variant="primary" size="large" className="w-12 h-12 p-0"><Heart className="w-5 h-5" /></Button>
                   </div>
                 </div>
               </div>
@@ -317,28 +345,57 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
               </div>
             </ComponentShowcase>
 
-            <ComponentShowcase title="Form Components">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl max-w-md">
+            <ComponentShowcase title="Form Components - Aligned System">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl max-w-md">
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">Input</label>
-                  <Input placeholder="Enter text here..." />
+                  <h4 className="text-white font-medium mb-4">Default Size (36px)</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Input</label>
+                      <Input placeholder="Default input..." />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Select</label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choose option..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="option1">Option 1</SelectItem>
+                          <SelectItem value="option2">Option 2</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Textarea</label>
+                      <Textarea placeholder="Default textarea..." />
+                    </div>
+                  </div>
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">Select</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choose an option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="option1">Option 1</SelectItem>
-                      <SelectItem value="option2">Option 2</SelectItem>
-                      <SelectItem value="option3">Option 3</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <h4 className="text-white font-medium mb-4">Large Size (48px)</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-base font-medium text-white mb-2">Input</label>
+                      <Input size="large" placeholder="Large input..." />
+                    </div>
+                    <div>
+                      <label className="block text-base font-medium text-white mb-2">Textarea</label>
+                      <Textarea size="large" placeholder="Large textarea..." />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">Textarea</label>
-                  <Textarea placeholder="Enter multiline text here..." />
+
+                <div className="pt-4 border-t border-gray-700">
+                  <h4 className="text-white font-medium mb-2">Form Example</h4>
+                  <div className="space-y-3">
+                    <Input placeholder="Email address" />
+                    <div className="flex gap-2">
+                      <Button variant="primary">Sign Up</Button>
+                      <Button variant="outline">Cancel</Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ComponentShowcase>
