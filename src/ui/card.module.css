@@ -1,0 +1,247 @@
+/* Card Component - BEM + CSS Modules Approach */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE CARD === */
+
+.card {
+  /* Core card properties */
+  color: var(--text-primary);
+  transition: var(--transition-all);
+  
+  /* Default neumorphic styling */
+  border-radius: var(--radius-neu-lg);
+  box-shadow: var(--shadow-neu);
+  background: var(--neu-card);
+  border: 1px solid var(--border-neu-light);
+}
+
+/* === CARD VARIANTS === */
+
+/* Default Card - soft neumorphic depth with crisp light keyline and organic shape */
+.card-default {
+  /* Hover state for interactivity */
+  &:hover {
+    box-shadow: var(--shadow-neu-hover);
+    border-color: var(--border-neu-lighter);
+  }
+}
+
+/* Elevated Card - higher elevation with enhanced keyline and larger radius */
+.card-elevated {
+  border-radius: var(--radius-neu-xl);
+  box-shadow: var(--shadow-neu-lg);
+  border-color: var(--border-neu-lighter);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-hover);
+    border-color: var(--border-neu-light);
+  }
+}
+
+/* Sunken Card - inset appearance with inverted keyline */
+.card-sunken {
+  border-radius: var(--radius-neu);
+  box-shadow: var(--shadow-neu-inset);
+  background: var(--neu-surface);
+  border-color: var(--border-neu-subtle);
+}
+
+/* Flat Card - minimal elevation with subtle keyline */
+.card-flat {
+  border-radius: var(--radius-neu);
+  box-shadow: var(--shadow-neu-flat);
+  background: var(--neu-surface);
+  border-color: var(--border-neu-subtle);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu);
+    border-color: var(--border-neu-light);
+  }
+}
+
+/* Interactive Card - clear interaction feedback with enhanced keyline */
+.card-interactive {
+  border-radius: var(--radius-neu-lg);
+  box-shadow: var(--shadow-neu);
+  background: var(--neu-card);
+  border-color: var(--border-neu-light);
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-hover);
+    border-color: var(--border-neu-lighter);
+    transform: scale(1.01);
+  }
+  
+  &:active {
+    transform: scale(0.99);
+    box-shadow: var(--shadow-neu-pressed);
+  }
+}
+
+/* === CARD CONTENT SECTIONS === */
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-6);
+}
+
+.card-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.025em;
+}
+
+.card-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.card-content {
+  padding: var(--spacing-6);
+  padding-top: 0;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-6);
+  padding-top: 0;
+}
+
+/* === CARD SIZES === */
+
+/* Compact card */
+.card-compact {
+  & .card-header {
+    padding: var(--spacing-4);
+  }
+  
+  & .card-content {
+    padding: var(--spacing-4);
+    padding-top: 0;
+  }
+  
+  & .card-footer {
+    padding: var(--spacing-4);
+    padding-top: 0;
+  }
+  
+  & .card-title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Large card */
+.card-large {
+  & .card-header {
+    padding: var(--spacing-8);
+  }
+  
+  & .card-content {
+    padding: var(--spacing-8);
+    padding-top: 0;
+  }
+  
+  & .card-footer {
+    padding: var(--spacing-8);
+    padding-top: 0;
+  }
+  
+  & .card-title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+/* === SPECIAL CARD TYPES === */
+
+/* Card with gradient background */
+.card-gradient {
+  background: var(--gradient-neu-card-bg);
+}
+
+/* Card with Norse gold accent */
+.card-accent {
+  border-color: var(--border-neu-gold-light);
+  
+  &:hover {
+    border-color: var(--border-neu-gold-subtle);
+    box-shadow: var(--shadow-neu-gold-hover);
+  }
+}
+
+/* Card with success state */
+.card-success {
+  border-color: var(--forest-500);
+  
+  &:hover {
+    border-color: var(--forest-400);
+  }
+}
+
+/* Card with error state */
+.card-error {
+  border-color: var(--blood-500);
+  
+  &:hover {
+    border-color: var(--blood-400);
+  }
+}
+
+/* Card with warning state */
+.card-warning {
+  border-color: var(--wood-500);
+  
+  &:hover {
+    border-color: var(--wood-400);
+  }
+}
+
+/* Card with info state */
+.card-info {
+  border-color: var(--ocean-500);
+  
+  &:hover {
+    border-color: var(--ocean-400);
+  }
+}
+
+/* === CARD MODIFIERS === */
+
+/* Full width card */
+.card-full {
+  width: 100%;
+}
+
+/* Card with loading state */
+.card-loading {
+  pointer-events: none;
+  opacity: 0.7;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--text-muted);
+    border-top: 2px solid var(--norse-gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+/* Card with hover lift effect */
+.card-hover-lift {
+  transition: var(--transition-all);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neu-lg);
+  }
+}

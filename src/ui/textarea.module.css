@@ -1,0 +1,205 @@
+/* Textarea Component - BEM + CSS Modules Approach */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE TEXTAREA === */
+
+.textarea {
+  /* Core textarea properties */
+  display: flex;
+  width: 100%;
+  font-family: inherit;
+  
+  /* Neumorphic styling */
+  border-radius: var(--radius-neu);
+  box-shadow: var(--shadow-neu-inset);
+  background: var(--neu-surface);
+  border: 1px solid var(--border-neu-subtle);
+  
+  /* Typography */
+  color: var(--text-primary);
+  
+  /* Spacing */
+  padding: var(--spacing-3);
+  
+  /* Transitions */
+  transition: var(--transition-all);
+  
+  /* Prevent resize */
+  resize: none;
+  
+  /* Placeholder styling */
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+  
+  /* Focus state */
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-neu-focus);
+    border-color: var(--border-neu-light);
+  }
+  
+  /* Disabled state */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+/* === SIZE VARIANTS === */
+
+/* Default Size - Aligns with default button/input height proportions */
+.textarea-default {
+  min-height: calc(var(--height-component-default) * 2); /* 72px */
+  font-size: var(--font-size-sm);
+}
+
+/* Large Size - Aligns with large button/input height proportions */
+.textarea-large {
+  min-height: calc(var(--height-component-lg) * 2); /* 96px */
+  font-size: var(--font-size-base);
+}
+
+/* Compact Size - Smaller for inline use */
+.textarea-compact {
+  min-height: var(--height-component-lg); /* 48px */
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-2);
+}
+
+/* Expanded Size - Larger for detailed input */
+.textarea-expanded {
+  min-height: calc(var(--height-component-lg) * 3); /* 144px */
+  font-size: var(--font-size-base);
+}
+
+/* === TEXTAREA VARIANTS === */
+
+/* Error state */
+.textarea-error {
+  border-color: var(--blood-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--blood-500);
+  
+  &:focus-visible {
+    border-color: var(--blood-400);
+    box-shadow: 
+      0 0 0 2px rgba(168, 50, 50, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* Success state */
+.textarea-success {
+  border-color: var(--forest-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--forest-500);
+  
+  &:focus-visible {
+    border-color: var(--forest-400);
+    box-shadow: 
+      0 0 0 2px rgba(46, 125, 95, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* Warning state */
+.textarea-warning {
+  border-color: var(--wood-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--wood-500);
+  
+  &:focus-visible {
+    border-color: var(--wood-400);
+    box-shadow: 
+      0 0 0 2px rgba(92, 69, 51, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* === SPECIAL MODIFIERS === */
+
+/* Full width textarea */
+.textarea-full {
+  width: 100%;
+}
+
+/* Resizable textarea */
+.textarea-resizable {
+  resize: vertical;
+  min-height: var(--height-component-lg);
+  max-height: calc(var(--height-component-lg) * 6); /* 288px max */
+}
+
+/* Fixed height textarea */
+.textarea-fixed {
+  resize: none;
+  overflow-y: auto;
+}
+
+/* Auto-expanding textarea */
+.textarea-auto {
+  overflow: hidden;
+  field-sizing: content; /* Modern browsers */
+  
+  /* Fallback for browsers without field-sizing support */
+  @supports not (field-sizing: content) {
+    resize: none;
+  }
+}
+
+/* === TEXTAREA WITH COUNTER === */
+
+/* Container for textarea with character counter */
+.textarea-container {
+  position: relative;
+  width: 100%;
+}
+
+.textarea-counter {
+  position: absolute;
+  bottom: var(--spacing-2);
+  right: var(--spacing-3);
+  font-size: var(--font-size-xs);
+  color: var(--text-subtle);
+  pointer-events: none;
+  background: var(--neu-surface);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-neu-subtle);
+}
+
+.textarea-counter-warning {
+  color: var(--wood-400);
+}
+
+.textarea-counter-error {
+  color: var(--blood-400);
+}
+
+/* === TEXTAREA WITH LABEL === */
+
+.textarea-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.textarea-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.textarea-help {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.textarea-error-message {
+  font-size: var(--font-size-xs);
+  color: var(--blood-400);
+}

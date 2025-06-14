@@ -2,35 +2,59 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import styles from "./input.module.css"
 
 const inputVariants = cva(
-  "flex w-full rounded-neu shadow-neu-inset bg-neu-surface border border-neu-subtle px-3 text-white file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-white placeholder:text-gray-400 focus-visible:outline-none focus-visible:shadow-neu-focus focus-visible:border-neu-light transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50",
+  styles.input, // Base input class
   {
     variants: {
       size: {
         // Default: 36px height to align with default buttons
-        default: "h-9 text-sm",
+        default: styles['input-default'],
         
         // Large: 48px height to align with large buttons
-        large: "h-12 text-base",
+        large: styles['input-large'],
+      },
+      variant: {
+        // Default neumorphic input
+        default: '',
+        
+        // State variants
+        error: styles['input-error'],
+        success: styles['input-success'],
+        warning: styles['input-warning'],
+        
+        // Special variants
+        search: styles['input-search'],
       },
     },
     defaultVariants: {
       size: "default",
+      variant: "default",
     },
   }
 )
 
 export interface InputProps
   extends React.ComponentProps<"input">,
-    VariantProps<typeof inputVariants> {}
+    VariantProps<typeof inputVariants> {
+  fullWidth?: boolean
+  withIcon?: 'left' | 'right' | boolean
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, size, ...props }, ref) => {
+  ({ className, type, size, variant, fullWidth = false, withIcon, ...props }, ref) => {
     return (
       <input
         type={type}
-        className={cn(inputVariants({ size, className }))}
+        className={cn(
+          inputVariants({ size, variant }),
+          fullWidth && styles['input-full'],
+          withIcon === 'left' && styles['input-with-icon'],
+          withIcon === 'right' && styles['input-with-icon-right'],
+          withIcon === true && styles['input-with-icon'], // Default to left
+          className
+        )}
         ref={ref}
         {...props}
       />

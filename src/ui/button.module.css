@@ -1,0 +1,298 @@
+/* Button Component - BEM + CSS Modules Approach */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE BUTTON === */
+
+.btn {
+  /* Core button properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  
+  /* Transitions for smooth interactions */
+  transition: var(--transition-all);
+  
+  /* Disable text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  
+  /* Focus visible styles */
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-neu-focus);
+  }
+  
+  /* Disabled state */
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Icon handling */
+  & svg {
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+}
+
+/* === VARIANT STYLES === */
+
+/* Primary Button - Norse gold for main actions, CTAs, form submissions */
+.btn-primary {
+  /* Tesla Cybertruck-inspired organic pill shape */
+  border-radius: var(--radius-neu-pill);
+  
+  /* Multi-layered neumorphic shadow with Norse gold highlights */
+  box-shadow: var(--shadow-neu-gold);
+  
+  /* Norse gold metallic gradient background */
+  background: var(--gradient-neu-gold-light);
+  
+  /* Enhanced border with opacity variations */
+  border: 2px solid rgba(195, 168, 105, 0.3);
+  
+  /* High contrast text */
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-semibold);
+  
+  /* Cybertruck-style highlighting keyline */
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-neu-pill);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+  }
+  
+  /* Hover state */
+  &:hover:not(:disabled) {
+    box-shadow: var(--shadow-neu-gold-hover);
+    background: var(--gradient-neu-gold-metallic);
+    border-color: rgba(195, 168, 105, 0.5);
+    transform: scale(1.02);
+  }
+  
+  /* Active/pressed state */
+  &:active:not(:disabled) {
+    box-shadow: var(--shadow-neu-gold-pressed);
+    transform: scale(0.98);
+  }
+}
+
+/* Outline Button - Neumorphic surface for secondary actions, cancel buttons */
+.btn-outline {
+  /* Standard neumorphic radius */
+  border-radius: var(--radius-neu);
+  
+  /* Standard neumorphic elevation */
+  box-shadow: var(--shadow-neu);
+  
+  /* Neumorphic surface background */
+  background: var(--neu-surface);
+  
+  /* Light keyline border */
+  border: 1px solid var(--border-neu-light);
+  
+  /* Secondary text color */
+  color: rgba(255, 255, 255, 0.8);
+  
+  /* Hover state */
+  &:hover:not(:disabled) {
+    box-shadow: var(--shadow-neu-hover);
+    color: var(--text-primary);
+    border-color: var(--border-neu-lighter);
+  }
+  
+  /* Active/pressed state */
+  &:active:not(:disabled) {
+    box-shadow: var(--shadow-neu-pressed);
+  }
+}
+
+/* Flat Button - Transparent background for navigation, tertiary actions, close buttons */
+.btn-flat {
+  /* Standard neumorphic radius */
+  border-radius: var(--radius-neu);
+  
+  /* No shadow initially */
+  box-shadow: none;
+  
+  /* Transparent background */
+  background: transparent;
+  
+  /* Transparent border */
+  border: 1px solid transparent;
+  
+  /* Muted text color */
+  color: rgba(255, 255, 255, 0.6);
+  
+  /* Hover state */
+  &:hover:not(:disabled) {
+    box-shadow: var(--shadow-neu-flat);
+    background: var(--neu-surface);
+    color: var(--text-primary);
+    border-color: var(--border-neu-subtle);
+  }
+  
+  /* Active/pressed state */
+  &:active:not(:disabled) {
+    box-shadow: var(--shadow-neu-pressed);
+  }
+}
+
+/* === SIZE VARIANTS === */
+
+/* Default Size - 36px height to align with input components */
+.btn-default {
+  height: var(--height-component-default);
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-sm);
+  
+  & svg {
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+  }
+}
+
+/* Large Size - 48px height for prominent actions */
+.btn-large {
+  height: var(--height-component-lg);
+  padding: 0 var(--spacing-6);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  
+  & svg {
+    width: var(--size-icon-default);
+    height: var(--size-icon-default);
+  }
+}
+
+/* === ICON BUTTON VARIANTS === */
+
+/* Square icon button - default size */
+.btn-icon {
+  width: var(--height-component-default);
+  height: var(--height-component-default);
+  padding: 0;
+  
+  & svg {
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+  }
+}
+
+/* Square icon button - large size */
+.btn-icon-large {
+  width: var(--height-component-lg);
+  height: var(--height-component-lg);
+  padding: 0;
+  
+  & svg {
+    width: var(--size-icon-default);
+    height: var(--size-icon-default);
+  }
+}
+
+/* === SPECIAL MODIFIERS === */
+
+/* Full width button */
+.btn-full {
+  width: 100%;
+}
+
+/* Button with loading state */
+.btn-loading {
+  pointer-events: none;
+  
+  & svg {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* === CONTEXT VARIANTS === */
+
+/* Success button using Forest colors */
+.btn-success {
+  background: var(--forest-500);
+  color: var(--text-primary);
+  border: 1px solid var(--forest-400);
+  
+  &:hover:not(:disabled) {
+    background: var(--forest-400);
+    border-color: var(--forest-300);
+  }
+  
+  &:active:not(:disabled) {
+    background: var(--forest-600);
+  }
+}
+
+/* Error/danger button using Blood colors */
+.btn-danger {
+  background: var(--blood-500);
+  color: var(--text-primary);
+  border: 1px solid var(--blood-400);
+  
+  &:hover:not(:disabled) {
+    background: var(--blood-400);
+    border-color: var(--blood-300);
+  }
+  
+  &:active:not(:disabled) {
+    background: var(--blood-600);
+  }
+}
+
+/* Warning button using Wood colors */
+.btn-warning {
+  background: var(--wood-500);
+  color: var(--text-primary);
+  border: 1px solid var(--wood-400);
+  
+  &:hover:not(:disabled) {
+    background: var(--wood-400);
+    border-color: var(--wood-300);
+  }
+  
+  &:active:not(:disabled) {
+    background: var(--wood-600);
+  }
+}
+
+/* Info button using Ocean colors */
+.btn-info {
+  background: var(--ocean-500);
+  color: var(--text-primary);
+  border: 1px solid var(--ocean-400);
+  
+  &:hover:not(:disabled) {
+    background: var(--ocean-400);
+    border-color: var(--ocean-300);
+  }
+  
+  &:active:not(:disabled) {
+    background: var(--ocean-600);
+  }
+}

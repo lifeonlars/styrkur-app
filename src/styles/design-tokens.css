@@ -1,0 +1,274 @@
+/* Design Tokens - Norse-themed Neumorphic Design System */
+/* Extracted from existing Tailwind config with exact values */
+
+:root {
+  /* === COLOR SYSTEM === */
+  
+  /* Neumorphic Background Hierarchy (darkest to lightest) */
+  --neu-background: #2c2f36; /* Page background */
+  --neu-surface: #343940;    /* Cards, elevated surfaces */
+  --neu-card: #3d424f;       /* Main content cards */
+  --neu-elevated: #454a57;   /* Hover states, highlighted areas */
+  
+  /* Legacy charcoal colors for compatibility */
+  --neu-darkest: #1a1c20;    /* Deepest charcoal */
+  --neu-darker: #1f2126;     /* Dark charcoal */
+  --neu-dark: #252831;       /* Main charcoal */
+  --neu-base: #2c2f36;       /* Raised charcoal */
+  --neu-light: #383b42;      /* Light charcoal */
+  --neu-lighter: #3f4248;    /* Lightest charcoal */
+  
+  /* Norse Gold Metallic Accents - Original Norse gold #C3A869 based */
+  --norse-gold: #C3A869;        /* Original Norse gold from styleguide */
+  --norse-gold-light: #D4BC7F;  /* Light Norse gold */
+  --norse-gold-dark: #A89253;   /* Dark Norse gold */
+  --norse-gold-darker: #8D7A42; /* Darker Norse gold */
+  --norse-accent: #B8A260;      /* Norse accent */
+  
+  /* Context Colors - Forest (Success) */
+  --forest-300: #4AE5A8;
+  --forest-400: #3BC692;
+  --forest-500: #2E7D5F;
+  --forest-600: #25654C;
+  --forest-700: #1C4D39;
+  
+  /* Blood (Error) */
+  --blood-300: #F87171;
+  --blood-400: #EF4444;
+  --blood-500: #A83232;
+  --blood-600: #8B2828;
+  --blood-700: #6F1F1F;
+  
+  /* Ocean (Info) */
+  --ocean-300: #7DD3FC;
+  --ocean-400: #38BDF8;
+  --ocean-500: #375A74;
+  --ocean-600: #2D4A5F;
+  --ocean-700: #243A4A;
+  
+  /* Wood (Warning) */
+  --wood-300: #A78BFA;
+  --wood-400: #8B5CF6;
+  --wood-500: #5C4533;
+  --wood-600: #4A3729;
+  --wood-700: #38291F;
+  
+  /* Iron (Neutral) */
+  --iron-200: #4B5563;
+  --iron-300: #3B3F46;
+  --iron-400: #374151;
+  --iron-500: #2D3138;
+  --iron-600: #1F2937;
+  --iron-700: #111827;
+
+  /* === BORDER SYSTEM === */
+  
+  /* Neumorphic border colors - subtle light keylines for crisp edges */
+  --border-neu-light: rgba(255, 255, 255, 0.1);
+  --border-neu-lighter: rgba(255, 255, 255, 0.15);
+  --border-neu-subtle: rgba(255, 255, 255, 0.08);
+  --border-neu-gold-light: rgba(195, 168, 105, 0.2);
+  --border-neu-gold-subtle: rgba(195, 168, 105, 0.1);
+
+  /* === SHADOW SYSTEM === */
+  
+  /* Multi-layered ultra-soft neumorphic shadows - Tesla Cybertruck inspired */
+  --shadow-neu-flat: 
+    -2px -2px 8px rgba(255, 255, 255, 0.03), 
+    2px 2px 8px rgba(15, 17, 20, 0.15), 
+    -1px -1px 3px rgba(255, 255, 255, 0.02), 
+    1px 1px 3px rgba(15, 17, 20, 0.1);
+  
+  --shadow-neu: 
+    -4px -4px 12px rgba(255, 255, 255, 0.04), 
+    4px 4px 12px rgba(15, 17, 20, 0.2), 
+    -2px -2px 6px rgba(255, 255, 255, 0.03), 
+    2px 2px 6px rgba(15, 17, 20, 0.15);
+  
+  --shadow-neu-lg: 
+    -6px -6px 20px rgba(255, 255, 255, 0.06), 
+    6px 6px 20px rgba(15, 17, 20, 0.25), 
+    -3px -3px 10px rgba(255, 255, 255, 0.04), 
+    3px 3px 10px rgba(15, 17, 20, 0.18);
+  
+  /* Inset shadows for inputs - multiple layers for ultra-soft feel */
+  --shadow-neu-inset: 
+    inset 3px 3px 8px rgba(15, 17, 20, 0.2), 
+    inset -3px -3px 8px rgba(255, 255, 255, 0.03), 
+    inset 1px 1px 4px rgba(15, 17, 20, 0.15), 
+    inset -1px -1px 4px rgba(255, 255, 255, 0.02);
+  
+  --shadow-neu-inset-lg: 
+    inset 4px 4px 12px rgba(15, 17, 20, 0.25), 
+    inset -4px -4px 12px rgba(255, 255, 255, 0.04), 
+    inset 2px 2px 6px rgba(15, 17, 20, 0.18), 
+    inset -2px -2px 6px rgba(255, 255, 255, 0.03);
+  
+  /* Enhanced hover with wider spread */
+  --shadow-neu-hover: 
+    -6px -6px 16px rgba(255, 255, 255, 0.08), 
+    6px 6px 16px rgba(15, 17, 20, 0.3), 
+    -3px -3px 8px rgba(255, 255, 255, 0.05), 
+    3px 3px 8px rgba(15, 17, 20, 0.2);
+  
+  /* Pressed state with soft inset */
+  --shadow-neu-pressed: 
+    inset 2px 2px 6px rgba(15, 17, 20, 0.3), 
+    inset -2px -2px 6px rgba(255, 255, 255, 0.05), 
+    inset 1px 1px 3px rgba(15, 17, 20, 0.2);
+  
+  /* Focus with Norse gold accent */
+  --shadow-neu-focus: 
+    0 0 0 2px rgba(195, 168, 105, 0.3), 
+    -4px -4px 12px rgba(255, 255, 255, 0.04), 
+    4px 4px 12px rgba(15, 17, 20, 0.2);
+  
+  /* Gold variants with ultra-soft Norse gold highlights */
+  --shadow-neu-gold: 
+    -4px -4px 12px rgba(195, 168, 105, 0.08), 
+    4px 4px 12px rgba(15, 17, 20, 0.2), 
+    -2px -2px 6px rgba(195, 168, 105, 0.05), 
+    2px 2px 6px rgba(15, 17, 20, 0.15);
+  
+  --shadow-neu-gold-hover: 
+    -6px -6px 16px rgba(195, 168, 105, 0.12), 
+    6px 6px 16px rgba(15, 17, 20, 0.3), 
+    -3px -3px 8px rgba(195, 168, 105, 0.08), 
+    3px 3px 8px rgba(15, 17, 20, 0.2);
+  
+  --shadow-neu-gold-pressed: 
+    inset 2px 2px 6px rgba(15, 17, 20, 0.3), 
+    inset -2px -2px 6px rgba(195, 168, 105, 0.06), 
+    inset 1px 1px 3px rgba(15, 17, 20, 0.2);
+
+  /* === GRADIENT SYSTEM === */
+  
+  /* Norse gold metallic gradients - sophisticated gold with proper light/dark tones */
+  --gradient-neu-gold-metallic: linear-gradient(145deg, #C3A869, #B8A260, #A89253);
+  --gradient-neu-gold-light: linear-gradient(145deg, #D4BC7F, #C3A869, #B8A260);
+  --gradient-neu-gold-dark: linear-gradient(145deg, #B8A260, #A89253, #8D7A42);
+  --gradient-neu-gold-subtle: linear-gradient(145deg, rgba(195, 168, 105, 0.12), rgba(184, 162, 96, 0.06));
+  
+  /* Deep charcoal gradients inspired by the neumorphic examples */
+  --gradient-neu-base: linear-gradient(145deg, #2c2f36, #252831);
+  --gradient-neu-elevated: linear-gradient(145deg, #2f3239, #28292f);
+  --gradient-neu-sunken: linear-gradient(145deg, #1f2126, #252831);
+  --gradient-neu-button: linear-gradient(145deg, #2a2d33, #242530);
+  --gradient-neu-card: linear-gradient(145deg, #31343b, #2a2d33);
+  --gradient-neu-surface: linear-gradient(145deg, #2d3037, #252831);
+  
+  /* Large gradient backgrounds for main surfaces */
+  --gradient-neu-main-bg: radial-gradient(ellipse at top, #2f323a, #252831), linear-gradient(145deg, #2c2f36, #1f2126);
+  --gradient-neu-card-bg: radial-gradient(ellipse at center, #363942, #2a2d33), linear-gradient(135deg, #31343b, #252831);
+  --gradient-neu-modal-bg: radial-gradient(ellipse at center, #3a3d45, #2d3037), linear-gradient(145deg, #34373e, #282a30);
+  
+  /* Neumorphic gradient borders - light keylines for crisp definition */
+  --gradient-neu-border: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  --gradient-neu-border-subtle: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  --gradient-neu-border-gold: linear-gradient(145deg, rgba(195, 168, 105, 0.25), rgba(195, 168, 105, 0.08));
+  --gradient-neu-border-inset: linear-gradient(145deg, rgba(15, 17, 20, 0.3), rgba(255, 255, 255, 0.1));
+
+  /* === BORDER RADIUS SYSTEM === */
+  
+  /* Enhanced border radius for softer, more organic Cybertruck-style shapes */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;      /* 6px */
+  --radius-default: 0.5rem;   /* 8px */
+  --radius-md: 0.75rem;       /* 12px */
+  --radius-lg: 1rem;          /* 16px */
+  --radius-xl: 1.5rem;        /* 24px */
+  --radius-2xl: 2rem;         /* 32px */
+  --radius-3xl: 2.5rem;       /* 40px */
+  --radius-4xl: 3rem;         /* 48px */
+  
+  /* Cybertruck-inspired organic shapes */
+  --radius-neu: 1.25rem;      /* 20px - standard neumorphic elements */
+  --radius-neu-lg: 1.75rem;   /* 28px - larger cards and containers */
+  --radius-neu-xl: 2.25rem;   /* 36px - hero elements and major cards */
+  --radius-neu-pill: 3rem;    /* 48px - button pill shapes like Cybertruck */
+  --radius-full: 9999px;
+
+  /* === TYPOGRAPHY SYSTEM === */
+  
+  /* Font sizes aligned with component sizing */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* === SPACING SYSTEM === */
+  
+  /* Component spacing aligned with design system */
+  --spacing-1: 0.25rem;   /* 4px */
+  --spacing-2: 0.5rem;    /* 8px */
+  --spacing-3: 0.75rem;   /* 12px */
+  --spacing-4: 1rem;      /* 16px */
+  --spacing-5: 1.25rem;   /* 20px */
+  --spacing-6: 1.5rem;    /* 24px */
+  --spacing-8: 2rem;      /* 32px */
+  --spacing-10: 2.5rem;   /* 40px */
+  --spacing-12: 3rem;     /* 48px */
+  --spacing-16: 4rem;     /* 64px */
+  --spacing-20: 5rem;     /* 80px */
+  --spacing-24: 6rem;     /* 96px */
+
+  /* === COMPONENT DIMENSIONS === */
+  
+  /* Button and input heights for perfect alignment */
+  --height-component-sm: 2rem;      /* 32px */
+  --height-component-default: 2.25rem; /* 36px */
+  --height-component-lg: 3rem;      /* 48px */
+  --height-component-xl: 3.5rem;    /* 56px */
+  
+  /* Icon sizes */
+  --size-icon-xs: 0.75rem;  /* 12px */
+  --size-icon-sm: 1rem;     /* 16px */
+  --size-icon-default: 1.25rem; /* 20px */
+  --size-icon-lg: 1.5rem;   /* 24px */
+  --size-icon-xl: 2rem;     /* 32px */
+
+  /* === TRANSITION SYSTEM === */
+  
+  /* Enhanced transitions for neumorphic interactions */
+  --transition-fast: 100ms ease-out;
+  --transition-default: 200ms ease-out;
+  --transition-slow: 300ms ease-out;
+  --transition-all: all var(--transition-default);
+
+  /* === Z-INDEX SYSTEM === */
+  
+  /* Layering system for components */
+  --z-index-dropdown: 1000;
+  --z-index-modal: 1050;
+  --z-index-popover: 1100;
+  --z-index-tooltip: 1200;
+  --z-index-overlay: 1300;
+
+  /* === TEXT COLORS === */
+  
+  /* Text color hierarchy */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-subtle: rgba(255, 255, 255, 0.4);
+  --text-inverse: #000000;
+  --text-accent: var(--norse-gold);
+  
+  /* Placeholder text */
+  --text-placeholder: rgba(255, 255, 255, 0.4);
+}

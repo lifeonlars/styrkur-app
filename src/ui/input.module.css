@@ -1,0 +1,184 @@
+/* Input Component - BEM + CSS Modules Approach */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE INPUT === */
+
+.input {
+  /* Core input properties */
+  display: flex;
+  width: 100%;
+  font-family: inherit;
+  
+  /* Neumorphic styling */
+  border-radius: var(--radius-neu);
+  box-shadow: var(--shadow-neu-inset);
+  background: var(--neu-surface);
+  border: 1px solid var(--border-neu-subtle);
+  
+  /* Typography */
+  color: var(--text-primary);
+  
+  /* Spacing */
+  padding: 0 var(--spacing-3);
+  
+  /* Transitions */
+  transition: var(--transition-all);
+  
+  /* File input styles */
+  &[type="file"] {
+    border: 0;
+    background: transparent;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+  }
+  
+  /* Placeholder styling */
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+  
+  /* Focus state */
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-neu-focus);
+    border-color: var(--border-neu-light);
+  }
+  
+  /* Disabled state */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+/* === SIZE VARIANTS === */
+
+/* Default Size - 36px height to align with default buttons */
+.input-default {
+  height: var(--height-component-default);
+  font-size: var(--font-size-sm);
+}
+
+/* Large Size - 48px height to align with large buttons */
+.input-large {
+  height: var(--height-component-lg);
+  font-size: var(--font-size-base);
+}
+
+/* === INPUT VARIANTS === */
+
+/* Search input with enhanced styling */
+.input-search {
+  padding-left: var(--spacing-10); /* Space for search icon */
+  
+  /* Container for search icon */
+  position: relative;
+}
+
+/* Error state */
+.input-error {
+  border-color: var(--blood-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--blood-500);
+  
+  &:focus-visible {
+    border-color: var(--blood-400);
+    box-shadow: 
+      0 0 0 2px rgba(168, 50, 50, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* Success state */
+.input-success {
+  border-color: var(--forest-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--forest-500);
+  
+  &:focus-visible {
+    border-color: var(--forest-400);
+    box-shadow: 
+      0 0 0 2px rgba(46, 125, 95, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* Warning state */
+.input-warning {
+  border-color: var(--wood-500);
+  box-shadow: 
+    var(--shadow-neu-inset),
+    0 0 0 1px var(--wood-500);
+  
+  &:focus-visible {
+    border-color: var(--wood-400);
+    box-shadow: 
+      0 0 0 2px rgba(92, 69, 51, 0.3),
+      var(--shadow-neu-inset);
+  }
+}
+
+/* === SPECIAL MODIFIERS === */
+
+/* Full width input */
+.input-full {
+  width: 100%;
+}
+
+/* Input with icon */
+.input-with-icon {
+  padding-left: var(--spacing-10);
+}
+
+.input-with-icon-right {
+  padding-right: var(--spacing-10);
+}
+
+/* === INPUT GROUP STYLES === */
+
+/* Input group container */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Icon positioning */
+.input-icon-left {
+  position: absolute;
+  left: var(--spacing-3);
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-icon-right {
+  position: absolute;
+  right: var(--spacing-3);
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === NUMBER INPUT STYLES === */
+
+/* Remove spinner buttons from number inputs */
+.input[type="number"] {
+  -moz-appearance: textfield;
+  
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* === PASSWORD INPUT STYLES === */
+
+.input[type="password"] {
+  font-family: monospace;
+  letter-spacing: 0.1em;
+}
