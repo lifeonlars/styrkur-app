@@ -9,8 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary - Norse gold for main actions, CTAs, form submissions
-        primary: "rounded-neu-pill shadow-neu-gold bg-gradient-to-br from-norse-gold-light via-norse-gold to-norse-gold-dark border border-neu-gold-light text-black font-semibold hover:shadow-neu-gold-hover hover:from-norse-gold hover:to-norse-gold-light active:shadow-neu-gold-pressed transform hover:scale-[1.02] active:scale-[0.98]",
+        // Primary - Norse gold for main actions, CTAs, form submissions with Cybertruck-style highlighting keyline
+        primary: "rounded-neu-pill shadow-neu-gold bg-gradient-to-br from-norse-gold-light via-norse-gold to-norse-gold-dark border-2 border-norse-gold-light/30 text-black font-semibold hover:shadow-neu-gold-hover hover:from-norse-gold hover:to-norse-gold-light hover:border-norse-gold-light/50 active:shadow-neu-gold-pressed transform hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden before:absolute before:inset-0 before:rounded-neu-pill before:border before:border-white/20 before:pointer-events-none",
         
         // Outline - Neumorphic surface for secondary actions, cancel buttons
         outline: "rounded-neu shadow-neu bg-neu-surface border border-neu-light text-gray-300 hover:shadow-neu-hover hover:text-white hover:border-neu-lighter active:shadow-neu-pressed",
