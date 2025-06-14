@@ -12,26 +12,85 @@ module.exports = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         heading: ['var(--font-cinzel)', 'serif'],
       },
-      // Proper neumorphic shadows - soft, realistic depth
+      // Ultra-soft neumorphic shadows - inspired by Tesla Cybertruck UI
       boxShadow: {
-        // Base neumorphic shadows - soft and tactile
-        'neu-flat': '2px 2px 6px rgba(0, 0, 0, 0.4), -2px -2px 6px rgba(255, 255, 255, 0.05)',
-        'neu': '4px 4px 12px rgba(0, 0, 0, 0.5), -4px -4px 12px rgba(255, 255, 255, 0.08)',
-        'neu-lg': '6px 6px 18px rgba(0, 0, 0, 0.6), -6px -6px 18px rgba(255, 255, 255, 0.1)',
+        // Multi-layered shadows for ultra-soft effect with wide spread
+        'neu-flat': 
+          '-2px -2px 8px rgba(255, 255, 255, 0.03), ' +
+          '2px 2px 8px rgba(15, 17, 20, 0.15), ' +
+          '-1px -1px 3px rgba(255, 255, 255, 0.02), ' +
+          '1px 1px 3px rgba(15, 17, 20, 0.1)',
         
-        // Sunken/inset for inputs and inactive states
-        'neu-inset': 'inset 3px 3px 8px rgba(0, 0, 0, 0.5), inset -3px -3px 8px rgba(255, 255, 255, 0.08)',
-        'neu-inset-lg': 'inset 4px 4px 12px rgba(0, 0, 0, 0.6), inset -4px -4px 12px rgba(255, 255, 255, 0.1)',
+        'neu': 
+          '-4px -4px 12px rgba(255, 255, 255, 0.04), ' +
+          '4px 4px 12px rgba(15, 17, 20, 0.2), ' +
+          '-2px -2px 6px rgba(255, 255, 255, 0.03), ' +
+          '2px 2px 6px rgba(15, 17, 20, 0.15)',
         
-        // Interactive states - natural shadow progression
-        'neu-hover': '5px 5px 15px rgba(0, 0, 0, 0.6), -5px -5px 15px rgba(255, 255, 255, 0.12)',
-        'neu-pressed': 'inset 2px 2px 6px rgba(0, 0, 0, 0.6), inset -2px -2px 6px rgba(255, 255, 255, 0.05)',
-        'neu-focus': '0 0 0 2px rgba(195, 168, 105, 0.3), 4px 4px 12px rgba(0, 0, 0, 0.5), -4px -4px 12px rgba(255, 255, 255, 0.08)',
+        'neu-lg': 
+          '-6px -6px 20px rgba(255, 255, 255, 0.06), ' +
+          '6px 6px 20px rgba(15, 17, 20, 0.25), ' +
+          '-3px -3px 10px rgba(255, 255, 255, 0.04), ' +
+          '3px 3px 10px rgba(15, 17, 20, 0.18)',
         
-        // Gold neumorphic variants for Norse accents
-        'neu-gold': '4px 4px 12px rgba(0, 0, 0, 0.5), -4px -4px 12px rgba(195, 168, 105, 0.15)',
-        'neu-gold-hover': '5px 5px 15px rgba(0, 0, 0, 0.6), -5px -5px 15px rgba(195, 168, 105, 0.2)',
-        'neu-gold-pressed': 'inset 2px 2px 6px rgba(0, 0, 0, 0.5), inset -2px -2px 6px rgba(195, 168, 105, 0.1)',
+        // Inset shadows for inputs - multiple layers for ultra-soft feel
+        'neu-inset': 
+          'inset 3px 3px 8px rgba(15, 17, 20, 0.2), ' +
+          'inset -3px -3px 8px rgba(255, 255, 255, 0.03), ' +
+          'inset 1px 1px 4px rgba(15, 17, 20, 0.15), ' +
+          'inset -1px -1px 4px rgba(255, 255, 255, 0.02)',
+        
+        'neu-inset-lg': 
+          'inset 4px 4px 12px rgba(15, 17, 20, 0.25), ' +
+          'inset -4px -4px 12px rgba(255, 255, 255, 0.04), ' +
+          'inset 2px 2px 6px rgba(15, 17, 20, 0.18), ' +
+          'inset -2px -2px 6px rgba(255, 255, 255, 0.03)',
+        
+        // Enhanced hover with wider spread
+        'neu-hover': 
+          '-6px -6px 16px rgba(255, 255, 255, 0.08), ' +
+          '6px 6px 16px rgba(15, 17, 20, 0.3), ' +
+          '-3px -3px 8px rgba(255, 255, 255, 0.05), ' +
+          '3px 3px 8px rgba(15, 17, 20, 0.2)',
+        
+        // Pressed state with soft inset
+        'neu-pressed': 
+          'inset 2px 2px 6px rgba(15, 17, 20, 0.3), ' +
+          'inset -2px -2px 6px rgba(255, 255, 255, 0.05), ' +
+          'inset 1px 1px 3px rgba(15, 17, 20, 0.2)',
+        
+        // Focus with Norse gold accent
+        'neu-focus': 
+          '0 0 0 2px rgba(195, 168, 105, 0.3), ' +
+          '-4px -4px 12px rgba(255, 255, 255, 0.04), ' +
+          '4px 4px 12px rgba(15, 17, 20, 0.2)',
+        
+        // Gold variants with ultra-soft Norse gold highlights
+        'neu-gold': 
+          '-4px -4px 12px rgba(195, 168, 105, 0.08), ' +
+          '4px 4px 12px rgba(15, 17, 20, 0.2), ' +
+          '-2px -2px 6px rgba(195, 168, 105, 0.05), ' +
+          '2px 2px 6px rgba(15, 17, 20, 0.15)',
+        
+        'neu-gold-hover': 
+          '-6px -6px 16px rgba(195, 168, 105, 0.12), ' +
+          '6px 6px 16px rgba(15, 17, 20, 0.3), ' +
+          '-3px -3px 8px rgba(195, 168, 105, 0.08), ' +
+          '3px 3px 8px rgba(15, 17, 20, 0.2)',
+        
+        'neu-gold-pressed': 
+          'inset 2px 2px 6px rgba(15, 17, 20, 0.3), ' +
+          'inset -2px -2px 6px rgba(195, 168, 105, 0.06), ' +
+          'inset 1px 1px 3px rgba(15, 17, 20, 0.2)',
+      },
+      
+      // Neumorphic border styles - subtle light keylines for crisp edges
+      borderColor: {
+        'neu-light': 'rgba(255, 255, 255, 0.1)',
+        'neu-lighter': 'rgba(255, 255, 255, 0.15)',
+        'neu-subtle': 'rgba(255, 255, 255, 0.08)',
+        'neu-gold-light': 'rgba(195, 168, 105, 0.2)',
+        'neu-gold-subtle': 'rgba(195, 168, 105, 0.1)',
       },
       
       // Deep charcoal gradients inspired by the neumorphic examples
@@ -53,6 +112,12 @@ module.exports = {
         'neu-main-bg': 'radial-gradient(ellipse at top, #2f323a, #252831), linear-gradient(145deg, #2c2f36, #1f2126)',
         'neu-card-bg': 'radial-gradient(ellipse at center, #363942, #2a2d33), linear-gradient(135deg, #31343b, #252831)',
         'neu-modal-bg': 'radial-gradient(ellipse at center, #3a3d45, #2d3037), linear-gradient(145deg, #34373e, #282a30)',
+        
+        // Neumorphic gradient borders - light keylines for crisp definition
+        'neu-border': 'linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05))',
+        'neu-border-subtle': 'linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03))',
+        'neu-border-gold': 'linear-gradient(145deg, rgba(195, 168, 105, 0.25), rgba(195, 168, 105, 0.08))',
+        'neu-border-inset': 'linear-gradient(145deg, rgba(15, 17, 20, 0.3), rgba(255, 255, 255, 0.1))',
       },
       
       // Deep charcoal neumorphic color palette with bronze-gold accents

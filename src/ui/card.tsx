@@ -4,24 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "rounded-2xl border-none text-white transition-all duration-200",
+  "rounded-2xl text-white transition-all duration-200",
   {
     variants: {
       variant: {
-        // Default card - soft neumorphic depth that feels integrated with surface
-        default: "shadow-neu bg-neu-card hover:shadow-neu-hover",
+        // Default card - soft neumorphic depth with crisp light keyline
+        default: "shadow-neu bg-neu-card border border-neu-light hover:shadow-neu-hover hover:border-neu-lighter",
         
-        // Elevated variant - slightly higher elevation for important content
-        elevated: "shadow-neu-lg bg-neu-card hover:shadow-neu-hover",
+        // Elevated variant - higher elevation with enhanced keyline
+        elevated: "shadow-neu-lg bg-neu-card border border-neu-lighter hover:shadow-neu-hover hover:border-neu-light",
         
-        // Sunken variant - for form containers and inactive states
-        sunken: "shadow-neu-inset bg-neu-surface",
+        // Sunken variant - inset appearance with inverted keyline
+        sunken: "shadow-neu-inset bg-neu-surface border border-neu-subtle",
         
-        // Flat variant - minimal elevation for background elements
-        flat: "shadow-neu-flat bg-neu-surface hover:shadow-neu",
+        // Flat variant - minimal elevation with subtle keyline
+        flat: "shadow-neu-flat bg-neu-surface border border-neu-subtle hover:shadow-neu hover:border-neu-light",
         
-        // Interactive variant - clear interaction feedback
-        interactive: "shadow-neu bg-neu-card hover:shadow-neu-hover cursor-pointer",
+        // Interactive variant - clear interaction feedback with enhanced keyline
+        interactive: "shadow-neu bg-neu-card border border-neu-light hover:shadow-neu-hover hover:border-neu-lighter cursor-pointer",
       },
     },
     defaultVariants: {

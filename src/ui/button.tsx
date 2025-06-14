@@ -9,35 +9,35 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Neumorphic default - soft raised appearance
-        default: "shadow-neu bg-neu-surface border-none text-white hover:shadow-neu-hover active:shadow-neu-pressed",
+        // Neumorphic default - soft raised appearance with light keyline
+        default: "shadow-neu bg-neu-surface border border-neu-light text-white hover:shadow-neu-hover hover:border-neu-lighter active:shadow-neu-pressed",
         
-        // Norse gold primary - sophisticated metallic appearance
-        primary: "shadow-neu-gold bg-norse-gold border-none text-black font-medium hover:shadow-neu-gold-hover active:shadow-neu-gold-pressed",
+        // Norse gold primary - sophisticated metallic appearance with gold keyline
+        primary: "shadow-neu-gold bg-norse-gold border border-neu-gold-light text-black font-medium hover:shadow-neu-gold-hover hover:border-neu-gold-subtle active:shadow-neu-gold-pressed",
         
-        // Secondary neumorphic surface
-        secondary: "shadow-neu bg-neu-surface border-none text-gray-300 hover:shadow-neu-hover hover:text-white active:shadow-neu-pressed",
+        // Secondary neumorphic surface with subtle keyline
+        secondary: "shadow-neu bg-neu-surface border border-neu-subtle text-gray-300 hover:shadow-neu-hover hover:text-white hover:border-neu-light active:shadow-neu-pressed",
         
         // Destructive with neumorphic styling using Blood context color
-        destructive: "shadow-neu bg-blood-500 border-none text-white hover:bg-blood-400 hover:shadow-neu-hover active:shadow-neu-pressed",
+        destructive: "shadow-neu bg-blood-500 border border-neu-subtle text-white hover:bg-blood-400 hover:shadow-neu-hover hover:border-neu-light active:shadow-neu-pressed",
         
         // Success with neumorphic styling using Forest context color
-        success: "shadow-neu bg-forest-500 border-none text-white hover:bg-forest-400 hover:shadow-neu-hover active:shadow-neu-pressed",
+        success: "shadow-neu bg-forest-500 border border-neu-subtle text-white hover:bg-forest-400 hover:shadow-neu-hover hover:border-neu-light active:shadow-neu-pressed",
         
         // Warning with neumorphic styling using Wood context color
-        warning: "shadow-neu bg-wood-500 border-none text-white hover:bg-wood-400 hover:shadow-neu-hover active:shadow-neu-pressed",
+        warning: "shadow-neu bg-wood-500 border border-neu-subtle text-white hover:bg-wood-400 hover:shadow-neu-hover hover:border-neu-light active:shadow-neu-pressed",
         
         // Info with neumorphic styling using Ocean context color
-        info: "shadow-neu bg-ocean-500 border-none text-white hover:bg-ocean-400 hover:shadow-neu-hover active:shadow-neu-pressed",
+        info: "shadow-neu bg-ocean-500 border border-neu-subtle text-white hover:bg-ocean-400 hover:shadow-neu-hover hover:border-neu-light active:shadow-neu-pressed",
         
         // Subtle flat appearance for less important actions
-        outline: "shadow-neu-flat bg-neu-surface border-none text-gray-300 hover:shadow-neu hover:text-white active:shadow-neu-pressed",
+        outline: "shadow-neu-flat bg-neu-surface border border-neu-light text-gray-300 hover:shadow-neu hover:text-white hover:border-neu-lighter active:shadow-neu-pressed",
         
-        // Minimal ghost appearance
-        ghost: "shadow-none bg-transparent border-none text-gray-400 hover:shadow-neu-flat hover:bg-neu-surface hover:text-white",
+        // Minimal ghost appearance with subtle keyline on hover
+        ghost: "shadow-none bg-transparent border border-transparent text-gray-400 hover:shadow-neu-flat hover:bg-neu-surface hover:border-neu-subtle hover:text-white",
         
-        // Link styling with Norse gold
-        link: "shadow-none bg-transparent border-none text-norse-gold underline-offset-4 hover:underline hover:text-norse-gold-light",
+        // Link styling with Norse gold - no keyline needed
+        link: "shadow-none bg-transparent border border-transparent text-norse-gold underline-offset-4 hover:underline hover:text-norse-gold-light",
       },
       size: {
         default: "h-10 px-4 py-2",
