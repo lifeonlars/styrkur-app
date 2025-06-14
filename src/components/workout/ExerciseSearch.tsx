@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
-import { Input } from '@heroui/input'
+import { Input } from '@/ui/input'
 import { Exercise, ExerciseFilter, MuscleGroup } from '@/types'
 import { fetchExercises, muscleGroupFilters } from '@/lib/wger'
 import EnhancedExerciseCard from './EnhancedExerciseCard'
@@ -125,26 +125,21 @@ export default function ExerciseSearch({
       
       {/* Search Bar */}
       <div className="mb-4">
-        <Input
-          type="text"
-          placeholder="Search exercises... (e.g., kettlebell, squat, press)"
-          value={searchTerm}
-          onChange={(e) => handleSearch(e.target.value)}
-          startContent={<Search className="w-4 h-4 text-default-400" />}
-          endContent={
-            searchTerm.length > 0 && searchTerm.length < 3 ? (
-              <div className="text-xs text-default-500">
-                {3 - searchTerm.length} more chars
-              </div>
-            ) : null
-          }
-          variant="bordered"
-          size="lg"
-          classNames={{
-            input: "text-white",
-            inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-          }}
-        />
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Search exercises... (e.g., kettlebell, squat, press)"
+            value={searchTerm}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="pl-10"
+          />
+          {searchTerm.length > 0 && searchTerm.length < 3 && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500">
+              {3 - searchTerm.length} more chars
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Muscle Group Filter */}

@@ -38,8 +38,8 @@ export default function WorkoutSummaryModal({ workout, isOpen, onClose }: Workou
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-gray-900 w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-neu-card shadow-neu-raised-xl w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col border border-neu-light/20">
         {/* Header */}
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
           <div>

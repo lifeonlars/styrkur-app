@@ -69,7 +69,7 @@ export default function SyrkurSagaApp() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-white flex flex-col">
+    <div className="min-h-screen bg-neu-base text-white flex flex-col">
       <div className="flex-1">
         {/* Main Content */}
         <div className="w-full lg:pt-20">
@@ -91,7 +91,7 @@ export default function SyrkurSagaApp() {
       </div>
       
       {/* Desktop Top Navigation */}
-      <div className="hidden lg:block fixed top-0 left-0 right-0 bg-background border-b border-divider z-50">
+      <div className="hidden lg:block fixed top-0 left-0 right-0 bg-neu-surface shadow-neu border-b border-neu-light/20 z-50">
         <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl px-6 py-4">
           <ClientOnly>
             <div className="flex items-center justify-between">
@@ -108,10 +108,10 @@ export default function SyrkurSagaApp() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-200 ${
                         activeTab === tab.id 
-                          ? 'bg-[#C3A869] text-black' 
-                          : 'text-gray-400 hover:text-white hover:bg-content2'
+                          ? 'bg-norse-gold text-black shadow-neu-gold font-medium' 
+                          : 'bg-neu-surface text-gray-300 shadow-neu hover:shadow-neu-hover hover:text-white'
                       }`}
                     >
                       <tab.icon className="w-4 h-4" />

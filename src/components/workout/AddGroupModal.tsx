@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { X, Plus, Minus, ChevronUp, ChevronDown } from 'lucide-react'
-import { Select, SelectItem } from '@heroui/select'
-import { Input } from '@heroui/input'
+import { Input } from '@/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { ExerciseGroupType, TimingStyle, WorkoutEntry, ExerciseConfig, Exercise } from '@/types'
 import { fetchExercises, categoryMapping } from '@/lib/wger'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
@@ -181,10 +181,10 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-gray-900 w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-neu-modal-bg shadow-neu-raised-xl w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col border border-neu-light/20">
         {/* Header */}
-        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
+        <div className="p-6 border-b border-neu-light/20 flex justify-between items-center">
           <h2 className="text-white text-xl font-medium font-heading">
             {initialEntry ? 'Edit Exercises' : 'Add Exercises'}
           </h2>
@@ -241,11 +241,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 placeholder={getDefaultLabel()}
-                variant="bordered"
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
               />
             </div>
           )}
@@ -263,33 +258,21 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                   max="10"
                   value={sets.toString()}
                   onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                  variant="bordered"
-                  classNames={{
-                    input: "text-white",
-                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                  }}
                 />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">RPE (Rate of Perceived Exertion)</label>
-                <Select
-                  placeholder="Select RPE"
-                  selectedKeys={[groupRPE.toString()]}
-                  onSelectionChange={(keys) => {
-                    const value = Array.from(keys)[0] as string
-                    setGroupRPE(parseFloat(value))
-                  }}
-                  variant="bordered"
-                  classNames={{
-                    trigger: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2",
-                    value: "text-white"
-                  }}
-                >
-                  {rpeOptions.map((option) => (
-                    <SelectItem key={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                <Select value={groupRPE.toString()} onValueChange={(value) => setGroupRPE(parseFloat(value))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select RPE" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {rpeOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
                 </Select>
               </div>
             </div>
@@ -302,11 +285,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 max="10"
                 value={sets.toString()}
                 onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                variant="bordered"
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
               />
             </div>
           )}
@@ -322,11 +300,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                 step="5"
                 value={restBetweenExercises.toString()}
                 onChange={(e) => setRestBetweenExercises(parseInt(e.target.value) || 0)}
-                variant="bordered"
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
               />
             </div>
           )}
@@ -335,24 +308,17 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {groupType === 'circuit' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Timing Style (optional)</label>
-              <Select
-                placeholder="Select timing style"
-                selectedKeys={timingStyle ? [timingStyle] : [""]}
-                onSelectionChange={(keys) => {
-                  const value = Array.from(keys)[0] as string
-                  setTimingStyle(value as TimingStyle | '')
-                }}
-                variant="bordered"
-                classNames={{
-                  trigger: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2",
-                  value: "text-white"
-                }}
-              >
-                {timingStyleOptions.map((option) => (
-                  <SelectItem key={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
+              <Select value={timingStyle || ""} onValueChange={(value) => setTimingStyle(value as TimingStyle | '')}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timing style" />
+                </SelectTrigger>
+                <SelectContent>
+                  {timingStyleOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
           )}
@@ -367,11 +333,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
               step="15"
               value={restAfterGroup.toString()}
               onChange={(e) => setRestAfterGroup(parseInt(e.target.value) || 0)}
-              variant="bordered"
-              classNames={{
-                input: "text-white",
-                inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-              }}
             />
           </div>
 
@@ -447,12 +408,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                         max="50"
                         value={(exerciseConfig.reps || 10).toString()}
                         onChange={(e) => updateExercise(index, { reps: parseInt(e.target.value) || 10 })}
-                        variant="bordered"
-                        size="sm"
-                        classNames={{
-                          input: "text-white",
-                          inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                        }}
                       />
                     </div>
                     <div>
@@ -463,12 +418,6 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
                         step="0.5"
                         value={(exerciseConfig.weight || 0).toString()}
                         onChange={(e) => updateExercise(index, { weight: parseFloat(e.target.value) || 0 })}
-                        variant="bordered"
-                        size="sm"
-                        classNames={{
-                          input: "text-white",
-                          inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                        }}
                       />
                     </div>
                   </div>
@@ -506,8 +455,8 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
 
       {/* Exercise Search Modal */}
       {showExerciseSearch && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[110] md:p-4">
-          <div className="bg-gray-800 w-full max-w-2xl md:rounded-xl h-full md:h-auto md:max-h-[80vh] overflow-hidden">
+        <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[110] md:p-4">
+          <div className="bg-neu-elevated shadow-neu-raised-lg w-full max-w-2xl md:rounded-xl h-full md:h-auto md:max-h-[80vh] overflow-hidden border border-neu-light/20">
             <ExerciseSearch
               onSelectExercise={addExercise}
               onClose={() => setShowExerciseSearch(false)}

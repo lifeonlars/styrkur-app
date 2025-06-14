@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Search, Clock, Dumbbell } from 'lucide-react'
-import { Input } from '@heroui/input'
+import { Input } from '@/ui/input'
 import { Workout } from '@/types'
 import { searchWorkouts } from '@/lib/fuzzySearch'
 import WorkoutCard from './WorkoutCard'
@@ -88,7 +88,7 @@ export default function WorkoutTabs({
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
                 isActive
-                  ? 'bg-[#C3A869] text-black'
+                  ? 'bg-[var(--primary-color)] text-black'
                   : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
             >
@@ -102,19 +102,16 @@ export default function WorkoutTabs({
       {/* Search and Filters */}
       <div className="space-y-4">
         {/* Search Bar */}
-        <Input
-          type="text"
-          placeholder={`Search ${activeTab === 'recent' ? 'recent sessions' : 'workout library'}...`}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          startContent={<Search className="w-4 h-4 text-default-400" />}
-          variant="bordered"
-          size="lg"
-          classNames={{
-            input: "text-white",
-            inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-          }}
-        />
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={`Search ${activeTab === 'recent' ? 'recent sessions' : 'workout library'}...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
 
         {/* Tag Filter */}
         <TagFilter
@@ -138,7 +135,7 @@ export default function WorkoutTabs({
                 setSearchTerm('')
                 setSelectedTags([])
               }}
-              className="text-[#C3A869] text-sm hover:text-[#C3A869]/80 transition"
+              className="text-[var(--primary-color)] text-sm hover:text-[var(--primary-color)]/80 transition"
             >
               Clear filters
             </button>

@@ -73,7 +73,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
         {/* Single View with Tabs (Mobile/Tablet or when forced) */}
         <div className={forceSingleView ? 'block' : 'lg:hidden'}>
           {/* Tab Navigation */}
-          <div className="flex bg-gray-800 rounded-lg p-1 mb-4 max-w-xs mx-auto">
+          <div className="flex bg-neu-card shadow-neu-raised rounded-lg p-1 mb-4 max-w-xs mx-auto">
             <button
               onClick={() => setSelectedSide('front')}
               className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
@@ -104,7 +104,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
               scale={0.8}
               onBodyPartPress={handleBodyPartPress}
               border="#1E1E1E"
-              className="drop-shadow-md"
+              className="shadow-neu"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
                   border="#1E1E1E"
-                  className="drop-shadow-md"
+                  className="shadow-neu"
                 />
               </div>
 
@@ -133,7 +133,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
                   border="#1E1E1E"
-                  className="drop-shadow-md"
+                  className="shadow-neu"
                 />
               </div>
             </div>
@@ -143,7 +143,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
 
       {/* Enhanced Legend with Muscle Activation */}
       {showLegend && (
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 w-full">
+        <div className="bg-gray-50 dark:bg-neu-card shadow-neu-raised rounded-lg p-4 w-full">
           
           {muscleActivation.length > 0 ? (
             <div className="space-y-3">

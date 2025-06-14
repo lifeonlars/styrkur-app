@@ -150,8 +150,8 @@ export default function ExerciseInfoModal({
   }
   
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-      <div className="bg-gray-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+      <div className="bg-neu-card shadow-neu-raised-xl rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-neu-light/20">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <div>

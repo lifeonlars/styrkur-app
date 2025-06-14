@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Plus, Search, CheckCircle } from 'lucide-react'
-import { Input } from '@heroui/input'
+import { Input } from '@/ui/input'
 import { Workout } from '@/types'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 import EnhancedWorkoutCard from './EnhancedWorkoutCard'
@@ -102,19 +102,16 @@ export default function WorkoutTab({
       {/* Search and Filter */}
       {workouts.length > 0 && (
         <div className="space-y-3">
-          <Input
-            type="text"
-            placeholder="Search workouts by name, description, or tags..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            startContent={<Search className="w-4 h-4 text-default-400" />}
-            variant="bordered"
-            size="lg"
-            classNames={{
-              input: "text-white",
-              inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-            }}
-          />
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search workouts by name, description, or tags..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
           
           {/* Tag Filter Placeholder */}
           <div className="flex gap-2 flex-wrap">
@@ -192,7 +189,7 @@ export default function WorkoutTab({
       {/* Toast Notification */}
       {showToast && (
         <div className="fixed top-4 right-4 z-[100] animate-in slide-in-from-top duration-300">
-          <div className="bg-green-800 border border-green-600 text-green-100 px-4 py-3 rounded-lg shadow-lg flex items-center gap-2">
+          <div className="bg-green-800 border border-green-600 text-green-100 px-4 py-3 rounded-lg shadow-neu flex items-center gap-2">
             <CheckCircle className="w-5 h-5 text-green-400" />
             <span className="text-sm font-medium">{toastMessage}</span>
           </div>

@@ -1,6 +1,7 @@
-import { Settings, User, Scale, Dumbbell, Bot, Shield, Download } from 'lucide-react'
+import { Settings, User, Scale, Dumbbell, Bot, Shield, Download, Palette, ExternalLink } from 'lucide-react'
 import { NavSettings } from '@/components/icons'
-import NeumorphicTest from '@/components/debug/NeumorphicTest'
+import ShadcnNeumorphicTest from '@/components/debug/ShadcnNeumorphicTest'
+import Link from 'next/link'
 
 export default function SettingsScreen() {
   return (
@@ -202,13 +203,22 @@ export default function SettingsScreen() {
         </div>
       </section>
 
-      {/* Neumorphic Design Test */}
+      {/* Design System */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center font-heading">
-          <Settings className="w-5 h-5 mr-2 text-[#C3A869]" />
-          Neumorphic Design System Test
-        </h2>
-        <NeumorphicTest />
+        <div className="bg-gray-800 rounded-xl p-4 border border-[#C3A869]/20">
+          <h3 className="text-white font-medium mb-2 font-heading flex items-center">
+            <Palette className="w-5 h-5 mr-2 text-[#C3A869]" />
+            Component Library & Style Guide
+          </h3>
+          <p className="text-gray-400 text-sm mb-3">View all components, colors, and design tokens for the Norse-themed neumorphic design system</p>
+          <Link 
+            href="/styleguide"
+            className="inline-flex items-center gap-2 bg-[#C3A869] text-black px-4 py-2 rounded-lg hover:bg-[#C3A869]/80 transition font-medium"
+          >
+            Open Style Guide
+            <ExternalLink className="w-4 h-4" />
+          </Link>
+        </div>
       </section>
     </div>
   )

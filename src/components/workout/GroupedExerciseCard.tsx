@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info, X } from 'lucide-react'
-import { Select, SelectItem } from '@/ui/select-neu'
-import { Input } from '@/ui/input-neu'
-import { Textarea } from '@/ui/textarea-neu'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
+import { Input } from '@/ui/input'
+import { Textarea } from '@/ui/textarea'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
@@ -182,13 +182,7 @@ export default function GroupedExerciseCard({
               value={notes}
               onChange={(e) => handleNotesChange(e.target.value)}
               placeholder={`Add notes about this ${groupLog.groupType}...`}
-              variant="bordered"
-              minRows={2}
-              maxRows={3}
-              classNames={{
-                input: "text-white",
-                inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-              }}
+              className="min-h-[60px]"
             />
           </div>
         )}
@@ -203,24 +197,20 @@ export default function GroupedExerciseCard({
                 {groupLog.groupType === 'single' ? 'Exercise RPE (all sets):' : 'Superset RPE (all sets):'}
               </span>
               <div className="w-32">
-                <Select
-                  size="sm"
-                  selectedKeys={[(groupLog.groupRPE || 7).toString()]}
-                  onSelectionChange={(keys) => {
-                    const value = Array.from(keys)[0] as string
-                    onUpdateGroupRPE?.(parseFloat(value))
-                  }}
-                  variant="bordered"
-                  classNames={{
-                    trigger: "bg-content2 border-divider min-h-8",
-                    value: "text-white text-sm"
-                  }}
+                <Select 
+                  value={(groupLog.groupRPE || 7).toString()} 
+                  onValueChange={(value) => onUpdateGroupRPE?.(parseFloat(value))}
                 >
-                  {rpeOptions.map((option) => (
-                    <SelectItem key={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  <SelectTrigger className="h-8">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {rpeOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
                 </Select>
               </div>
             </div>
@@ -291,12 +281,7 @@ export default function GroupedExerciseCard({
                           value={exercise.reps?.toString() || ''}
                           onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'reps', parseInt(e.target.value) || 0)}
                           placeholder="0"
-                          variant="bordered"
-                          size="sm"
-                          classNames={{
-                            input: "text-white text-center",
-                            inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
-                          }}
+                          className="h-8 text-center"
                         />
                       </div>
 
@@ -308,12 +293,7 @@ export default function GroupedExerciseCard({
                           value={exercise.weight?.toString() || ''}
                           onChange={(e) => handleExerciseUpdate(setIndex, exerciseIndex, 'weight', parseFloat(e.target.value) || 0)}
                           placeholder="0"
-                          variant="bordered"
-                          size="sm"
-                          classNames={{
-                            input: "text-white text-center",
-                            inputWrapper: "!bg-content2 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2 min-h-8"
-                          }}
+                          className="h-8 text-center"
                         />
                       </div>
 

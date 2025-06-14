@@ -114,7 +114,7 @@ const WorkoutMuscleMap: React.FC<WorkoutMuscleMapProps> = ({
           exerciseName={workout.title}
         />
       ) : (
-        <div className="bg-gray-800 rounded-lg p-6 text-center">
+        <div className="bg-neu-card shadow-neu-raised rounded-lg p-6 text-center">
           <div className="text-2xl mb-2">💪</div>
           <p className="text-gray-400 text-sm">
             No exercises found in this workout

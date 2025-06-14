@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { X } from 'lucide-react'
-import { Input } from '@heroui/input'
-import { Textarea } from '@heroui/input'
+import { Input } from '@/ui/input'
+import { Textarea } from '@/ui/textarea'
 import { Exercise, ExerciseConfig } from '@/types'
 import { categoryMapping } from '@/lib/wger'
 
@@ -54,10 +54,10 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-background w-full max-w-md lg:max-w-2xl md:rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-neu-modal-bg shadow-neu-raised-xl w-full max-w-md lg:max-w-2xl md:rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] overflow-y-auto border border-neu-light/20">
         {/* Modal Header */}
-        <div className="p-4 border-b border-gray-800 flex justify-between items-center">
+        <div className="p-4 border-b border-neu-light/20 flex justify-between items-center">
           <h3 className="text-white text-lg font-medium">Configure Exercise</h3>
           <button onClick={onCancel} className="text-gray-400 hover:text-white">
             <X className="w-5 h-5" />
@@ -137,11 +137,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   max="10"
                   value={config.sets?.toString() || '3'}
                   onChange={(e) => setConfig(prev => ({ ...prev, sets: parseInt(e.target.value) || 1 }))}
-                  variant="bordered"
-                  classNames={{
-                    input: "text-white",
-                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                  }}
                 />
               </div>
               <div>
@@ -152,11 +147,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   max="50"
                   value={config.reps?.toString() || '10'}
                   onChange={(e) => setConfig(prev => ({ ...prev, reps: parseInt(e.target.value) || 1 }))}
-                  variant="bordered"
-                  classNames={{
-                    input: "text-white",
-                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                  }}
                 />
               </div>
             </div>
@@ -171,11 +161,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   step="0.5"
                   value={config.weight?.toString() || '0'}
                   onChange={(e) => setConfig(prev => ({ ...prev, weight: parseFloat(e.target.value) || 0 }))}
-                  variant="bordered"
-                  classNames={{
-                    input: "text-white",
-                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                  }}
                 />
               </div>
             )}
@@ -191,11 +176,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                   step="15"
                   value={config.rest?.toString() || '90'}
                   onChange={(e) => setConfig(prev => ({ ...prev, rest: parseInt(e.target.value) || 60 }))}
-                  variant="bordered"
-                  classNames={{
-                    input: "text-white",
-                    inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                  }}
                 />
               </div>
             </div>
@@ -208,11 +188,6 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                 placeholder="e.g., 3-0-1-1"
                 value={config.tempo}
                 onChange={(e) => setConfig(prev => ({ ...prev, tempo: e.target.value }))}
-                variant="bordered"
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "bg-content1 border-divider hover:border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
               />
             </div>
 
@@ -223,13 +198,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
                 placeholder="Exercise cues, modifications, etc."
                 value={config.notes}
                 onChange={(e) => setConfig(prev => ({ ...prev, notes: e.target.value }))}
-                variant="bordered"
-                minRows={3}
-                maxRows={4}
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "bg-content1 border-divider hover:border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
+                className="min-h-[80px]"
               />
             </div>
           </div>
@@ -254,7 +223,7 @@ export default function ExerciseConfigModal({ exercise, onConfirm, onCancel }: E
 
       {/* Fullscreen Image Modal */}
       {showFullscreenImage && exercise.imageUrl && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[110] p-4">
+        <div className="fixed inset-0 bg-neu-darkest/95 backdrop-blur-md flex items-center justify-center z-[110] p-4">
           <div className="relative max-w-4xl max-h-full">
             <button
               onClick={() => setShowFullscreenImage(false)}

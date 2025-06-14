@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { X, Plus } from 'lucide-react'
-import { Input } from '@heroui/input'
-import { Textarea } from '@heroui/input'
+import { Input } from '@/ui/input'
+import { Textarea } from '@/ui/textarea'
 import { Workout, WorkoutForm, WorkoutEntry, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
 import WorkoutEntryCard from './WorkoutEntryCard'
@@ -103,10 +103,10 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
   const canSave = workoutForm.title.trim() && workoutForm.entries.length > 0
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-background w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[100] md:p-4">
+      <div className="bg-neu-modal-bg shadow-neu-raised-xl w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col border border-neu-light/20">
         {/* Header */}
-        <div className="p-6 border-b border-divider flex justify-between items-center">
+        <div className="p-6 border-b border-neu-light/20 flex justify-between items-center">
           <h2 className="text-white text-xl font-medium">
             {initialWorkout ? 'Edit Workout' : 'Create Workout'}
           </h2>
@@ -125,12 +125,6 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                 value={workoutForm.title}
                 onChange={(e) => setWorkoutForm(prev => ({ ...prev, title: e.target.value }))}
                 placeholder="e.g., Upper Body Strength, HIIT Circuit"
-                variant="bordered"
-                size="lg"
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
               />
             </div>
 
@@ -204,13 +198,7 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                 value={workoutForm.description}
                 onChange={(e) => setWorkoutForm(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Brief description of the workout..."
-                variant="bordered"
-                minRows={3}
-                maxRows={4}
-                classNames={{
-                  input: "text-white",
-                  inputWrapper: "!bg-content1 !border-divider hover:!border-primary/50 focus-within:!border-primary focus-within:!bg-content2"
-                }}
+                className="min-h-[80px]"
               />
             </div>
           </div>

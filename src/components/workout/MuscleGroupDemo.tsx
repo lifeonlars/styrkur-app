@@ -121,7 +121,7 @@ export default function MuscleGroupDemo() {
               onClick={() => filterByMuscleGroup(filter.id as MuscleGroup | 'all')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                 selectedGroup === filter.id
-                  ? 'bg-[#C3A869] text-black shadow-lg'
+                  ? 'bg-[#C3A869] text-black shadow-neu-gold'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
               }`}
             >
