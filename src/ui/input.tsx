@@ -8,7 +8,7 @@ const inputVariants = cva(
   styles.input, // Base input class
   {
     variants: {
-      size: {
+      inputSize: {
         // Default: 36px height to align with default buttons
         default: styles['input-default'],
         
@@ -29,7 +29,7 @@ const inputVariants = cva(
       },
     },
     defaultVariants: {
-      size: "default",
+      inputSize: "default",
       variant: "default",
     },
   }
@@ -43,12 +43,12 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, size, variant, fullWidth = false, withIcon, ...props }, ref) => {
+  ({ className, type, inputSize, variant, fullWidth = false, withIcon, ...props }, ref) => {
     return (
       <input
         type={type}
         className={cn(
-          inputVariants({ size, variant }),
+          inputVariants({ inputSize, variant }),
           fullWidth && styles['input-full'],
           withIcon === 'left' && styles['input-with-icon'],
           withIcon === 'right' && styles['input-with-icon-right'],

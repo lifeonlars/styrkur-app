@@ -121,8 +121,8 @@
 
 /* Outline Button - Neumorphic surface for secondary actions, cancel buttons */
 .btn-outline {
-  /* Standard neumorphic radius */
-  border-radius: var(--radius-neu);
+  /* Consistent pill radius for all buttons */
+  border-radius: var(--radius-neu-pill);
   
   /* Standard neumorphic elevation */
   box-shadow: var(--shadow-neu);
@@ -151,8 +151,8 @@
 
 /* Flat Button - Transparent background for navigation, tertiary actions, close buttons */
 .btn-flat {
-  /* Standard neumorphic radius */
-  border-radius: var(--radius-neu);
+  /* Consistent pill radius for all buttons */
+  border-radius: var(--radius-neu-pill);
   
   /* No shadow initially */
   box-shadow: none;

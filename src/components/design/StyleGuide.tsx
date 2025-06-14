@@ -349,7 +349,7 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                       <Button variant="primary">Submit</Button>
                     </div>
                     <div className="flex gap-2">
-                      <Input size="large" placeholder="Large input (48px)" />
+                      <Input inputSize="large" placeholder="Large input (48px)" />
                       <Button variant="primary" size="large">Submit</Button>
                     </div>
                   </div>
@@ -454,7 +454,7 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Large Input</label>
-                        <Input size="large" placeholder="Large input (.input .input-large)" />
+                        <Input inputSize="large" placeholder="Large input (.input .input-large)" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-white mb-2">Success State</label>
@@ -518,7 +518,7 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                       <Button variant="outline" size="icon"><Settings className="w-4 h-4" /></Button>
                     </div>
                     <div className="flex gap-2">
-                      <Input size="large" placeholder="Large height (48px)" />
+                      <Input inputSize="large" placeholder="Large height (48px)" />
                       <Button variant="primary" size="large">Submit</Button>
                       <Button variant="outline" size="icon-large"><X className="w-5 h-5" /></Button>
                     </div>
