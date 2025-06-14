@@ -12,6 +12,24 @@ module.exports = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         heading: ['var(--font-cinzel)', 'serif'],
       },
+      // Enhanced border radius for softer, more organic Cybertruck-style shapes
+      borderRadius: {
+        'none': '0',
+        'sm': '0.375rem',
+        'DEFAULT': '0.5rem', 
+        'md': '0.75rem',
+        'lg': '1rem',
+        'xl': '1.5rem',
+        '2xl': '2rem',
+        '3xl': '2.5rem',
+        '4xl': '3rem',
+        // Cybertruck-inspired organic shapes
+        'neu': '1.25rem',      // 20px - standard neumorphic elements
+        'neu-lg': '1.75rem',   // 28px - larger cards and containers
+        'neu-xl': '2.25rem',   // 36px - hero elements and major cards
+        'neu-pill': '3rem',    // 48px - button pill shapes like Cybertruck
+        'full': '9999px'
+      },
       // Ultra-soft neumorphic shadows - inspired by Tesla Cybertruck UI
       boxShadow: {
         // Multi-layered shadows for ultra-soft effect with wide spread
