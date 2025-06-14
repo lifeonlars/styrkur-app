@@ -31,13 +31,10 @@ export default function ShadcnNeumorphicTest() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <Button variant="default">Default</Button>
-            <Button variant="primary">Norse Gold</Button>
-            <Button variant="secondary">Bronze</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button variant="primary">Primary Action</Button>
+            <Button variant="outline">Secondary Action</Button>
+            <Button variant="flat">Tertiary Action</Button>
           </div>
         </CardContent>
       </Card>

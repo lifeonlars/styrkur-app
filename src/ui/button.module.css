@@ -54,41 +54,68 @@
   /* Multi-layered neumorphic shadow with Norse gold highlights */
   box-shadow: var(--shadow-neu-gold);
   
-  /* Norse gold metallic gradient background */
-  background: var(--gradient-neu-gold-light);
-  
-  /* Enhanced border with opacity variations */
-  border: 2px solid rgba(195, 168, 105, 0.3);
+  /* Inverted Norse gold gradient - darker top/left, lighter bottom/right */
+  background: linear-gradient(135deg, var(--norse-gold-dark), var(--norse-gold), var(--norse-gold-light));
   
   /* High contrast text */
   color: var(--text-inverse);
   font-weight: var(--font-weight-semibold);
   
-  /* Cybertruck-style highlighting keyline */
+  /* Cybertruck-style border highlighting with proper gradient */
   position: relative;
   overflow: hidden;
+  border: none; /* Remove default border for custom approach */
   
+  /* Thicker border highlighting with light top/left, dark bottom/right */
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: var(--radius-neu-pill);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(255, 255, 255, 0.4);
+    border-left: 2px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+  }
+  
+  /* Inner highlight for extra definition */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: calc(var(--radius-neu-pill) - 2px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     pointer-events: none;
   }
   
   /* Hover state */
   &:hover:not(:disabled) {
     box-shadow: var(--shadow-neu-gold-hover);
-    background: var(--gradient-neu-gold-metallic);
-    border-color: rgba(195, 168, 105, 0.5);
+    background: linear-gradient(135deg, var(--norse-gold), var(--norse-gold-light), var(--norse-gold-light));
     transform: scale(1.02);
+    
+    &::before {
+      border-top-color: rgba(255, 255, 255, 0.5);
+      border-left-color: rgba(255, 255, 255, 0.5);
+      border-bottom-color: rgba(0, 0, 0, 0.3);
+      border-right-color: rgba(0, 0, 0, 0.3);
+    }
   }
   
   /* Active/pressed state */
   &:active:not(:disabled) {
     box-shadow: var(--shadow-neu-gold-pressed);
     transform: scale(0.98);
+    background: linear-gradient(135deg, var(--norse-gold-darker), var(--norse-gold-dark), var(--norse-gold));
+    
+    &::before {
+      border-top-color: rgba(0, 0, 0, 0.3);
+      border-left-color: rgba(0, 0, 0, 0.3);
+      border-bottom-color: rgba(255, 255, 255, 0.2);
+      border-right-color: rgba(255, 255, 255, 0.2);
+    }
   }
 }
 
