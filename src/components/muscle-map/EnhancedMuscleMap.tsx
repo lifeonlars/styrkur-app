@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { cn } from '@/lib/utils';
 import EnhancedBodyHighlighter from './enhanced/EnhancedBodyHighlighter';
 import { convertWgerToEnhanced, aggregateWorkoutMuscleActivation, getMuscleDisplayName } from './enhanced/enhancedMuscleMapUtils';
 import { ExtendedBodyPart } from './enhanced/types';
+import styles from './MuscleHighlighter.module.css';
 
 interface EnhancedMuscleMapProps {
   primaryMuscleIds?: number[];
@@ -58,82 +60,82 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
   };
 
   return (
-    <div className={`flex flex-col space-y-4 ${className}`}>
-      {/* Selected body part info only */}
+    <div className={cn(styles['muscle-highlighter'], className)}>
+      {/* Selected body part info */}
       {selectedBodyPart && (
-        <div className="text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+        <div className={styles['selected-info']}>
+          <p className={styles['selected-text']}>
             Selected: {getMuscleDisplayName(selectedBodyPart.slug)}
           </p>
         </div>
       )}
 
       {/* Responsive Body Views */}
-      <div className="w-full">
+      <div>
         {/* Single View with Tabs (Mobile/Tablet or when forced) */}
-        <div className={forceSingleView ? 'block' : 'lg:hidden'}>
+        <div className={cn(
+          styles['single-view'],
+          forceSingleView ? styles['single-view'] : styles['single-view-responsive']
+        )}>
           {/* Tab Navigation */}
-          <div className="flex bg-neu-card shadow-neu-raised rounded-lg p-1 mb-4 max-w-xs mx-auto">
+          <div className={styles['tab-container']}>
             <button
               onClick={() => setSelectedSide('front')}
-              className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
-                selectedSide === 'front'
-                  ? 'bg-[#C3A869] text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
-              }`}
+              className={cn(
+                styles['tab-button'],
+                selectedSide === 'front' && styles['tab-button-active']
+              )}
             >
               Front
             </button>
             <button
               onClick={() => setSelectedSide('back')}
-              className={`flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors ${
-                selectedSide === 'back'
-                  ? 'bg-[#C3A869] text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
-              }`}
+              className={cn(
+                styles['tab-button'],
+                selectedSide === 'back' && styles['tab-button-active']
+              )}
             >
               Back
             </button>
           </div>
 
           {/* Single Body View */}
-          <div className="flex justify-center">
-            <EnhancedBodyHighlighter
-              data={exerciseData}
-              side={selectedSide}
-              scale={0.8}
-              onBodyPartPress={handleBodyPartPress}
-              border="#1E1E1E"
-              className="shadow-neu"
-            />
+          <div className={styles['body-views']}>
+            <div className={styles['body-view']}>
+              <EnhancedBodyHighlighter
+                data={exerciseData}
+                side={selectedSide}
+                scale={0.8}
+                onBodyPartPress={handleBodyPartPress}
+                border="#1E1E1E"
+              />
+            </div>
           </div>
         </div>
 
         {/* Desktop: Dual View (only when not forced single) */}
         {!forceSingleView && (
-          <div className="hidden lg:block">
-            <div className="flex justify-center gap-8">
+          <div className={styles['dual-view-responsive']}>
+            <div className={styles['body-views']}>
               {/* Front View */}
-              <div>
+              <div className={styles['body-view']}>
                 <EnhancedBodyHighlighter
                   data={exerciseData}
                   side="front"
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
                   border="#1E1E1E"
-                  className="shadow-neu"
                 />
               </div>
 
               {/* Back View */}
-              <div>
+              <div className={styles['body-view']}>
                 <EnhancedBodyHighlighter
                   data={exerciseData}
                   side="back"
                   scale={0.7}
                   onBodyPartPress={handleBodyPartPress}
                   border="#1E1E1E"
-                  className="shadow-neu"
                 />
               </div>
             </div>
@@ -143,24 +145,26 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
 
       {/* Enhanced Legend with Muscle Activation */}
       {showLegend && (
-        <div className="bg-gray-50 dark:bg-neu-card shadow-neu-raised rounded-lg p-4 w-full">
-          
+        <div className={styles['legend']}>
           {muscleActivation.length > 0 ? (
-            <div className="space-y-3">
+            <div>
               {/* Primary Muscles */}
               {muscleActivation.filter(m => m.percentage >= 60).length > 0 && (
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff6b6b' }}></div>
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Primary muscles</span>
+                <div className={styles['legend-group']}>
+                  <div className={styles['legend-header']}>
+                    <div 
+                      className={styles['legend-color-dot']} 
+                      style={{ backgroundColor: '#ff6b6b' }}
+                    ></div>
+                    <span className={styles['legend-label']}>Primary muscles</span>
                   </div>
-                  <div className="space-y-1 ml-5">
+                  <div className={styles['legend-muscles']}>
                     {muscleActivation
                       .filter(m => m.percentage >= 60)
                       .map((activation, index) => (
-                        <div key={index} className="flex justify-between text-xs">
-                          <span className="text-gray-600 dark:text-gray-400">{activation.muscle}</span>
-                          <span className="text-gray-900 dark:text-white font-medium">{activation.percentage}%</span>
+                        <div key={index} className={styles['legend-muscle-item']}>
+                          <span className={styles['legend-muscle-name']}>{activation.muscle}</span>
+                          <span className={styles['legend-muscle-percentage']}>{activation.percentage}%</span>
                         </div>
                       ))}
                   </div>
@@ -169,18 +173,21 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
               
               {/* Secondary Muscles */}
               {muscleActivation.filter(m => m.percentage < 60).length > 0 && (
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff8e53' }}></div>
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Secondary muscles</span>
+                <div className={styles['legend-group']}>
+                  <div className={styles['legend-header']}>
+                    <div 
+                      className={styles['legend-color-dot']} 
+                      style={{ backgroundColor: '#ff8e53' }}
+                    ></div>
+                    <span className={styles['legend-label']}>Secondary muscles</span>
                   </div>
-                  <div className="space-y-1 ml-5">
+                  <div className={styles['legend-muscles']}>
                     {muscleActivation
                       .filter(m => m.percentage < 60)
                       .map((activation, index) => (
-                        <div key={index} className="flex justify-between text-xs">
-                          <span className="text-gray-600 dark:text-gray-400">{activation.muscle}</span>
-                          <span className="text-gray-900 dark:text-white font-medium">{activation.percentage}%</span>
+                        <div key={index} className={styles['legend-muscle-item']}>
+                          <span className={styles['legend-muscle-name']}>{activation.muscle}</span>
+                          <span className={styles['legend-muscle-percentage']}>{activation.percentage}%</span>
                         </div>
                       ))}
                   </div>
@@ -189,14 +196,14 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
             </div>
           ) : (
             // Fallback to basic legend
-            <div className="space-y-2">
+            <div className={styles['legend-basic']}>
               {Object.entries(colorMap).map(([label, color]) => (
-                <div key={label} className="flex items-center space-x-2">
+                <div key={label} className={styles['legend-basic-item']}>
                   <div
-                    className="w-4 h-4 rounded"
+                    className={styles['legend-basic-color']}
                     style={{ backgroundColor: color }}
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+                  <span className={styles['legend-basic-text']}>{label}</span>
                 </div>
               ))}
             </div>

@@ -1,0 +1,301 @@
+/* MuscleHighlighter Component - BEM + CSS Modules Approach */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE COMPONENT === */
+
+.muscle-highlighter {
+  /* Core component properties */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* === BODY VIEW CONTAINER === */
+
+.body-views {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.body-view {
+  /* Neumorphic card styling */
+  border-radius: var(--radius-neu-lg);
+  box-shadow: var(--shadow-neu);
+  background: var(--neu-card);
+  border: 1px solid var(--border-neu-light);
+  padding: var(--spacing-4);
+  
+  /* Smooth transitions */
+  transition: var(--transition-all);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-hover);
+    border-color: var(--border-neu-lighter);
+  }
+}
+
+/* === SIZE VARIANTS === */
+
+.body-view-small {
+  padding: var(--spacing-3);
+}
+
+.body-view-medium {
+  padding: var(--spacing-4);
+}
+
+.body-view-large {
+  padding: var(--spacing-6);
+}
+
+/* === MOBILE TABS === */
+
+.tab-container {
+  /* Neumorphic tab container */
+  display: flex;
+  background: var(--neu-card);
+  box-shadow: var(--shadow-neu);
+  border-radius: var(--radius-neu);
+  border: 1px solid var(--border-neu-light);
+  padding: var(--spacing-1);
+  margin: 0 auto var(--spacing-4);
+  max-width: 12rem; /* 192px */
+}
+
+.tab-button {
+  /* Base tab button styling */
+  flex: 1;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-default);
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: var(--transition-all);
+  
+  &:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.tab-button-active {
+  background: var(--norse-gold);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-neu-flat);
+  
+  &:hover {
+    background: var(--norse-gold-light);
+    color: var(--text-inverse);
+  }
+}
+
+/* === LEGEND === */
+
+.legend {
+  /* Neumorphic legend container */
+  background: var(--neu-card);
+  box-shadow: var(--shadow-neu);
+  border-radius: var(--radius-neu-lg);
+  border: 1px solid var(--border-neu-light);
+  padding: var(--spacing-4);
+  width: 100%;
+}
+
+.legend-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.legend-group {
+  margin-bottom: var(--spacing-4);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.legend-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.legend-color-dot {
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+.legend-muscles {
+  margin-left: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.legend-muscle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+}
+
+.legend-muscle-name {
+  color: var(--text-muted);
+}
+
+.legend-muscle-percentage {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* === BASIC LEGEND (FALLBACK) === */
+
+.legend-basic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.legend-basic-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.legend-basic-color {
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.legend-basic-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* === MUSCLE LIST === */
+
+.muscle-list {
+  background: var(--neu-card);
+  box-shadow: var(--shadow-neu);
+  border-radius: var(--radius-neu-lg);
+  border: 1px solid var(--border-neu-light);
+  padding: var(--spacing-4);
+}
+
+.muscle-list-title {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-3);
+}
+
+.muscle-group {
+  margin-bottom: var(--spacing-3);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.muscle-group-title {
+  color: var(--norse-gold);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-1);
+}
+
+.muscle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.muscle-tag {
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.muscle-tag-primary {
+  background: rgba(220, 38, 38, 0.3); /* red-900/30 */
+  color: rgb(252, 165, 165); /* red-300 */
+}
+
+.muscle-tag-secondary {
+  background: rgba(194, 65, 12, 0.3); /* orange-900/30 */
+  color: rgb(253, 186, 116); /* orange-300 */
+}
+
+/* === WORKOUT SUMMARY === */
+
+.workout-summary {
+  background: var(--neu-card);
+  box-shadow: var(--shadow-neu);
+  border-radius: var(--radius-neu-lg);
+  border: 1px solid var(--border-neu-light);
+  padding: var(--spacing-4);
+}
+
+.workout-summary-title {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-3);
+}
+
+.workout-summary-text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Single view for mobile/tablet */
+.single-view {
+  display: block;
+}
+
+.dual-view {
+  display: none;
+}
+
+/* Dual view for desktop */
+@media (min-width: 1024px) {
+  .single-view-responsive {
+    display: none;
+  }
+  
+  .dual-view-responsive {
+    display: block;
+  }
+}
+
+/* === SELECTED BODY PART INFO === */
+
+.selected-info {
+  text-align: center;
+  padding: var(--spacing-2);
+}
+
+.selected-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
