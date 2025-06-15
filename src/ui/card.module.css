@@ -121,14 +121,20 @@
   border: none;
 }
 
-/* BORDER NEU SUBTLE: Soft definition for standard elements */
+/* BORDER NEU SUBTLE: Soft definition for standard elements with neumorphic lighting */
 .border-neu-subtle {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition */
+/* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition with neumorphic lighting */
 .border-neu-crisp {
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* BORDER NEU GLOW: Actual blue glow effect */
