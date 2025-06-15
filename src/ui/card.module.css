@@ -13,13 +13,10 @@
     inset 0 0 0 1px rgba(0, 0, 0, 0.1);         /* Stronger inner border */
 }
 
-/* DEPTH FLAT: Background containers, subtle content separation */
+/* DEPTH FLAT: Background containers, completely flat with no shadows */
 .depth-flat {
-  /* Inset neumorphic shadows - barely visible until interaction */
-  box-shadow: 
-    inset 3px 3px 6px rgba(0, 0, 0, 0.15),      /* Dark shadow inside top-left */
-    inset -3px -3px 6px rgba(255, 255, 255, 0.03), /* Light highlight inside bottom-right */
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05);         /* Subtle inner border */
+  /* No shadows - truly flat for background elements */
+  box-shadow: none;
 }
 
 /* DEPTH SUBTLE: Standard content containers, default card state */
@@ -104,15 +101,16 @@
   );
 }
 
-/* SURFACE GOLD: Norse accent with concave physics for primary elements */
+/* SURFACE GOLD: Norse accent with readable text contrast */
 .surface-gold {
-  /* Rich Norse gold gradient with inset appearance */
+  /* Rich Norse gold gradient optimized for readability */
   background: linear-gradient(
     115deg,
-    #A89253 0%,     /* Darker gold start (concave physics) */
+    #D4BC7F 0%,     /* Light gold start for better contrast */
     #C3A869 50%,    /* Primary Norse gold */
-    #D4BC7F 100%    /* Lighter gold end (concave physics) */
+    #A89253 100%    /* Darker gold end */
   );
+  color: #1F2937; /* Dark text for better readability on gold */
 }
 
 /* === BORDER GRADIENT UTILITIES === */
@@ -125,47 +123,20 @@
 
 /* BORDER NEU SUBTLE: Soft definition for standard elements */
 .border-neu-subtle {
-  border: 1px solid transparent;
-  background-image: 
-    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
-    linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.08) 0%,  /* Soft light edge */
-      rgba(255, 255, 255, 0.02) 50%, /* Neutral middle */
-      rgba(0, 0, 0, 0.08) 100%       /* Soft dark edge */
-    );
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition */
 .border-neu-crisp {
-  border: 1px solid transparent;
-  background-image: 
-    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
-    linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.12) 0%,  /* Crisp light edge */
-      rgba(255, 255, 255, 0.03) 50%, /* Neutral middle */
-      rgba(0, 0, 0, 0.15) 100%       /* Crisp dark edge */
-    );
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-/* BORDER NEU GLOW: Accent highlighting with Norse gold */
+/* BORDER NEU GLOW: Actual blue glow effect */
 .border-neu-glow {
-  border: 1px solid transparent;
-  background-image: 
-    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
-    linear-gradient(
-      115deg,
-      rgba(212, 188, 127, 0.15) 0%,  /* Norse gold glow light */
-      rgba(195, 168, 105, 0.08) 50%, /* Norse gold glow middle */
-      rgba(168, 146, 83, 0.12) 100%  /* Norse gold glow dark */
-    );
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  border: 1px solid #375A74;
+  box-shadow: 
+    0 0 12px rgba(55, 90, 116, 0.4), /* Ocean blue glow */
+    0 0 24px rgba(55, 90, 116, 0.2);
 }
 
 /* === BASE CARD === */
