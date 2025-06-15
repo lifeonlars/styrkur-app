@@ -1,6 +1,6 @@
 /* Card Component - BEM + CSS Modules Approach */
-/* Norse-themed Neumorphic Design System - Card-specific styles only */
-/* Utility classes now available globally via neumorphic-utilities.css */
+/* Norse-themed Neomorphic Design System - Card-specific styles only */
+/* Utility classes now available globally via neomorphic-utilities.css */
 
 /* === BASE CARD === */
 
@@ -23,7 +23,8 @@
 
 /* DEPTH 1: Raised - Default card state (inherits from .card base) */
 .card-default {
-  /* Uses base card styling with utility classes */
+  /* Uses base card styling with utility classes applied via className composition */
+  position: relative;
 }
 
 /* DEPTH 2: Elevated - Higher elevation with enhanced depth */
