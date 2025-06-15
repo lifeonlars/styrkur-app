@@ -37,33 +37,9 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.06);  /* Strong inner highlight */
 }
 
-/* DEPTH HOVER TRANSITIONS */
-/* Progressive elevation states for interactive feedback */
-
-.depth-sunken:hover,
-.depth-flat:hover {
-  /* Transition to subtle depth on hover */
-  box-shadow: 
-    6px 6px 12px rgba(0, 0, 0, 0.2),
-    -6px -6px 12px rgba(255, 255, 255, 0.05),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-}
-
-.depth-subtle:hover {
-  /* Enhanced subtle depth on hover */
-  box-shadow: 
-    10px 10px 20px rgba(0, 0, 0, 0.25),        /* Stronger dark shadow */
-    -10px -10px 20px rgba(255, 255, 255, 0.06), /* Stronger light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04);  /* Enhanced inner highlight */
-}
-
-.depth-elevated:hover {
-  /* Ultra-dramatic floating effect on hover */
-  box-shadow: 
-    20px 20px 40px rgba(0, 0, 0, 0.35),        /* Ultra-strong dark shadow */
-    -20px -20px 40px rgba(255, 255, 255, 0.1),  /* Ultra-strong light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);  /* Maximum inner highlight */
-}
+/* DEPTH HOVER TRANSITIONS - REMOVED */
+/* Hover effects removed from utility classes - only Interactive archetype should have hover */
+/* Use hover: Tailwind classes for specific interactive elements instead */
 
 /* === SURFACE GRADIENT UTILITIES === */
 /* Neumorphic surface gradients for proper light direction physics */
@@ -81,13 +57,8 @@
 
 /* SURFACE FLAT: Minimal gradient for background elements */
 .surface-flat {
-  /* Barely perceptible variation - near solid color */
-  background: linear-gradient(
-    115deg,
-    #343940 0%,     /* Base tone */
-    #353a41 50%,    /* Subtle variation (2% difference) */
-    #343940 100%    /* Back to base (minimal contrast) */
-  );
+  /* Reduced opacity for better blending with parent background */
+  background: rgba(52, 57, 64, 0.25); /* 25% opacity of --neu-surface */
 }
 
 /* SURFACE CONVEX: Standard gradient for raised elements */
@@ -103,14 +74,9 @@
 
 /* SURFACE GOLD: Norse accent with readable text contrast */
 .surface-gold {
-  /* Rich Norse gold gradient optimized for readability */
-  background: linear-gradient(
-    115deg,
-    #D4BC7F 0%,     /* Light gold start for better contrast */
-    #C3A869 50%,    /* Primary Norse gold */
-    #A89253 100%    /* Darker gold end */
-  );
-  color: #1F2937; /* Dark text for better readability on gold */
+  /* Proper neumorphic lighting: darker top-left, lighter bottom-right */
+  background: linear-gradient(145deg, var(--norse-gold-darker), var(--norse-gold));
+  color: var(--iron-600); /* Keep dark text for readability */
 }
 
 /* === BORDER GRADIENT UTILITIES === */
@@ -143,4 +109,18 @@
   box-shadow: 
     0 0 12px rgba(55, 90, 116, 0.4), /* Ocean blue glow */
     0 0 24px rgba(55, 90, 116, 0.2);
+}
+
+/* === UTILITY COMBO DISPLAY === */
+/* Styling for utility combination labels in card examples */
+
+.utility-combo {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+  display: inline-block;
 }

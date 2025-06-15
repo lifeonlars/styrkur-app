@@ -2,10 +2,8 @@
 
 import { useState } from 'react'
 import { Button } from '@/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/ui/card'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
 
@@ -189,83 +187,96 @@ export default function ComponentsPage() {
                 </div>
                 
                 <div>
-                  <h4 className="text-white font-medium mb-4">Card Component Variants</h4>
-                  <p className="text-gray-400 text-sm mb-4">Card variants automatically apply appropriate utility combinations, but can be overridden with explicit props.</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <Card variant="default">
-                      <CardHeader>
-                        <CardTitle>Default Card</CardTitle>
-                        <CardDescription>Standard elevation</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="subtle" surface="convex"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="elevated">
-                      <CardHeader>
-                        <CardTitle>Elevated Card</CardTitle>
-                        <CardDescription>Higher prominence</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="elevated" border="crisp"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="sunken">
-                      <CardHeader>
-                        <CardTitle>Sunken Card</CardTitle>
-                        <CardDescription>Inset appearance</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="sunken" surface="concave"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="flat">
-                      <CardHeader>
-                        <CardTitle>Flat Card</CardTitle>
-                        <CardDescription>Background element</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="flat" surface="flat"</p>
-                      </CardContent>
-                    </Card>
+                  <h4 className="text-white font-medium mb-4">📦 9-Card Archetype System</h4>
+                  <p className="text-gray-400 text-sm mb-6">Complete utility combination reference showcasing proper depth + surface + border combinations for consistent neumorphic styling.</p>
+                  
+                  {/* Sunken Cards */}
+                  <div className="mb-8">
+                    <h5 className="text-white font-medium mb-3">Sunken Cards</h5>
+                    <p className="text-gray-400 text-sm mb-4">Pressed into surface</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="depth-sunken surface-concave" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Sunken Concave</h3>
+                        <p className="text-gray-300 text-sm mb-3">Pressed buttons, input fields</p>
+                        <span className="utility-combo">depth-sunken + surface-concave</span>
+                      </div>
+                      
+                      <div className="depth-sunken border-transparent" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Sunken Transparent</h3>
+                        <p className="text-gray-300 text-sm mb-3">Form containers, content wells</p>
+                        <span className="utility-combo">depth-sunken + border-transparent</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <h4 className="text-white font-medium mb-4">Special Variants</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <Card variant="sunken">
-                      <CardHeader>
-                        <CardTitle>Sunken Card</CardTitle>
-                        <CardDescription>Inverted depth effect</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Inverted gradient for inset appearance</p>
-                      </CardContent>
-                    </Card>
+                  {/* Flat Cards */}
+                  <div className="mb-8">
+                    <h5 className="text-white font-medium mb-3">Flat Cards</h5>
+                    <p className="text-gray-400 text-sm mb-4">Level with surface</p>
+                    <div className="grid grid-cols-1 gap-4">
+                      <div className="depth-flat surface-flat" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Flat</h3>
+                        <p className="text-gray-300 text-sm mb-3">Background grouping, sidebars</p>
+                        <span className="utility-combo">depth-flat + surface-flat</span>
+                      </div>
+                    </div>
+                  </div>
 
-                    <Card variant="interactive" hoverLift>
-                      <CardHeader>
-                        <CardTitle>Interactive Card</CardTitle>
-                        <CardDescription>Enhanced feedback</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Hover and active states with transform</p>
-                      </CardContent>
-                    </Card>
+                  {/* Subtle Cards */}
+                  <div className="mb-8">
+                    <h5 className="text-white font-medium mb-3">Subtle Cards</h5>
+                    <p className="text-gray-400 text-sm mb-4">Barely emerging from surface</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="depth-subtle surface-convex border-neu-subtle" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Subtle Convex</h3>
+                        <p className="text-gray-300 text-sm mb-3">Standard cards, containers</p>
+                        <span className="utility-combo">depth-subtle + surface-convex + border-neu-subtle</span>
+                      </div>
+                      
+                      <div className="depth-subtle surface-concave border-neu-subtle" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Subtle Concave</h3>
+                        <p className="text-gray-300 text-sm mb-3">Secondary buttons, panels</p>
+                        <span className="utility-combo">depth-subtle + surface-concave + border-neu-subtle</span>
+                      </div>
+                    </div>
+                  </div>
 
-                    <Card variant="accent">
-                      <CardHeader>
-                        <CardTitle>Norse Gold Accent</CardTitle>
-                        <CardDescription>Gold-tinted variant</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Gold-tinted gradient and border</p>
-                      </CardContent>
-                    </Card>
+                  {/* Elevated Cards */}
+                  <div className="mb-8">
+                    <h5 className="text-white font-medium mb-3">Elevated Cards</h5>
+                    <p className="text-gray-400 text-sm mb-4">Prominently emerging from surface</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="depth-elevated surface-convex border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Elevated Convex</h3>
+                        <p className="text-gray-300 text-sm mb-3">Featured content, hero cards</p>
+                        <span className="utility-combo">depth-elevated + surface-convex + border-neu-crisp</span>
+                      </div>
+                      
+                      <div className="depth-elevated surface-concave border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="text-white font-semibold mb-2">Elevated Concave</h3>
+                        <p className="text-gray-300 text-sm mb-3">Specialized inputs, unique states</p>
+                        <span className="utility-combo">depth-elevated + surface-concave + border-neu-crisp</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Special Cards */}
+                  <div className="mb-8">
+                    <h5 className="text-white font-medium mb-3">Special Cards</h5>
+                    <p className="text-gray-400 text-sm mb-4">Primary actions and interactive states</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="depth-elevated surface-gold border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
+                        <h3 className="font-semibold mb-2">Gold Primary</h3>
+                        <p className="text-sm mb-3">Primary actions, CTA elements</p>
+                        <span className="utility-combo" style={{color: 'rgba(0, 0, 0, 0.6)', background: 'rgba(255, 255, 255, 0.2)'}}>depth-elevated + surface-gold + border-neu-crisp</span>
+                      </div>
+                      
+                      <div className="depth-subtle surface-convex border-neu-glow hover:transform hover:-translate-y-1 transition-all duration-200" style={{borderRadius: '1.5rem', padding: '1.5rem', cursor: 'pointer'}}>
+                        <h3 className="text-white font-semibold mb-2">Interactive Glow</h3>
+                        <p className="text-gray-300 text-sm mb-3">Hover states, active selections</p>
+                        <span className="utility-combo">depth-subtle + surface-convex + border-neu-glow + hover</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

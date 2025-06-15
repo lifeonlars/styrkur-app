@@ -10,51 +10,35 @@
   transition: var(--transition-all);
   position: relative;
   
-  /* Base card styling - surface/border applied via utility classes */
-  border-radius: var(--radius-neu-lg);
+  /* Standardized border radius for neumorphic aesthetic */
+  border-radius: 1.5rem; /* 24px */
 }
 
-/* === CARD VARIANTS - 4-DEPTH SYSTEM === */
+/* === CARD VARIANTS === */
 
-/* DEPTH 0: Flat/Inset - Completely flat or slightly inset */
+/* Standard cards - static visual examples with no hover effects */
 .card-flat {
-  border-radius: var(--radius-neu);
+  /* Background element card */
 }
 
-/* DEPTH 1: Raised - Default card state (inherits from .card base) */
 .card-default {
-  /* Uses base card styling with utility classes applied via className composition */
-  position: relative;
+  /* Standard card - uses base styling */
 }
 
-/* DEPTH 2: Elevated - Higher elevation with enhanced depth */
 .card-elevated {
-  border-radius: var(--radius-neu-xl);
-  
-  &:hover {
-    transform: translateY(-1px);
-  }
+  /* Featured content card */
 }
 
-/* DEPTH 3: Floating - Maximum elevation with dramatic shadows */
 .card-floating {
-  border-radius: var(--radius-neu-xl);
-  
-  &:hover {
-    transform: translateY(-2px);
-  }
+  /* Legacy variant - maps to elevated */
 }
 
-/* Special Variants */
-
-/* Sunken Card - Inverted depth (negative elevation) */
 .card-sunken {
-  border-radius: var(--radius-neu);
+  /* Inset appearance card */
 }
 
-/* Interactive Card - Enhanced feedback with raised default state */
+/* Interactive Card - Only variant with hover effects */
 .card-interactive {
-  border-radius: var(--radius-neu-lg);
   cursor: pointer;
   
   &:hover {
@@ -143,73 +127,17 @@
   }
 }
 
-/* === SPECIAL CARD TYPES === */
+/* === LEGACY VARIANTS === */
+/* Kept for compatibility - use utility combinations instead */
 
-/* Card with enhanced gradient background */
 .card-gradient {
-  /* Special multi-layer gradient with radial overlay */
-  background: 
-    radial-gradient(ellipse at top left, #4a4d55 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, #2a2d35 0%, transparent 50%),
-    linear-gradient(
-      135deg,
-      #434650 0%,
-      #3e414a 25%,
-      #393c45 50%,
-      #343740 75%,
-      #2f323b 100%
-    );
-  
-  /* Enhanced overlay for premium gradient feel */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.07) 0%,
-      rgba(255, 255, 255, 0.03) 30%,
-      rgba(255, 255, 255, 0.01) 70%,
-      rgba(0, 0, 0, 0.03) 100%
-    );
-  }
+  /* Legacy variant - use utility combinations instead */
+  position: relative;
 }
 
-/* Card with Norse gold accent */
 .card-accent {
-  border-color: var(--border-neu-gold-light);
-  
-  /* Gold-tinted gradient */
-  background: linear-gradient(
-    135deg,
-    #4a4741 0%,    /* Gold-tinted lighter top-left */
-    #454037 25%,   /* Gold-tinted mid-light */
-    #403b32 50%,   /* Gold-tinted middle */
-    #3b362d 75%,   /* Gold-tinted mid-dark */
-    #363128 100%   /* Gold-tinted darker bottom-right */
-  );
-  
-  /* Gold-tinted overlay */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(195, 168, 105, 0.08) 0%,  /* Norse gold highlight */
-      rgba(195, 168, 105, 0.03) 50%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
-  }
-  
-  &:hover {
-    border-color: var(--border-neu-gold-subtle);
-    box-shadow: var(--shadow-neu-gold-hover);
-    
-    /* Enhanced gold gradient on hover */
-    background: linear-gradient(
-      135deg,
-      #4e4b45 0%,    /* Brighter gold-tinted on hover */
-      #49443b 25%,
-      #444036 50%,
-      #3f3a31 75%,
-      #3a352c 100%
-    );
-  }
+  /* Legacy variant - use surface-gold utility instead */
+  position: relative;
 }
 
 
