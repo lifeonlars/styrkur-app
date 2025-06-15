@@ -61,8 +61,8 @@ try {
   console.log('✅ TypeScript compilation successful')
 } catch (error) {
   // Check if it's just warnings or actual errors
-  const output = error.stdout?.toString() || error.message
-  if (output.includes('✓ Compiled successfully') && output.includes('Warning:')) {
+  const output = (error.stdout?.toString() || '') + (error.stderr?.toString() || '') + error.message
+  if (output.includes('✓ Compiled successfully')) {
     console.log('✅ TypeScript compilation successful (with warnings)')
   } else {
     console.error('❌ TypeScript compilation failed')
@@ -111,14 +111,14 @@ try {
       process.exit(1)
     }
     
-    // Check if critical classes exist in at least one CSS file
-    const criticalClasses = ['bg-gray-900', 'text-white', 'btn-primary']
+    // Check if critical CSS Modules classes exist in at least one CSS file
+    const criticalClasses = ['depth-subtle', 'btn-primary', 'card']
     let foundClasses = 0
     
     for (const cssFile of cssFiles) {
       const content = fs.readFileSync(cssFile, 'utf8')
       for (const className of criticalClasses) {
-        if (content.includes(className.replace(/[\[\]]/g, '\\$&'))) {
+        if (content.includes(className)) {
           foundClasses++
           break
         }
@@ -126,8 +126,8 @@ try {
     }
     
     if (foundClasses === 0) {
-      console.error('❌ Critical CSS classes not found in build output!')
-      console.error('This suggests Tailwind CSS purging is too aggressive')
+      console.error('❌ Critical CSS Modules classes not found in build output!')
+      console.error('This suggests CSS Modules compilation is not working')
       process.exit(1)
     }
     

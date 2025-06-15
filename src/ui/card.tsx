@@ -43,10 +43,12 @@ export interface CardProps
   loading?: boolean
   hoverLift?: boolean
   depth?: 'sunken' | 'flat' | 'subtle' | 'elevated'
+  surface?: 'concave' | 'flat' | 'convex' | 'gold'
+  border?: 'transparent' | 'subtle' | 'crisp' | 'glow'
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant, size, fullWidth = false, loading = false, hoverLift = false, depth, ...props }, ref) => {
+  ({ className, variant, size, fullWidth = false, loading = false, hoverLift = false, depth, surface, border, ...props }, ref) => {
     // Determine depth utility class based on variant or explicit depth prop
     const getDepthClass = () => {
       if (depth) {
@@ -70,12 +72,61 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       }
     }
 
+    // Determine surface gradient class based on surface prop or variant defaults
+    const getSurfaceClass = () => {
+      if (surface) {
+        return styles[`surface-${surface}`]
+      }
+      
+      // Default surface mapping for variants
+      switch (variant) {
+        case 'sunken':
+          return styles['surface-concave'] // Inverted for sunken effect
+        case 'flat':
+          return styles['surface-flat'] // Minimal gradient
+        case 'elevated':
+        case 'floating':
+          return styles['surface-convex'] // Standard raised gradient
+        case 'interactive':
+          return styles['surface-convex'] // Standard for interaction
+        case 'accent':
+          return styles['surface-gold'] // Norse gold for accents
+        default:
+          return styles['surface-convex'] // Default raised appearance
+      }
+    }
+
+    // Determine border class based on border prop or variant defaults
+    const getBorderClass = () => {
+      if (border) {
+        return styles[`border-neu-${border}`]
+      }
+      
+      // Default border mapping for variants
+      switch (variant) {
+        case 'sunken':
+        case 'flat':
+          return styles['border-transparent'] // No border for flush elements
+        case 'elevated':
+        case 'floating':
+          return styles['border-neu-crisp'] // Crisp Tesla definition
+        case 'interactive':
+          return styles['border-neu-subtle'] // Subtle for interaction
+        case 'accent':
+          return styles['border-neu-glow'] // Gold glow for accents
+        default:
+          return styles['border-neu-subtle'] // Subtle default
+      }
+    }
+
     return (
       <div
         ref={ref}
         className={cn(
           cardVariants({ variant, size }),
           getDepthClass(),
+          getSurfaceClass(),
+          getBorderClass(),
           fullWidth && styles['card-full'],
           loading && styles['card-loading'],
           hoverLift && styles['card-hover-lift'],

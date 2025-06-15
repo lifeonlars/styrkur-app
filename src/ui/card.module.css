@@ -68,6 +68,106 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);  /* Maximum inner highlight */
 }
 
+/* === SURFACE GRADIENT UTILITIES === */
+/* Neumorphic surface gradients for proper light direction physics */
+
+/* SURFACE CONCAVE: Inverted gradient for sunken/pressed elements */
+.surface-concave {
+  /* Tesla Cybertruck-style inset appearance - dark to light */
+  background: linear-gradient(
+    115deg,
+    #2a2d35 0%,     /* Darker start (inverted physics) */
+    #343940 50%,    /* Base tone */
+    #3f424a 100%    /* Lighter end (inverted physics) */
+  );
+}
+
+/* SURFACE FLAT: Minimal gradient for background elements */
+.surface-flat {
+  /* Barely perceptible variation - near solid color */
+  background: linear-gradient(
+    115deg,
+    #343940 0%,     /* Base tone */
+    #353a41 50%,    /* Subtle variation (2% difference) */
+    #343940 100%    /* Back to base (minimal contrast) */
+  );
+}
+
+/* SURFACE CONVEX: Standard gradient for raised elements */
+.surface-convex {
+  /* Standard neumorphic gradient - light to dark */
+  background: linear-gradient(
+    115deg,
+    #3f424a 0%,     /* Lighter start (standard physics) */
+    #343940 50%,    /* Base tone */
+    #2a2d35 100%    /* Darker end (standard physics) */
+  );
+}
+
+/* SURFACE GOLD: Norse accent with concave physics for primary elements */
+.surface-gold {
+  /* Rich Norse gold gradient with inset appearance */
+  background: linear-gradient(
+    115deg,
+    #A89253 0%,     /* Darker gold start (concave physics) */
+    #C3A869 50%,    /* Primary Norse gold */
+    #D4BC7F 100%    /* Lighter gold end (concave physics) */
+  );
+}
+
+/* === BORDER GRADIENT UTILITIES === */
+/* Neumorphic border system for crisp Tesla Cybertruck definition */
+
+/* BORDER TRANSPARENT: No visible border for blended elements */
+.border-transparent {
+  border: none;
+}
+
+/* BORDER NEU SUBTLE: Soft definition for standard elements */
+.border-neu-subtle {
+  border: 1px solid transparent;
+  background-image: 
+    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
+    linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.08) 0%,  /* Soft light edge */
+      rgba(255, 255, 255, 0.02) 50%, /* Neutral middle */
+      rgba(0, 0, 0, 0.08) 100%       /* Soft dark edge */
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition */
+.border-neu-crisp {
+  border: 1px solid transparent;
+  background-image: 
+    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
+    linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.12) 0%,  /* Crisp light edge */
+      rgba(255, 255, 255, 0.03) 50%, /* Neutral middle */
+      rgba(0, 0, 0, 0.15) 100%       /* Crisp dark edge */
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* BORDER NEU GLOW: Accent highlighting with Norse gold */
+.border-neu-glow {
+  border: 1px solid transparent;
+  background-image: 
+    linear-gradient(var(--neu-card), var(--neu-card)), /* Content background */
+    linear-gradient(
+      115deg,
+      rgba(212, 188, 127, 0.15) 0%,  /* Norse gold glow light */
+      rgba(195, 168, 105, 0.08) 50%, /* Norse gold glow middle */
+      rgba(168, 146, 83, 0.12) 100%  /* Norse gold glow dark */
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
 /* === BASE CARD === */
 
 .card {
@@ -76,40 +176,8 @@
   transition: var(--transition-all);
   position: relative;
   
-  /* Base card styling without shadows - depth applied via utility classes */
+  /* Base card styling - surface/border applied via utility classes */
   border-radius: var(--radius-neu-lg);
-  
-  /* Base neumorphic gradient with consistent 115° angle */
-  background: linear-gradient(
-    115deg,
-    #3f424a 0%,
-    #343940 50%,
-    #2a2d35 100%
-  );
-  
-  /* Subtle light overlay from top-left */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-neu-lg);
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 50%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  /* Ensure content appears above overlay */
-  & > * {
-    position: relative;
-    z-index: 2;
-  }
-  
-  border: 1px solid var(--border-neu-light);
 }
 
 /* === CARD VARIANTS - 4-DEPTH SYSTEM === */
@@ -117,138 +185,28 @@
 /* DEPTH 0: Flat/Inset - Completely flat or slightly inset */
 .card-flat {
   border-radius: var(--radius-neu);
-  border-color: var(--border-neu-subtle);
-  
-  /* Flat gradient with minimal contrast */
-  background: linear-gradient(
-    115deg,
-    #373a41 0%,
-    #343940 50%,
-    #31343b 100%
-  );
-  
-  /* Minimal light overlay */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.02) 0%,
-      rgba(255, 255, 255, 0.01) 50%,
-      rgba(0, 0, 0, 0.01) 100%
-    );
-  }
-  
-  &:hover {
-    border-color: var(--border-neu-light);
-  }
 }
 
 /* DEPTH 1: Raised - Default card state (inherits from .card base) */
 .card-default {
-  /* Uses base card styling - raised depth level */
-  
-  &:hover {
-    box-shadow: 
-      8px 8px 16px rgba(0, 0, 0, 0.2),
-      -4px -4px 12px rgba(255, 255, 255, 0.04);
-    border-color: var(--border-neu-lighter);
-    
-    /* Subtle brightness increase on hover */
-    background: linear-gradient(
-      115deg,
-      #43464e 0%,
-      #383b42 50%,
-      #2d3038 100%
-    );
-  }
+  /* Uses base card styling with utility classes */
 }
 
 /* DEPTH 2: Elevated - Higher elevation with enhanced depth */
 .card-elevated {
   border-radius: var(--radius-neu-xl);
-  /* More pronounced neumorphic shadows for elevation */
-  box-shadow: 
-    10px 10px 20px rgba(0, 0, 0, 0.25),        /* Stronger dark shadow */
-    -10px -10px 20px rgba(255, 255, 255, 0.06), /* Stronger light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04);  /* Enhanced inner highlight */
-  border-color: var(--border-neu-lighter);
-  
-  /* Enhanced elevated gradient */
-  background: linear-gradient(
-    115deg,
-    #434650 0%,
-    #3e414a 50%,
-    #2f323b 100%
-  );
-  
-  /* Enhanced light overlay for premium feel */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0.02) 50%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
-  }
   
   &:hover {
-    box-shadow: 
-      12px 12px 24px rgba(0, 0, 0, 0.25),
-      -6px -6px 18px rgba(255, 255, 255, 0.05);
-    border-color: var(--border-neu-light);
     transform: translateY(-1px);
-    
-    /* Enhanced brightness on hover */
-    background: linear-gradient(
-      115deg,
-      #474a54 0%,
-      #42454e 50%,
-      #33363f 100%
-    );
   }
 }
 
 /* DEPTH 3: Floating - Maximum elevation with dramatic shadows */
 .card-floating {
   border-radius: var(--radius-neu-xl);
-  /* Maximum neumorphic depth with dramatic dual shadows */
-  box-shadow: 
-    15px 15px 30px rgba(0, 0, 0, 0.3),         /* Maximum dark shadow */
-    -15px -15px 30px rgba(255, 255, 255, 0.08), /* Maximum light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);  /* Strong inner highlight */
-  border-color: var(--border-neu-light);
-  
-  /* Premium floating gradient with highest contrast */
-  background: linear-gradient(
-    115deg,
-    #474b55 0%,
-    #424650 50%,
-    #31343d 100%
-  );
-  
-  /* Maximum light overlay for floating effect */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.03) 50%,
-      rgba(0, 0, 0, 0.03) 100%
-    );
-  }
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 
-      16px 16px 32px rgba(0, 0, 0, 0.3),
-      -8px -8px 24px rgba(255, 255, 255, 0.06);
-    border-color: var(--border-neu-lighter);
-    
-    /* Maximum brightness on hover */
-    background: linear-gradient(
-      115deg,
-      #4b4f59 0%,
-      #464a54 50%,
-      #353841 100%
-    );
   }
 }
 
@@ -257,88 +215,19 @@
 /* Sunken Card - Inverted depth (negative elevation) */
 .card-sunken {
   border-radius: var(--radius-neu);
-  /* Deep inset neumorphic shadows */
-  box-shadow: 
-    inset 6px 6px 12px rgba(0, 0, 0, 0.2),      /* Deep dark shadow inside */
-    inset -6px -6px 12px rgba(255, 255, 255, 0.03), /* Light highlight inside */
-    inset 0 0 0 1px rgba(0, 0, 0, 0.1);         /* Stronger inner border */
-  border-color: var(--border-neu-subtle);
-  
-  /* Darker gradient using opacity-based blacks for true sunken effect */
-  background: linear-gradient(
-    115deg,
-    rgba(0, 0, 0, 0.4) 0%,     /* Darkest - more opaque black */
-    rgba(0, 0, 0, 0.25) 50%,   /* Medium darkness */
-    rgba(0, 0, 0, 0.15) 100%   /* Lighter - less opaque black */
-  ), #343940; /* Base surface color underneath */
-  
-  /* Inverted light overlay */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.03) 0%,
-      rgba(0, 0, 0, 0.01) 50%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
-  }
 }
 
 /* Interactive Card - Enhanced feedback with raised default state */
 .card-interactive {
   border-radius: var(--radius-neu-lg);
-  box-shadow: 
-    4px 4px 8px rgba(0, 0, 0, 0.15),
-    -2px -2px 6px rgba(255, 255, 255, 0.03);
-  border-color: var(--border-neu-light);
   cursor: pointer;
   
-  /* Interactive gradient with enhanced contrast */
-  background: linear-gradient(
-    115deg,
-    #41454d 0%,
-    #3c4048 50%,
-    #2d3139 100%
-  );
-  
-  /* Enhanced light overlay for interactive feel */
-  &::before {
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0.02) 50%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
-  }
-  
   &:hover {
-    box-shadow: 
-      8px 8px 16px rgba(0, 0, 0, 0.2),
-      -4px -4px 12px rgba(255, 255, 255, 0.04);
-    border-color: var(--border-neu-lighter);
     transform: scale(1.01);
-    
-    /* Enhanced brightness on hover */
-    background: linear-gradient(
-      115deg,
-      #454951 0%,
-      #40444c 50%,
-      #31353d 100%
-    );
   }
   
   &:active {
     transform: scale(0.99);
-    box-shadow: 
-      inset 2px 2px 4px rgba(0, 0, 0, 0.1),
-      inset -2px -2px 4px rgba(255, 255, 255, 0.05);
-    
-    /* Darkened on press */
-    background: linear-gradient(
-      115deg,
-      #3d4149 0%,
-      #383c44 50%,
-      #292d35 100%
-    );
   }
 }
 

@@ -457,32 +457,166 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-4">Depth Override Examples</h4>
-                  <p className="text-gray-400 text-sm mb-4">Any card variant can override its default depth using the depth prop.</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card variant="flat" depth="elevated">
+                  <h4 className="text-white font-medium mb-4">Surface Gradient Utilities</h4>
+                  <p className="text-gray-400 text-sm mb-4">4 surface gradients that follow neumorphic physics with 115° light direction.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Card depth="subtle" surface="concave" border="transparent">
                       <CardHeader>
-                        <CardTitle>Depth Override</CardTitle>
-                        <CardDescription>Flat card with elevated depth</CardDescription>
+                        <CardTitle>surface-concave</CardTitle>
+                        <CardDescription>Inverted physics</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-gray-300">
-                          <code className="text-norse-gold">variant="flat" depth="elevated"</code>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-2">Uses elevated shadows despite flat variant</p>
+                        <p className="text-xs text-gray-400">Dark to light gradient for inset/pressed elements</p>
+                        <code className="text-xs text-norse-gold">.surface-concave</code>
                       </CardContent>
                     </Card>
 
-                    <Card variant="elevated" depth="flat">
+                    <Card depth="subtle" surface="flat" border="transparent">
                       <CardHeader>
-                        <CardTitle>Reverse Override</CardTitle>
-                        <CardDescription>Elevated card with flat depth</CardDescription>
+                        <CardTitle>surface-flat</CardTitle>
+                        <CardDescription>Minimal variation</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-gray-300">
-                          <code className="text-norse-gold">variant="elevated" depth="flat"</code>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-2">Uses flat shadows despite elevated variant</p>
+                        <p className="text-xs text-gray-400">Near solid color with subtle 2% variation</p>
+                        <code className="text-xs text-norse-gold">.surface-flat</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle" surface="convex" border="transparent">
+                      <CardHeader>
+                        <CardTitle>surface-convex</CardTitle>
+                        <CardDescription>Standard physics</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Light to dark gradient for raised elements</p>
+                        <code className="text-xs text-norse-gold">.surface-convex</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle" surface="gold" border="transparent">
+                      <CardHeader>
+                        <CardTitle>surface-gold</CardTitle>
+                        <CardDescription>Norse accent</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Rich Norse gold with concave physics</p>
+                        <code className="text-xs text-norse-gold">.surface-gold</code>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Border Gradient Utilities</h4>
+                  <p className="text-gray-400 text-sm mb-4">Tesla Cybertruck-inspired border system with gradient definition.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Card depth="subtle" surface="convex" border="transparent">
+                      <CardHeader>
+                        <CardTitle>border-transparent</CardTitle>
+                        <CardDescription>No definition</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Complete blend with background</p>
+                        <code className="text-xs text-norse-gold">.border-transparent</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle" surface="convex" border="subtle">
+                      <CardHeader>
+                        <CardTitle>border-neu-subtle</CardTitle>
+                        <CardDescription>Soft definition</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Gentle gradient border for standard elements</p>
+                        <code className="text-xs text-norse-gold">.border-neu-subtle</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle" surface="convex" border="crisp">
+                      <CardHeader>
+                        <CardTitle>border-neu-crisp</CardTitle>
+                        <CardDescription>Tesla definition</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Prominent Cybertruck-style edges</p>
+                        <code className="text-xs text-norse-gold">.border-neu-crisp</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle" surface="convex" border="glow">
+                      <CardHeader>
+                        <CardTitle>border-neu-glow</CardTitle>
+                        <CardDescription>Norse accent</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Gold accent highlighting</p>
+                        <code className="text-xs text-norse-gold">.border-neu-glow</code>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Logical Utility Combinations</h4>
+                  <p className="text-gray-400 text-sm mb-4">Depth + Surface + Border combinations that follow neumorphic physics principles.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card depth="subtle" surface="gold" border="glow">
+                      <CardHeader>
+                        <CardTitle>Primary Button Style</CardTitle>
+                        <CardDescription>depth="subtle" surface="gold" border="glow"</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Perfect for primary CTAs with Norse branding</p>
+                        <div className="mt-2 p-2 bg-neu-card rounded text-xs">
+                          <code className="text-norse-gold">
+                            &lt;Card depth="subtle" surface="gold" border="glow"&gt;
+                          </code>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="elevated" surface="convex" border="crisp">
+                      <CardHeader>
+                        <CardTitle>Tesla Cybertruck Style</CardTitle>
+                        <CardDescription>depth="elevated" surface="convex" border="crisp"</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Premium elevated card with sharp definition</p>
+                        <div className="mt-2 p-2 bg-neu-card rounded text-xs">
+                          <code className="text-norse-gold">
+                            &lt;Card depth="elevated" surface="convex" border="crisp"&gt;
+                          </code>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="sunken" surface="concave" border="transparent">
+                      <CardHeader>
+                        <CardTitle>Content Well</CardTitle>
+                        <CardDescription>depth="sunken" surface="concave" border="transparent"</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Perfect for form containers and content areas</p>
+                        <div className="mt-2 p-2 bg-neu-card rounded text-xs">
+                          <code className="text-norse-gold">
+                            &lt;Card depth="sunken" surface="concave" border="transparent"&gt;
+                          </code>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="flat" surface="flat" border="transparent">
+                      <CardHeader>
+                        <CardTitle>Background Container</CardTitle>
+                        <CardDescription>depth="flat" surface="flat" border="transparent"</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Subtle background element for grouping content</p>
+                        <div className="mt-2 p-2 bg-neu-card rounded text-xs">
+                          <code className="text-norse-gold">
+                            &lt;Card depth="flat" surface="flat" border="transparent"&gt;
+                          </code>
+                        </div>
                       </CardContent>
                     </Card>
                   </div>
