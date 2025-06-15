@@ -1,4 +1,4 @@
-# Styrkurheim - Norse Fitness Tracker
+# Styrkur Saga - Norse Fitness Tracker
 
 ## Project Essence
 

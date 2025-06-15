@@ -1,4 +1,4 @@
-# Styrkurheim Development Rules
+# Styrkur Saga Development Rules
 
 ## Code Standards
 
@@ -30,34 +30,36 @@
 
 ```typescript
 // Import order: React, external libs, internal components, types, utils, styles
-import { useState, useEffect } from 'react'
-import { Button } from '@/ui/button'
-import { ExerciseCard } from '@/components/ExerciseCard'
-import type { Exercise } from '@/types/Exercise'
-import { formatWeight } from '@/lib/utils'
-import { cn } from '@/lib/utils'
-import styles from './Component.module.css'
+import { useState, useEffect } from 'react';
+import { Button } from '@/ui/button';
+import { ExerciseCard } from '@/components/ExerciseCard';
+import type { Exercise } from '@/types/Exercise';
+import { formatWeight } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import styles from './Component.module.css';
 
 interface ComponentProps {
-  className?: string
+  className?: string;
   // Other props
 }
 
 export function Component({ className, ...props }: ComponentProps) {
   // State hooks first
-  // Effect hooks second 
+  // Effect hooks second
   // Custom hooks third
   // Event handlers
   // Render helpers
-  
+
   return (
     <div className={cn(styles.component, className)}>
       <h2 className={styles['component__title']}>Title</h2>
-      <div className={cn(styles['component__content'], styles['component__content--highlighted'])}>
+      <div
+        className={cn(styles['component__content'], styles['component__content--highlighted'])}
+      >
         Content
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -77,31 +79,28 @@ export function Component({ className, ...props }: ComponentProps) {
 /* Design Token Architecture */
 :root {
   /* Norse Gold Palette */
-  --norse-gold: #C3A869;
-  --norse-gold-light: #D4BC7F;
-  --norse-gold-dark: #A89253;
-  --norse-gold-darker: #8D7A42;
-  
+  --norse-gold: #c3a869;
+  --norse-gold-light: #d4bc7f;
+  --norse-gold-dark: #a89253;
+  --norse-gold-darker: #8d7a42;
+
   /* Neumorphic Surface Hierarchy */
   --neu-background: #2c2f36;
   --neu-surface: #343940;
   --neu-card: #3d424f;
   --neu-elevated: #454a57;
-  
+
   /* Multi-layered Shadows */
-  --shadow-neu: -4px -4px 12px rgba(255, 255, 255, 0.04), 
-                4px 4px 12px rgba(15, 17, 20, 0.2);
-  --shadow-neu-inset: inset 3px 3px 8px rgba(15, 17, 20, 0.2), 
-                      inset -3px -3px 8px rgba(255, 255, 255, 0.03);
-  --shadow-neu-gold: -4px -4px 12px rgba(195, 168, 105, 0.08), 
-                     4px 4px 12px rgba(15, 17, 20, 0.2);
-  
+  --shadow-neu: -4px -4px 12px rgba(255, 255, 255, 0.04), 4px 4px 12px rgba(15, 17, 20, 0.2);
+  --shadow-neu-inset: inset 3px 3px 8px rgba(15, 17, 20, 0.2), inset -3px -3px 8px rgba(255, 255, 255, 0.03);
+  --shadow-neu-gold: -4px -4px 12px rgba(195, 168, 105, 0.08), 4px 4px 12px rgba(15, 17, 20, 0.2);
+
   /* Contextual Color Palette */
-  --forest-500: #2E7D5F; /* Success */
-  --blood-500: #A83232;  /* Error */
-  --ocean-500: #375A74;  /* Info */
-  --wood-500: #5C4533;   /* Warning */
-  --iron-600: #1F2937;   /* Neutral */
+  --forest-500: #2e7d5f; /* Success */
+  --blood-500: #a83232; /* Error */
+  --ocean-500: #375a74; /* Info */
+  --wood-500: #5c4533; /* Warning */
+  --iron-600: #1f2937; /* Neutral */
 }
 
 /* BEM Component Example */
@@ -121,7 +120,7 @@ export function Component({ className, ...props }: ComponentProps) {
 ### Responsive Design
 
 - Mobile-first approach (min-width breakpoints)
-- Touch-friendly targets (44px minimum) 
+- Touch-friendly targets (44px minimum)
 - Dark mode only with neumorphic elevation
 - Tesla Cybertruck-inspired organic pill shapes
 - Multi-layered shadow system for depth perception
