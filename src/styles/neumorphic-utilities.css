@@ -92,7 +92,7 @@
 
 /* BORDER NEU SUBTLE: Soft definition for standard elements with neumorphic lighting */
 .border-neu-subtle {
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.10)!important;
 }
 
 /* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition with neumorphic lighting */
