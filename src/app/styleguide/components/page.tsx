@@ -2,12 +2,10 @@
 
 import { useState } from 'react'
 import { Button } from '@/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/ui/card'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
-import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
+import { Plus, Settings, Heart, Edit, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
 
 export default function ComponentsPage() {
   const [activeSubsection, setActiveSubsection] = useState('overview')
@@ -64,69 +62,89 @@ export default function ComponentsPage() {
       case 'buttons':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Button System - BEM + CSS Modules Approach">
+            <ComponentShowcase title="Button System - Utility-Based Variants">
               <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
                 <div>
-                  <h4 className="text-white font-medium mb-2">Clean, Semantic Class Names</h4>
-                  <p className="text-gray-400 text-sm mb-4">Replaced verbose Tailwind utilities with maintainable BEM-style classes</p>
-                  <div className="space-y-3">
+                  <h4 className="text-white font-medium mb-2">🎯 Three Essential Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Each variant maps to specific utility combinations following neumorphic physics</p>
+                  <div className="space-y-4">
                     <div className="flex flex-wrap gap-4">
                       <Button variant="primary">Primary Action</Button>
                       <Button variant="outline">Secondary Action</Button>
                       <Button variant="flat">Tertiary Action</Button>
                     </div>
-                    <div className="text-xs text-gray-500 space-y-1">
-                      <p>HTML Output: <code className="text-norse-gold">&lt;button class="btn btn-primary btn-default"&gt;</code></p>
-                      <p>Previously: <code className="text-gray-400">50+ utility classes</code></p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                      <div className="bg-black/20 p-3 rounded">
+                        <p className="text-norse-gold font-medium mb-1">Primary Button</p>
+                        <code className="text-gray-300">depth-elevated + surface-gold + border-crisp</code>
+                        <p className="text-gray-400 mt-1">For main actions, CTAs</p>
+                      </div>
+                      <div className="bg-black/20 p-3 rounded">
+                        <p className="text-white font-medium mb-1">Secondary Button</p>
+                        <code className="text-gray-300">depth-subtle + surface-convex + border-subtle</code>
+                        <p className="text-gray-400 mt-1">For secondary actions</p>
+                      </div>
+                      <div className="bg-black/20 p-3 rounded">
+                        <p className="text-gray-300 font-medium mb-1">Tertiary Button</p>
+                        <code className="text-gray-300">depth-flat + surface-flat + border-transparent</code>
+                        <p className="text-gray-400 mt-1">For subtle actions</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Minimalist Approach</h4>
-                  <p className="text-gray-400 text-sm mb-4">Three essential variants only - states conveyed through icons and toasts</p>
+                  <h4 className="text-white font-medium mb-2">Context Through Icons</h4>
+                  <p className="text-gray-400 text-sm mb-4">Buttons remain semantically clean - context provided by icons and toast feedback</p>
                   <div className="flex flex-wrap gap-4">
-                    <Button variant="primary"><Check className="w-4 h-4" />Success Action</Button>
+                    <Button variant="primary"><Check className="w-4 h-4" />Confirm Action</Button>
                     <Button variant="outline"><X className="w-4 h-4" />Cancel Action</Button>
-                    <Button variant="flat"><Trash2 className="w-4 h-4" />Delete</Button>
+                    <Button variant="flat"><Edit className="w-4 h-4" />Edit Mode</Button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">Icons and toasts provide context - buttons remain semantically clean</p>
+                  <p className="text-xs text-gray-500 mt-2">No "success", "danger", "warning" variants - states handled by icons + toasts</p>
                 </div>
                 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Size System with Icon Variants</h4>
-                  <p className="text-gray-400 text-sm mb-4">Perfect alignment system with dedicated icon button sizes</p>
+                  <h4 className="text-white font-medium mb-2">Perfect Size System</h4>
+                  <p className="text-gray-400 text-sm mb-4">Dedicated icon sizes maintain consistent alignment</p>
                   <div className="space-y-3">
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="default">Default (36px)</Button>
                       <Button variant="primary" size="icon"><Plus className="w-4 h-4" /></Button>
                       <Button variant="outline" size="icon"><Settings className="w-4 h-4" /></Button>
+                      <Button variant="flat" size="icon"><Heart className="w-4 h-4" /></Button>
                     </div>
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="large">Large (48px)</Button>
-                      <Button variant="primary" size="icon-large"><Heart className="w-5 h-5" /></Button>
-                      <Button variant="outline" size="icon-large"><X className="w-5 h-5" /></Button>
+                      <Button variant="primary" size="icon-large"><Plus className="w-5 h-5" /></Button>
+                      <Button variant="outline" size="icon-large"><Settings className="w-5 h-5" /></Button>
+                      <Button variant="flat" size="icon-large"><Heart className="w-5 h-5" /></Button>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Enhanced Props System</h4>
-                  <p className="text-gray-400 text-sm mb-4">New component features with clean prop-based styling</p>
+                  <h4 className="text-white font-medium mb-2">Enhanced Features</h4>
+                  <p className="text-gray-400 text-sm mb-4">Clean props system with semantic class output</p>
                   <div className="space-y-3">
                     <div className="flex gap-4">
-                      <Button variant="primary" fullWidth>Full Width Button</Button>
+                      <Button variant="primary" fullWidth>Full Width Primary</Button>
                     </div>
                     <div className="flex gap-4">
                       <Button variant="primary" loading>Loading State</Button>
                       <Button variant="outline" disabled>Disabled State</Button>
+                      <Button variant="flat" disabled>Disabled Flat</Button>
                     </div>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-2">
+                    <p>Output: <code className="text-norse-gold">btn btn-primary btn-default btn-loading</code></p>
+                    <p>vs. Previous: <code className="text-gray-400">50+ utility classes</code></p>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2">Perfect Form Alignment</h4>
-                  <p className="text-gray-400 text-sm mb-4">CSS custom properties ensure exact height matching</p>
+                  <h4 className="text-white font-medium mb-2">Form Integration</h4>
+                  <p className="text-gray-400 text-sm mb-4">Perfect height matching via CSS custom properties</p>
                   <div className="space-y-4 max-w-md">
                     <div className="flex gap-2">
                       <Input placeholder="Default input (36px)" />
@@ -146,126 +164,151 @@ export default function ComponentsPage() {
       case 'cards':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Card Component - Depth Utility System">
+            <ComponentShowcase title="Card Utility Combinations - Complete Archetype System">
               <div className="space-y-8">
                 <div className="p-6 bg-neu-surface shadow-neu rounded-xl border border-ocean-500/20">
-                  <h4 className="text-ocean-400 font-medium mb-3">📚 Utility System Reference</h4>
+                  <h4 className="text-ocean-400 font-medium mb-3">🎯 Utility Combination Focus</h4>
                   <p className="text-gray-300 text-sm mb-4">
-                    The card component uses the complete utility system for depth, surface, and border styling. 
-                    For detailed utility documentation and examples, see the 
+                    Cards showcase proper utility combinations rather than custom variants. Each archetype demonstrates 
+                    specific depth + surface + border combinations. For complete utility documentation, see the 
                     <a href="/styleguide/foundations" className="text-norse-gold hover:text-norse-gold-light underline ml-1">
                       Foundations section
                     </a>.
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                    <div>
-                      <h5 className="text-white font-medium mb-2">Depth Utilities:</h5>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• depth-flat (no shadows)</li>
-                        <li>• depth-subtle (standard)</li>
-                        <li>• depth-sunken (inset)</li>
-                        <li>• depth-elevated (prominent)</li>
-                      </ul>
+                </div>
+                
+                <div>
+                  <h4 className="text-white font-medium mb-4">🔧 Standard Archetypes</h4>
+                  <p className="text-gray-400 text-sm mb-4">Core utility combinations for most use cases</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Sunken Transparent */}
+                    <div className="depth-sunken border-transparent p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Sunken Transparent</h5>
+                      <p className="text-xs text-gray-400 mb-3">Form containers, content wells</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-sunken + border-transparent
+                      </code>
                     </div>
-                    <div>
-                      <h5 className="text-white font-medium mb-2">Surface Utilities:</h5>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• surface-flat (minimal)</li>
-                        <li>• surface-convex (raised)</li>
-                        <li>• surface-concave (inset)</li>
-                        <li>• surface-gold (Norse accent)</li>
-                      </ul>
+                    
+                    {/* Sunken Concave */}
+                    <div className="depth-sunken surface-concave border-transparent p-6 rounded-xl">
+                      <h5 className="text-white font-medium mb-2">Sunken Concave</h5>
+                      <p className="text-xs text-gray-400 mb-3">Pressed buttons, input fields</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-sunken + surface-concave
+                      </code>
                     </div>
-                    <div>
-                      <h5 className="text-white font-medium mb-2">Border Utilities:</h5>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• border-transparent</li>
-                        <li>• border-neu-subtle</li>
-                        <li>• border-neu-crisp (2px)</li>
-                        <li>• border-neu-glow (blue)</li>
-                      </ul>
+                    
+                    {/* Flat */}
+                    <div className="depth-flat surface-flat border-transparent p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Flat Background</h5>
+                      <p className="text-xs text-gray-400 mb-3">Background grouping, sidebars</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-flat + surface-flat
+                      </code>
+                    </div>
+                    
+                    {/* Subtle Convex */}
+                    <div className="depth-subtle surface-convex border-neu-subtle p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Subtle Convex</h5>
+                      <p className="text-xs text-gray-400 mb-3">Standard cards, containers</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-subtle + surface-convex + border-subtle
+                      </code>
+                    </div>
+                    
+                    {/* Subtle Concave */}
+                    <div className="depth-subtle surface-concave border-neu-subtle p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Subtle Concave</h5>
+                      <p className="text-xs text-gray-400 mb-3">Secondary buttons, panels</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-subtle + surface-concave + border-subtle
+                      </code>
+                    </div>
+                    
+                    {/* Elevated Convex */}
+                    <div className="depth-elevated surface-convex border-neu-crisp p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Elevated Convex</h5>
+                      <p className="text-xs text-gray-400 mb-3">Featured content, hero cards</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-elevated + surface-convex + border-crisp
+                      </code>
                     </div>
                   </div>
                 </div>
                 
                 <div>
-                  <h4 className="text-white font-medium mb-4">Card Component Variants</h4>
-                  <p className="text-gray-400 text-sm mb-4">Card variants automatically apply appropriate utility combinations, but can be overridden with explicit props.</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <Card variant="default">
-                      <CardHeader>
-                        <CardTitle>Default Card</CardTitle>
-                        <CardDescription>Standard elevation</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="subtle" surface="convex"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="elevated">
-                      <CardHeader>
-                        <CardTitle>Elevated Card</CardTitle>
-                        <CardDescription>Higher prominence</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="elevated" border="crisp"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="sunken">
-                      <CardHeader>
-                        <CardTitle>Sunken Card</CardTitle>
-                        <CardDescription>Inset appearance</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="sunken" surface="concave"</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="flat">
-                      <CardHeader>
-                        <CardTitle>Flat Card</CardTitle>
-                        <CardDescription>Background element</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-gray-400">Uses depth="flat" surface="flat"</p>
-                      </CardContent>
-                    </Card>
+                  <h4 className="text-white font-medium mb-4">✨ Premium Archetypes</h4>
+                  <p className="text-gray-400 text-sm mb-4">Special combinations for primary actions and interactive elements</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Gold Primary */}
+                    <div className="depth-elevated surface-gold border-neu-crisp p-6 rounded-xl">
+                      <h5 className="text-lg font-semibold mb-2">Gold Primary</h5>
+                      <p className="text-sm text-gray-700 mb-3">Primary actions, CTAs, brand elements</p>
+                      <code className="text-xs text-gray-700 bg-black/10 px-2 py-1 rounded block">
+                        depth-elevated + surface-gold + border-crisp
+                      </code>
+                    </div>
+                    
+                    {/* Interactive Glow */}
+                    <div className="depth-subtle surface-convex border-neu-glow p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Interactive Glow</h5>
+                      <p className="text-xs text-gray-400 mb-3">Hover states, active selections</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-subtle + surface-convex + border-glow
+                      </code>
+                    </div>
+                    
+                    {/* Elevated Concave */}
+                    <div className="depth-elevated surface-concave border-neu-crisp p-6 rounded-xl bg-neu-card">
+                      <h5 className="text-white font-medium mb-2">Elevated Concave</h5>
+                      <p className="text-xs text-gray-400 mb-3">Specialized inputs, unique states</p>
+                      <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded block">
+                        depth-elevated + surface-concave + border-crisp
+                      </code>
+                    </div>
                   </div>
                 </div>
-
+                
                 <div>
-                  <h4 className="text-white font-medium mb-4">Special Variants</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <Card variant="sunken">
-                      <CardHeader>
-                        <CardTitle>Sunken Card</CardTitle>
-                        <CardDescription>Inverted depth effect</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Inverted gradient for inset appearance</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="interactive" hoverLift>
-                      <CardHeader>
-                        <CardTitle>Interactive Card</CardTitle>
-                        <CardDescription>Enhanced feedback</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Hover and active states with transform</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card variant="accent">
-                      <CardHeader>
-                        <CardTitle>Norse Gold Accent</CardTitle>
-                        <CardDescription>Gold-tinted variant</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-gray-300">Gold-tinted gradient and border</p>
-                      </CardContent>
-                    </Card>
+                  <h4 className="text-white font-medium mb-4">🎮 Interactive Examples</h4>
+                  <p className="text-gray-400 text-sm mb-4">Real components using utility combinations</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Card with Content */}
+                    <div className="depth-subtle surface-convex border-neu-subtle p-6 rounded-xl bg-neu-card">
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h3 className="text-lg font-semibold text-white mb-1">Workout Plan</h3>
+                          <p className="text-sm text-gray-400">Morning Strength Session</p>
+                        </div>
+                        <button className="depth-flat surface-flat border-transparent p-2 rounded-lg hover:depth-subtle">
+                          <Settings className="w-4 h-4 text-gray-400" />
+                        </button>
+                      </div>
+                      <div className="depth-sunken surface-concave border-transparent p-4 rounded-lg mb-4">
+                        <p className="text-sm text-gray-300">3 exercises • 45 minutes</p>
+                        <p className="text-xs text-gray-500 mt-1">Next: Deadlifts</p>
+                      </div>
+                      <button className="depth-elevated surface-gold border-neu-crisp w-full py-2 rounded-lg font-medium">
+                        Start Workout
+                      </button>
+                    </div>
+                    
+                    {/* Interactive States */}
+                    <div className="space-y-4">
+                      <div className="depth-flat surface-flat border-transparent p-4 rounded-xl bg-neu-card">
+                        <h5 className="text-white font-medium mb-2">Flat State (Default)</h5>
+                        <p className="text-xs text-gray-400">Background element, no interaction</p>
+                      </div>
+                      <div className="depth-subtle surface-convex border-neu-subtle p-4 rounded-xl bg-neu-card cursor-pointer">
+                        <h5 className="text-white font-medium mb-2">Hover State</h5>
+                        <p className="text-xs text-gray-400">Interactive element, subtle elevation</p>
+                      </div>
+                      <div className="depth-sunken surface-concave border-transparent p-4 rounded-xl bg-neu-card">
+                        <h5 className="text-white font-medium mb-2">Active/Pressed State</h5>
+                        <p className="text-xs text-gray-400">Button pressed, form focus</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -369,105 +412,16 @@ export default function ComponentsPage() {
       case 'ui-elements':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Action Buttons">
-              <div className="flex flex-wrap gap-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <button className="p-2 bg-neu-surface shadow-neu rounded-lg hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Edit className="w-5 h-5 text-gray-300" />
-                </button>
-                <button className="p-2 bg-ocean-500 shadow-neu rounded-lg hover:bg-ocean-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Share className="w-5 h-5 text-white" />
-                </button>
-                <button className="p-2 bg-forest-500 shadow-neu rounded-lg hover:bg-forest-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Download className="w-5 h-5 text-white" />
-                </button>
-                <button className="p-2 bg-blood-500 shadow-neu rounded-lg hover:bg-blood-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Trash2 className="w-5 h-5 text-white" />
-                </button>
-              </div>
-            </ComponentShowcase>
-
-            <ComponentShowcase title="Status Indicators">
-              <div className="flex flex-wrap gap-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div className="flex items-center space-x-2 px-3 py-2 bg-forest-500 text-white shadow-neu rounded-lg">
-                  <Check className="w-4 h-4" />
-                  <span className="text-sm font-medium">Success</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-blood-500 text-white shadow-neu rounded-lg">
-                  <X className="w-4 h-4" />
-                  <span className="text-sm font-medium">Error</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-wood-500 text-white shadow-neu rounded-lg">
-                  <Clock className="w-4 h-4" />
-                  <span className="text-sm font-medium">Warning</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-ocean-500 text-white shadow-neu rounded-lg">
-                  <Search className="w-4 h-4" />
-                  <span className="text-sm font-medium">Info</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-iron-500 text-gray-300 shadow-neu rounded-lg">
-                  <Settings className="w-4 h-4" />
-                  <span className="text-sm font-medium">Neutral</span>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            <ComponentShowcase title="Checkboxes">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl max-w-md">
-                {/* Checked */}
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      checked 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-checked"
-                    />
-                    <div className="w-5 h-5 bg-norse-gold text-black rounded shadow-neu-gold flex items-center justify-center">
-                      <Check className="w-3 h-3" />
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-checked" className="text-white text-sm font-medium">
-                    Checked state
-                  </label>
-                </div>
-                
-                {/* Unchecked */}
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-unchecked"
-                    />
-                    <div className="w-5 h-5 bg-neu-card border border-gray-600 rounded shadow-neu-inset">
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-unchecked" className="text-white text-sm font-medium">
-                    Unchecked state
-                  </label>
-                </div>
-                
-                {/* Disabled */}
-                <div className="flex items-center space-x-3 opacity-50">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      disabled 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-disabled"
-                    />
-                    <div className="w-5 h-5 bg-gray-700 border border-gray-600 rounded">
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-disabled" className="text-gray-400 text-sm">
-                    Disabled state
-                  </label>
-                </div>
-              </div>
-            </ComponentShowcase>
+            <div className="p-6 bg-wood-500/10 border border-wood-500/20 rounded-xl mb-6">
+              <h4 className="text-wood-400 font-medium mb-2">🛠️ UI Elements Cleanup</h4>
+              <p className="text-gray-300 text-sm mb-3">
+                Action buttons and status indicators have been removed as they're superseded by the standard button system. 
+                Context and state are now handled through icons and toast notifications.
+              </p>
+              <p className="text-xs text-gray-400">
+                Remaining elements (chips, icons) will be refined in future phases to follow utility system patterns.
+              </p>
+            </div>
 
             <ComponentShowcase title="Chips">
               <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
@@ -492,7 +446,7 @@ export default function ComponentsPage() {
                     </button>
                   </div>
                 </div>
-                <div className="text-xs text-gray-400">Removable chip example with close button</div>
+                <div className="text-xs text-gray-400">Removable chip example with close button. Future: utility-based variants.</div>
               </div>
             </ComponentShowcase>
 
@@ -517,7 +471,7 @@ export default function ComponentsPage() {
                     </div>
                   ))}
                 </div>
-                <div className="text-xs text-gray-400">Hover to see interactive states</div>
+                <div className="text-xs text-gray-400">Icon containers using standard utility combinations</div>
               </div>
             </ComponentShowcase>
           </div>

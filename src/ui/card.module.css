@@ -19,22 +19,21 @@
   box-shadow: none;
 }
 
-/* DEPTH SUBTLE: Standard content containers, default card state */
+/* DEPTH SUBTLE: Standard content containers, soft emergence from surface */
 .depth-subtle {
-  /* Gentle elevation with soft definition - Tesla Cybertruck style */
+  /* Soft fabric-like emergence - barely raised from surface */
   box-shadow: 
-    6px 6px 12px rgba(0, 0, 0, 0.2),        /* Dark shadow from bottom-right */
-    -6px -6px 12px rgba(255, 255, 255, 0.05), /* Light highlight from top-left */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02); /* Subtle inner highlight */
+    1px 1px 3px rgba(15, 17, 20, 0.15),    /* Small, close shadow */
+    -1px -1px 3px rgba(255, 255, 255, 0.02); /* Subtle highlight */
 }
 
-/* DEPTH ELEVATED: Featured content, important information, hero cards */
+/* DEPTH ELEVATED: Featured content, connected prominence */
 .depth-elevated {
-  /* Prominent raised appearance with strong definition */
+  /* More prominent emergence, still connected to surface */
   box-shadow: 
-    15px 15px 30px rgba(0, 0, 0, 0.3),         /* Maximum dark shadow */
-    -15px -15px 30px rgba(255, 255, 255, 0.08), /* Maximum light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);  /* Strong inner highlight */
+    2px 2px 6px rgba(15, 17, 20, 0.2),     /* Medium shadow, still close */
+    -2px -2px 6px rgba(255, 255, 255, 0.04), /* Light highlight */
+    0 1px 3px rgba(15, 17, 20, 0.1);       /* Contact shadow at base */
 }
 
 /* DEPTH HOVER TRANSITIONS */
@@ -44,25 +43,24 @@
 .depth-flat:hover {
   /* Transition to subtle depth on hover */
   box-shadow: 
-    6px 6px 12px rgba(0, 0, 0, 0.2),
-    -6px -6px 12px rgba(255, 255, 255, 0.05),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    1px 1px 3px rgba(15, 17, 20, 0.15),
+    -1px -1px 3px rgba(255, 255, 255, 0.02);
 }
 
 .depth-subtle:hover {
-  /* Enhanced subtle depth on hover */
+  /* Enhanced subtle depth on hover - gentle elevation */
   box-shadow: 
-    10px 10px 20px rgba(0, 0, 0, 0.25),        /* Stronger dark shadow */
-    -10px -10px 20px rgba(255, 255, 255, 0.06), /* Stronger light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04);  /* Enhanced inner highlight */
+    2px 2px 6px rgba(15, 17, 20, 0.2),     /* Slightly stronger shadow */
+    -2px -2px 6px rgba(255, 255, 255, 0.04), /* Enhanced highlight */
+    0 1px 3px rgba(15, 17, 20, 0.1);       /* Contact shadow appears */
 }
 
 .depth-elevated:hover {
-  /* Ultra-dramatic floating effect on hover */
+  /* Floating effect on hover - only state that truly floats */
   box-shadow: 
-    20px 20px 40px rgba(0, 0, 0, 0.35),        /* Ultra-strong dark shadow */
-    -20px -20px 40px rgba(255, 255, 255, 0.1),  /* Ultra-strong light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);  /* Maximum inner highlight */
+    4px 4px 12px rgba(15, 17, 20, 0.25),   /* Stronger shadow, further out */
+    -4px -4px 12px rgba(255, 255, 255, 0.06), /* Enhanced highlight */
+    0 2px 8px rgba(15, 17, 20, 0.15);      /* Stronger contact shadow */
 }
 
 /* === SURFACE GRADIENT UTILITIES === */
@@ -121,14 +119,20 @@
   border: none;
 }
 
-/* BORDER NEU SUBTLE: Soft definition for standard elements */
+/* BORDER NEU SUBTLE: Soft definition with neumorphic lighting */
 .border-neu-subtle {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);    /* Light from top */
+  border-left: 1px solid rgba(255, 255, 255, 0.08);   /* Light from left */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);        /* Shadow at bottom */
+  border-right: 1px solid rgba(0, 0, 0, 0.1);         /* Shadow at right */
 }
 
-/* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition */
+/* BORDER NEU CRISP: Tesla Cybertruck-style with neumorphic lighting */
 .border-neu-crisp {
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid rgba(255, 255, 255, 0.15);    /* Crisp light from top */
+  border-left: 2px solid rgba(255, 255, 255, 0.15);   /* Crisp light from left */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);       /* Crisp shadow at bottom */
+  border-right: 2px solid rgba(0, 0, 0, 0.15);        /* Crisp shadow at right */
 }
 
 /* BORDER NEU GLOW: Actual blue glow effect */

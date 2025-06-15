@@ -106,7 +106,16 @@ export default function FoundationsPage() {
         {/* Depth Utilities */}
         <div className="mb-8">
           <h3 className="text-lg font-medium text-white mb-4">Depth Utilities</h3>
-          <p className="text-gray-400 text-sm mb-4">4-level neumorphic depth system with consistent dual-shadow physics. Each utility can be applied to any component.</p>
+          <p className="text-gray-400 text-sm mb-4">4-level neumorphic depth system with realistic emergence physics. Elements feel like they're part of the same material surface at different depths.</p>
+          <div className="bg-black/20 p-4 rounded-lg mb-4">
+            <h4 className="text-norse-gold text-sm font-medium mb-2">🎯 Visual Metaphor</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-gray-300">
+              <div><strong>Sunken:</strong> Finger pressed into clay</div>
+              <div><strong>Flat:</strong> Smooth clay surface</div>
+              <div><strong>Subtle:</strong> Clay barely pushed up</div>
+              <div><strong>Elevated:</strong> Clay pushed up more, still connected</div>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="depth-sunken p-6 bg-neu-card rounded-xl">
               <div className="text-center">
@@ -119,7 +128,7 @@ export default function FoundationsPage() {
             <div className="depth-flat p-6 bg-neu-card rounded-xl">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">depth-flat</h4>
-                <p className="text-xs text-gray-400 mb-2">Background containers (no shadows)</p>
+                <p className="text-xs text-gray-400 mb-2">Completely smooth surface</p>
                 <code className="text-xs text-norse-gold">.depth-flat</code>
               </div>
             </div>
@@ -127,7 +136,7 @@ export default function FoundationsPage() {
             <div className="depth-subtle p-6 bg-neu-card rounded-xl">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">depth-subtle</h4>
-                <p className="text-xs text-gray-400 mb-2">Standard containers</p>
+                <p className="text-xs text-gray-400 mb-2">Soft emergence, fabric-like stretch</p>
                 <code className="text-xs text-norse-gold">.depth-subtle</code>
               </div>
             </div>
@@ -135,7 +144,7 @@ export default function FoundationsPage() {
             <div className="depth-elevated p-6 bg-neu-card rounded-xl">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">depth-elevated</h4>
-                <p className="text-xs text-gray-400 mb-2">Featured content</p>
+                <p className="text-xs text-gray-400 mb-2">Prominent but connected emergence</p>
                 <code className="text-xs text-norse-gold">.depth-elevated</code>
               </div>
             </div>
@@ -184,7 +193,7 @@ export default function FoundationsPage() {
         {/* Border Utilities */}
         <div className="mb-8">
           <h3 className="text-lg font-medium text-white mb-4">Border Utilities</h3>
-          <p className="text-gray-400 text-sm mb-4">Tesla Cybertruck-inspired border system with clear visual definition. Fixed to work with surface utilities.</p>
+          <p className="text-gray-400 text-sm mb-4">Neumorphic border system following proper lighting physics (light from top-left). Light borders on top/left, shadows on bottom/right.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="depth-subtle surface-convex border-transparent p-6 rounded-xl bg-neu-card">
               <div className="text-center">
@@ -197,7 +206,7 @@ export default function FoundationsPage() {
             <div className="depth-subtle surface-convex border-neu-subtle p-6 rounded-xl bg-neu-card">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">border-neu-subtle</h4>
-                <p className="text-xs text-gray-400 mb-2">Soft definition</p>
+                <p className="text-xs text-gray-400 mb-2">Neumorphic lighting (1px)</p>
                 <code className="text-xs text-norse-gold">.border-neu-subtle</code>
               </div>
             </div>
@@ -205,7 +214,7 @@ export default function FoundationsPage() {
             <div className="depth-subtle surface-convex border-neu-crisp p-6 rounded-xl bg-neu-card">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">border-neu-crisp</h4>
-                <p className="text-xs text-gray-400 mb-2">Tesla Cybertruck style (2px)</p>
+                <p className="text-xs text-gray-400 mb-2">Tesla lighting (2px)</p>
                 <code className="text-xs text-norse-gold">.border-neu-crisp</code>
               </div>
             </div>
