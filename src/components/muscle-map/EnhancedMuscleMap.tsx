@@ -71,10 +71,9 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
       )}
 
       {/* Responsive Body Views */}
-      <div>
+      <div className={styles['responsive-wrapper']}>
         {/* Single View with Tabs (Mobile/Tablet or when forced) */}
         <div className={cn(
-          styles['single-view'],
           forceSingleView ? styles['single-view'] : styles['single-view-responsive']
         )}>
           {/* Tab Navigation */}

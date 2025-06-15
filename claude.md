@@ -2,13 +2,15 @@
 
 ## Project Overview
 
-Styrkurheim is a mobile-first PWA fitness tracker inspired by Norse mythology with dark mode Scandinavian design. Built with React + TypeScript, Shadcn/ui components, and WGER API integration.
+Styrkurheim is a mobile-first PWA fitness tracker inspired by Norse mythology with Tesla Cybertruck-style neumorphic design. Built with Next.js, React + TypeScript, CSS Modules + BEM architecture, and WGER API integration.
 
 ## Current Status
 
-- ✅ Basic React app with mock WGER API
-- ✅ Norse theming with gold accent (#C3A869)
-- 🔄 **NEXT**: Refactor to TypeScript + Shadcn + proper structure
+- ✅ Next.js app with TypeScript and WGER API integration
+- ✅ CSS Modules + BEM architecture with neumorphic design
+- ✅ Unified MuscleHighlighter component with responsive design
+- ✅ Norse-themed neumorphic design system with Tesla Cybertruck inspiration
+- 🔄 **NEXT**: Continue feature development and PWA enhancements
 
 ## Key Features
 
@@ -16,7 +18,18 @@ Styrkurheim is a mobile-first PWA fitness tracker inspired by Norse mythology wi
 - **Workout Builder**: Create workouts with sets, reps, weight, RPE, tempo
 - **Superset/Circuit Support**: Group exercises into supersets and circuits
 - **Live Training**: Set tracking with completion states and rest timers
-- **Norse Theming**: Dark mode with gold accents and mythology-inspired naming
+- **Muscle Visualization**: Unified MuscleHighlighter component with responsive design
+- **Norse Theming**: Neumorphic design with Tesla Cybertruck-inspired aesthetics
+
+## Documentation Structure
+
+- **Component Docs**: `docs/components/` - Individual component documentation
+- **UI Components**: `docs/ui/` - Design system component docs  
+- **Guidelines**: `docs/guidelines/` - Development patterns and standards
+
+### Key Components
+- **MuscleHighlighter**: `docs/components/MuscleHighlighter.md` - Unified muscle visualization
+- **Button System**: `docs/ui/button.md` - Norse-themed neumorphic buttons
 
 ## Target Structure
 
@@ -40,22 +53,27 @@ src/
 │   ├── Workout.ts
 │   ├── Program.ts
 │   └── Exercise.ts
-├── styles/              # Tailwind or custom CSS
+├── styles/              # Global CSS and design tokens
 │   └── globals.css
-└── ui/                  # shadcn-compatible component wrappers
-    ├── button.tsx
-    ├── input.tsx
-    └── card.tsx
+└── ui/                  # Neumorphic component system with CSS Modules
+    ├── button.tsx          # Norse-themed button components
+    ├── button.module.css   # BEM + CSS Modules styling
+    ├── input.tsx           # Neumorphic input components
+    ├── input.module.css    # Consistent styling architecture
+    ├── card.tsx            # Elevated surface components
+    └── card.module.css     # Multi-layered shadow system
 ```
 
 ## Design System
 
-- **Primary Color**: Norse Gold (#C3A869)
-- **Dark Theme**: Gray-900 backgrounds, Gray-800 cards
-- **Typography**: Roboto (light/medium weights)
-- **Icons**: Replace emojis with SVG icons (future)
-- **Spacing**: 8px grid system
-- **Shadows**: Subtle, layered cards
+- **Neumorphic Design**: Tesla Cybertruck-inspired organic shapes with multi-layered shadows
+- **Primary Color**: Norse Gold (#C3A869) with metallic gradients
+- **Background Hierarchy**: Deep charcoal gradients (neu-background → neu-surface → neu-card)
+- **Typography**: Inter + Cinzel heading font
+- **CSS Architecture**: CSS Modules + BEM methodology
+- **Border Radius**: Organic pill shapes (neu-pill: 3rem) and rounded cards (neu, neu-lg, neu-xl)
+- **Shadows**: Ultra-soft multi-layered neumorphic shadows with Norse gold highlights
+- **Color Palette**: Enhanced with forest/blood/ocean/wood contextual colors
 
 ## API Integration
 
@@ -91,19 +109,28 @@ src/
 
 ## Development Priorities
 
-1. **Structure Refactor**: Move to TypeScript + proper folder structure
-2. **Shadcn Integration**: Replace inline styles with component system
-3. **WGER API**: Replace mock with real API calls
-4. **Superset/Circuit Logic**: Complete workout builder features
-5. **Testing Setup**: Basic API and component tests
-6. **PWA Foundation**: Service worker and manifest
-7. **Icon System**: Replace emojis with SVG icons
-8. **Backend Integration**: User accounts and data sync
+1. **Feature Enhancement**: Complete workout tracking and progression features
+2. **PWA Foundation**: Service worker and manifest for offline functionality
+3. **Performance Optimization**: Optimize muscle map rendering and data processing
+4. **Testing Coverage**: Expand component and integration testing
+5. **Backend Integration**: User accounts and data sync with Supabase
+6. **Advanced Features**: Exercise analytics and progress tracking
+7. **Accessibility**: Enhanced screen reader and keyboard navigation support
+8. **Mobile UX**: Further optimize touch interactions and gestures
 
 ## Code Style
 
 - **TypeScript**: Strict mode, proper typing
 - **Functional Components**: Hooks-based React
-- **Tailwind**: Utility-first CSS with Shadcn
+- **CSS Modules + BEM**: Semantic class names with neumorphic design patterns
+- **Design Tokens**: CSS custom properties for consistent theming
 - **Norse Naming**: Maintain mythology theme in component/function names
 - **Mobile-First**: Responsive design starting from mobile
+- **Neumorphic Architecture**: Multi-layered shadows and organic shapes
+
+## Development Guidelines
+
+### Commit Policy
+- **QA Testing Required**: Do not commit functional fixes (like component repairs) until user has completed QA testing to verify the fix is working
+- **Exception**: Commits are allowed if they are necessary as part of a larger multi-step refactor or architectural change
+- **Safe Commits**: Styling updates, documentation, and non-functional changes can be committed immediately

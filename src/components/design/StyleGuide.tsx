@@ -8,6 +8,7 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, ArrowLeft, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
+import MuscleHighlighter from '@/components/muscle-map/MuscleHighlighter'
 
 interface StyleGuideProps {
   onBack?: () => void
@@ -357,38 +358,166 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
               </div>
             </ComponentShowcase>
 
-            <ComponentShowcase title="Card Component - Enhanced Variants">
-              <div className="space-y-6">
+            <ComponentShowcase title="Card Component - Depth Utility System">
+              <div className="space-y-8">
                 <div>
-                  <h4 className="text-white font-medium mb-4">Core Variants with Semantic Classes</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <h4 className="text-white font-medium mb-4">4-Depth Utility Classes</h4>
+                  <p className="text-gray-400 text-sm mb-4">Reusable neumorphic depth utilities with consistent dual-shadow system. Each utility can be applied to any component.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Card depth="sunken">
+                      <CardHeader>
+                        <CardTitle>depth-sunken</CardTitle>
+                        <CardDescription>Content wells</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Deep inset shadows, carved into surface</p>
+                        <code className="text-xs text-norse-gold">.depth-sunken</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="flat">
+                      <CardHeader>
+                        <CardTitle>depth-flat</CardTitle>
+                        <CardDescription>Background containers</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Subtle inset, barely visible until hover</p>
+                        <code className="text-xs text-norse-gold">.depth-flat</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="subtle">
+                      <CardHeader>
+                        <CardTitle>depth-subtle</CardTitle>
+                        <CardDescription>Standard containers</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Gentle elevation, Tesla Cybertruck style</p>
+                        <code className="text-xs text-norse-gold">.depth-subtle</code>
+                      </CardContent>
+                    </Card>
+
+                    <Card depth="elevated">
+                      <CardHeader>
+                        <CardTitle>depth-elevated</CardTitle>
+                        <CardDescription>Featured content</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Prominent raised, dramatic shadows</p>
+                        <code className="text-xs text-norse-gold">.depth-elevated</code>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Card Variants with Default Depths</h4>
+                  <p className="text-gray-400 text-sm mb-4">Card variants automatically apply appropriate depth utilities, but can be overridden with the depth prop.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Card variant="sunken">
+                      <CardHeader>
+                        <CardTitle>Sunken Card</CardTitle>
+                        <CardDescription>Uses depth-sunken</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Inverted gradient + deep inset shadows</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card variant="flat">
+                      <CardHeader>
+                        <CardTitle>Flat Card</CardTitle>
+                        <CardDescription>Uses depth-flat</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-gray-400">Minimal contrast until interaction</p>
+                      </CardContent>
+                    </Card>
+
                     <Card variant="default">
                       <CardHeader>
                         <CardTitle>Default Card</CardTitle>
-                        <CardDescription>Standard neumorphic depth</CardDescription>
+                        <CardDescription>Uses depth-subtle</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-gray-300">Class: .card .card-default</p>
+                        <p className="text-xs text-gray-400">Standard neumorphic elevation</p>
                       </CardContent>
                     </Card>
 
                     <Card variant="elevated">
                       <CardHeader>
                         <CardTitle>Elevated Card</CardTitle>
-                        <CardDescription>Higher elevation</CardDescription>
+                        <CardDescription>Uses depth-elevated</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-gray-300">Class: .card .card-elevated</p>
+                        <p className="text-xs text-gray-400">Hero content with strong presence</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Depth Override Examples</h4>
+                  <p className="text-gray-400 text-sm mb-4">Any card variant can override its default depth using the depth prop.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card variant="flat" depth="elevated">
+                      <CardHeader>
+                        <CardTitle>Depth Override</CardTitle>
+                        <CardDescription>Flat card with elevated depth</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">
+                          <code className="text-norse-gold">variant="flat" depth="elevated"</code>
+                        </p>
+                        <p className="text-xs text-gray-400 mt-2">Uses elevated shadows despite flat variant</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card variant="elevated" depth="flat">
+                      <CardHeader>
+                        <CardTitle>Reverse Override</CardTitle>
+                        <CardDescription>Elevated card with flat depth</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">
+                          <code className="text-norse-gold">variant="elevated" depth="flat"</code>
+                        </p>
+                        <p className="text-xs text-gray-400 mt-2">Uses flat shadows despite elevated variant</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Special Variants</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Card variant="sunken">
+                      <CardHeader>
+                        <CardTitle>Sunken Card</CardTitle>
+                        <CardDescription>Inverted depth effect</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Inverted gradient for inset appearance</p>
                       </CardContent>
                     </Card>
 
                     <Card variant="interactive" hoverLift>
                       <CardHeader>
                         <CardTitle>Interactive Card</CardTitle>
-                        <CardDescription>Click-enabled with hover lift</CardDescription>
+                        <CardDescription>Enhanced feedback</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-gray-300">Class: .card .card-interactive</p>
+                        <p className="text-sm text-gray-300">Hover and active states with transform</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card variant="accent">
+                      <CardHeader>
+                        <CardTitle>Norse Gold Accent</CardTitle>
+                        <CardDescription>Gold-tinted variant</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-300">Gold-tinted gradient and border</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -551,6 +680,84 @@ export default function StyleGuide({ onBack }: StyleGuideProps = {}) {
       case 'custom':
         return (
           <div className="space-y-8">
+            <ComponentShowcase title="MuscleHighlighter - Single Exercise">
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-white font-medium mb-4">Bench Press - Individual Exercise</h4>
+                    <p className="text-gray-400 text-sm mb-4">Shows primary and secondary muscles for a single exercise with enhanced legend</p>
+                    <MuscleHighlighter
+                      exercise={{
+                        primaryMuscleIds: [4, 1], // Chest, Biceps
+                        secondaryMuscleIds: [5, 15], // Shoulders, Triceps
+                        name: "Bench Press"
+                      }}
+                      showLegend={true}
+                      showMuscleList={true}
+                      size="medium"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium mb-4">Pull-ups - Alternative Example</h4>
+                    <p className="text-gray-400 text-sm mb-4">Different muscle activation pattern for comparison</p>
+                    <MuscleHighlighter
+                      exercise={{
+                        primaryMuscleIds: [2, 8], // Lats, Back
+                        secondaryMuscleIds: [1, 13], // Biceps, Rear Delts
+                        name: "Pull-ups"
+                      }}
+                      showLegend={true}
+                      showMuscleList={false}
+                      size="medium"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+
+            <ComponentShowcase title="MuscleHighlighter - Workout Overview">
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <h4 className="text-white font-medium mb-4">Full Body Workout - Aggregated Muscle Activation</h4>
+                <p className="text-gray-400 text-sm mb-4">Heat map shows combined muscle activation across multiple exercises in a complete workout</p>
+                <MuscleHighlighter
+                  exercises={[
+                    {
+                      primaryMuscleIds: [4, 1], // Chest, Biceps
+                      secondaryMuscleIds: [5, 15], // Shoulders, Triceps
+                      name: "Bench Press"
+                    },
+                    {
+                      primaryMuscleIds: [2, 8], // Lats, Back
+                      secondaryMuscleIds: [1, 13], // Biceps, Rear Delts
+                      name: "Pull-ups"
+                    },
+                    {
+                      primaryMuscleIds: [10, 11], // Quads, Glutes
+                      secondaryMuscleIds: [7, 9], // Hamstrings, Calves
+                      name: "Squats"
+                    },
+                    {
+                      primaryMuscleIds: [5, 15], // Shoulders, Triceps
+                      secondaryMuscleIds: [4, 12], // Chest, Core
+                      name: "Overhead Press"
+                    }
+                  ]}
+                  showLegend={true}
+                  showMuscleList={true}
+                  size="large"
+                />
+                <div className="mt-4 p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-norse-gold font-medium mb-2">Usage Notes:</h5>
+                  <ul className="text-sm text-gray-300 space-y-1">
+                    <li>• Automatically aggregates muscle activation across all exercises</li>
+                    <li>• Responsive design: tabbed view on mobile, dual view on desktop</li>
+                    <li>• Enhanced legend shows combined muscle engagement</li>
+                    <li>• Perfect for workout planning and muscle balance analysis</li>
+                  </ul>
+                </div>
+              </div>
+            </ComponentShowcase>
+
             <ComponentShowcase title="Icon Examples">
               <div className="flex flex-wrap gap-4 p-6 bg-neu-surface shadow-neu rounded-xl">
                 <div className="flex flex-col items-center space-y-2">

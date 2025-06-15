@@ -1,5 +1,72 @@
 /* Card Component - BEM + CSS Modules Approach */
-/* Norse-themed Neumorphic Design System */
+/* Norse-themed Neumorphic Design System - 4-Depth System */
+
+/* === DEPTH UTILITY CLASSES === */
+/* Reusable neumorphic depth system for consistent elevation across components */
+
+/* DEPTH SUNKEN: Content wells, form containers, grouped content areas */
+.depth-sunken {
+  /* Deep inset neumorphic shadows - appears carved into surface */
+  box-shadow: 
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),      /* Deep dark shadow inside */
+    inset -6px -6px 12px rgba(255, 255, 255, 0.03), /* Light highlight inside */
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);         /* Stronger inner border */
+}
+
+/* DEPTH FLAT: Background containers, subtle content separation */
+.depth-flat {
+  /* Inset neumorphic shadows - barely visible until interaction */
+  box-shadow: 
+    inset 3px 3px 6px rgba(0, 0, 0, 0.15),      /* Dark shadow inside top-left */
+    inset -3px -3px 6px rgba(255, 255, 255, 0.03), /* Light highlight inside bottom-right */
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);         /* Subtle inner border */
+}
+
+/* DEPTH SUBTLE: Standard content containers, default card state */
+.depth-subtle {
+  /* Gentle elevation with soft definition - Tesla Cybertruck style */
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.2),        /* Dark shadow from bottom-right */
+    -6px -6px 12px rgba(255, 255, 255, 0.05), /* Light highlight from top-left */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02); /* Subtle inner highlight */
+}
+
+/* DEPTH ELEVATED: Featured content, important information, hero cards */
+.depth-elevated {
+  /* Prominent raised appearance with strong definition */
+  box-shadow: 
+    15px 15px 30px rgba(0, 0, 0, 0.3),         /* Maximum dark shadow */
+    -15px -15px 30px rgba(255, 255, 255, 0.08), /* Maximum light highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);  /* Strong inner highlight */
+}
+
+/* DEPTH HOVER TRANSITIONS */
+/* Progressive elevation states for interactive feedback */
+
+.depth-sunken:hover,
+.depth-flat:hover {
+  /* Transition to subtle depth on hover */
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.2),
+    -6px -6px 12px rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.depth-subtle:hover {
+  /* Enhanced subtle depth on hover */
+  box-shadow: 
+    10px 10px 20px rgba(0, 0, 0, 0.25),        /* Stronger dark shadow */
+    -10px -10px 20px rgba(255, 255, 255, 0.06), /* Stronger light highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);  /* Enhanced inner highlight */
+}
+
+.depth-elevated:hover {
+  /* Ultra-dramatic floating effect on hover */
+  box-shadow: 
+    20px 20px 40px rgba(0, 0, 0, 0.35),        /* Ultra-strong dark shadow */
+    -20px -20px 40px rgba(255, 255, 255, 0.1),  /* Ultra-strong light highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);  /* Maximum inner highlight */
+}
 
 /* === BASE CARD === */
 
@@ -7,75 +74,271 @@
   /* Core card properties */
   color: var(--text-primary);
   transition: var(--transition-all);
+  position: relative;
   
-  /* Default neumorphic styling */
+  /* Base card styling without shadows - depth applied via utility classes */
   border-radius: var(--radius-neu-lg);
-  box-shadow: var(--shadow-neu);
-  background: var(--neu-card);
+  
+  /* Base neumorphic gradient with consistent 115° angle */
+  background: linear-gradient(
+    115deg,
+    #3f424a 0%,
+    #343940 50%,
+    #2a2d35 100%
+  );
+  
+  /* Subtle light overlay from top-left */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-neu-lg);
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Ensure content appears above overlay */
+  & > * {
+    position: relative;
+    z-index: 2;
+  }
+  
   border: 1px solid var(--border-neu-light);
 }
 
-/* === CARD VARIANTS === */
+/* === CARD VARIANTS - 4-DEPTH SYSTEM === */
 
-/* Default Card - soft neumorphic depth with crisp light keyline and organic shape */
-.card-default {
-  /* Hover state for interactivity */
-  &:hover {
-    box-shadow: var(--shadow-neu-hover);
-    border-color: var(--border-neu-lighter);
-  }
-}
-
-/* Elevated Card - higher elevation with enhanced keyline and larger radius */
-.card-elevated {
-  border-radius: var(--radius-neu-xl);
-  box-shadow: var(--shadow-neu-lg);
-  border-color: var(--border-neu-lighter);
-  
-  &:hover {
-    box-shadow: var(--shadow-neu-hover);
-    border-color: var(--border-neu-light);
-  }
-}
-
-/* Sunken Card - inset appearance with inverted keyline */
-.card-sunken {
-  border-radius: var(--radius-neu);
-  box-shadow: var(--shadow-neu-inset);
-  background: var(--neu-surface);
-  border-color: var(--border-neu-subtle);
-}
-
-/* Flat Card - minimal elevation with subtle keyline */
+/* DEPTH 0: Flat/Inset - Completely flat or slightly inset */
 .card-flat {
   border-radius: var(--radius-neu);
-  box-shadow: var(--shadow-neu-flat);
-  background: var(--neu-surface);
   border-color: var(--border-neu-subtle);
   
+  /* Flat gradient with minimal contrast */
+  background: linear-gradient(
+    115deg,
+    #373a41 0%,
+    #343940 50%,
+    #31343b 100%
+  );
+  
+  /* Minimal light overlay */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      rgba(0, 0, 0, 0.01) 100%
+    );
+  }
+  
   &:hover {
-    box-shadow: var(--shadow-neu);
     border-color: var(--border-neu-light);
   }
 }
 
-/* Interactive Card - clear interaction feedback with enhanced keyline */
+/* DEPTH 1: Raised - Default card state (inherits from .card base) */
+.card-default {
+  /* Uses base card styling - raised depth level */
+  
+  &:hover {
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.2),
+      -4px -4px 12px rgba(255, 255, 255, 0.04);
+    border-color: var(--border-neu-lighter);
+    
+    /* Subtle brightness increase on hover */
+    background: linear-gradient(
+      115deg,
+      #43464e 0%,
+      #383b42 50%,
+      #2d3038 100%
+    );
+  }
+}
+
+/* DEPTH 2: Elevated - Higher elevation with enhanced depth */
+.card-elevated {
+  border-radius: var(--radius-neu-xl);
+  /* More pronounced neumorphic shadows for elevation */
+  box-shadow: 
+    10px 10px 20px rgba(0, 0, 0, 0.25),        /* Stronger dark shadow */
+    -10px -10px 20px rgba(255, 255, 255, 0.06), /* Stronger light highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);  /* Enhanced inner highlight */
+  border-color: var(--border-neu-lighter);
+  
+  /* Enhanced elevated gradient */
+  background: linear-gradient(
+    115deg,
+    #434650 0%,
+    #3e414a 50%,
+    #2f323b 100%
+  );
+  
+  /* Enhanced light overlay for premium feel */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.02) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+  }
+  
+  &:hover {
+    box-shadow: 
+      12px 12px 24px rgba(0, 0, 0, 0.25),
+      -6px -6px 18px rgba(255, 255, 255, 0.05);
+    border-color: var(--border-neu-light);
+    transform: translateY(-1px);
+    
+    /* Enhanced brightness on hover */
+    background: linear-gradient(
+      115deg,
+      #474a54 0%,
+      #42454e 50%,
+      #33363f 100%
+    );
+  }
+}
+
+/* DEPTH 3: Floating - Maximum elevation with dramatic shadows */
+.card-floating {
+  border-radius: var(--radius-neu-xl);
+  /* Maximum neumorphic depth with dramatic dual shadows */
+  box-shadow: 
+    15px 15px 30px rgba(0, 0, 0, 0.3),         /* Maximum dark shadow */
+    -15px -15px 30px rgba(255, 255, 255, 0.08), /* Maximum light highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);  /* Strong inner highlight */
+  border-color: var(--border-neu-light);
+  
+  /* Premium floating gradient with highest contrast */
+  background: linear-gradient(
+    115deg,
+    #474b55 0%,
+    #424650 50%,
+    #31343d 100%
+  );
+  
+  /* Maximum light overlay for floating effect */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      rgba(0, 0, 0, 0.03) 100%
+    );
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      16px 16px 32px rgba(0, 0, 0, 0.3),
+      -8px -8px 24px rgba(255, 255, 255, 0.06);
+    border-color: var(--border-neu-lighter);
+    
+    /* Maximum brightness on hover */
+    background: linear-gradient(
+      115deg,
+      #4b4f59 0%,
+      #464a54 50%,
+      #353841 100%
+    );
+  }
+}
+
+/* Special Variants */
+
+/* Sunken Card - Inverted depth (negative elevation) */
+.card-sunken {
+  border-radius: var(--radius-neu);
+  /* Deep inset neumorphic shadows */
+  box-shadow: 
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),      /* Deep dark shadow inside */
+    inset -6px -6px 12px rgba(255, 255, 255, 0.03), /* Light highlight inside */
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);         /* Stronger inner border */
+  border-color: var(--border-neu-subtle);
+  
+  /* Darker gradient using opacity-based blacks for true sunken effect */
+  background: linear-gradient(
+    115deg,
+    rgba(0, 0, 0, 0.4) 0%,     /* Darkest - more opaque black */
+    rgba(0, 0, 0, 0.25) 50%,   /* Medium darkness */
+    rgba(0, 0, 0, 0.15) 100%   /* Lighter - less opaque black */
+  ), #343940; /* Base surface color underneath */
+  
+  /* Inverted light overlay */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.03) 0%,
+      rgba(0, 0, 0, 0.01) 50%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  }
+}
+
+/* Interactive Card - Enhanced feedback with raised default state */
 .card-interactive {
   border-radius: var(--radius-neu-lg);
-  box-shadow: var(--shadow-neu);
-  background: var(--neu-card);
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.03);
   border-color: var(--border-neu-light);
   cursor: pointer;
   
+  /* Interactive gradient with enhanced contrast */
+  background: linear-gradient(
+    115deg,
+    #41454d 0%,
+    #3c4048 50%,
+    #2d3139 100%
+  );
+  
+  /* Enhanced light overlay for interactive feel */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.02) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+  }
+  
   &:hover {
-    box-shadow: var(--shadow-neu-hover);
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.2),
+      -4px -4px 12px rgba(255, 255, 255, 0.04);
     border-color: var(--border-neu-lighter);
     transform: scale(1.01);
+    
+    /* Enhanced brightness on hover */
+    background: linear-gradient(
+      115deg,
+      #454951 0%,
+      #40444c 50%,
+      #31353d 100%
+    );
   }
   
   &:active {
     transform: scale(0.99);
-    box-shadow: var(--shadow-neu-pressed);
+    box-shadow: 
+      inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+      inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+    
+    /* Darkened on press */
+    background: linear-gradient(
+      115deg,
+      #3d4149 0%,
+      #383c44 50%,
+      #292d35 100%
+    );
   }
 }
 
@@ -158,18 +421,70 @@
 
 /* === SPECIAL CARD TYPES === */
 
-/* Card with gradient background */
+/* Card with enhanced gradient background */
 .card-gradient {
-  background: var(--gradient-neu-card-bg);
+  /* Special multi-layer gradient with radial overlay */
+  background: 
+    radial-gradient(ellipse at top left, #4a4d55 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, #2a2d35 0%, transparent 50%),
+    linear-gradient(
+      135deg,
+      #434650 0%,
+      #3e414a 25%,
+      #393c45 50%,
+      #343740 75%,
+      #2f323b 100%
+    );
+  
+  /* Enhanced overlay for premium gradient feel */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.03) 30%,
+      rgba(255, 255, 255, 0.01) 70%,
+      rgba(0, 0, 0, 0.03) 100%
+    );
+  }
 }
 
 /* Card with Norse gold accent */
 .card-accent {
   border-color: var(--border-neu-gold-light);
   
+  /* Gold-tinted gradient */
+  background: linear-gradient(
+    135deg,
+    #4a4741 0%,    /* Gold-tinted lighter top-left */
+    #454037 25%,   /* Gold-tinted mid-light */
+    #403b32 50%,   /* Gold-tinted middle */
+    #3b362d 75%,   /* Gold-tinted mid-dark */
+    #363128 100%   /* Gold-tinted darker bottom-right */
+  );
+  
+  /* Gold-tinted overlay */
+  &::before {
+    background: linear-gradient(
+      45deg,
+      rgba(195, 168, 105, 0.08) 0%,  /* Norse gold highlight */
+      rgba(195, 168, 105, 0.03) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+  }
+  
   &:hover {
     border-color: var(--border-neu-gold-subtle);
     box-shadow: var(--shadow-neu-gold-hover);
+    
+    /* Enhanced gold gradient on hover */
+    background: linear-gradient(
+      135deg,
+      #4e4b45 0%,    /* Brighter gold-tinted on hover */
+      #49443b 25%,
+      #444036 50%,
+      #3f3a31 75%,
+      #3a352c 100%
+    );
   }
 }
 

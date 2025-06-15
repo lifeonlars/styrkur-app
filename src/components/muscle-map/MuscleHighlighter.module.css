@@ -10,6 +10,16 @@
   gap: var(--spacing-4);
 }
 
+/* === RESPONSIVE WRAPPER === */
+
+.responsive-wrapper {
+  /* Full width container for responsive views */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* No gap between single/dual views since only one shows */
+}
+
 /* === BODY VIEW CONTAINER === */
 
 .body-views {
@@ -17,6 +27,17 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-6);
+  width: 100%;
+  
+  /* Responsive behavior for dual view */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  
+  /* On large screens, ensure proper side-by-side layout */
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap; /* Prevent wrapping on desktop */
+    gap: var(--spacing-4); /* Reduce gap slightly for better fit */
+    max-width: 100%; /* Ensure container doesn't exceed parent */
+  }
 }
 
 .body-view {
@@ -25,7 +46,37 @@
   box-shadow: var(--shadow-neu);
   background: var(--neu-card);
   border: 1px solid var(--border-neu-light);
-  padding: var(--spacing-4);
+  
+  /* Expanded padding and centering for muscle maps */
+  padding: var(--spacing-6); /* Increased from spacing-4 */
+  min-width: 280px; /* Ensure adequate width */
+  
+  /* Perfect centering for SVG content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Responsive sizing for dual view */
+  flex: 1; /* Allow equal distribution in dual view */
+  max-width: 100%; /* Prevent overflow */
+  
+  /* Desktop dual view optimizations */
+  @media (min-width: 1024px) {
+    /* In dual view context, make containers more compact */
+    min-width: 0; /* Allow shrinking below minimum */
+    width: 0; /* Start with no intrinsic width */
+    padding: var(--spacing-4); /* Reduce padding more significantly */
+    flex: 1 1 50%; /* Grow, shrink, 50% basis for equal distribution */
+    max-width: 50%; /* Hard limit to ensure two fit side by side */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  /* Extra large screens - restore more generous sizing */
+  @media (min-width: 1400px) {
+    min-width: 280px; /* Restore larger size on big screens */
+    padding: var(--spacing-6); /* Restore full padding */
+    max-width: none; /* Remove max-width restriction */
+  }
   
   /* Smooth transitions */
   transition: var(--transition-all);
@@ -39,15 +90,46 @@
 /* === SIZE VARIANTS === */
 
 .body-view-small {
-  padding: var(--spacing-3);
+  padding: var(--spacing-4); /* Increased from spacing-3 */
+  min-width: 240px; /* Smaller but still adequate */
+  
+  @media (min-width: 1024px) {
+    min-width: 0; /* Allow shrinking */
+    padding: var(--spacing-3); /* Compact padding */
+    flex: 1 1 50%; /* Equal distribution */
+    max-width: 50%; /* Hard limit */
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 1400px) {
+    min-width: 240px;
+    padding: var(--spacing-4);
+  }
 }
 
 .body-view-medium {
-  padding: var(--spacing-4);
+  padding: var(--spacing-6); /* Increased from spacing-4 */
+  min-width: 280px; /* Standard width */
+  
+  /* Inherits the responsive behavior from .body-view */
 }
 
 .body-view-large {
-  padding: var(--spacing-6);
+  padding: var(--spacing-8); /* Increased from spacing-6 */
+  min-width: 320px; /* Larger width for large variant */
+  
+  @media (min-width: 1024px) {
+    min-width: 0; /* Allow shrinking */
+    padding: var(--spacing-5); /* Moderate padding */
+    flex: 1 1 50%; /* Equal distribution */
+    max-width: 50%; /* Hard limit */
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 1400px) {
+    min-width: 320px; /* Full size on large screens */
+    padding: var(--spacing-8);
+  }
 }
 
 /* === MOBILE TABS === */
@@ -268,23 +350,46 @@
 
 /* === RESPONSIVE DESIGN === */
 
-/* Single view for mobile/tablet */
+/*
+ * MOBILE-FIRST RESPONSIVE MUSCLE MAP SYSTEM
+ * 
+ * Strategy:
+ * - Mobile/Tablet (< 1024px): Single view with tabs (front/back switching)
+ * - Desktop (≥ 1024px): Dual view showing both front and back simultaneously
+ * - Force single view: Always show single view regardless of screen size
+ */
+
+/* Force single view mode - always visible, overrides responsive behavior */
 .single-view {
   display: block;
 }
 
+/* Force dual view mode - always hidden (used when forceSingleView=true) */
 .dual-view {
   display: none;
 }
 
-/* Dual view for desktop */
+/* Responsive single view - default on mobile, hidden on desktop */
+.single-view-responsive {
+  display: block; /* Mobile default: show single view with tabs */
+}
+
+/* Responsive dual view - hidden on mobile, shown on desktop */
+.dual-view-responsive {
+  display: none; /* Mobile default: hide dual view */
+}
+
+/* Desktop breakpoint: Switch to dual view layout */
 @media (min-width: 1024px) {
   .single-view-responsive {
-    display: none;
+    display: none; /* Desktop: hide single view */
   }
   
   .dual-view-responsive {
-    display: block;
+    display: block; /* Desktop: show dual view (front + back) */
+    width: 100%; /* Ensure full width utilization */
+    max-width: 100%; /* Prevent overflow */
+    overflow: hidden; /* Prevent content overflow */
   }
 }
 
