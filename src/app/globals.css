@@ -5,6 +5,9 @@
 /* Import design tokens for CSS Modules approach */
 @import '../styles/design-tokens.css';
 
+/* Import neumorphic utilities for global use */
+@import '../styles/neumorphic-utilities.css';
+
 @layer base {
   :root {
     --primary-color: #C3A869;
