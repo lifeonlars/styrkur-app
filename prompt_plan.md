@@ -1,92 +1,131 @@
-# Styleguide Refactor Plan - Revised Current State
+# Phase 8 Implementation Plan - Missing Components
 
-## Current Status: Phase 6 Partially Complete, Need Border Fix
+## Overview: Three-Part Implementation
 
-### Documentation Consolidation: ✅ COMPLETE
-- [x] Created unified `DESIGN_SYSTEM.md`
-- [x] Enhanced `rules.md` with component patterns
-- [x] Established clean documentation hierarchy
+This phase completes the component library by adding missing form components, creating tabs, and cleaning organization. Work through each part systematically.
 
-### Migration Complete: ✅ COMPLETE
-- [x] All routes functional and accessible
-- [x] Content migrated from original StyleGuide.tsx
-- [x] Navigation and routing working properly
+## Part A: Add Tabs Component 🔄 START HERE
 
-## Phase 6: Foundations Fixes 🔄 IN PROGRESS
+### Implementation Steps:
+1. **Update subsections array** - Add 'tabs' to navigation
+2. **Create tabs case** in renderContent() switch statement  
+3. **Implement tab states** - Active (Norse gold), default, hover, disabled
+4. **Add tab content container** - Sunken styling to show relationship
+5. **Test navigation** - Ensure tabs section is accessible
 
-### Completed Phase 6 Tasks ✅
-- [x] **Move card gradients/borders to foundations** - Content reorganized
-- [x] **Label old neumorphic system** - Marked as deprecated
-- [x] **Fix depth-flat shadows** - No shadows applied correctly
-- [x] **Fix surface-gold readability** - Dark text added for contrast
+### Success Criteria for Part A:
+- [ ] Tabs appear in secondary navigation
+- [ ] Tab component shows all states properly
+- [ ] Active tab uses Norse gold styling
+- [ ] Content container has sunken appearance
+- [ ] Hover effects work on inactive tabs only
 
-### Current Phase 6 Task 🔄
-- [ ] **Fix border utility lighting** - Need directional borders (light source top-left)
-  - Border utilities should not override surface utilities ✅ (fixed)
-  - Need proper neumorphic lighting: light top/left, dark bottom/right
-  - Keep crisp border at 2px, subtle at 1px
+## Part B: Expand Forms Section 🔄 AFTER PART A
 
-### Phase 6 Success Criteria
-- [x] Border utilities don't override surface utilities
-- [x] Depth-flat has absolutely no shadows
-- [x] Surface-gold has dark text for readability
-- [ ] Borders follow neumorphic lighting physics (TOP PRIORITY)
+### Implementation Steps:
+1. **Add radio buttons** - Selected (Norse gold), unselected, disabled states
+2. **Add toggle switches** - On/off/disabled with smooth transitions  
+3. **Add select dropdown** - Custom styling with neumorphic appearance
+4. **Move checkboxes** - From UI Elements to Forms section
+5. **Test form components** - All interactive states working
 
-## Phase 7: Component Refinement 📋 READY AFTER PHASE 6
+### Success Criteria for Part B:
+- [ ] Radio buttons follow Norse styling (gold when selected)
+- [ ] Toggle switches animate smoothly between states
+- [ ] Select dropdown has proper neumorphic styling and custom arrow
+- [ ] Checkboxes successfully moved from UI Elements
+- [ ] All form components maintain accessibility
 
-### Cards - Replace with 9 Utility Archetypes
-**Current**: 4 working cards (Default, Elevated, Sunken, Flat)
-**Goal**: 9 complete archetypes showcasing all utility combinations
+## Part C: Clean UI Elements 🔄 AFTER PART B
 
-#### Standard Archetypes (6)
-- [ ] **Sunken-transparent**: `depth-sunken` + transparent background + transparent border
-- [ ] **Sunken-concave**: `depth-sunken` + `surface-concave` + transparent border ✅ (exists)
-- [ ] **Flat**: `depth-flat` + `surface-flat` + transparent border ✅ (exists)
-- [ ] **Subtle-convex**: `depth-subtle` + `surface-convex` + `border-subtle` ✅ (exists as Default)
-- [ ] **Subtle-concave**: `depth-subtle` + `surface-concave` + `border-subtle`
-- [ ] **Elevated-convex**: `depth-elevated` + `surface-convex` + `border-crisp` ✅ (exists as Elevated)
+### Implementation Steps:
+1. **Remove action buttons** - Delete entire ComponentShowcase section
+2. **Remove status indicators** - Delete entire ComponentShowcase section  
+3. **Remove checkboxes** - Already moved to Forms in Part B
+4. **Keep chips and icons** - Preserve existing implementations
+5. **Add refactoring note** - Future enhancement roadmap
 
-#### Premium Archetypes (3)
-- [ ] **Elevated-concave**: `depth-elevated` + `surface-concave` + `border-crisp`
-- [ ] **Gold**: `depth-elevated` + `surface-gold` + `border-crisp`
-- [ ] **Interactive**: `border-glow` + hover animation (stackable utility)
+### Success Criteria for Part C:
+- [ ] Action buttons section completely removed
+- [ ] Status indicators section completely removed
+- [ ] Checkboxes no longer in UI Elements (moved to Forms)
+- [ ] Chips section preserved unchanged
+- [ ] Icon variations section preserved unchanged
+- [ ] Refactoring roadmap note added
 
-### Remove from Cards
-- [ ] **Special variants section** - Not needed in new archetype system
+## Implementation Guidelines
 
-### Buttons - Standardize Hierarchy
-- [ ] **Primary**: `depth-elevated` + `surface-gold` + `border-crisp`
-- [ ] **Secondary**: `depth-subtle` + `surface-convex` + `border-subtle`
-- [ ] **Tertiary**: `depth-flat` + transparent background + transparent border
-- [ ] **Delete/Danger**: New red variant for destructive actions
+### Design Consistency Rules:
+- **Norse gold** for all active/selected states
+- **Neumorphic shadows** using existing utility classes
+- **Consistent sizing** with existing input/button system
+- **Accessibility first** - proper labels, focus states, ARIA
 
-## Phase 8: Missing Components 📋 FUTURE
+### Code Organization:
+- **Follow existing patterns** - Match current component structure
+- **Use semantic HTML** - Proper form elements with labels
+- **Maintain responsive design** - Mobile-friendly layouts
+- **CSS class consistency** - Follow BEM naming if creating new styles
 
-### Add Components
-- [ ] Tabs (based on current subnav)
-- [ ] Expanded Forms (checkboxes, radio, toggles, select)
-- [ ] Clean up UI Elements
+### Testing Checklist After Each Part:
+- [ ] Visual states render correctly
+- [ ] Interactive states work (hover, focus, active)
+- [ ] Accessibility preserved (keyboard navigation, screen readers)
+- [ ] Responsive behavior maintained
+- [ ] No console errors or warnings
 
-## Critical Notes
+## Troubleshooting Guide
 
-### What's Working - DON'T CHANGE ⚠️
-- **Shadow system** - Current large, soft neumorphic shadows are CORRECT
-- **Sunken cards** - Perfect inset appearance
-- **Surface utilities** - Gold, convex, concave, flat all working
-- **Depth progression** - Clear hierarchy from flat → subtle → elevated
+### If Part A Fails:
+- Check subsections array syntax
+- Verify renderContent() switch case structure
+- Ensure tab styling classes are available
 
-### What Needs Fixing 🔧
-- **Border lighting physics** - Need directional borders for proper neumorphism
-- **Missing card archetypes** - Only 4 of 9 implemented
-- **Special variants cleanup** - Remove inconsistent custom styling
+### If Part B Fails:
+- Break into smaller chunks (radio only, then toggle only, etc.)
+- Check existing form styling for consistency
+- Verify checkbox move doesn't break existing forms
 
-### Anti-Patterns to Avoid ❌
-- **Don't change shadow system** - Large, soft shadows are correct for neumorphism
-- **Don't create new CSS** - Use existing utility combinations only
-- **Don't lose working examples** - Preserve current good cards
+### If Part C Fails:
+- Remove sections one at a time
+- Verify remaining sections still render correctly
+- Check that removals don't affect other components
+
+## Success Metrics
+
+### Functional Success:
+- All new components render without errors
+- Interactive states work as expected
+- Navigation between sections smooth
+- Form components are accessible
+
+### Design Success:
+- Norse neumorphic styling consistent throughout
+- Visual hierarchy maintained
+- Active states use proper Norse gold
+- Shadows and surfaces follow established patterns
+
+### Organization Success:
+- Clean component library structure
+- Logical grouping (forms together, deprecated removed)
+- Clear refactoring roadmap for future work
+- Maintainable code structure
+
+## Post-Implementation
+
+### Update Documentation:
+- [ ] Mark Phase 8 complete in main prompt_plan.md
+- [ ] Document any deviations from original plan
+- [ ] Note any components that need future refinement
+
+### Quality Assurance:
+- [ ] Test all new components thoroughly
+- [ ] Verify accessibility compliance
+- [ ] Check responsive behavior across devices
+- [ ] Confirm no regressions in existing components
 
 ---
 
-**Current Priority**: Fix border lighting physics, then add missing card archetypes
+**Current Priority**: Start with Part A (Tabs). Complete each part fully before moving to the next.
 
-**Next Update**: After border fix completion, proceed to Phase 7 card archetype expansion
+**Note**: If any part becomes too complex, break it down further and update this plan accordingly.

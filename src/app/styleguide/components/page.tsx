@@ -5,7 +5,7 @@ import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
-import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
+import { Plus, Settings, Heart, Trash2, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
 
 export default function ComponentsPage() {
   const [activeSubsection, setActiveSubsection] = useState('overview')
@@ -15,6 +15,7 @@ export default function ComponentsPage() {
     { id: 'buttons', label: 'Buttons' },
     { id: 'cards', label: 'Cards' },
     { id: 'forms', label: 'Forms' },
+    { id: 'tabs', label: 'Tabs' },
     { id: 'ui-elements', label: 'UI Elements' },
   ]
 
@@ -372,6 +373,250 @@ export default function ComponentsPage() {
                     </div>
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Radio Buttons */}
+                  <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                    <h4 className="text-white font-medium mb-4">Radio Buttons</h4>
+                    <p className="text-gray-400 text-sm mb-4">Single selection from multiple options</p>
+                    <div className="space-y-3">
+                      {/* Selected */}
+                      <div className="flex items-center space-x-3">
+                        <div className="relative">
+                          <input type="radio" checked readOnly className="sr-only" id="radio-selected" name="radio-example" />
+                          <div className="w-5 h-5 bg-norse-gold rounded-full shadow-neu-gold flex items-center justify-center">
+                            <div className="w-2 h-2 bg-black rounded-full"></div>
+                          </div>
+                        </div>
+                        <label htmlFor="radio-selected" className="text-white text-sm font-medium">Selected option</label>
+                      </div>
+
+                      {/* Unselected */}
+                      <div className="flex items-center space-x-3">
+                        <div className="relative">
+                          <input type="radio" readOnly className="sr-only" id="radio-unselected" name="radio-example" />
+                          <div className="w-5 h-5 bg-neu-card border border-gray-600 rounded-full shadow-neu-inset"></div>
+                        </div>
+                        <label htmlFor="radio-unselected" className="text-white text-sm font-medium">Unselected option</label>
+                      </div>
+
+                      {/* Disabled */}
+                      <div className="flex items-center space-x-3 opacity-50">
+                        <div className="relative">
+                          <input type="radio" disabled readOnly className="sr-only" id="radio-disabled" name="radio-example" />
+                          <div className="w-5 h-5 bg-gray-700 border border-gray-600 rounded-full"></div>
+                        </div>
+                        <label htmlFor="radio-disabled" className="text-gray-400 text-sm">Disabled option</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Toggle Switches */}
+                  <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                    <h4 className="text-white font-medium mb-4">Toggle Switches</h4>
+                    <p className="text-gray-400 text-sm mb-4">Binary on/off controls</p>
+                    <div className="space-y-4">
+                      {/* Toggle On */}
+                      <div className="flex items-center justify-between">
+                        <label className="text-white text-sm font-medium">Enable notifications</label>
+                        <div className="relative">
+                          <input type="checkbox" checked readOnly className="sr-only" id="toggle-on" />
+                          <div className="w-11 h-6 bg-norse-gold rounded-full shadow-neu-gold flex items-center transition-all duration-200">
+                            <div className="w-5 h-5 bg-black rounded-full shadow-neu transform translate-x-5 transition-transform duration-200"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Toggle Off */}
+                      <div className="flex items-center justify-between">
+                        <label className="text-white text-sm font-medium">Dark mode</label>
+                        <div className="relative">
+                          <input type="checkbox" readOnly className="sr-only" id="toggle-off" />
+                          <div className="w-11 h-6 bg-neu-card shadow-neu-inset rounded-full flex items-center transition-all duration-200">
+                            <div className="w-5 h-5 bg-gray-600 rounded-full shadow-neu transform translate-x-0 transition-transform duration-200"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Toggle Disabled */}
+                      <div className="flex items-center justify-between opacity-50">
+                        <label className="text-gray-400 text-sm">Experimental features</label>
+                        <div className="relative">
+                          <input type="checkbox" disabled readOnly className="sr-only" id="toggle-disabled" />
+                          <div className="w-11 h-6 bg-gray-700 rounded-full flex items-center">
+                            <div className="w-5 h-5 bg-gray-600 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Select Dropdown */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Select Dropdown</h4>
+                  <p className="text-gray-400 text-sm mb-4">Single selection from dropdown list</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Default Select */}
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Workout Type</label>
+                      <div className="relative">
+                        <select className="w-full px-3 py-2 bg-neu-card text-white border border-gray-600 rounded-lg shadow-neu-inset focus:outline-none focus:ring-2 focus:ring-norse-gold appearance-none">
+                          <option>Select workout type...</option>
+                          <option>Strength Training</option>
+                          <option>Cardio</option>
+                          <option>Flexibility</option>
+                          <option>Sports</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Large Select */}
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Equipment</label>
+                      <div className="relative">
+                        <select className="w-full px-4 py-3 bg-neu-card text-white border border-gray-600 rounded-lg shadow-neu-inset focus:outline-none focus:ring-2 focus:ring-norse-gold appearance-none text-lg">
+                          <option>Select equipment...</option>
+                          <option>Dumbbells</option>
+                          <option>Barbell</option>
+                          <option>Bodyweight</option>
+                          <option>Machines</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Checkboxes - Moved from UI Elements */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Checkboxes</h4>
+                  <p className="text-gray-400 text-sm mb-4">Multiple selection options</p>
+                  <div className="space-y-3">
+                    {/* Checked */}
+                    <div className="flex items-center space-x-3">
+                      <div className="relative">
+                        <input 
+                          type="checkbox" 
+                          checked 
+                          readOnly
+                          className="sr-only" 
+                          id="checkbox-checked-forms"
+                        />
+                        <div className="w-5 h-5 bg-norse-gold text-black rounded shadow-neu-gold flex items-center justify-center">
+                          <Check className="w-3 h-3" />
+                        </div>
+                      </div>
+                      <label htmlFor="checkbox-checked-forms" className="text-white text-sm font-medium">
+                        Checked state
+                      </label>
+                    </div>
+                    
+                    {/* Unchecked */}
+                    <div className="flex items-center space-x-3">
+                      <div className="relative">
+                        <input 
+                          type="checkbox" 
+                          readOnly
+                          className="sr-only" 
+                          id="checkbox-unchecked-forms"
+                        />
+                        <div className="w-5 h-5 bg-neu-card border border-gray-600 rounded shadow-neu-inset">
+                        </div>
+                      </div>
+                      <label htmlFor="checkbox-unchecked-forms" className="text-white text-sm font-medium">
+                        Unchecked state
+                      </label>
+                    </div>
+                    
+                    {/* Disabled */}
+                    <div className="flex items-center space-x-3 opacity-50">
+                      <div className="relative">
+                        <input 
+                          type="checkbox" 
+                          disabled 
+                          readOnly
+                          className="sr-only" 
+                          id="checkbox-disabled-forms"
+                        />
+                        <div className="w-5 h-5 bg-gray-700 border border-gray-600 rounded">
+                        </div>
+                      </div>
+                      <label htmlFor="checkbox-disabled-forms" className="text-gray-400 text-sm">
+                        Disabled state
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+          </div>
+        )
+
+      case 'tabs':
+        return (
+          <div className="space-y-8">
+            <ComponentShowcase title="Tabs - Navigation Component">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Default Tabs</h4>
+                  <p className="text-gray-400 text-sm mb-4">Based on current styleguide secondary navigation pattern</p>
+                  
+                  {/* Tab Navigation */}
+                  <div className="flex flex-wrap gap-2 p-2 bg-neu-surface shadow-neu rounded-xl mb-4">
+                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-norse-gold text-black shadow-neu-gold">
+                      Active Tab
+                    </button>
+                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-neu-surface text-gray-300 hover:text-white hover:shadow-neu transition-all duration-200">
+                      Default Tab
+                    </button>
+                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-neu-surface text-gray-300 hover:text-white hover:shadow-neu transition-all duration-200">
+                      Another Tab
+                    </button>
+                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-neu-surface text-gray-400 opacity-50 cursor-not-allowed">
+                      Disabled Tab
+                    </button>
+                  </div>
+
+                  {/* Tab Content */}
+                  <div className="p-4 bg-neu-card shadow-neu-inset rounded-xl">
+                    <h5 className="text-white font-medium mb-2">Active Tab Content</h5>
+                    <p className="text-gray-300 text-sm">This content corresponds to the currently active tab. Tab content should be contained within a sunken container to show the relationship.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Tab States Reference</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <h5 className="text-norse-gold font-medium mb-2">CSS Classes:</h5>
+                      <ul className="text-xs text-gray-400 space-y-1 font-mono">
+                        <li>• .tab (base component)</li>
+                        <li>• .tab--active (Norse gold)</li>
+                        <li>• .tab--disabled (reduced opacity)</li>
+                        <li>• .tab__content (sunken container)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="text-norse-gold font-medium mb-2">Usage Notes:</h5>
+                      <ul className="text-xs text-gray-400 space-y-1">
+                        <li>• Only one active tab at a time</li>
+                        <li>• Content shows in sunken container</li>
+                        <li>• Hover effects on inactive tabs only</li>
+                        <li>• Disabled tabs are non-interactive</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </ComponentShowcase>
           </div>
@@ -380,105 +625,13 @@ export default function ComponentsPage() {
       case 'ui-elements':
         return (
           <div className="space-y-8">
-            <ComponentShowcase title="Action Buttons">
-              <div className="flex flex-wrap gap-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <button className="p-2 bg-neu-surface shadow-neu rounded-lg hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Edit className="w-5 h-5 text-gray-300" />
-                </button>
-                <button className="p-2 bg-ocean-500 shadow-neu rounded-lg hover:bg-ocean-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Share className="w-5 h-5 text-white" />
-                </button>
-                <button className="p-2 bg-forest-500 shadow-neu rounded-lg hover:bg-forest-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Download className="w-5 h-5 text-white" />
-                </button>
-                <button className="p-2 bg-blood-500 shadow-neu rounded-lg hover:bg-blood-400 hover:shadow-neu-hover active:shadow-neu-pressed transition-all duration-200">
-                  <Trash2 className="w-5 h-5 text-white" />
-                </button>
-              </div>
-            </ComponentShowcase>
-
-            <ComponentShowcase title="Status Indicators">
-              <div className="flex flex-wrap gap-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div className="flex items-center space-x-2 px-3 py-2 bg-forest-500 text-white shadow-neu rounded-lg">
-                  <Check className="w-4 h-4" />
-                  <span className="text-sm font-medium">Success</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-blood-500 text-white shadow-neu rounded-lg">
-                  <X className="w-4 h-4" />
-                  <span className="text-sm font-medium">Error</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-wood-500 text-white shadow-neu rounded-lg">
-                  <Clock className="w-4 h-4" />
-                  <span className="text-sm font-medium">Warning</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-ocean-500 text-white shadow-neu rounded-lg">
-                  <Search className="w-4 h-4" />
-                  <span className="text-sm font-medium">Info</span>
-                </div>
-                <div className="flex items-center space-x-2 px-3 py-2 bg-iron-500 text-gray-300 shadow-neu rounded-lg">
-                  <Settings className="w-4 h-4" />
-                  <span className="text-sm font-medium">Neutral</span>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            <ComponentShowcase title="Checkboxes">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl max-w-md">
-                {/* Checked */}
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      checked 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-checked"
-                    />
-                    <div className="w-5 h-5 bg-norse-gold text-black rounded shadow-neu-gold flex items-center justify-center">
-                      <Check className="w-3 h-3" />
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-checked" className="text-white text-sm font-medium">
-                    Checked state
-                  </label>
-                </div>
-                
-                {/* Unchecked */}
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-unchecked"
-                    />
-                    <div className="w-5 h-5 bg-neu-card border border-gray-600 rounded shadow-neu-inset">
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-unchecked" className="text-white text-sm font-medium">
-                    Unchecked state
-                  </label>
-                </div>
-                
-                {/* Disabled */}
-                <div className="flex items-center space-x-3 opacity-50">
-                  <div className="relative">
-                    <input 
-                      type="checkbox" 
-                      disabled 
-                      readOnly
-                      className="sr-only" 
-                      id="checkbox-disabled"
-                    />
-                    <div className="w-5 h-5 bg-gray-700 border border-gray-600 rounded">
-                    </div>
-                  </div>
-                  <label htmlFor="checkbox-disabled" className="text-gray-400 text-sm">
-                    Disabled state
-                  </label>
-                </div>
-              </div>
-            </ComponentShowcase>
+            {/* Refactoring Notice */}
+            <div className="p-4 bg-wood-500/10 border border-wood-500/20 rounded-xl">
+              <h3 className="text-wood-400 font-medium mb-2">🔄 Future Refactoring</h3>
+              <p className="text-wood-400 text-sm">
+                These components will be converted to the utility system in a future update. Currently kept for reference and legacy compatibility.
+              </p>
+            </div>
 
             <ComponentShowcase title="Chips">
               <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
