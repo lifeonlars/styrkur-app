@@ -9,7 +9,7 @@
   color: var(--text-primary);
   transition: var(--transition-all);
   position: relative;
-  
+
   /* Standardized border radius for neumorphic aesthetic */
   border-radius: 1.5rem; /* 24px */
 }
@@ -40,15 +40,8 @@
 /* Interactive Card - Only variant with hover effects */
 .card-interactive {
   cursor: pointer;
-  
-  &:hover {
-    transform: scale(1.01);
-  }
-  
-  &:active {
-    transform: scale(0.99);
-  }
 }
+
 
 /* === CARD CONTENT SECTIONS === */
 
@@ -90,17 +83,17 @@
   & .card-header {
     padding: var(--spacing-4);
   }
-  
+
   & .card-content {
     padding: var(--spacing-4);
     padding-top: 0;
   }
-  
+
   & .card-footer {
     padding: var(--spacing-4);
     padding-top: 0;
   }
-  
+
   & .card-title {
     font-size: var(--font-size-lg);
   }
@@ -111,17 +104,17 @@
   & .card-header {
     padding: var(--spacing-8);
   }
-  
+
   & .card-content {
     padding: var(--spacing-8);
     padding-top: 0;
   }
-  
+
   & .card-footer {
     padding: var(--spacing-8);
     padding-top: 0;
   }
-  
+
   & .card-title {
     font-size: var(--font-size-3xl);
   }
@@ -152,7 +145,7 @@
 .card-loading {
   pointer-events: none;
   opacity: 0.7;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -171,7 +164,7 @@
 /* Card with hover lift effect */
 .card-hover-lift {
   transition: var(--transition-all);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-neu-lg);
