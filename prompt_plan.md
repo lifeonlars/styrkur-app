@@ -1,204 +1,154 @@
-# Styleguide Restructure Prompt Plan
+# Styleguide Refactor Plan - Post-Audit
 
-## Current Status: Planning Phase
+## Current Status: Restructure Complete, Refinement Needed
 
-### Documentation Consolidation: ✅ COMPLETE
+### Migration Complete: ✅ DONE
 
-- [x] Created unified `DESIGN_SYSTEM.md` (consolidated STYLING.md + docs/design-system.md)
-- [x] Enhanced `rules.md` with component patterns
-- [x] Identified conflicts and redundancies
-- [x] Established clean documentation hierarchy
+- [x] All routes functional and accessible
+- [x] Content migrated from original StyleGuide.tsx
+- [x] Navigation and routing working properly
 
-### Next Phase: Implementation
+### Next Phase: Design System Refinement
 
-## Phase 1: Audit & Setup 🔄 IN PROGRESS
+## Phase 6: Foundations Fixes 🔄 HIGH PRIORITY
 
-### Tasks
+### Critical Bug Fixes
 
-- [ ] **Audit current StyleGuide.tsx** - Map content to new route structure
-- [ ] **Create app router structure** - `/app/styleguide` with nested routes
-- [ ] **Design shared layout** - Sticky navigation for all styleguide routes
-- [ ] **Plan content migration** - Without losing existing examples
+- [ ] **Fix border utility background override** - Border classes overriding surface utilities
+- [ ] **Fix surface-gold readability** - Add dark text for contrast
+- [ ] **Fix depth-flat shadows** - Should have NO shadows, not subtle sunken
+- [ ] **Fix border examples** - Show without shadows/elevation for clarity
 
-### Success Criteria
+### Utility System Improvements
 
-- All existing StyleGuide.tsx content mapped to appropriate routes
-- App router structure created with proper nested routing
-- Shared layout component designed with sticky navigation
-- Migration plan documented without data loss
-
-## Phase 2: Route Structure Creation
-
-### Tasks
-
-- [ ] **Create `/app/styleguide/page.tsx`** - Landing page with navigation cards
-- [ ] **Create `/app/styleguide/layout.tsx`** - Shared navigation component
-- [ ] **Create route directories** - foundations, components, patterns, brand
-- [ ] **Test navigation** - Between all sections
+- [ ] **Move card gradients/borders to foundations** - Extract from Cards section
+- [ ] **Update border-neu-glow** - Blue ocean glow, wider and softer
+- [ ] **Update border-neu-crisp** - 2px, brighter (reference existing buttons)
+- [ ] **Enhance surface-gold gradient** - Split into 3-4 gradient levels for more depth
+- [ ] **Label old neumorphic system** - Mark as deprecated but keep for reference
 
 ### Success Criteria
 
-- All routes accessible and properly nested
-- Navigation remains consistent across routes
-- Proper meta titles and SEO for each section
-- Bookmarkable URLs working correctly
+- Border utilities don't override surface utilities
+- All depth utilities work as intended (flat = no shadows)
+- Glow effect actually glows with ocean blue
+- Surface-gold has proper contrast and depth variations
 
-## Phase 3: Content Migration
+## Phase 7: Component Refinement 🔄 MEDIUM PRIORITY
 
-### Sub-phase 3a: Foundations Route
+### Cards - Utility Combinations Focus
 
-- [ ] **Extract color system** - From current StyleGuide.tsx
-- [ ] **Extract typography** - Scale and hierarchy examples
-- [ ] **Extract neumorphic system** - Depth/surface/border combinations
-- [ ] **Extract spacing/layout** - Visual scale demonstrations
+Replace current card examples with proper archetype combinations:
 
-### Sub-phase 3b: Components Route
+- [ ] **Sunken-transparent**: `depth-sunken` + transparent background + transparent border
+- [ ] **Sunken-concave**: `depth-sunken` + `surface-concave` + transparent border
+- [ ] **Flat**: `depth-flat` + `surface-flat` + transparent border
+- [ ] **Subtle-convex**: `depth-subtle` + `surface-convex` + `border-subtle`
+- [ ] **Subtle-concave**: `depth-subtle` + `surface-concave` + `border-subtle`
+- [ ] **Elevated-convex**: `depth-elevated` + `surface-convex` + `border-crisp`
+- [ ] **Elevated-concave**: `depth-elevated` + `surface-concave` + `border-crisp`
+- [ ] **Gold**: `depth-elevated` + `surface-gold` + `border-crisp`
+- [ ] **Interactive**: `border-glow` + hover animation (stackable utility)
+- [ ] **Remove special variants** - Norse gold accent section
 
-- [ ] **Extract all components** - With current state demonstrations
-- [ ] **Organize by category** - Forms, Navigation, Display, Feedback
-- [ ] **Add secondary navigation** - For component categories
-- [ ] **Preserve all examples** - Don't lose existing demonstrations
+### Buttons - Standardization
 
-### Sub-phase 3c: Patterns Route (Placeholder)
-
-- [ ] **Create structure** - For future workout-specific patterns
-- [ ] **Add placeholder sections** - Exercise views, workout cards, logging
-- [ ] **Prepare for expansion** - Clear areas for future development
-
-### Sub-phase 3d: Brand Route
-
-- [ ] **Audit /public folder** - For existing brand assets
-- [ ] **Create logo showcase** - Variations and usage examples
-- [ ] **Document Norse gold usage** - Brand color applications
-- [ ] **Add icon system** - Using only existing assets
-
-### Success Criteria for Phase 3
-
-- All content from StyleGuide.tsx successfully migrated
-- No visual examples lost in migration
-- Proper organization across all routes
-- Secondary navigation working in components section
-
-## Phase 4: Enhancement & Polish
-
-### Tasks
-
-- [ ] **Optimize for AI reference** - Clear visual examples for Claude Code
-- [ ] **Add status tracking** - ✅ Ready, 🔄 In Progress, 🔬 Experimental
-- [ ] **Implement responsive tests** - Mobile/desktop behavior examples
-- [ ] **Add interaction demos** - Hover, focus, active, disabled states
-- [ ] **Performance optimization** - Lazy loading for heavy visual content
+- [ ] **Primary button**: `depth-elevated` + `surface-gold` + `border-crisp`
+- [ ] **Secondary button**: `depth-subtle` + `surface-convex` + `border-subtle`
+- [ ] **Tertiary button**: `depth-flat` + transparent background + transparent border
+- [ ] **Delete button**: New variant using danger/error red color
+- [ ] **Update minimalist example** - Replace delete with info button + arrow
 
 ### Success Criteria
 
-- Styleguide serves as effective AI consistency tool
-- All component states properly demonstrated
-- Performance optimized for fast navigation
-- Visual regression testing capabilities in place
+- Cards showcase proper utility combinations, not custom styling
+- Buttons follow consistent depth/surface/border logic
+- Delete button variant properly implemented
+- Special variants section removed
 
-## Phase 5: Verification & Documentation
+## Phase 8: Missing Components 🔄 MEDIUM PRIORITY
 
-### Tasks
+### Add Tabs Component
 
-- [ ] **Test all routes** - Navigation and content loading
-- [ ] **Verify bookmarking** - All URLs shareable and functional
-- [ ] **Update documentation** - Reflect new structure in project files
-- [ ] **QA verification** - User testing of new navigation structure
-- [ ] **Update workflow docs** - How to use new styleguide for development
+- [ ] **Create tabs section** - In component library
+- [ ] **Base on current subnav** - Reusable component version
+- [ ] **Show all states** - Default, active, hover, disabled
+
+### Expand Forms Section
+
+- [ ] **Keep existing inputs** - Text and Description unchanged
+- [ ] **Add checkboxes** - Move from UI elements
+- [ ] **Add radio buttons** - New component
+- [ ] **Add toggles** - New component
+- [ ] **Add select dropdown** - New component
+
+### Clean Up UI Elements
+
+- [ ] **Remove action buttons** - Superseded by standard button system
+- [ ] **Remove status indicators** - Not needed, doesn't fit philosophy
+- [ ] **Remove checkboxes** - Moving to Forms
+- [ ] **Keep chips and icons** - For later refactoring
 
 ### Success Criteria
 
-- All routes fully functional and tested
-- Documentation updated to reflect new structure
-- Team workflow updated for new styleguide usage
-- No regressions from original StyleGuide.tsx functionality
+- Tabs component matches current subnav styling
+- Forms section comprehensive with all input types
+- UI elements section cleaned up and focused
 
-## Implementation Notes
+## Phase 9: Documentation & Polish 🔄 LOW PRIORITY
 
-### Critical Requirements
+### Documentation Updates
 
-- **Follow DESIGN_SYSTEM.md** - Use only established utility combinations
-- **Preserve existing examples** - Don't lose current component demonstrations
-- **Maintain visual fidelity** - Keep neumorphic styling exactly as is
-- **Enable AI reference** - Clear examples for Claude Code consistency
+- [ ] **Update DESIGN_SYSTEM.md** - Reflect utility fixes and new combinations
+- [ ] **Update component usage examples** - Match new archetype system
+- [ ] **Document gradient levels** - For surface-gold variations
+- [ ] **Update button guidelines** - New primary/secondary/tertiary logic
 
-### Navigation Architecture
+### Final Verification
 
-- **Fixed/sticky navigation** - Remains visible across all routes
-- **Clean, minimal design** - Matching Norse aesthetic
-- **Clear current section** - Visual indication of location
-- **Quick access** - To all main sections
+- [ ] **Test all utility combinations** - Ensure they work as documented
+- [ ] **Verify AI reference quality** - Clear examples for Claude Code
+- [ ] **Check responsive behavior** - All components work on mobile/desktop
+- [ ] **Performance audit** - Lazy loading and optimization
 
-### Content Organization Principles
+### Success Criteria
 
-- **Components by function** - Logical grouping for easy reference
-- **Visual examples only** - No code examples needed in styleguide
-- **All interactive states** - Comprehensive state demonstrations
-- **Combination examples** - How utilities work together
+- Documentation matches actual implementation
+- All examples serve as clear AI reference
+- Performance optimized and responsive
+- Complete design system ready for production
 
-### Performance Considerations
+## Implementation Priority
 
-- **Lazy load content** - Heavy visual demonstrations
-- **Optimize navigation** - Fast switching between sections
-- **Responsive performance** - Mobile and desktop optimized
-- **Bundle optimization** - Efficient loading of styleguide assets
+### Critical Path (Do First)
+
+1. **Phase 6** - Fix utility system bugs (blocking other work)
+2. **Phase 7** - Standardize components to use fixed utilities
+3. **Phase 8** - Add missing components
+4. **Phase 9** - Documentation and polish
+
+### Dependencies
+
+- Phase 7 depends on Phase 6 (need working utilities first)
+- Phase 9 depends on Phases 6-8 (document what actually exists)
 
 ## Risk Mitigation
 
 ### Potential Issues
 
-- **Content loss during migration** - Solution: Careful audit and mapping first
-- **Navigation complexity** - Solution: Keep minimal and focused
-- **Performance degradation** - Solution: Implement lazy loading
-- **Visual inconsistencies** - Solution: Use DESIGN_SYSTEM.md as reference
+- **Utility changes break existing components** - Solution: Test thoroughly, update systematically
+- **Design inconsistencies during transition** - Solution: Work in phases, verify each step
+- **Performance impact from changes** - Solution: Monitor and optimize as we go
 
-### Rollback Plan
+### Quality Gates
 
-- Keep original StyleGuide.tsx until migration verified complete
-- Test new structure thoroughly before removing old component
-- Document any changes made during migration for easy reversal
-
-## Post-Implementation
-
-### Documentation Updates Required
-
-- [ ] Update `claude.md` to reference new styleguide structure
-- [ ] Update `styleguide/claude.md` with new navigation patterns
-- [ ] Update any component documentation referencing old structure
-- [ ] Create usage guide for new styleguide workflow
-
-### Team Communication
-
-- [ ] Demo new styleguide structure to team
-- [ ] Update development workflow documentation
-- [ ] Train team on new AI consistency workflow
-- [ ] Establish maintenance procedures for styleguide
-
-## Success Metrics
-
-### Functional Success
-
-- All routes accessible and properly functional
-- No content lost from original StyleGuide.tsx
-- Navigation smooth and intuitive
-- Performance maintained or improved
-
-### Workflow Success
-
-- Styleguide effectively serves as AI consistency tool
-- Development workflow improved with clear visual references
-- Component creation follows established patterns
-- Visual regression prevention system working
-
-### Maintenance Success
-
-- Easy to add new components to appropriate sections
-- Clear organization supports team collaboration
-- Documentation workflow supports iterative development
-- Scalable structure ready for future expansion
+- [ ] All utility combinations work as intended
+- [ ] No visual regressions in existing components
+- [ ] New components match established patterns
+- [ ] Documentation accurately reflects implementation
 
 ---
 
-**Current Priority**: Begin Phase 1 - Audit current StyleGuide.tsx and create app router structure
+**Current Priority**: Phase 6 - Fix utility system bugs before proceeding with component refinements
 
-**Next Update**: After Phase 1 completion, update this plan with Phase 2 details and any lessons learned
+**Next Update**: After Phase 6 completion, verify fixes and plan Phase 7 implementation
