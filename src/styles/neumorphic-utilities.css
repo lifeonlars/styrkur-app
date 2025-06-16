@@ -6,35 +6,30 @@
 
 /* DEPTH SUNKEN: Content wells, form containers, grouped content areas */
 .depth-sunken {
-  /* Deep inset neumorphic shadows - appears carved into surface */
-  box-shadow:
-    inset 6px 6px 12px rgba(0, 0, 0, 0.2),      /* Deep dark shadow inside */
-    inset -6px -6px 12px rgba(255, 255, 255, 0.03), /* Light highlight inside */
-    inset 0 0 0 1px rgba(0, 0, 0, 0.1);         /* Stronger inner border */
+  /* Use design-tokens shadow - now matches perfected card styling */
+  box-shadow: var(--shadow-neu-inset);
+  background: var(--neu-background);
 }
 
 /* DEPTH FLAT: Background containers, completely flat with no shadows */
 .depth-flat {
   /* No shadows - truly flat for background elements */
   box-shadow: none;
+  background: var(--neu-surface);
 }
 
 /* DEPTH SUBTLE: Standard content containers, default card state */
 .depth-subtle {
-  /* Gentle elevation with soft definition - Tesla Cybertruck style */
-  box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.12),        /* Dark shadow from bottom-right */
-    -6px -6px 12px rgba(255, 255, 255, 0.05), /* Light highlight from top-left */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02); /* Subtle inner highlight */
+  /* Use design-tokens shadow - now matches perfected card styling */
+  box-shadow: var(--shadow-neu);
+  background: var(--neu-surface);
 }
 
 /* DEPTH ELEVATED: Featured content, important information, hero cards */
 .depth-elevated {
-  /* Prominent raised appearance with strong definition */
-  box-shadow:
-    15px 15px 40px rgba(0, 0, 0, 0.24),         /* Maximum dark shadow */
-    -15px -15px 30px rgba(255, 255, 255, 0.08), /* Maximum light highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06  );  /* Strong inner highlight */
+  /* Use design-tokens shadow - now matches perfected card styling */
+  box-shadow: var(--shadow-neu-lg);
+  background: var(--neu-elevated);
 }
 
 /* DEPTH HOVER TRANSITIONS - REMOVED */
@@ -46,40 +41,28 @@
 
 /* SURFACE CONCAVE: Inverted gradient for sunken/pressed elements */
 .surface-concave {
-  /* nset appearance - dark to light */
-  background: linear-gradient(
-    115deg,
-    #2a2d35 0%,     /* Darker start (inverted physics) */
-    #343940 100%    /* Lighter end (inverted physics) */
-  );
+  /* Use design-tokens gradient for consistency */
+  background: var(--gradient-neu-sunken);
 }
 
 /* SURFACE FLAT: Minimal gradient for background elements */
 .surface-flat {
-  /* Reduced opacity for better blending with parent background */
-  background: linear-gradient(
-    115deg,
-    rgba(52, 57, 64, 0.6) 0%,    /* Base tone */
-    rgba(52, 57, 64, 0.4) 100%    /* Lighter end (inverted physics) */
-  )
+  /* Use design-tokens surface with reduced opacity for blending */
+  background: var(--neu-surface);
+  opacity: 0.6; /* Keep the reduced opacity for blending */
 }
 
 /* SURFACE CONVEX: Standard gradient for raised elements */
 .surface-convex {
-  /* Standard neumorphic gradient - light to dark */
-  background: linear-gradient(
-    115deg,
-    #3f424a 0%,     /* Lighter start (standard physics) */
-    #343940 50%,    /* Base tone */
-    #2a2d35 100%    /* Darker end (standard physics) */
-  );
+  /* Use design-tokens gradient for consistency */
+  background: var(--gradient-neu-elevated);
 }
 
 /* SURFACE GOLD: Norse accent with readable text contrast */
 .surface-gold {
-  /* Proper neumorphic lighting: darker top-left, lighter bottom-right */
-  background: linear-gradient(145deg, var(--norse-gold-darker), var(--norse-gold));
-  color: var(--iron-600); /* Keep dark text for readability */
+  /* Use design-tokens gradient for consistency */
+  background: var(--gradient-neu-gold-metallic);
+  color: var(--text-inverse); /* Use design token for dark text */
 }
 
 /* === BORDER GRADIENT UTILITIES === */
@@ -90,31 +73,29 @@
   border: none;
 }
 
-/* BORDER NEU SUBTLE: Soft definition for standard elements with neumorphic lighting */
+/* BORDER NEU SUBTLE: Soft definition for standard elements */
 .border-neu-subtle {
-  border-top: 1px solid rgba(255, 255, 255, 0.10)!important;
+  border-top: 1px solid var(--border-neu-subtle) !important;
 }
 
-/* BORDER NEU CRISP: Prominent Tesla Cybertruck-style definition with neumorphic lighting */
+/* BORDER NEU CRISP: Prominent definition */
 .border-neu-crisp {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 2px solid var(--border-neu-light);
 }
 
 /* BORDER NEU GLOW: Actual blue glow effect */
 .border-neu-glow {
-  border: 2px solid #375A74;
+  border: 2px solid var(--ocean-500);
   box-shadow:
-    0 0 12px rgba(55, 90, 116, 0.4), /* Ocean blue glow */
+    0 0 12px rgba(55, 90, 116, 0.4),
     0 0 24px rgba(55, 90, 116, 0.2);
 
-    &:hover {
-      border: 2px solid rgba(56, 189, 248, 0.75);
-      box-shadow:
-        0 0 16px rgba(55, 90, 116, 0.6), /* Ocean blue glow */
-        0 0 24px rgba(55, 90, 116, 0.4);
-    }
-
-
+  &:hover {
+    border-color: var(--ocean-400);
+    box-shadow:
+      0 0 16px rgba(55, 90, 116, 0.6),
+      0 0 24px rgba(55, 90, 116, 0.4);
+  }
 }
 
 

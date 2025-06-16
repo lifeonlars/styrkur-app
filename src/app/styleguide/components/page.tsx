@@ -6,6 +6,7 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 
 export default function ComponentsPage() {
   const [activeSubsection, setActiveSubsection] = useState('overview')
@@ -354,12 +355,130 @@ export default function ComponentsPage() {
                   </div>
                 </div>
 
+                {/* Select Dropdown - Enhanced with Size and State Variants */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Select Dropdown - Enhanced</h4>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Select component with size variants and state management, styled to match Input/Textarea exactly using design tokens.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Default Size Examples */}
+                    <div className="space-y-4">
+                      <h5 className="text-white font-medium mb-2">Default Size (36px)</h5>
+                      
+                      {/* Default State */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Workout Type</label>
+                        <Select>
+                          <SelectTrigger size="default" variant="default">
+                            <SelectValue placeholder="Select workout type..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="strength">Strength Training</SelectItem>
+                            <SelectItem value="cardio">Cardio</SelectItem>
+                            <SelectItem value="flexibility">Flexibility</SelectItem>
+                            <SelectItem value="sports">Sports</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Error State */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Required Selection</label>
+                        <Select>
+                          <SelectTrigger size="default" variant="error">
+                            <SelectValue placeholder="Please select an option..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-blood-400 mt-1">✗ This field is required</p>
+                      </div>
+
+                      {/* Success State */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Validated Selection</label>
+                        <Select>
+                          <SelectTrigger size="default" variant="success">
+                            <SelectValue placeholder="Valid selection made" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="valid">Valid Option</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-forest-400 mt-1">✓ Selection validated</p>
+                      </div>
+                    </div>
+
+                    {/* Large Size Examples */}
+                    <div className="space-y-4">
+                      <h5 className="text-white font-medium mb-2">Large Size (48px)</h5>
+                      
+                      {/* Large Default */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Equipment</label>
+                        <Select>
+                          <SelectTrigger size="large" variant="default">
+                            <SelectValue placeholder="Select equipment..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="dumbbells">Dumbbells</SelectItem>
+                            <SelectItem value="barbell">Barbell</SelectItem>
+                            <SelectItem value="bodyweight">Bodyweight</SelectItem>
+                            <SelectItem value="machines">Machines</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Large Warning */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">Advanced Selection</label>
+                        <Select>
+                          <SelectTrigger size="large" variant="warning">
+                            <SelectValue placeholder="Advanced option..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="advanced1">Advanced Option 1</SelectItem>
+                            <SelectItem value="advanced2">Advanced Option 2</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-wood-400 mt-1">⚠ Advanced users only</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 p-4 bg-neu-card rounded-lg">
+                    <h5 className="text-white font-medium mb-2">Dropdown Improvements</h5>
+                    <ul className="text-xs text-gray-400 space-y-1">
+                      <li>• Select component matches Input/Textarea shadow depth exactly</li>
+                      <li>• Size variants align with form component system (36px/48px)</li>
+                      <li>• Fixed content shifting using modal={false} and proper positioning</li>
+                      <li>• Width automatically matches trigger using CSS custom properties</li>
+                      <li>• Uses standard shadcn/ui positioning approach for reliability</li>
+                      <li>• Maintains neumorphic design with design token integration</li>
+                    </ul>
+                  </div>
+                </div>
+
                 <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
                   <h4 className="text-white font-medium mb-4">Enhanced Form Example</h4>
-                  <p className="text-gray-400 text-sm mb-4">Real-world form using semantic class names and enhanced features</p>
+                  <p className="text-gray-400 text-sm mb-4">Real-world form with unified visual consistency across all form components</p>
                   <div className="space-y-4 max-w-md">
                     <Input placeholder="Email address" fullWidth />
                     <Input type="password" placeholder="Password" fullWidth />
+                    <Select>
+                      <SelectTrigger size="default" variant="default">
+                        <SelectValue placeholder="Account type..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="personal">Personal</SelectItem>
+                        <SelectItem value="business">Business</SelectItem>
+                        <SelectItem value="enterprise">Enterprise</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <Textarea 
                       placeholder="Optional message..." 
                       showCounter 

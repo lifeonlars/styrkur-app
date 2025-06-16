@@ -4,10 +4,10 @@
 :root {
   /* === COLOR SYSTEM === */
   
-  /* Neumorphic Background Hierarchy (darkest to lightest) */
-  --neu-background: #2c2f36; /* Page background */
-  --neu-surface: #343940;    /* Cards, elevated surfaces */
-  --neu-card: #3d424f;       /* Main content cards */
+  /* Updated to match perfected card surface values */
+  --neu-background: #2a2d35; /* Match surface-concave start - page background */
+  --neu-surface: #343940;    /* Match surface values - cards, elevated surfaces */
+  --neu-card: #3f424a;       /* Match surface-convex start - main content cards */
   --neu-elevated: #454a57;   /* Hover states, highlighted areas */
   
   /* Legacy charcoal colors for compatibility */
@@ -72,31 +72,30 @@
 
   /* === SHADOW SYSTEM === */
   
-  /* Multi-layered ultra-soft neumorphic shadows - Tesla Cybertruck inspired */
+  /* Updated to match perfected card styling for visual consistency */
   --shadow-neu-flat: 
     -2px -2px 8px rgba(255, 255, 255, 0.03), 
     2px 2px 8px rgba(15, 17, 20, 0.15), 
     -1px -1px 3px rgba(255, 255, 255, 0.02), 
     1px 1px 3px rgba(15, 17, 20, 0.1);
   
+  /* Updated to match depth-subtle from perfected cards */
   --shadow-neu: 
-    -4px -4px 12px rgba(255, 255, 255, 0.04), 
-    4px 4px 12px rgba(15, 17, 20, 0.2), 
-    -2px -2px 6px rgba(255, 255, 255, 0.03), 
-    2px 2px 6px rgba(15, 17, 20, 0.15);
+    6px 6px 12px rgba(0, 0, 0, 0.12),
+    -6px -6px 12px rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   
+  /* Updated to match depth-elevated from perfected cards */
   --shadow-neu-lg: 
-    -6px -6px 20px rgba(255, 255, 255, 0.06), 
-    6px 6px 20px rgba(15, 17, 20, 0.25), 
-    -3px -3px 10px rgba(255, 255, 255, 0.04), 
-    3px 3px 10px rgba(15, 17, 20, 0.18);
+    15px 15px 40px rgba(0, 0, 0, 0.24),
+    -15px -15px 30px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   
-  /* Inset shadows for inputs - multiple layers for ultra-soft feel */
+  /* Updated to match depth-sunken from perfected cards */
   --shadow-neu-inset: 
-    inset 3px 3px 8px rgba(15, 17, 20, 0.2), 
-    inset -3px -3px 8px rgba(255, 255, 255, 0.03), 
-    inset 1px 1px 4px rgba(15, 17, 20, 0.15), 
-    inset -1px -1px 4px rgba(255, 255, 255, 0.02);
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   
   --shadow-neu-inset-lg: 
     inset 4px 4px 12px rgba(15, 17, 20, 0.25), 
@@ -104,24 +103,24 @@
     inset 2px 2px 6px rgba(15, 17, 20, 0.18), 
     inset -2px -2px 6px rgba(255, 255, 255, 0.03);
   
-  /* Enhanced hover with wider spread */
+  /* Updated hover to match card style progression */
   --shadow-neu-hover: 
-    -6px -6px 16px rgba(255, 255, 255, 0.08), 
-    6px 6px 16px rgba(15, 17, 20, 0.3), 
-    -3px -3px 8px rgba(255, 255, 255, 0.05), 
-    3px 3px 8px rgba(15, 17, 20, 0.2);
+    8px 8px 16px rgba(0, 0, 0, 0.15),
+    -8px -8px 16px rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   
-  /* Pressed state with soft inset */
+  /* Updated pressed state to match card style */
   --shadow-neu-pressed: 
-    inset 2px 2px 6px rgba(15, 17, 20, 0.3), 
-    inset -2px -2px 6px rgba(255, 255, 255, 0.05), 
-    inset 1px 1px 3px rgba(15, 17, 20, 0.2);
+    inset 4px 4px 8px rgba(0, 0, 0, 0.25),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.04),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.15);
   
-  /* Focus with Norse gold accent */
+  /* Focus with Norse gold accent - updated to match perfected inset style */
   --shadow-neu-focus: 
-    0 0 0 2px rgba(195, 168, 105, 0.3), 
-    -4px -4px 12px rgba(255, 255, 255, 0.04), 
-    4px 4px 12px rgba(15, 17, 20, 0.2);
+    0 0 0 2px rgba(195, 168, 105, 0.3),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   
   /* Gold variants with ultra-soft Norse gold highlights */
   --shadow-neu-gold: 
