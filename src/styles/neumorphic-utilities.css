@@ -47,9 +47,8 @@
 
 /* SURFACE FLAT: Minimal gradient for background elements */
 .surface-flat {
-  /* Use design-tokens surface with reduced opacity for blending */
-  background: var(--neu-surface);
-  opacity: 0.6; /* Keep the reduced opacity for blending */
+  /* Use design-tokens surface with reduced background opacity for blending */
+  background: rgba(52, 57, 64, 0.6); /* --neu-surface with 60% opacity */
 }
 
 /* SURFACE CONVEX: Standard gradient for raised elements */

@@ -181,7 +181,7 @@ export default function BrandPage() {
       </ComponentShowcase>
 
       {/* Asset Information */}
-      <Card variant="accent">
+      <Card variant="flat">
         <CardHeader>
           <CardTitle>Brand Asset Information</CardTitle>
           <CardDescription>Available brand assets and file formats</CardDescription>

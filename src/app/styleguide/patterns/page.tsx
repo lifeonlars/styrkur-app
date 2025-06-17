@@ -310,19 +310,19 @@ export default function PatternsPage() {
           <h4 className="text-white font-medium mb-4">Updated Pattern Examples</h4>
           <p className="text-gray-400 text-sm mb-4">Real-world patterns used in WorkoutCard and other components, combining depth, surface, and border utilities.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card depth="subtle" surface="gold" border="glow">
+            <Card depth="subtle" surface="convex" border="glow">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Dumbbell className="w-5 h-5 text-black" />
-                  Primary Action Pattern
+                  <Dumbbell className="w-5 h-5 text-white" />
+                  Interactive Glow Pattern
                 </CardTitle>
-                <CardDescription>depth="subtle" surface="gold" border="glow"</CardDescription>
+                <CardDescription>depth="subtle" surface="convex" border="glow"</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-900 mb-3">Perfect for primary CTAs with Norse branding</p>
+                <p className="text-sm text-gray-300 mb-3">Interactive cards with ocean blue glow</p>
                 <div className="p-2 bg-neu-card rounded text-xs">
                   <code className="text-norse-gold">
-                    &lt;Card depth="subtle" surface="gold" border="glow"&gt;
+                    &lt;Card depth="subtle" surface="convex" border="glow"&gt;
                   </code>
                 </div>
               </CardContent>
@@ -409,7 +409,7 @@ export default function PatternsPage() {
       </ComponentShowcase>
 
       {/* Pattern Philosophy */}
-      <Card variant="accent">
+      <Card variant="flat">
         <CardHeader>
           <CardTitle>Pattern Design Philosophy</CardTitle>
           <CardDescription>Guiding principles for workout interface patterns</CardDescription>

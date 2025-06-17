@@ -36,13 +36,17 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "rm -rf .next && next dev",
+    "dev:turbo": "next dev --turbo",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "react-scripts test",
     "test:styling": "node scripts/test-styling.js",
     "test:muscle-map": "node scripts/test-muscle-highlighter.js",
-    "precommit": "npm run test:styling"
+    "precommit": "npm run test:styling",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache"
   },
   "eslintConfig": {
     "extends": [
