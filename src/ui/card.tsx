@@ -52,70 +52,70 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // Determine depth utility class based on variant or explicit depth prop
     const getDepthClass = () => {
       if (depth) {
-        return styles[`depth-${depth}`]
+        return `depth-${depth}`
       }
       
       // Default depth mapping for variants
       switch (variant) {
         case 'sunken':
-          return styles['depth-sunken']
+          return 'depth-sunken'
         case 'flat':
-          return styles['depth-flat']
+          return 'depth-flat'
         case 'elevated':
-          return styles['depth-elevated']
+          return 'depth-elevated'
         case 'floating':
-          return styles['depth-elevated'] // Same as elevated for now
+          return 'depth-elevated' // Same as elevated for now
         case 'interactive':
-          return styles['depth-subtle']
+          return 'depth-subtle'
         default:
-          return styles['depth-subtle'] // Default card state
+          return 'depth-subtle' // Default card state
       }
     }
 
     // Determine surface gradient class based on surface prop or variant defaults
     const getSurfaceClass = () => {
       if (surface) {
-        return styles[`surface-${surface}`]
+        return `surface-${surface}`
       }
       
       // Default surface mapping for variants
       switch (variant) {
         case 'sunken':
-          return styles['surface-concave'] // Inverted for sunken effect
+          return 'surface-concave' // Inverted for sunken effect
         case 'flat':
-          return styles['surface-flat'] // Minimal gradient
+          return 'surface-flat' // Minimal gradient
         case 'elevated':
         case 'floating':
-          return styles['surface-convex'] // Standard raised gradient
+          return 'surface-convex' // Standard raised gradient
         case 'interactive':
-          return styles['surface-convex'] // Standard for interaction
+          return 'surface-convex' // Standard for interaction
         case 'accent':
-          return styles['surface-gold'] // Norse gold for accents
+          return 'surface-gold' // Norse gold for accents
         default:
-          return styles['surface-convex'] // Default raised appearance
+          return 'surface-convex' // Default raised appearance
       }
     }
 
     // Determine border class based on border prop or variant defaults
     const getBorderClass = () => {
       if (border) {
-        return styles[`border-neu-${border}`]
+        return `border-neu-${border}`
       }
       
       // Default border mapping for variants
       switch (variant) {
         case 'sunken':
         case 'flat':
-          return styles['border-transparent'] // No border for flush elements
+          return 'border-transparent' // No border for flush elements
         case 'elevated':
         case 'floating':
-          return styles['border-neu-crisp'] // Crisp Tesla definition
+          return 'border-neu-crisp' // Crisp definition
         case 'interactive':
-          return styles['border-neu-subtle'] // Subtle for interaction
+          return 'border-neu-subtle' // Subtle for interaction
         case 'accent':
-          return styles['border-neu-glow'] // Gold glow for accents
+          return 'border-neu-glow' // Gold glow for accents
         default:
-          return styles['border-neu-subtle'] // Subtle default
+          return 'border-neu-subtle' // Subtle default
       }
     }
 

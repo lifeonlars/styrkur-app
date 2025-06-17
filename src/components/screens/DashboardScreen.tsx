@@ -1,6 +1,6 @@
 import { Trophy, Plus, Calendar, TrendingUp, Target } from 'lucide-react'
 import { Workout } from '@/types'
-import WorkoutCard from '@/components/workout/WorkoutCard'
+import WorkoutCard from '@/components/ui/workout-card'
 import { NavDashboard } from '@/components/icons'
 
 interface DashboardScreenProps {
@@ -244,8 +244,10 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
             <WorkoutCard
               key={workout.id}
               workout={workout}
+              compact={true}
               onStart={onStartWorkout}
-              onNavigate={onNavigate}
+              showLastCompleted={false}
+              showCompletionCount={false}
             />
           ))}
         </div>

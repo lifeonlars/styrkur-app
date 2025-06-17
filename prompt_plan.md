@@ -1,131 +1,208 @@
-# Phase 8 Implementation Plan - Missing Components
+# Workout Components Refactor - Prompt Plan
 
-## Overview: Three-Part Implementation
+## Overview
+Refactoring workout-related components into a unified, reusable system using the established Norse neumorphic design system. This multi-phase approach ensures consistent styling, improved maintainability, and better user experience across all workout contexts.
 
-This phase completes the component library by adding missing form components, creating tabs, and cleaning organization. Work through each part systematically.
+## Phase Structure
 
-## Part A: Add Tabs Component 🔄 START HERE
+### **Phase 1: WorkoutCard Component** 🏃‍♂️
+**Status**: Ready  
+**Estimated Time**: 30-45 minutes  
+**Priority**: High - Foundation component needed for other phases
 
-### Implementation Steps:
-1. **Update subsections array** - Add 'tabs' to navigation
-2. **Create tabs case** in renderContent() switch statement  
-3. **Implement tab states** - Active (Norse gold), default, hover, disabled
-4. **Add tab content container** - Sunken styling to show relationship
-5. **Test navigation** - Ensure tabs section is accessible
+**Scope**:
+- Create unified WorkoutCard component with multiple layout variants
+- Replace existing inconsistent workout card implementations
+- Add programmatic duration calculation
+- Integrate click-to-summary functionality
+- Update styleguide patterns page
 
-### Success Criteria for Part A:
-- [ ] Tabs appear in secondary navigation
-- [ ] Tab component shows all states properly
-- [ ] Active tab uses Norse gold styling
-- [ ] Content container has sunken appearance
-- [ ] Hover effects work on inactive tabs only
+**Files Affected**:
+- `components/ui/workout-card.tsx` (new)
+- `src/app/styleguide/patterns/page.tsx` (update)
+- Various files using existing workout cards (search & replace)
 
-## Part B: Expand Forms Section 🔄 AFTER PART A
-
-### Implementation Steps:
-1. **Add radio buttons** - Selected (Norse gold), unselected, disabled states
-2. **Add toggle switches** - On/off/disabled with smooth transitions  
-3. **Add select dropdown** - Custom styling with neumorphic appearance
-4. **Move checkboxes** - From UI Elements to Forms section
-5. **Test form components** - All interactive states working
-
-### Success Criteria for Part B:
-- [ ] Radio buttons follow Norse styling (gold when selected)
-- [ ] Toggle switches animate smoothly between states
-- [ ] Select dropdown has proper neumorphic styling and custom arrow
-- [ ] Checkboxes successfully moved from UI Elements
-- [ ] All form components maintain accessibility
-
-## Part C: Clean UI Elements 🔄 AFTER PART B
-
-### Implementation Steps:
-1. **Remove action buttons** - Delete entire ComponentShowcase section
-2. **Remove status indicators** - Delete entire ComponentShowcase section  
-3. **Remove checkboxes** - Already moved to Forms in Part B
-4. **Keep chips and icons** - Preserve existing implementations
-5. **Add refactoring note** - Future enhancement roadmap
-
-### Success Criteria for Part C:
-- [ ] Action buttons section completely removed
-- [ ] Status indicators section completely removed
-- [ ] Checkboxes no longer in UI Elements (moved to Forms)
-- [ ] Chips section preserved unchanged
-- [ ] Icon variations section preserved unchanged
-- [ ] Refactoring roadmap note added
-
-## Implementation Guidelines
-
-### Design Consistency Rules:
-- **Norse gold** for all active/selected states
-- **Neumorphic shadows** using existing utility classes
-- **Consistent sizing** with existing input/button system
-- **Accessibility first** - proper labels, focus states, ARIA
-
-### Code Organization:
-- **Follow existing patterns** - Match current component structure
-- **Use semantic HTML** - Proper form elements with labels
-- **Maintain responsive design** - Mobile-friendly layouts
-- **CSS class consistency** - Follow BEM naming if creating new styles
-
-### Testing Checklist After Each Part:
-- [ ] Visual states render correctly
-- [ ] Interactive states work (hover, focus, active)
-- [ ] Accessibility preserved (keyboard navigation, screen readers)
-- [ ] Responsive behavior maintained
-- [ ] No console errors or warnings
-
-## Troubleshooting Guide
-
-### If Part A Fails:
-- Check subsections array syntax
-- Verify renderContent() switch case structure
-- Ensure tab styling classes are available
-
-### If Part B Fails:
-- Break into smaller chunks (radio only, then toggle only, etc.)
-- Check existing form styling for consistency
-- Verify checkbox move doesn't break existing forms
-
-### If Part C Fails:
-- Remove sections one at a time
-- Verify remaining sections still render correctly
-- Check that removals don't affect other components
-
-## Success Metrics
-
-### Functional Success:
-- All new components render without errors
-- Interactive states work as expected
-- Navigation between sections smooth
-- Form components are accessible
-
-### Design Success:
-- Norse neumorphic styling consistent throughout
-- Visual hierarchy maintained
-- Active states use proper Norse gold
-- Shadows and surfaces follow established patterns
-
-### Organization Success:
-- Clean component library structure
-- Logical grouping (forms together, deprecated removed)
-- Clear refactoring roadmap for future work
-- Maintainable code structure
-
-## Post-Implementation
-
-### Update Documentation:
-- [ ] Mark Phase 8 complete in main prompt_plan.md
-- [ ] Document any deviations from original plan
-- [ ] Note any components that need future refinement
-
-### Quality Assurance:
-- [ ] Test all new components thoroughly
-- [ ] Verify accessibility compliance
-- [ ] Check responsive behavior across devices
-- [ ] Confirm no regressions in existing components
+**Key Features**:
+- Props-based variants (compact/full layouts)
+- Smart exercise preview truncation
+- Last completed date formatting
+- Consistent stats grid with neumorphic icons
+- Integration hooks for summary modal
 
 ---
 
-**Current Priority**: Start with Part A (Tabs). Complete each part fully before moving to the next.
+### **Phase 2: WorkoutSummaryModal Component** 📊  
+**Status**: Pending Phase 1  
+**Estimated Time**: 20-30 minutes  
+**Priority**: High - Needed for Phase 1 integration
 
-**Note**: If any part becomes too complex, break it down further and update this plan accordingly.
+**Scope**:
+- Create detailed workout summary modal
+- Integrate with existing MuscleHighlighter component
+- Add comprehensive stats display
+- Exercise list with sets/reps/weights
+- Mobile-optimized scrollable design
+
+**Files Affected**:
+- `components/ui/workout-summary-modal.tsx` (new)
+- Update WorkoutCard to integrate modal
+- Styleguide documentation updates
+
+**Key Features**:
+- Full workout statistics grid
+- Exercise breakdown with muscle groups
+- Muscle activation visualization
+- Responsive layout (desktop/mobile)
+- Smooth open/close animations
+
+---
+
+### **Phase 3: Success Surface Variant** ✅
+**Status**: Pending Phase 2  
+**Estimated Time**: 15-20 minutes  
+**Priority**: Medium - Needed for workout groups
+
+**Scope**:
+- Add success surface variant to design tokens
+- Implement forest colors at 50% opacity with concave gradient
+- Create green highlighting system for completed states
+- Update design system documentation
+
+**Files Affected**:
+- Design token files (CSS custom properties)
+- Component variant systems
+- Styleguide documentation
+
+**Key Features**:
+- `surface="success"` variant
+- Concave gradient depth
+- 50% opacity forest colors
+- Consistent with Norse neumorphic system
+
+---
+
+### **Phase 4: WorkoutGroup Components** 🏋️‍♂️
+**Status**: Pending Phases 1-3  
+**Estimated Time**: 60-90 minutes  
+**Priority**: High - Core functionality components
+
+**Scope**:
+- Create ExerciseGroup component (Single/Superset/Circuit)
+- Create SetLogger component with completion states
+- Create ExercisePlanner component
+- Unify logging and planning interfaces
+- Implement "Add Set" dashed button pattern
+
+**Files Affected**:
+- `components/ui/exercise-group.tsx` (new)
+- `components/ui/set-logger.tsx` (new) 
+- `components/ui/exercise-planner.tsx` (new)
+- Various workout logging/planning pages
+- Styleguide patterns page
+
+**Key Features**:
+- Single/Superset/Circuit variants
+- Interactive set completion with success highlighting
+- Consistent form patterns
+- Dashed border "Add" buttons
+- RPE and timing integration
+
+---
+
+## Design System Dependencies
+
+### **Required Design Tokens**:
+- `--surface-success` (forest colors, 50% opacity, concave)
+- Existing Norse neumorphic tokens (confirmed working)
+- Button variant tokens for dashed borders
+
+### **Component Dependencies**:
+- Existing Card component with depth/surface/border props
+- Existing Button component variants
+- MuscleHighlighter component (for summary modal)
+- Existing form components (for workout groups)
+
+### **Styling Consistency**:
+- All components use established Norse color palette
+- Consistent neumorphic shadow/surface treatments
+- Unified typography and spacing scales
+- Mobile-first responsive patterns
+
+## Implementation Strategy
+
+### **Phase Execution Order**:
+1. **WorkoutCard** → Foundation component, needed by others
+2. **WorkoutSummaryModal** → Required for WorkoutCard integration
+3. **Success Surface** → Design token needed for workout groups
+4. **WorkoutGroup Components** → Most complex, depends on all previous
+
+### **Testing Checkpoints**:
+- After Phase 1: Verify workout cards display correctly across app
+- After Phase 2: Test modal integration and muscle map display
+- After Phase 3: Confirm success highlighting works
+- After Phase 4: Full workout logging/planning flow testing
+
+### **Rollback Points**:
+- Each phase is self-contained with clear file boundaries
+- Original components preserved until testing confirms new versions
+- Styleguide documentation tracks all changes
+
+## Success Criteria
+
+### **Technical Goals**:
+- ✅ Single source of truth for workout display components
+- ✅ Consistent Norse neumorphic styling across all variants
+- ✅ Improved component reusability and maintainability
+- ✅ Enhanced mobile responsiveness
+- ✅ Type-safe props and component interfaces
+
+### **User Experience Goals**:
+- ✅ Faster workout browsing with consistent layouts
+- ✅ Better information hierarchy and readability
+- ✅ Seamless workout summary access
+- ✅ Intuitive workout logging with visual feedback
+- ✅ Consistent interaction patterns across contexts
+
+### **Developer Experience Goals**:
+- ✅ Comprehensive styleguide documentation with live examples
+- ✅ Clear component APIs with TypeScript support
+- ✅ Reduced code duplication and maintenance burden
+- ✅ Easy-to-extend component system for future features
+
+## Risk Mitigation
+
+### **Potential Issues**:
+- **Scope creep**: Stick to defined component boundaries
+- **Design inconsistencies**: Reference styleguide frequently
+- **Integration complexity**: Test each phase thoroughly before proceeding
+- **Performance impact**: Monitor component rendering efficiency
+
+### **Mitigation Strategies**:
+- Phase-by-phase implementation with clear checkpoints
+- Maintain existing components until new versions are confirmed working
+- Regular testing against multiple workout data scenarios
+- Keep design token usage consistent with established patterns
+
+## Future Roadmap (Beyond This Refactor)
+
+### **Exercise Library Evolution**:
+- **Local JSON Database**: Curated exercise collection to replace WGER dependency
+- **Rich Exercise Schema**: Equipment categories, variants, movement patterns, difficulty levels
+- **Equipment Profiles**: User equipment inventory (home gym → commercial gym → strongman/metcon)
+- **Smart Filtering**: Auto-suggest alternatives based on available equipment
+
+### **Data Architecture Goals**:
+- **WGER Usage**: Planning phase only (search/select exercises)
+- **Self-Contained Workouts**: Complete exercise data embedded, no API dependencies during workouts
+- **Equipment Categories**: Barbell, Dumbbell, Kettlebell, Strongman, Metcon, Bodyweight, etc.
+- **Exercise Relationships**: Variants, similar exercises, progression paths
+
+*Note: These features are planned for future development and should not influence the current 4-phase component refactor.*
+
+---
+
+## Next Steps
+1. Execute Phase 1 (WorkoutCard) prompt
+2. Test and validate implementation
+3. Proceed to Phase 2 (WorkoutSummaryModal) if Phase 1 successful
+4. Continue through remaining phases in order

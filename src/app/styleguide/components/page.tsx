@@ -5,6 +5,7 @@ import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card'
 import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/ui/dialog'
@@ -31,8 +32,11 @@ export default function ComponentsPage() {
       case 'overview':
         return (
           <div className="space-y-8">
-            <div className="p-6 bg-neu-card shadow-neu-lg rounded-xl border border-norse-gold/20">
-              <h3 className="text-xl font-semibold text-white mb-4">🎯 CSS Modules Refactor Complete</h3>
+            <Card variant="elevated" border="glow">
+              <CardHeader>
+                <CardTitle className="text-xl">🎯 CSS Modules Refactor Complete</CardTitle>
+              </CardHeader>
+              <CardContent>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div>
                   <h4 className="text-norse-gold font-medium mb-3">✅ Before & After</h4>
@@ -63,7 +67,8 @@ export default function ComponentsPage() {
                   </ul>
                 </div>
               </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         )
 
@@ -203,17 +208,21 @@ export default function ComponentsPage() {
                     <h5 className="text-white font-medium mb-3">Sunken Cards</h5>
                     <p className="text-gray-400 text-sm mb-4">Pressed into surface</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="depth-sunken surface-concave" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Sunken Concave</h3>
-                        <p className="text-gray-300 text-sm mb-3">Pressed buttons, input fields</p>
-                        <span className="utility-combo">depth-sunken + surface-concave</span>
-                      </div>
+                      <Card depth="sunken" surface="concave">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Sunken Concave</h3>
+                          <p className="text-gray-300 text-sm mb-3">Pressed buttons, input fields</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="sunken" surface="concave"</code>
+                        </CardContent>
+                      </Card>
                       
-                      <div className="depth-sunken border-transparent" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Sunken Transparent</h3>
-                        <p className="text-gray-300 text-sm mb-3">Form containers, content wells</p>
-                        <span className="utility-combo">depth-sunken + border-transparent</span>
-                      </div>
+                      <Card depth="sunken" border="transparent">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Sunken Transparent</h3>
+                          <p className="text-gray-300 text-sm mb-3">Form containers, content wells</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="sunken" border="transparent"</code>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
 
@@ -222,11 +231,13 @@ export default function ComponentsPage() {
                     <h5 className="text-white font-medium mb-3">Flat Cards</h5>
                     <p className="text-gray-400 text-sm mb-4">Level with surface</p>
                     <div className="grid grid-cols-1 gap-4">
-                      <div className="depth-flat surface-flat" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Flat</h3>
-                        <p className="text-gray-300 text-sm mb-3">Background grouping, sidebars</p>
-                        <span className="utility-combo">depth-flat + surface-flat</span>
-                      </div>
+                      <Card depth="flat" surface="flat">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Flat</h3>
+                          <p className="text-gray-300 text-sm mb-3">Background grouping, sidebars</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="flat" surface="flat"</code>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
 
@@ -235,17 +246,21 @@ export default function ComponentsPage() {
                     <h5 className="text-white font-medium mb-3">Subtle Cards</h5>
                     <p className="text-gray-400 text-sm mb-4">Barely emerging from surface</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="depth-subtle surface-convex border-neu-subtle" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Subtle Convex</h3>
-                        <p className="text-gray-300 text-sm mb-3">Standard cards, containers</p>
-                        <span className="utility-combo">depth-subtle + surface-convex + border-neu-subtle</span>
-                      </div>
+                      <Card depth="subtle" surface="convex" border="subtle">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Subtle Convex</h3>
+                          <p className="text-gray-300 text-sm mb-3">Standard cards, containers</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="subtle" surface="convex" border="subtle"</code>
+                        </CardContent>
+                      </Card>
                       
-                      <div className="depth-subtle surface-concave border-neu-subtle" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Subtle Concave</h3>
-                        <p className="text-gray-300 text-sm mb-3">Secondary buttons, panels</p>
-                        <span className="utility-combo">depth-subtle + surface-concave + border-neu-subtle</span>
-                      </div>
+                      <Card depth="subtle" surface="concave" border="subtle">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Subtle Concave</h3>
+                          <p className="text-gray-300 text-sm mb-3">Secondary buttons, panels</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="subtle" surface="concave" border="subtle"</code>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
 
@@ -254,17 +269,21 @@ export default function ComponentsPage() {
                     <h5 className="text-white font-medium mb-3">Elevated Cards</h5>
                     <p className="text-gray-400 text-sm mb-4">Prominently emerging from surface</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="depth-elevated surface-convex border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Elevated Convex</h3>
-                        <p className="text-gray-300 text-sm mb-3">Featured content, hero cards</p>
-                        <span className="utility-combo">depth-elevated + surface-convex + border-neu-crisp</span>
-                      </div>
+                      <Card depth="elevated" surface="convex" border="crisp">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Elevated Convex</h3>
+                          <p className="text-gray-300 text-sm mb-3">Featured content, hero cards</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="elevated" surface="convex" border="crisp"</code>
+                        </CardContent>
+                      </Card>
                       
-                      <div className="depth-elevated surface-concave border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="text-white font-semibold mb-2">Elevated Concave</h3>
-                        <p className="text-gray-300 text-sm mb-3">Specialized inputs, unique states</p>
-                        <span className="utility-combo">depth-elevated + surface-concave + border-neu-crisp</span>
-                      </div>
+                      <Card depth="elevated" surface="concave" border="crisp">
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Elevated Concave</h3>
+                          <p className="text-gray-300 text-sm mb-3">Specialized inputs, unique states</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="elevated" surface="concave" border="crisp"</code>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
 
@@ -273,17 +292,21 @@ export default function ComponentsPage() {
                     <h5 className="text-white font-medium mb-3">Special Cards</h5>
                     <p className="text-gray-400 text-sm mb-4">Primary actions and interactive states</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="depth-elevated surface-gold border-neu-crisp" style={{borderRadius: '1.5rem', padding: '1.5rem'}}>
-                        <h3 className="font-semibold mb-2">Gold Primary</h3>
-                        <p className="text-sm mb-3">Primary actions, CTA elements</p>
-                        <span className="utility-combo" style={{color: 'rgba(0, 0, 0, 0.6)', background: 'rgba(255, 255, 255, 0.2)'}}>depth-elevated + surface-gold + border-neu-crisp</span>
-                      </div>
+                      <Card depth="elevated" surface="gold" border="crisp">
+                        <CardContent className="p-6">
+                          <h3 className="font-semibold mb-2 text-black">Gold Primary</h3>
+                          <p className="text-sm mb-3 text-black">Primary actions, CTA elements</p>
+                          <code className="text-xs bg-black/20 px-2 py-1 rounded">depth="elevated" surface="gold" border="crisp"</code>
+                        </CardContent>
+                      </Card>
                       
-                      <div className="depth-subtle surface-convex border-neu-glow hover:transform hover:-translate-y-1 transition-all duration-200" style={{borderRadius: '1.5rem', padding: '1.5rem', cursor: 'pointer'}}>
-                        <h3 className="text-white font-semibold mb-2">Interactive Glow</h3>
-                        <p className="text-gray-300 text-sm mb-3">Hover states, active selections</p>
-                        <span className="utility-combo">depth-subtle + surface-convex + border-neu-glow + hover</span>
-                      </div>
+                      <Card depth="subtle" surface="convex" border="glow" hoverLift>
+                        <CardContent className="p-6">
+                          <h3 className="text-white font-semibold mb-2">Interactive Glow</h3>
+                          <p className="text-gray-300 text-sm mb-3">Hover states, active selections</p>
+                          <code className="text-xs text-norse-gold bg-neu-surface px-2 py-1 rounded">depth="subtle" surface="convex" border="glow" hoverLift</code>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
                 </div>

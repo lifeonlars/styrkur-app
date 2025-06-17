@@ -3,7 +3,7 @@ import { Search, Clock, Dumbbell } from 'lucide-react'
 import { Input } from '@/ui/input'
 import { Workout } from '@/types'
 import { searchWorkouts } from '@/lib/fuzzySearch'
-import WorkoutCard from './WorkoutCard'
+import WorkoutCard from '@/components/ui/workout-card'
 import TagFilter from './TagFilter'
 
 interface WorkoutTabsProps {
@@ -148,10 +148,12 @@ export default function WorkoutTabs({
               <WorkoutCard
                 key={`${activeTab}-${workout.id}`}
                 workout={workout}
-                variant={activeTab}
+                compact={false}
                 onStart={onStartWorkout}
-                onRepeat={activeTab === 'recent' ? onRepeatWorkout : undefined}
+                onClone={activeTab === 'recent' ? onRepeatWorkout : undefined}
                 searchTerm={searchTerm}
+                showLastCompleted={activeTab === 'recent'}
+                showCompletionCount={activeTab === 'recent'}
               />
             ))}
           </div>

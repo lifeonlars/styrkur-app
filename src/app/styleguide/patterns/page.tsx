@@ -3,7 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import MuscleHighlighter from '@/components/muscle-map/MuscleHighlighter'
-import { Grid3x3, Zap, Clock, Dumbbell } from 'lucide-react'
+import WorkoutCard from '@/components/ui/workout-card'
+import { Grid3x3, Zap, Clock, Dumbbell, Play, Eye } from 'lucide-react'
 
 export default function PatternsPage() {
   const upcomingPatterns = [
@@ -109,10 +110,205 @@ export default function PatternsPage() {
         </div>
       </ComponentShowcase>
 
+      <ComponentShowcase title="WorkoutCard - Unified Component">
+        <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+          <h4 className="text-white font-medium mb-4">Complete Workout Card Implementation</h4>
+          <p className="text-gray-400 text-sm mb-6">
+            Unified WorkoutCard component that replaces multiple inconsistent implementations across the app. 
+            Features smart duration calculation, exercise preview, responsive layouts, and integrated WorkoutSummaryModal.
+          </p>
+          
+          {/* Full Layout Example */}
+          <div className="space-y-6">
+            <div>
+              <h5 className="text-norse-gold font-medium mb-3">Full Layout (Default)</h5>
+              <WorkoutCard
+                workout={{
+                  id: 1,
+                  title: "Upper Body Power",
+                  description: "Compound movements focusing on chest, back, and shoulders with progressive overload",
+                  entries: [
+                    {
+                      id: "1",
+                      exercises: [
+                        { exerciseId: "bench-press", sets: 4, reps: 8, weight: 80 },
+                        { exerciseId: "pull-ups", sets: 4, reps: 6, weight: 20 }
+                      ],
+                      sets: 4
+                    },
+                    {
+                      id: "2", 
+                      exercises: [
+                        { exerciseId: "overhead-press", sets: 3, reps: 10, weight: 50 },
+                        { exerciseId: "bent-over-row", sets: 3, reps: 10, weight: 70 }
+                      ],
+                      sets: 3
+                    }
+                  ],
+                  tags: ["strength", "upper-body", "compound"],
+                  lastCompleted: "2024-01-15T10:30:00Z",
+                  completionCount: 12
+                }}
+                onStart={(workout) => console.log('Starting:', workout.title)}
+                onClone={(workout) => console.log('Cloning:', workout.title)}
+                showLastCompleted={true}
+                showCompletionCount={true}
+                searchTerm=""
+              />
+            </div>
+            
+            {/* Compact Layout Example */}
+            <div>
+              <h5 className="text-norse-gold font-medium mb-3">Compact Layout (Grid View)</h5>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <WorkoutCard
+                  compact={true}
+                  workout={{
+                    id: 2,
+                    title: "Morning Cardio",
+                    description: "Quick HIIT session",
+                    entries: [
+                      {
+                        id: "1",
+                        exercises: [
+                          { exerciseId: "burpees", sets: 3, reps: 15, weight: 0 },
+                          { exerciseId: "mountain-climbers", sets: 3, reps: 20, weight: 0 }
+                        ],
+                        sets: 3
+                      }
+                    ],
+                    tags: ["cardio", "hiit"],
+                    lastCompleted: "2024-01-16T07:00:00Z",
+                    completionCount: 8
+                  }}
+                  onStart={(workout) => console.log('Starting:', workout.title)}
+                />
+                <WorkoutCard
+                  compact={true}
+                  workout={{
+                    id: 3,
+                    title: "Leg Day",
+                    description: "Quad and glute focus",
+                    entries: [
+                      {
+                        id: "1",
+                        exercises: [
+                          { exerciseId: "squats", sets: 4, reps: 12, weight: 100 },
+                          { exerciseId: "lunges", sets: 3, reps: 10, weight: 25 }
+                        ],
+                        sets: 4
+                      }
+                    ],
+                    tags: ["legs", "strength"],
+                    lastCompleted: "2024-01-14T18:30:00Z",
+                    completionCount: 15
+                  }}
+                  onStart={(workout) => console.log('Starting:', workout.title)}
+                />
+                <WorkoutCard
+                  compact={true}
+                  workout={{
+                    id: 4,
+                    title: "Core Stability",
+                    entries: [
+                      {
+                        id: "1",
+                        exercises: [
+                          { exerciseId: "plank", sets: 3, reps: 1, weight: 0 },
+                          { exerciseId: "dead-bug", sets: 3, reps: 8, weight: 0 }
+                        ],
+                        sets: 3
+                      }
+                    ],
+                    tags: ["core"],
+                    lastCompleted: "2024-01-13T12:00:00Z",
+                    completionCount: 6
+                  }}
+                  onStart={(workout) => console.log('Starting:', workout.title)}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-neu-card rounded-lg">
+            <h5 className="text-norse-gold font-medium mb-2">Key Features:</h5>
+            <ul className="text-sm text-gray-300 space-y-1">
+              <li>• <strong>Smart Duration:</strong> Formula: (sets × 45s) + ((sets-1) × 90s rest) + (exercises × 30s setup)</li>
+              <li>• <strong>Exercise Preview:</strong> Shows first 3 exercises with "+X more" indicator</li>
+              <li>• <strong>Date Formatting:</strong> "Today", "Yesterday", "3d ago", "2w ago", "1m ago"</li>
+              <li>• <strong>Search Highlighting:</strong> Highlights matching terms in title, description, tags</li>
+              <li>• <strong>Integrated Modal:</strong> Eye icon opens WorkoutSummaryModal with detailed stats</li>
+              <li>• <strong>Responsive Stats:</strong> 6 stats (full) vs 3 stats (compact)</li>
+              <li>• <strong>Norse Styling:</strong> Uses Card component with depth="subtle", surface="convex"</li>
+            </ul>
+          </div>
+        </div>
+      </ComponentShowcase>
+      
+      <ComponentShowcase title="WorkoutSummaryModal - Phase 2 Integration">
+        <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+          <h4 className="text-white font-medium mb-4">Enhanced Workout Summary Modal</h4>
+          <p className="text-gray-400 text-sm mb-6">
+            Phase 2 implementation using shadcn Dialog component with comprehensive workout analysis. 
+            Features 6-stat grid, exercise breakdown, and integrated MuscleHighlighter visualization.
+          </p>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h5 className="text-white font-medium mb-3">Modal Integration</h5>
+              <div className="space-y-3 text-sm text-gray-300">
+                <div className="flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-norse-gold" />
+                  <span>Eye icon in WorkoutCard opens modal</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 bg-norse-gold rounded flex items-center justify-center text-xs text-black font-bold">T</span>
+                  <span>Title click also triggers modal</span>
+                </div>
+                <div className="pl-6 space-y-1 text-xs text-gray-400">
+                  <p>• Uses shadcn Dialog with Norse neumorphic styling</p>
+                  <p>• Responsive: max-w-6xl with 90vh max-height</p>
+                  <p>• Proper keyboard navigation and accessibility</p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h5 className="text-white font-medium mb-3">Modal Content Structure</h5>
+              <div className="space-y-2 text-sm text-gray-300">
+                <div className="p-2 bg-neu-card rounded text-xs">
+                  <p className="text-norse-gold font-medium">Header:</p>
+                  <p className="text-gray-400">Workout title + description</p>
+                </div>
+                <div className="p-2 bg-neu-card rounded text-xs">
+                  <p className="text-norse-gold font-medium">Stats Grid (6 cols):</p>
+                  <p className="text-gray-400">Exercises, Sets, Reps, Volume, Heaviest, Duration</p>
+                </div>
+                <div className="p-2 bg-neu-card rounded text-xs">
+                  <p className="text-norse-gold font-medium">Two-Column Layout:</p>
+                  <p className="text-gray-400">Exercise List + MuscleHighlighter</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-4 bg-neu-card rounded-lg">
+            <h5 className="text-norse-gold font-medium mb-2">Technical Implementation:</h5>
+            <ul className="text-sm text-gray-300 space-y-1">
+              <li>• <strong>Dialog Component:</strong> Uses shadcn Dialog with Norse design tokens</li>
+              <li>• <strong>Statistics:</strong> Real-time calculation via calculateWorkoutMetrics</li>
+              <li>• <strong>Exercise Data:</strong> Async loading with WGER API integration</li>
+              <li>• <strong>Muscle Visualization:</strong> Enhanced MuscleHighlighter with workout mode</li>
+              <li>• <strong>Responsive Design:</strong> Adapts from 1-column (mobile) to 2-column (desktop)</li>
+            </ul>
+          </div>
+        </div>
+      </ComponentShowcase>
+      
       <ComponentShowcase title="Logical Utility Combinations">
         <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
-          <h4 className="text-white font-medium mb-4">Depth + Surface + Border Pattern Examples</h4>
-          <p className="text-gray-400 text-sm mb-4">Real-world patterns that combine multiple utility classes following neumorphic physics principles.</p>
+          <h4 className="text-white font-medium mb-4">Updated Pattern Examples</h4>
+          <p className="text-gray-400 text-sm mb-4">Real-world patterns used in WorkoutCard and other components, combining depth, surface, and border utilities.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card depth="subtle" surface="gold" border="glow">
               <CardHeader>
@@ -134,7 +330,7 @@ export default function PatternsPage() {
 
             <Card depth="elevated" surface="convex" border="crisp">
               <CardHeader>
-                <CardTitle>Tesla Cybertruck Pattern</CardTitle>
+                <CardTitle>Premium Neumorphic Pattern</CardTitle>
                 <CardDescription>depth="elevated" surface="convex" border="crisp"</CardDescription>
               </CardHeader>
               <CardContent>

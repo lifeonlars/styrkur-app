@@ -3,13 +3,12 @@
 import { 
   ColorSwatch, 
   GradientSwatch, 
-  ShadowSwatch, 
   colors, 
   backgroundColors, 
   contextColors, 
-  gradients, 
-  shadows 
+  gradients
 } from '@/components/styleguide/StyleGuideComponents'
+import { Card } from '@/ui/card'
 
 export default function FoundationsPage() {
   return (
@@ -184,7 +183,7 @@ export default function FoundationsPage() {
         {/* Border Utilities */}
         <div className="mb-8">
           <h3 className="text-lg font-medium text-white mb-4">Border Utilities</h3>
-          <p className="text-gray-400 text-sm mb-4">Tesla Cybertruck-inspired border system with clear visual definition. Fixed to work with surface utilities.</p>
+          <p className="text-gray-400 text-sm mb-4">Neumorphic border system with clear visual definition. Fixed to work with surface utilities.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="depth-subtle surface-convex border-transparent p-6 rounded-xl bg-neu-card">
               <div className="text-center">
@@ -205,7 +204,7 @@ export default function FoundationsPage() {
             <div className="depth-subtle surface-convex border-neu-crisp p-6 rounded-xl bg-neu-card">
               <div className="text-center">
                 <h4 className="text-sm font-medium text-white mb-2">border-neu-crisp</h4>
-                <p className="text-xs text-gray-400 mb-2">Tesla Cybertruck style (2px)</p>
+                <p className="text-xs text-gray-400 mb-2">Sharp neumorphic style (2px)</p>
                 <code className="text-xs text-norse-gold">.border-neu-crisp</code>
               </div>
             </div>
@@ -234,8 +233,8 @@ export default function FoundationsPage() {
             </div>
             
             <div className="depth-elevated surface-convex border-neu-crisp p-6 rounded-xl bg-neu-card">
-              <h4 className="text-lg font-semibold text-white mb-2">Tesla Cybertruck Style</h4>
-              <p className="text-sm text-gray-300 mb-3">Premium elevated with sharp definition</p>
+              <h4 className="text-lg font-semibold text-white mb-2">Premium Neumorphic Style</h4>
+              <p className="text-sm text-gray-300 mb-3">Elevated surface with sharp definition</p>
               <code className="text-xs text-norse-gold bg-black/20 px-2 py-1 rounded">
                 depth="elevated" surface="convex" border="crisp"
               </code>
@@ -260,17 +259,32 @@ export default function FoundationsPage() {
         </div>
       </div>
       
-      {/* Legacy Shadow System */}
+      {/* Implementation Reference */}
       <div>
-        <h2 className="text-xl font-semibold text-white mb-4">🗂️ Legacy Shadow System (Deprecated)</h2>
-        <div className="p-4 bg-wood-500/10 border border-wood-500/20 rounded-xl mb-4">
-          <p className="text-wood-400 text-sm">⚠️ <strong>Use new utility system above instead.</strong> This shadow system is kept for reference but should not be used in new components.</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {shadows.map((shadow) => (
-            <ShadowSwatch key={shadow.class} {...shadow} />
-          ))}
-        </div>
+        <h2 className="text-xl font-semibold text-white mb-4">📚 Implementation Reference</h2>
+        <Card variant="elevated" className="p-6">
+          <h3 className="text-lg font-medium text-white mb-4">Design Token Integration</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-norse-gold font-medium mb-2">CSS Custom Properties:</h4>
+              <ul className="space-y-1 text-sm text-gray-300">
+                <li>• <code className="text-xs bg-neu-surface px-2 py-1 rounded">--norse-gold</code> - Primary accent</li>
+                <li>• <code className="text-xs bg-neu-surface px-2 py-1 rounded">--neu-surface</code> - Card backgrounds</li>
+                <li>• <code className="text-xs bg-neu-surface px-2 py-1 rounded">--shadow-neu-*</code> - Depth shadows</li>
+                <li>• <code className="text-xs bg-neu-surface px-2 py-1 rounded">--gradient-neu-*</code> - Surface gradients</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-norse-gold font-medium mb-2">Component Usage:</h4>
+              <ul className="space-y-1 text-sm text-gray-300">
+                <li>• Import unified Card component</li>
+                <li>• Use depth/surface/border props</li>
+                <li>• Follow Norse neumorphic patterns</li>
+                <li>• Maintain accessibility standards</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   )

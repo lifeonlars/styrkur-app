@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { X } from 'lucide-react'
 import { Workout, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
-import WorkoutSummary from './WorkoutSummary'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/ui/dialog'
+import { calculateWorkoutMetrics, formatWeight } from '@/lib/workoutUtils'
+import { Hash, Weight, RotateCcw, TrendingUp, Calculator, Clock } from 'lucide-react'
+import MuscleHighlighter from '@/components/muscle-map/MuscleHighlighter'
 
 interface WorkoutSummaryModalProps {
   workout: Workout
@@ -15,6 +17,12 @@ interface WorkoutSummaryModalProps {
 export default function WorkoutSummaryModal({ workout, isOpen, onClose }: WorkoutSummaryModalProps) {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [loading, setLoading] = useState(true)
+
+  // Calculate workout metrics
+  const metrics = calculateWorkoutMetrics(workout)
+  
+  // Estimate duration (rough calculation: 3 min per set + rest)
+  const estimatedDuration = Math.ceil(metrics.totalSets * 3.5)
 
   // Load exercises for lookup
   useEffect(() => {
@@ -35,47 +43,153 @@ export default function WorkoutSummaryModal({ workout, isOpen, onClose }: Workou
     }
   }, [isOpen])
 
-  if (!isOpen) return null
+  // Prepare exercises for muscle map
+  const muscleMapExercises = workout.entries?.flatMap(entry => 
+    entry.exercises.map(exerciseConfig => {
+      const exerciseData = exercises.find(ex => ex.id === exerciseConfig.exerciseId)
+      return exerciseData ? {
+        primaryMuscleIds: exerciseData.primaryMuscleIds || [],
+        secondaryMuscleIds: exerciseData.secondaryMuscleIds || [],
+        name: exerciseData.name
+      } : null
+    }).filter(Boolean)
+  ) || []
 
   return (
-    <div className="fixed inset-0 bg-neu-darkest/90 backdrop-blur-sm flex items-center justify-center z-[100] md:p-4">
-      <div className="bg-neu-card shadow-neu-raised-xl w-full max-w-4xl md:rounded-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden flex flex-col border border-neu-light/20">
-        {/* Header */}
-        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
-          <div>
-            <h2 className="text-white text-xl font-medium font-heading">{workout.title}</h2>
-            {workout.description && (
-              <p className="text-gray-400 text-sm mt-1">{workout.description}</p>
-            )}
-          </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-6">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-6xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogHeader className="p-6 pb-4">
+          <DialogTitle className="text-xl font-heading font-medium text-white">
+            {workout.title}
+          </DialogTitle>
+          {workout.description && (
+            <p className="text-gray-400 text-sm mt-1">{workout.description}</p>
+          )}
+        </DialogHeader>
+        
+        <div className="overflow-y-auto flex-1">
+          <div className="p-6 pt-0 space-y-6">
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#C3A869]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-norse-gold"></div>
               </div>
             ) : (
-              <WorkoutSummary workout={workout} exercises={exercises} />
+              <>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Hash className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">Exercises</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">{metrics.exerciseNames.length}</div>
+                  </div>
+
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <RotateCcw className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">Total Sets</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">{metrics.totalSets}</div>
+                  </div>
+
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calculator className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">Total Reps</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">{metrics.totalReps.toLocaleString()}</div>
+                  </div>
+
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Weight className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">Total Volume</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">
+                      {formatWeight(metrics.totalWeight)}
+                    </div>
+                  </div>
+
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">Heaviest Set</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">
+                      {metrics.heaviestWeight > 0 ? `${metrics.heaviestWeight} kg` : '0 kg'}
+                    </div>
+                  </div>
+
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="w-4 h-4 text-norse-gold" />
+                      <span className="text-xs text-gray-400">~Duration</span>
+                    </div>
+                    <div className="text-white font-medium text-lg">{estimatedDuration}min</div>
+                  </div>
+                </div>
+
+                {/* Two Column Layout for Exercise List and Muscle Map */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Exercise List */}
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-6">
+                    <h3 className="text-white font-heading font-medium text-lg mb-4">Exercise List</h3>
+                    <div className="space-y-3 max-h-80 overflow-y-auto">
+                      {workout.entries?.map((entry, entryIndex) => (
+                        <div key={entryIndex} className="border-b border-gray-700 pb-3 last:border-b-0">
+                          {entry.exercises.map((exerciseConfig, exerciseIndex) => {
+                            const exerciseData = exercises.find(ex => ex.id === exerciseConfig.exerciseId)
+                            return (
+                              <div key={exerciseIndex} className="flex justify-between items-center">
+                                <div className="flex-1">
+                                  <p className="text-white font-medium text-sm">
+                                    {exerciseData?.name || `Exercise ${exerciseConfig.exerciseId}`}
+                                  </p>
+                                  <p className="text-gray-400 text-xs">
+                                    {entry.sets || 1} sets × {exerciseConfig.reps || 0} reps
+                                    {exerciseConfig.weight ? ` @ ${exerciseConfig.weight}kg` : ''}
+                                  </p>
+                                </div>
+                                <div className="text-gray-500 text-xs">
+                                  {exerciseConfig.weight && exerciseConfig.reps 
+                                    ? `${(entry.sets || 1) * exerciseConfig.reps * exerciseConfig.weight}kg`
+                                    : '0kg'
+                                  }
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Muscle Map */}
+                  <div className="bg-neu-surface shadow-neu-flat rounded-xl p-6">
+                    <h3 className="text-white font-heading font-medium text-lg mb-4">Muscle Activation</h3>
+                    {muscleMapExercises.length > 0 ? (
+                      <MuscleHighlighter
+                        exercises={muscleMapExercises}
+                        showLegend={true}
+                        showMuscleList={false}
+                        size="medium"
+                        useEnhanced={true}
+                        className="muscle-map-container"
+                      />
+                    ) : (
+                      <div className="text-center py-8 text-gray-400">
+                        <div className="text-2xl mb-2">💪</div>
+                        <p className="text-sm">No muscle data available</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="p-6 border-t border-gray-800">
-          <button
-            onClick={onClose}
-            className="w-full bg-gray-700 text-white py-3 rounded-xl font-medium hover:bg-gray-600 transition"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }

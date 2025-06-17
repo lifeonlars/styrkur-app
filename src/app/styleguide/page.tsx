@@ -30,8 +30,8 @@ export default function StyleGuideOverview() {
       description: 'Workout-specific interface patterns and layouts',
       href: '/styleguide/patterns',
       icon: Grid3x3,
-      status: '🔄 In Progress',
-      highlight: 'Placeholder structure for future expansion'
+      status: '✅ Ready',
+      highlight: 'WorkoutCard, WorkoutSummaryModal, MuscleHighlighter patterns'
     },
     {
       id: 'brand',
@@ -52,7 +52,7 @@ export default function StyleGuideOverview() {
     },
     {
       icon: Zap,
-      title: 'Tesla Cybertruck Physics',
+      title: 'Neumorphic Physics',
       description: 'Sharp definition, crisp edges, and premium elevation with consistent 115° light direction'
     },
     {
@@ -134,7 +134,7 @@ export default function StyleGuideOverview() {
       </div>
 
       {/* AI Reference Note */}
-      <Card variant="accent">
+      <Card variant="flat">
         <CardHeader>
           <CardTitle>AI Consistency Tool</CardTitle>
           <CardDescription>Visual reference system for maintaining design consistency</CardDescription>
