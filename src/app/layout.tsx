@@ -1,6 +1,7 @@
 import { Inter, Cinzel } from 'next/font/google'
 import './globals.css'
 import { forceIncludeClasses } from '@/lib/css-test'
+import { Toaster } from '@/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 const cinzel = Cinzel({ 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl">
           {children}
         </div>
+        <Toaster />
       </body>
     </html>
   )

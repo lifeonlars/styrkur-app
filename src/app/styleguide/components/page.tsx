@@ -7,6 +7,9 @@ import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/ui/dialog'
+import { showToast } from '@/ui/sonner'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet'
 
 export default function ComponentsPage() {
   const [activeSubsection, setActiveSubsection] = useState('overview')
@@ -17,6 +20,9 @@ export default function ComponentsPage() {
     { id: 'cards', label: 'Cards' },
     { id: 'forms', label: 'Forms' },
     { id: 'tabs', label: 'Tabs' },
+    { id: 'modals', label: 'Modals' },
+    { id: 'notifications', label: 'Toasts' },
+    { id: 'mobile', label: 'Mobile Nav' },
     { id: 'ui-elements', label: 'UI Elements' },
   ]
 
@@ -801,6 +807,263 @@ export default function ComponentsPage() {
                   ))}
                 </div>
                 <div className="text-xs text-gray-400">Hover to see interactive states</div>
+              </div>
+            </ComponentShowcase>
+          </div>
+        )
+
+      case 'modals':
+        return (
+          <div className="space-y-8">
+            <ComponentShowcase title="Modal/Dialog Components">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Basic Modal</h4>
+                  <p className="text-gray-400 text-sm mb-4">Neumorphic modal with proper focus management and accessibility</p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Open Modal</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Norse Themed Modal</DialogTitle>
+                        <DialogDescription>
+                          This modal uses neumorphic styling with proper Norse design tokens for consistency.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <Input placeholder="Example input in modal" />
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Example select..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="option1">Option 1</SelectItem>
+                            <SelectItem value="option2">Option 2</SelectItem>
+                            <SelectItem value="option3">Option 3</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button variant="flat">Cancel</Button>
+                        </DialogClose>
+                        <Button variant="primary">Confirm</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
+                <div className="mt-6 p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-white font-medium mb-2">Modal Features</h5>
+                  <ul className="text-xs text-gray-400 space-y-1">
+                    <li>• Neumorphic design using design tokens</li>
+                    <li>• Proper focus management and accessibility</li>
+                    <li>• Backdrop blur and overlay styling</li>
+                    <li>• Smooth animations with Norse aesthetics</li>
+                    <li>• Close button with hover states</li>
+                    <li>• Supports all form components inside</li>
+                  </ul>
+                </div>
+              </div>
+            </ComponentShowcase>
+          </div>
+        )
+
+      case 'notifications':
+        return (
+          <div className="space-y-8">
+            <ComponentShowcase title="Toast Notifications">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Toast Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Neumorphic toast notifications with context colors</p>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <Button 
+                      variant="outline" 
+                      onClick={() => showToast.default('Default notification')}
+                    >
+                      Default Toast
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => showToast.success('Success! Operation completed')}
+                    >
+                      Success Toast
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => showToast.error('Error! Something went wrong')}
+                    >
+                      Error Toast
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => showToast.warning('Warning! Please check this')}
+                    >
+                      Warning Toast
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => showToast.info('Info: Here\'s some information')}
+                    >
+                      Info Toast
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-white font-medium mb-2">Toast Features</h5>
+                  <ul className="text-xs text-gray-400 space-y-1">
+                    <li>• Neumorphic design with design tokens</li>
+                    <li>• Color-coded borders for different states</li>
+                    <li>• Consistent with form validation colors</li>
+                    <li>• Auto-dismiss with smooth animations</li>
+                    <li>• Accessible and screen reader friendly</li>
+                    <li>• Easy integration with forms and actions</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-white font-medium mb-2">Usage Example</h5>
+                  <pre className="text-xs text-gray-400 font-mono bg-neu-background p-3 rounded overflow-x-auto">
+{`import { showToast } from '@/ui/sonner'
+
+// Usage in components
+showToast.success('Workout saved successfully!')
+showToast.error('Failed to save workout')
+showToast.warning('Please check your form')
+showToast.info('New feature available')
+showToast.default('General notification')`}
+                  </pre>
+                </div>
+              </div>
+            </ComponentShowcase>
+          </div>
+        )
+
+      case 'mobile':
+        return (
+          <div className="space-y-8">
+            <ComponentShowcase title="Sheet Component - Mobile Navigation">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Mobile Navigation Sheet</h4>
+                  <p className="text-gray-400 text-sm mb-4">Sliding drawer navigation for mobile interfaces</p>
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Left Side Sheet */}
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="outline">Open Left Sheet</Button>
+                      </SheetTrigger>
+                      <SheetContent side="left">
+                        <SheetHeader>
+                          <SheetTitle>Quick Actions</SheetTitle>
+                          <SheetDescription>
+                            Shortcuts for common tasks
+                          </SheetDescription>
+                        </SheetHeader>
+                        <div className="py-4 space-y-4">
+                          <Button variant="primary" className="w-full">
+                            <Plus className="mr-2 h-4 w-4" />
+                            New Workout
+                          </Button>
+                          <Button variant="outline" className="w-full">
+                            <Calendar className="mr-2 h-4 w-4" />
+                            Schedule
+                          </Button>
+                          <Button variant="flat" className="w-full">
+                            <Clock className="mr-2 h-4 w-4" />
+                            History
+                          </Button>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+
+                    {/* Right Side Sheet */}
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="outline">Open Right Sheet</Button>
+                      </SheetTrigger>
+                      <SheetContent side="right">
+                        <SheetHeader>
+                          <SheetTitle>Navigation Menu</SheetTitle>
+                          <SheetDescription>
+                            Quick access to main app sections
+                          </SheetDescription>
+                        </SheetHeader>
+                        <div className="py-4 space-y-4">
+                          <div className="space-y-2">
+                            <Button variant="flat" className="w-full justify-start">
+                              <User className="mr-2 h-4 w-4" />
+                              Profile
+                            </Button>
+                            <Button variant="flat" className="w-full justify-start">
+                              <Dumbbell className="mr-2 h-4 w-4" />
+                              Workouts
+                            </Button>
+                            <Button variant="flat" className="w-full justify-start">
+                              <Target className="mr-2 h-4 w-4" />
+                              Progress
+                            </Button>
+                            <Button variant="flat" className="w-full justify-start">
+                              <Settings className="mr-2 h-4 w-4" />
+                              Settings
+                            </Button>
+                          </div>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+
+                  {/* Bottom Sheet Example */}
+                  <div className="mt-6">
+                    <h4 className="text-white font-medium mb-4">Bottom Sheet (Mobile)</h4>
+                    <p className="text-gray-400 text-sm mb-4">Perfect for mobile action sheets and quick settings</p>
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="primary" className="w-full">Open Bottom Sheet</Button>
+                      </SheetTrigger>
+                      <SheetContent side="bottom">
+                        <SheetHeader>
+                          <SheetTitle>Quick Settings</SheetTitle>
+                          <SheetDescription>
+                            Adjust your workout preferences
+                          </SheetDescription>
+                        </SheetHeader>
+                        <div className="py-4 space-y-4">
+                          <div className="grid grid-cols-3 gap-2">
+                            <Button variant="flat" size="default">
+                              <Settings className="mr-2 h-4 w-4" />
+                              Settings
+                            </Button>
+                            <Button variant="flat" size="default">
+                              <User className="mr-2 h-4 w-4" />
+                              Profile
+                            </Button>
+                            <Button variant="flat" size="default">
+                              <Heart className="mr-2 h-4 w-4" />
+                              Favorites
+                            </Button>
+                          </div>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-white font-medium mb-2">Sheet Features</h5>
+                  <ul className="text-xs text-gray-400 space-y-1">
+                    <li>• Neumorphic design with design tokens</li>
+                    <li>• Slide animations from all sides (left, right, top, bottom)</li>
+                    <li>• Perfect for mobile navigation and action sheets</li>
+                    <li>• Bottom sheet ideal for mobile quick actions</li>
+                    <li>• Backdrop blur and overlay styling</li>
+                    <li>• Close button with interactive states</li>
+                    <li>• Supports all form and button components</li>
+                  </ul>
+                </div>
               </div>
             </ComponentShowcase>
           </div>
