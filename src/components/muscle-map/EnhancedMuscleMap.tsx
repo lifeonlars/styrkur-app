@@ -60,7 +60,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
   };
 
   return (
-    <div className={cn(styles['muscle-highlighter'], className)}>
+    <div className={cn(styles['enhanced-muscle-map'], className)}>
       {/* Selected body part info */}
       {selectedBodyPart && (
         <div className={styles['selected-info']}>
@@ -76,9 +76,10 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
         <div className={cn(
           forceSingleView ? styles['single-view'] : styles['single-view-responsive']
         )}>
-          {/* Tab Navigation */}
+          {/* Tab Navigation - Standardized Implementation */}
           <div className={styles['tab-container']}>
             <button
+              type="button"
               onClick={() => setSelectedSide('front')}
               className={cn(
                 styles['tab-button'],
@@ -88,6 +89,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
               Front
             </button>
             <button
+              type="button"
               onClick={() => setSelectedSide('back')}
               className={cn(
                 styles['tab-button'],
@@ -146,7 +148,7 @@ const EnhancedMuscleMap: React.FC<EnhancedMuscleMapProps> = ({
       {showLegend && (
         <div className={styles['legend']}>
           {muscleActivation.length > 0 ? (
-            <div>
+            <div className={styles['legend-groups-container']}>
               {/* Primary Muscles */}
               {muscleActivation.filter(m => m.percentage >= 60).length > 0 && (
                 <div className={styles['legend-group']}>

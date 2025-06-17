@@ -46,9 +46,9 @@ const EnhancedBodyHighlighter: React.FC<EnhancedBodyHighlighterProps> = ({
       return bodyPart.color;
     }
     
-    // Return a subtle background color for non-highlighted muscles so they're visible
-    // Use a darker gray that works well with the app's dark theme
-    return '#3a3a3f'; // Medium gray for non-highlighted muscles
+    // Return a lighter background color for non-highlighted muscles for better contrast
+    // Use a lighter gray that provides better visibility against dark background
+    return '#6B7280'; // Lighter gray for better contrast with dark background
   };
 
   // Get the stroke color based on theme

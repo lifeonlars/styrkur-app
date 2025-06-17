@@ -4,10 +4,28 @@
 /* === BASE COMPONENT === */
 
 .muscle-highlighter {
-  /* Core component properties */
+  /* Core component properties with concave sunken card styling */
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
+  width: 100%;
+  
+  /* Concave sunken card styling */
+  background: var(--gradient-neu-sunken);
+  box-shadow: var(--shadow-neu-inset);
+  border-radius: var(--radius-neu-lg);
+  padding: var(--spacing-6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* === ENHANCED MUSCLE MAP (INNER COMPONENT) === */
+
+.enhanced-muscle-map {
+  /* Inner component styling - minimal, no background/borders since parent provides container */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 100%;
 }
 
 /* === RESPONSIVE WRAPPER === */
@@ -18,6 +36,8 @@
   display: flex;
   flex-direction: column;
   gap: 0; /* No gap between single/dual views since only one shows */
+  overflow: hidden; /* Prevent any content from being cut off */
+  min-width: 0; /* Allow shrinking below content size */
 }
 
 /* === BODY VIEW CONTAINER === */
@@ -25,65 +45,59 @@
 .body-views {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: var(--spacing-6);
+  align-items: flex-start;
+  gap: var(--spacing-4);
   width: 100%;
   
-  /* Responsive behavior for dual view */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  /* Better responsive behavior to prevent cut-off */
+  flex-wrap: wrap;
   
-  /* On large screens, ensure proper side-by-side layout */
+  /* On large screens, ensure proper side-by-side layout without overflow */
   @media (min-width: 1024px) {
-    flex-wrap: nowrap; /* Prevent wrapping on desktop */
-    gap: var(--spacing-4); /* Reduce gap slightly for better fit */
-    max-width: 100%; /* Ensure container doesn't exceed parent */
+    flex-wrap: nowrap;
+    gap: var(--spacing-3);
+    max-width: 100%;
+    overflow: hidden; /* Prevent any content from being cut off */
+  }
+  
+  /* Ensure SVG containers scale properly */
+  > * {
+    box-sizing: border-box;
+    min-width: 0; /* Allow flex items to shrink below their minimum content size */
   }
 }
 
 .body-view {
-  /* Neumorphic card styling */
-  border-radius: var(--radius-neu-lg);
-  box-shadow: var(--shadow-neu);
-  background: var(--neu-card);
-  border: 1px solid var(--border-neu-light);
-  
-  /* Expanded padding and centering for muscle maps */
-  padding: var(--spacing-6); /* Increased from spacing-4 */
-  min-width: 280px; /* Ensure adequate width */
-  
-  /* Perfect centering for SVG content */
+  /* Simplified view styling - no card wrapper since parent has unified container */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--spacing-2);
   
   /* Responsive sizing for dual view */
-  flex: 1; /* Allow equal distribution in dual view */
-  max-width: 100%; /* Prevent overflow */
+  flex: 1;
+  min-width: 0; /* Allow shrinking */
+  max-width: 100%;
+  
+  /* Ensure SVG content scales properly */
+  > * {
+    max-width: 100%;
+    height: auto;
+  }
   
   /* Desktop dual view optimizations */
   @media (min-width: 1024px) {
-    /* In dual view context, make containers more compact */
-    min-width: 0; /* Allow shrinking below minimum */
-    width: 0; /* Start with no intrinsic width */
-    padding: var(--spacing-4); /* Reduce padding more significantly */
-    flex: 1 1 50%; /* Grow, shrink, 50% basis for equal distribution */
-    max-width: 50%; /* Hard limit to ensure two fit side by side */
-    box-sizing: border-box; /* Include padding in width calculation */
+    flex: 1 1 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+    padding: var(--spacing-1); /* Reduce padding on desktop for better fit */
   }
   
-  /* Extra large screens - restore more generous sizing */
+  /* Extra large screens */
   @media (min-width: 1400px) {
-    min-width: 280px; /* Restore larger size on big screens */
-    padding: var(--spacing-6); /* Restore full padding */
-    max-width: none; /* Remove max-width restriction */
-  }
-  
-  /* Smooth transitions */
-  transition: var(--transition-all);
-  
-  &:hover {
-    box-shadow: var(--shadow-neu-hover);
-    border-color: var(--border-neu-lighter);
+    min-width: 280px;
+    max-width: none;
+    padding: var(--spacing-2); /* Restore padding on large screens */
   }
 }
 
@@ -135,57 +149,69 @@
 /* === MOBILE TABS === */
 
 .tab-container {
-  /* Neumorphic tab container */
+  /* Standardized tab container following WorkoutTabs pattern */
   display: flex;
+  gap: var(--spacing-1);
   background: var(--neu-card);
-  box-shadow: var(--shadow-neu);
-  border-radius: var(--radius-neu);
-  border: 1px solid var(--border-neu-light);
   padding: var(--spacing-1);
+  border-radius: var(--radius-neu-lg);
   margin: 0 auto var(--spacing-4);
   max-width: 12rem; /* 192px */
+  box-shadow: var(--shadow-neu);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tab-button {
-  /* Base tab button styling */
+  /* Base tab button styling following design system pattern */
   flex: 1;
-  padding: var(--spacing-2) var(--spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-3);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  border-radius: var(--radius-default);
+  border-radius: var(--radius-neu-pill); /* Use pill radius for fully rounded tabs */
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition-all);
-  
-  &:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-  }
+}
+
+.tab-button:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--norse-gold-light);
 }
 
 .tab-button-active {
   background: var(--norse-gold);
   color: var(--text-inverse);
   box-shadow: var(--shadow-neu-flat);
-  
-  &:hover {
-    background: var(--norse-gold-light);
-    color: var(--text-inverse);
-  }
+  border-radius: var(--radius-neu-pill); /* Use pill radius for fully rounded active tab */
+}
+
+.tab-button-active:hover {
+  background: var(--norse-gold-light);
+  color: var(--text-inverse);
+}
+
+.tab-button-active:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--norse-gold-light);
 }
 
 /* === LEGEND === */
 
 .legend {
-  /* Neumorphic legend container */
-  background: var(--neu-card);
-  box-shadow: var(--shadow-neu);
-  border-radius: var(--radius-neu-lg);
-  border: 1px solid var(--border-neu-light);
-  padding: var(--spacing-4);
+  /* Simplified legend styling - no dividing lines */
+  padding: var(--spacing-4) 0;
   width: 100%;
+  margin-top: var(--spacing-4);
 }
 
 .legend-title {
@@ -195,12 +221,29 @@
   margin-bottom: var(--spacing-3);
 }
 
-.legend-group {
-  margin-bottom: var(--spacing-4);
+.legend-groups-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
   
-  &:last-child {
-    margin-bottom: 0;
+  /* Responsive side-by-side layout for legend groups */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: var(--spacing-6);
   }
+}
+
+.legend-group {
+  /* Base legend group styling */
+  flex: 1;
+  min-width: 0; /* Allow shrinking */
+  
+  /* When inside the groups container, no bottom margin needed */
+  margin-bottom: var(--spacing-4);
+}
+
+.legend-group:last-child {
+  margin-bottom: 0;
 }
 
 .legend-header {
@@ -251,7 +294,14 @@
 .legend-basic {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: var(--spacing-3);
+  
+  /* Responsive side-by-side layout on larger screens */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-6);
+  }
 }
 
 .legend-basic-item {
@@ -275,11 +325,9 @@
 /* === MUSCLE LIST === */
 
 .muscle-list {
-  background: var(--neu-card);
-  box-shadow: var(--shadow-neu);
-  border-radius: var(--radius-neu-lg);
-  border: 1px solid var(--border-neu-light);
-  padding: var(--spacing-4);
+  /* Simplified muscle list styling - no dividing lines */
+  padding: var(--spacing-4) 0;
+  margin-top: var(--spacing-4);
 }
 
 .muscle-list-title {
@@ -291,10 +339,10 @@
 
 .muscle-group {
   margin-bottom: var(--spacing-3);
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
+}
+
+.muscle-group:last-child {
+  margin-bottom: 0;
 }
 
 .muscle-group-title {
@@ -329,11 +377,9 @@
 /* === WORKOUT SUMMARY === */
 
 .workout-summary {
-  background: var(--neu-card);
-  box-shadow: var(--shadow-neu);
-  border-radius: var(--radius-neu-lg);
-  border: 1px solid var(--border-neu-light);
-  padding: var(--spacing-4);
+  /* Simplified workout summary styling - no dividing lines */
+  padding: var(--spacing-4) 0;
+  margin-top: var(--spacing-4);
 }
 
 .workout-summary-title {
