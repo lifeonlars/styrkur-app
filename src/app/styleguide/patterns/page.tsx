@@ -5,6 +5,7 @@ import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import MuscleHighlighter from '@/components/muscle-map/MuscleHighlighter'
 import WorkoutCard from '@/components/ui/workout-card'
 import WorkoutGroup from '@/components/ui/workout-group'
+import ClientOnly from '@/components/ClientOnly'
 import { Grid3x3, Zap, Clock, Dumbbell, Play, Eye } from 'lucide-react'
 
 export default function PatternsPage() {
@@ -123,110 +124,118 @@ export default function PatternsPage() {
           <div className="space-y-6">
             <div>
               <h5 className="text-norse-gold font-medium mb-3">Full Layout (Default)</h5>
-              <WorkoutCard
-                workout={{
-                  id: 1,
-                  title: "Upper Body Power",
-                  description: "Compound movements focusing on chest, back, and shoulders with progressive overload",
-                  entries: [
-                    {
-                      id: "1",
-                      exercises: [
-                        { exerciseId: "bench-press", sets: 4, reps: 8, weight: 80 },
-                        { exerciseId: "pull-ups", sets: 4, reps: 6, weight: 20 }
-                      ],
-                      sets: 4
-                    },
-                    {
-                      id: "2", 
-                      exercises: [
-                        { exerciseId: "overhead-press", sets: 3, reps: 10, weight: 50 },
-                        { exerciseId: "bent-over-row", sets: 3, reps: 10, weight: 70 }
-                      ],
-                      sets: 3
-                    }
-                  ],
-                  tags: ["strength", "upper-body", "compound"],
-                  lastCompleted: "2024-01-15T10:30:00Z",
-                  completionCount: 12
-                }}
-                onStart={(workout) => console.log('Starting:', workout.title)}
-                onClone={(workout) => console.log('Cloning:', workout.title)}
-                showLastCompleted={true}
-                showCompletionCount={true}
-                searchTerm=""
-              />
+              <ClientOnly fallback={<div className="h-64 bg-neu-surface rounded-lg animate-pulse" />}>
+                <WorkoutCard
+                  workout={{
+                    id: 1,
+                    title: "Upper Body Power",
+                    description: "Compound movements focusing on chest, back, and shoulders with progressive overload",
+                    entries: [
+                      {
+                        id: "1",
+                        exercises: [
+                          { exerciseId: "bench-press", sets: 4, reps: 8, weight: 80 },
+                          { exerciseId: "pull-ups", sets: 4, reps: 6, weight: 20 }
+                        ],
+                        sets: 4
+                      },
+                      {
+                        id: "2", 
+                        exercises: [
+                          { exerciseId: "overhead-press", sets: 3, reps: 10, weight: 50 },
+                          { exerciseId: "bent-over-row", sets: 3, reps: 10, weight: 70 }
+                        ],
+                        sets: 3
+                      }
+                    ],
+                    tags: ["strength", "upper-body", "compound"],
+                    lastCompleted: "2024-01-15T10:30:00Z",
+                    completionCount: 12
+                  }}
+                  onStart={(workout) => console.log('Starting:', workout.title)}
+                  onClone={(workout) => console.log('Cloning:', workout.title)}
+                  showLastCompleted={true}
+                  showCompletionCount={true}
+                  searchTerm=""
+                />
+              </ClientOnly>
             </div>
             
             {/* Compact Layout Example */}
             <div>
               <h5 className="text-norse-gold font-medium mb-3">Compact Layout (Grid View)</h5>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <WorkoutCard
-                  compact={true}
-                  workout={{
-                    id: 2,
-                    title: "Morning Cardio",
-                    description: "Quick HIIT session",
-                    entries: [
-                      {
-                        id: "1",
-                        exercises: [
-                          { exerciseId: "burpees", sets: 3, reps: 15, weight: 0 },
-                          { exerciseId: "mountain-climbers", sets: 3, reps: 20, weight: 0 }
-                        ],
-                        sets: 3
-                      }
-                    ],
-                    tags: ["cardio", "hiit"],
-                    lastCompleted: "2024-01-16T07:00:00Z",
-                    completionCount: 8
-                  }}
-                  onStart={(workout) => console.log('Starting:', workout.title)}
-                />
-                <WorkoutCard
-                  compact={true}
-                  workout={{
-                    id: 3,
-                    title: "Leg Day",
-                    description: "Quad and glute focus",
-                    entries: [
-                      {
-                        id: "1",
-                        exercises: [
-                          { exerciseId: "squats", sets: 4, reps: 12, weight: 100 },
-                          { exerciseId: "lunges", sets: 3, reps: 10, weight: 25 }
-                        ],
-                        sets: 4
-                      }
-                    ],
-                    tags: ["legs", "strength"],
-                    lastCompleted: "2024-01-14T18:30:00Z",
-                    completionCount: 15
-                  }}
-                  onStart={(workout) => console.log('Starting:', workout.title)}
-                />
-                <WorkoutCard
-                  compact={true}
-                  workout={{
-                    id: 4,
-                    title: "Core Stability",
-                    entries: [
-                      {
-                        id: "1",
-                        exercises: [
-                          { exerciseId: "plank", sets: 3, reps: 1, weight: 0 },
-                          { exerciseId: "dead-bug", sets: 3, reps: 8, weight: 0 }
-                        ],
-                        sets: 3
-                      }
-                    ],
-                    tags: ["core"],
-                    lastCompleted: "2024-01-13T12:00:00Z",
-                    completionCount: 6
-                  }}
-                  onStart={(workout) => console.log('Starting:', workout.title)}
-                />
+                <ClientOnly fallback={<div className="h-48 bg-neu-surface rounded-lg animate-pulse" />}>
+                  <WorkoutCard
+                    compact={true}
+                    workout={{
+                      id: 2,
+                      title: "Morning Cardio",
+                      description: "Quick HIIT session",
+                      entries: [
+                        {
+                          id: "1",
+                          exercises: [
+                            { exerciseId: "burpees", sets: 3, reps: 15, weight: 0 },
+                            { exerciseId: "mountain-climbers", sets: 3, reps: 20, weight: 0 }
+                          ],
+                          sets: 3
+                        }
+                      ],
+                      tags: ["cardio", "hiit"],
+                      lastCompleted: "2024-01-16T07:00:00Z",
+                      completionCount: 8
+                    }}
+                    onStart={(workout) => console.log('Starting:', workout.title)}
+                  />
+                </ClientOnly>
+                <ClientOnly fallback={<div className="h-48 bg-neu-surface rounded-lg animate-pulse" />}>
+                  <WorkoutCard
+                    compact={true}
+                    workout={{
+                      id: 3,
+                      title: "Leg Day",
+                      description: "Quad and glute focus",
+                      entries: [
+                        {
+                          id: "1",
+                          exercises: [
+                            { exerciseId: "squats", sets: 4, reps: 12, weight: 100 },
+                            { exerciseId: "lunges", sets: 3, reps: 10, weight: 25 }
+                          ],
+                          sets: 4
+                        }
+                      ],
+                      tags: ["legs", "strength"],
+                      lastCompleted: "2024-01-14T18:30:00Z",
+                      completionCount: 15
+                    }}
+                    onStart={(workout) => console.log('Starting:', workout.title)}
+                  />
+                </ClientOnly>
+                <ClientOnly fallback={<div className="h-48 bg-neu-surface rounded-lg animate-pulse" />}>
+                  <WorkoutCard
+                    compact={true}
+                    workout={{
+                      id: 4,
+                      title: "Core Stability",
+                      entries: [
+                        {
+                          id: "1",
+                          exercises: [
+                            { exerciseId: "plank", sets: 3, reps: 1, weight: 0 },
+                            { exerciseId: "dead-bug", sets: 3, reps: 8, weight: 0 }
+                          ],
+                          sets: 3
+                        }
+                      ],
+                      tags: ["core"],
+                      lastCompleted: "2024-01-13T12:00:00Z",
+                      completionCount: 6
+                    }}
+                    onStart={(workout) => console.log('Starting:', workout.title)}
+                  />
+                </ClientOnly>
               </div>
             </div>
           </div>
@@ -318,111 +327,114 @@ export default function PatternsPage() {
             {/* Single Exercise Variant */}
             <div>
               <h5 className="text-norse-gold font-medium mb-4">Single Exercise Variant</h5>
-              <WorkoutGroup
-                groupLog={{
-                  groupId: "single-1",
-                  groupType: "single",
-                  plannedSets: 3,
-                  groupRPE: 8,
-                  setLogs: [
-                    {
-                      setNumber: 1,
-                      exercises: [{
-                        exerciseId: "bench-press",
-                        exerciseData: {
-                          id: "bench-press",
-                          name: "Bench Press",
-                          bodyPart: "chest",
-                          equipment: "barbell",
-                          target: "pectorals",
-                          primaryMuscles: ["pectorals"],
-                          secondaryMuscles: ["triceps", "anterior deltoid"],
-                          primaryMuscleIds: [4],
-                          secondaryMuscleIds: [5, 15],
-                          muscleGroup: "chest",
-                          instructions: [],
-                          category: 0,
-                          uuid: "bench-press-uuid",
-                          icon: "💪",
-                          isWeighted: true
-                        },
-                        reps: 8,
-                        weight: 80,
-                        isCompleted: true
-                      }],
-                      isCompleted: true,
-                      completedAt: new Date()
-                    },
-                    {
-                      setNumber: 2,
-                      exercises: [{
-                        exerciseId: "bench-press",
-                        exerciseData: {
-                          id: "bench-press",
-                          name: "Bench Press",
-                          bodyPart: "chest",
-                          equipment: "barbell",
-                          target: "pectorals",
-                          primaryMuscles: ["pectorals"],
-                          secondaryMuscles: ["triceps", "anterior deltoid"],
-                          primaryMuscleIds: [4],
-                          secondaryMuscleIds: [5, 15],
-                          muscleGroup: "chest",
-                          instructions: [],
-                          category: 0,
-                          uuid: "bench-press-uuid",
-                          icon: "💪",
-                          isWeighted: true
-                        },
-                        reps: 8,
-                        weight: 82.5,
+              <ClientOnly fallback={<div className="h-64 bg-neu-surface rounded-lg animate-pulse" />}>
+                <WorkoutGroup
+                  groupLog={{
+                    groupId: "single-1",
+                    groupType: "single",
+                    plannedSets: 3,
+                    groupRPE: 8,
+                    setLogs: [
+                      {
+                        setNumber: 1,
+                        exercises: [{
+                          exerciseId: "bench-press",
+                          exerciseData: {
+                            id: "bench-press",
+                            name: "Bench Press",
+                            bodyPart: "chest",
+                            equipment: "barbell",
+                            target: "pectorals",
+                            primaryMuscles: ["pectorals"],
+                            secondaryMuscles: ["triceps", "anterior deltoid"],
+                            primaryMuscleIds: [4],
+                            secondaryMuscleIds: [5, 15],
+                            muscleGroup: "chest",
+                            instructions: [],
+                            category: 0,
+                            uuid: "bench-press-uuid",
+                            icon: "💪",
+                            isWeighted: true
+                          },
+                          reps: 8,
+                          weight: 80,
+                          isCompleted: true
+                        }],
+                        isCompleted: true,
+                        completedAt: new Date()
+                      },
+                      {
+                        setNumber: 2,
+                        exercises: [{
+                          exerciseId: "bench-press",
+                          exerciseData: {
+                            id: "bench-press",
+                            name: "Bench Press",
+                            bodyPart: "chest",
+                            equipment: "barbell",
+                            target: "pectorals",
+                            primaryMuscles: ["pectorals"],
+                            secondaryMuscles: ["triceps", "anterior deltoid"],
+                            primaryMuscleIds: [4],
+                            secondaryMuscleIds: [5, 15],
+                            muscleGroup: "chest",
+                            instructions: [],
+                            category: 0,
+                            uuid: "bench-press-uuid",
+                            icon: "💪",
+                            isWeighted: true
+                          },
+                          reps: 8,
+                          weight: 82.5,
+                          isCompleted: false
+                        }],
                         isCompleted: false
-                      }],
-                      isCompleted: false
-                    },
-                    {
-                      setNumber: 3,
-                      exercises: [{
-                        exerciseId: "bench-press",
-                        exerciseData: {
-                          id: "bench-press",
-                          name: "Bench Press",
-                          bodyPart: "chest",
-                          equipment: "barbell",
-                          target: "pectorals",
-                          primaryMuscles: ["pectorals"],
-                          secondaryMuscles: ["triceps", "anterior deltoid"],
-                          primaryMuscleIds: [4],
-                          secondaryMuscleIds: [5, 15],
-                          muscleGroup: "chest",
-                          instructions: [],
-                          category: 0,
-                          uuid: "bench-press-uuid",
-                          icon: "💪",
-                          isWeighted: true
-                        },
-                        reps: 0,
-                        weight: 0,
+                      },
+                      {
+                        setNumber: 3,
+                        exercises: [{
+                          exerciseId: "bench-press",
+                          exerciseData: {
+                            id: "bench-press",
+                            name: "Bench Press",
+                            bodyPart: "chest",
+                            equipment: "barbell",
+                            target: "pectorals",
+                            primaryMuscles: ["pectorals"],
+                            secondaryMuscles: ["triceps", "anterior deltoid"],
+                            primaryMuscleIds: [4],
+                            secondaryMuscleIds: [5, 15],
+                            muscleGroup: "chest",
+                            instructions: [],
+                            category: 0,
+                            uuid: "bench-press-uuid",
+                            icon: "💪",
+                            isWeighted: true
+                          },
+                          reps: 0,
+                          weight: 0,
+                          isCompleted: false
+                        }],
                         isCompleted: false
-                      }],
-                      isCompleted: false
-                    }
-                  ],
-                  groupNotes: "Focus on controlled eccentric"
-                }}
-                onUpdateSet={() => {}}
-                onUpdateExerciseInSet={() => {}}
-                onAddSet={() => {}}
-                onRemoveSet={() => {}}
-                onUpdateGroupNotes={() => {}}
-                onUpdateGroupRPE={() => {}}
-              />
+                      }
+                    ],
+                    groupNotes: "Focus on controlled eccentric"
+                  }}
+                  onUpdateSet={() => {}}
+                  onUpdateExerciseInSet={() => {}}
+                  onAddSet={() => {}}
+                  onRemoveSet={() => {}}
+                  onUpdateGroupNotes={() => {}}
+                  onUpdateGroupRPE={() => {}}
+                />
+              </ClientOnly>
             </div>
 
             {/* Superset Variant */}
             <div>
               <h5 className="text-norse-gold font-medium mb-4">Superset Variant</h5>
-              <WorkoutGroup
+              <ClientOnly fallback={<div className="h-64 bg-neu-surface rounded-lg animate-pulse" />}>
+                <WorkoutGroup
                 groupLog={{
                   groupId: "superset-1",
                   groupType: "superset",
@@ -542,13 +554,15 @@ export default function PatternsPage() {
                 onRemoveSet={() => {}}
                 onUpdateGroupNotes={() => {}}
                 onUpdateGroupRPE={() => {}}
-              />
+                />
+              </ClientOnly>
             </div>
 
             {/* Circuit Variant */}
             <div>
               <h5 className="text-norse-gold font-medium mb-4">Circuit Variant</h5>
-              <WorkoutGroup
+              <ClientOnly fallback={<div className="h-64 bg-neu-surface rounded-lg animate-pulse" />}>
+                <WorkoutGroup
                 groupLog={{
                   groupId: "circuit-1",
                   groupType: "circuit",
@@ -712,7 +726,8 @@ export default function PatternsPage() {
                 onAddSet={() => {}}
                 onRemoveSet={() => {}}
                 onUpdateGroupNotes={() => {}}
-              />
+                />
+              </ClientOnly>
             </div>
           </div>
           

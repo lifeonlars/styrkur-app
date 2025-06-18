@@ -126,46 +126,73 @@ export default function WorkoutGroup({
     }
     
     return (
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <IconComponent className="w-12 h-12 text-norse-gold" />
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="px-2 py-1 text-xs font-medium bg-norse-gold text-black rounded-full">
-                {getGroupTypeLabel()}
-              </span>
+      <div className="flex items-start gap-4">
+        {/* Icon on the left */}
+        <IconComponent className="w-12 h-12 text-norse-gold flex-shrink-0" />
+        <div className="flex-1">
+          <div className="mb-3">
+            {/* First row: Group chip, exercise list, and expand button */}
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex flex-col gap-2">
+                <span className="px-2 py-1 text-xs font-medium bg-norse-gold text-black rounded-full w-fit">
+                  {getGroupTypeLabel()}
+                </span>
+                {/* Compact exercise list aligned with chip */}
+                {renderExerciseList()}
+              </div>
+              <div className="flex items-start gap-2">
+                {/* Expand/collapse button - always visible, aligned to top */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="h-8 w-8 p-0"
+                >
+                  {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </Button>
+              </div>
             </div>
-            <h3 className="text-white font-medium text-lg">{getGroupTypeLabel()}</h3>
+            
+            {/* Second row: RPE selector on mobile, inline on desktop */}
+            {groupLog.groupType !== 'circuit' && onUpdateGroupRPE && (
+              <div className="flex items-center gap-2 md:hidden">
+                <span className="text-sm text-gray-400">RPE:</span>
+                <Select value={groupLog.groupRPE?.toString() || ""} onValueChange={(value) => onUpdateGroupRPE(parseFloat(value))}>
+                  <SelectTrigger className="w-20 h-8">
+                    <SelectValue placeholder="RPE" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {rpeOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            
+            {/* Desktop RPE - inline with expand button */}
+            {groupLog.groupType !== 'circuit' && onUpdateGroupRPE && (
+              <div className="hidden md:flex items-center justify-end gap-2 -mt-10">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-400">RPE:</span>
+                  <Select value={groupLog.groupRPE?.toString() || ""} onValueChange={(value) => onUpdateGroupRPE(parseFloat(value))}>
+                    <SelectTrigger className="w-20 h-8">
+                      <SelectValue placeholder="RPE" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {rpeOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          {/* RPE selector for single exercises and supersets */}
-          {groupLog.groupType !== 'circuit' && onUpdateGroupRPE && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-400">RPE:</span>
-              <Select value={groupLog.groupRPE?.toString() || ""} onValueChange={(value) => onUpdateGroupRPE(parseFloat(value))}>
-                <SelectTrigger className="w-20 h-8">
-                  <SelectValue placeholder="RPE" />
-                </SelectTrigger>
-                <SelectContent>
-                  {rpeOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-          {/* Expand/collapse button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="h-8 w-8 p-0"
-          >
-            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          </Button>
         </div>
       </div>
     )
@@ -173,65 +200,44 @@ export default function WorkoutGroup({
 
   const renderExerciseList = () => {
     if (groupLog.groupType === 'single') {
-      // For single exercises, show the exercise with muscle chips
+      // For single exercises, show compact single line
       const exercise = groupLog.setLogs[0]?.exercises[0]?.exerciseData
       if (!exercise) return null
       
       return (
-        <div className="space-y-3">
-          <div 
-            className="flex items-center justify-between p-3 bg-neu-card rounded-lg cursor-pointer hover:bg-neu-elevated transition-colors"
-            onClick={() => {
-              setSelectedExerciseIndex(0)
-              setShowExerciseDetail(true)
-            }}
-          >
-            <div>
-              <h4 className="text-white font-medium">{exercise.name}</h4>
-              <div className="flex flex-wrap gap-1 mt-1">
-                <span className="px-2 py-1 text-xs bg-norse-gold text-black rounded-full">
-                  {exercise.muscleGroup}
-                </span>
-              </div>
-            </div>
-            <Info className="w-4 h-4 text-gray-400" />
-          </div>
+        <div 
+          className="flex items-center gap-3 py-2 cursor-pointer hover:text-norse-gold transition-colors"
+          onClick={() => {
+            setSelectedExerciseIndex(0)
+            setShowExerciseDetail(true)
+          }}
+        >
+          <span className="text-sm text-white font-medium">{exercise.name}</span>
+          <Info className="w-4 h-4 text-gray-400" />
         </div>
       )
     } else {
-      // For supersets and circuits, show all exercises in a list
+      // For supersets and circuits, show compact list
       const exercises = groupLog.setLogs[0]?.exercises || []
       
       return (
-        <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide">Exercises</h4>
-          <div className="space-y-2">
-            {exercises.map((exercise, exerciseIndex) => (
-              <div 
-                key={exercise.exerciseId}
-                className="flex items-center justify-between p-3 bg-neu-card rounded-lg cursor-pointer hover:bg-neu-elevated transition-colors"
-                onClick={() => {
-                  setSelectedExerciseIndex(exerciseIndex)
-                  setShowExerciseDetail(true)
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs">
-                    {String.fromCharCode(65 + exerciseIndex)}
-                  </span>
-                  <div>
-                    <h5 className="text-white font-medium">{exercise.exerciseData.name}</h5>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      <span className="px-2 py-1 text-xs bg-norse-gold text-black rounded-full">
-                        {exercise.exerciseData.muscleGroup}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <Info className="w-4 h-4 text-gray-400" />
-              </div>
-            ))}
-          </div>
+        <div className="space-y-1">
+          {exercises.map((exercise, exerciseIndex) => (
+            <div 
+              key={exercise.exerciseId}
+              className="flex items-center gap-3 py-1 cursor-pointer hover:text-norse-gold transition-colors"
+              onClick={() => {
+                setSelectedExerciseIndex(exerciseIndex)
+                setShowExerciseDetail(true)
+              }}
+            >
+              <span className="w-5 h-5 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs flex-shrink-0">
+                {String.fromCharCode(65 + exerciseIndex)}
+              </span>
+              <span className="text-sm text-white font-medium">{exercise.exerciseData.name}</span>
+              <Info className="w-3 h-3 text-gray-400" />
+            </div>
+          ))}
         </div>
       )
     }
@@ -242,113 +248,105 @@ export default function WorkoutGroup({
     const setLabel = isCircuit ? 'Round' : 'Set'
     
     return (
-      <div className="space-y-4">
-        {/* Exercise list */}
-        {renderExerciseList()}
-        
-        {/* Set logging */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide">{setLabel}s</h4>
-          
-          {/* Set rows */}
-          <div className="space-y-2">
-            {groupLog.setLogs.map((set, setIndex) => (
-              <div
-                key={setIndex}
-                className={cn(
-                  "p-3 rounded-lg border transition-all",
-                  set.isCompleted 
-                    ? "border-green-700/20"
-                    : "bg-neu-surface border-neu-light/10"
-                )}
-                style={{
-                  background: set.isCompleted 
-                    ? 'linear-gradient(145deg, rgba(46, 125, 95, 0.35), rgba(37, 101, 76, 0.25), rgba(28, 77, 57, 0.15))'
-                    : undefined
-                }}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-300">{setLabel} {set.setNumber}</span>
-                    {groupLog.setLogs.length > 1 && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onRemoveSet(setIndex)}
-                        className="h-6 w-6 p-0 text-red-400 hover:text-red-300 hover:bg-red-900/20"
-                      >
-                        <X className="w-3 h-3" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Exercise rows */}
-                <div className="space-y-3">
-                  {set.exercises.map((exercise, exerciseIndex) => (
-                    <div key={exercise.exerciseId} className="flex items-center gap-3">
-                      {groupLog.groupType !== 'single' && (
-                        <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs flex-shrink-0">
-                          {String.fromCharCode(65 + exerciseIndex)}
-                        </span>
-                      )}
-                      
-                      {/* Reps input */}
-                      <div className="flex-1">
-                        <Input
-                          type="number"
-                          placeholder="Reps"
-                          value={exercise.reps || ''}
-                          onChange={(e) => onUpdateExerciseInSet(setIndex, exerciseIndex, { reps: parseInt(e.target.value) || 0 })}
-                          className="h-9 text-sm"
-                        />
-                      </div>
-                      
-                      {/* Weight input */}
-                      <div className="flex-1">
-                        <div className="relative">
-                          <Input
-                            type="number"
-                            placeholder="Weight"
-                            value={exercise.weight || ''}
-                            onChange={(e) => onUpdateExerciseInSet(setIndex, exerciseIndex, { weight: parseFloat(e.target.value) || 0 })}
-                            className="h-9 text-sm pr-8"
-                          />
-                          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-400">kg</span>
-                        </div>
-                      </div>
-                      
-                      {/* Completion checkbox */}
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => toggleSetCompletion(setIndex, exerciseIndex)}
-                        className={cn(
-                          "h-9 w-9 p-0 rounded-lg transition-all border-2 flex-shrink-0",
-                          exercise.isCompleted
-                            ? "bg-green-600 hover:bg-green-700 text-white border-green-600"
-                            : "border-neu-light/30 hover:border-green-500/50 bg-neu-surface"
-                        )}
-                      >
-                        {exercise.isCompleted && <Check className="w-4 h-4" />}
-                      </Button>
-                    </div>
-                  ))}
+      <div className="space-y-3">
+        {/* Set rows */}
+        <div className="space-y-2">
+          {groupLog.setLogs.map((set, setIndex) => (
+            <div
+              key={setIndex}
+              className={cn(
+                "p-3 rounded-lg border transition-all",
+                set.isCompleted 
+                  ? "border-green-700/20"
+                  : "bg-neu-surface border-neu-light/10"
+              )}
+              style={{
+                background: set.isCompleted 
+                  ? 'linear-gradient(145deg, rgba(46, 125, 95, 0.35), rgba(37, 101, 76, 0.25), rgba(28, 77, 57, 0.15))'
+                  : undefined
+              }}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-gray-300">{setLabel} {set.setNumber}</span>
+                  {groupLog.setLogs.length > 1 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => onRemoveSet(setIndex)}
+                      className="h-6 w-6 p-0 text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                    >
+                      <X className="w-3 h-3" />
+                    </Button>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-          
-          {/* Add set/round button */}
-          <Button
-            variant="outline"
-            onClick={onAddSet}
-            className="w-full h-10 border-2 border-dashed border-neu-light/30 hover:border-norse-gold/50 bg-transparent text-gray-400 hover:text-norse-gold transition-all"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add {setLabel}
-          </Button>
+              
+              {/* Exercise rows */}
+              <div className="space-y-3">
+                {set.exercises.map((exercise, exerciseIndex) => (
+                  <div key={exercise.exerciseId} className="flex items-center gap-3">
+                    {groupLog.groupType !== 'single' && (
+                      <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs flex-shrink-0">
+                        {String.fromCharCode(65 + exerciseIndex)}
+                      </span>
+                    )}
+                    
+                    {/* Reps input */}
+                    <div className="flex-1">
+                      <Input
+                        type="number"
+                        placeholder="Reps"
+                        value={exercise.reps || ''}
+                        onChange={(e) => onUpdateExerciseInSet(setIndex, exerciseIndex, { reps: parseInt(e.target.value) || 0 })}
+                        className="h-9 text-sm"
+                      />
+                    </div>
+                    
+                    {/* Weight input */}
+                    <div className="flex-1">
+                      <div className="relative">
+                        <Input
+                          type="number"
+                          placeholder="Weight"
+                          value={exercise.weight || ''}
+                          onChange={(e) => onUpdateExerciseInSet(setIndex, exerciseIndex, { weight: parseFloat(e.target.value) || 0 })}
+                          className="h-9 text-sm pr-8"
+                        />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-400">kg</span>
+                      </div>
+                    </div>
+                    
+                    {/* Completion checkbox */}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleSetCompletion(setIndex, exerciseIndex)}
+                      className={cn(
+                        "h-9 w-9 p-0 rounded-lg transition-all border-2 flex-shrink-0",
+                        exercise.isCompleted
+                          ? "bg-green-600 hover:bg-green-700 text-white border-green-600"
+                          : "border-neu-light/30 hover:border-green-500/50 bg-neu-surface"
+                      )}
+                    >
+                      {exercise.isCompleted && <Check className="w-4 h-4" />}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
+        
+        {/* Add set/round button */}
+        <Button
+          variant="dashed"
+          onClick={onAddSet}
+          className="w-full h-10"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Add {setLabel}
+        </Button>
       </div>
     )
   }

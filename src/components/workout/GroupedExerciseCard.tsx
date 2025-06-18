@@ -321,13 +321,14 @@ export default function GroupedExerciseCard({
           </div>
 
           {/* Add Set/Round Button */}
-          <button
+          <Button
+            variant="dashed"
             onClick={onAddSet}
-            className="w-full mt-4 py-3 border-2 border-dashed border-gray-600 rounded-lg text-gray-400 hover:border-gray-500 hover:text-gray-300 transition flex items-center justify-center gap-2"
+            className="w-full mt-4"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden md:inline">Add {setLabel}</span>
-          </button>
+          </Button>
 
         </div>
       )}

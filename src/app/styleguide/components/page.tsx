@@ -85,6 +85,7 @@ export default function ComponentsPage() {
                       <Button variant="primary">Primary Action</Button>
                       <Button variant="outline">Secondary Action</Button>
                       <Button variant="flat">Tertiary Action</Button>
+                      <Button variant="dashed">Add Action</Button>
                     </div>
                     <div className="text-xs text-gray-500 space-y-1">
                       <p>HTML Output: <code className="text-norse-gold">&lt;button class="btn btn-primary btn-default"&gt;</code></p>
@@ -95,11 +96,12 @@ export default function ComponentsPage() {
 
                 <div>
                   <h4 className="text-white font-medium mb-2">Minimalist Approach</h4>
-                  <p className="text-gray-400 text-sm mb-4">Three essential variants only - states conveyed through icons and toasts</p>
+                  <p className="text-gray-400 text-sm mb-4">Four essential variants only - states conveyed through icons and toasts</p>
                   <div className="flex flex-wrap gap-4">
                     <Button variant="primary"><Check className="w-4 h-4" />Success Action</Button>
                     <Button variant="outline"><X className="w-4 h-4" />Cancel Action</Button>
                     <Button variant="flat"><Trash2 className="w-4 h-4" />Delete</Button>
+                    <Button variant="dashed"><Plus className="w-4 h-4" />Add Item</Button>
                   </div>
                   <p className="text-xs text-gray-500 mt-2">Icons and toasts provide context - buttons remain semantically clean</p>
                 </div>
@@ -110,11 +112,13 @@ export default function ComponentsPage() {
                   <div className="space-y-3">
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="default">Default (36px)</Button>
+                      <Button variant="dashed" size="default">Dashed Default</Button>
                       <Button variant="primary" size="icon"><Plus className="w-4 h-4" /></Button>
                       <Button variant="outline" size="icon"><Settings className="w-4 h-4" /></Button>
                     </div>
                     <div className="flex flex-wrap gap-4 items-center">
                       <Button variant="primary" size="large">Large (48px)</Button>
+                      <Button variant="dashed" size="large">Dashed Large</Button>
                       <Button variant="primary" size="icon-large"><Heart className="w-5 h-5" /></Button>
                       <Button variant="outline" size="icon-large"><X className="w-5 h-5" /></Button>
                     </div>

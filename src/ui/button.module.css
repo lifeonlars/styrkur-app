@@ -180,6 +180,41 @@
   }
 }
 
+/* Dashed Button - Dashed border for add buttons and secondary actions */
+.btn-dashed {
+  /* Consistent pill radius for all buttons */
+  border-radius: var(--radius-neu-pill);
+  
+  /* No shadow - clean minimal appearance */
+  box-shadow: none;
+  
+  /* Transparent background */
+  background: transparent;
+  
+  /* 2px dashed border using iron-200 */
+  border: 2px dashed var(--iron-200);
+  
+  /* Iron-200 text color */
+  color: var(--iron-200);
+  
+  /* Hover state */
+  &:hover:not(:disabled) {
+    /* Keep no shadow for minimal appearance */
+    box-shadow: none;
+    
+    /* Norse gold border and text on hover */
+    border-color: var(--norse-gold);
+    color: var(--norse-gold);
+  }
+  
+  /* Active/pressed state */
+  &:active:not(:disabled) {
+    /* Slightly darker Norse gold for pressed state */
+    border-color: var(--norse-gold-dark);
+    color: var(--norse-gold-dark);
+  }
+}
+
 /* === SIZE VARIANTS === */
 
 /* Default Size - 36px height to align with input components */

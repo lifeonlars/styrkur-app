@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useMemo } from 'react';
 import { EnhancedBodyHighlighterProps, ExtendedBodyPart, MuscleSlug } from './types';
 import { bodyData as frontBodyData } from './data/bodyFront';

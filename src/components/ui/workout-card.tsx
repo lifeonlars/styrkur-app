@@ -78,20 +78,29 @@ export default function WorkoutCard({
     return remaining > 0 ? `${preview} +${remaining} more` : preview
   }
   
-  // Last completed date formatting
+  // Last completed date formatting - stable for SSR/hydration
   const formatLastCompleted = (dateString?: string) => {
     if (!dateString) return null
     
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffMs = now.getTime() - date.getTime()
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 0) return 'Today'
-    if (diffDays === 1) return 'Yesterday'
-    if (diffDays < 7) return `${diffDays}d ago`
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`
-    return `${Math.floor(diffDays / 30)}m ago`
+    try {
+      const date = new Date(dateString)
+      // Use a more stable calculation that's less likely to vary between server and client
+      const now = new Date()
+      // Normalize to UTC to avoid timezone inconsistencies
+      const dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+      const nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+      const diffMs = nowUTC.getTime() - dateUTC.getTime()
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+      
+      if (diffDays === 0) return 'Today'
+      if (diffDays === 1) return 'Yesterday'
+      if (diffDays < 7) return `${diffDays}d ago`
+      if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`
+      return `${Math.floor(diffDays / 30)}m ago`
+    } catch (error) {
+      // Fallback for invalid dates
+      return 'Unknown'
+    }
   }
   
   // Highlight search terms

@@ -18,6 +18,9 @@ const buttonVariants = cva(
         
         // Flat - Transparent background for navigation, tertiary actions, close buttons
         flat: styles['btn-flat'],
+        
+        // Dashed - Dashed border for add buttons and secondary actions
+        dashed: styles['btn-dashed'],
       },
       size: {
         // Default: 36px height to align with input components

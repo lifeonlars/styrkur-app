@@ -256,13 +256,14 @@ export default function LoggedExerciseCard({
         ))}
 
         {/* Add Set Button */}
-        <button
+        <Button
+          variant="dashed"
           onClick={onAddSet}
-          className="w-full mt-2 py-2 shadow-neu-raised bg-gradient-to-br from-content2 to-content1 border-2 border-dashed border-gray-600/50 rounded-lg text-gray-400 hover:shadow-neu-raised-hover hover:text-gray-300 hover:scale-[1.01] active:shadow-neu-pressed active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2"
+          className="w-full mt-2"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden md:inline">Add Set</span>
-        </button>
+        </Button>
 
       </div>
 
