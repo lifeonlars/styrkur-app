@@ -26,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className} ${cinzel.variable} bg-neu-base text-white min-h-screen`}>
-        <div className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl">
-          {children}
-        </div>
+        {children}
         <Toaster />
       </body>
     </html>
