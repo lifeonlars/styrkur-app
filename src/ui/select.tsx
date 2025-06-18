@@ -94,18 +94,18 @@ const SelectTrigger = React.forwardRef<
     switch (variant) {
       case 'error':
         return {
-          borderColor: 'var(--blood-500)',
-          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--blood-500)',
+          borderColor: 'var(--border-danger)',
+          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--border-danger)',
         }
       case 'success':
         return {
-          borderColor: 'var(--forest-500)', 
-          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--forest-500)',
+          borderColor: 'var(--border-success)', 
+          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--border-success)',
         }
       case 'warning':
         return {
-          borderColor: 'var(--wood-500)',
-          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--wood-500)',
+          borderColor: 'var(--border-warning)',
+          boxShadow: 'var(--shadow-neu-inset), 0 0 0 1px var(--border-warning)',
         }
       default:
         return {}
@@ -116,18 +116,18 @@ const SelectTrigger = React.forwardRef<
     switch (variant) {
       case 'error':
         return {
-          boxShadow: '0 0 0 2px rgba(168, 50, 50, 0.3), var(--shadow-neu-inset)',
+          boxShadow: '0 0 0 2px rgba(var(--blood-500-rgb), 0.3), var(--shadow-neu-inset)',
           borderColor: 'var(--blood-400)',
         }
       case 'success':
         return {
-          boxShadow: '0 0 0 2px rgba(46, 125, 95, 0.3), var(--shadow-neu-inset)',
+          boxShadow: '0 0 0 2px rgba(var(--forest-500-rgb), 0.3), var(--shadow-neu-inset)',
           borderColor: 'var(--forest-400)',
         }
       case 'warning':
         return {
-          boxShadow: '0 0 0 2px rgba(92, 69, 51, 0.3), var(--shadow-neu-inset)',
-          borderColor: 'var(--wood-400)',
+          boxShadow: '0 0 0 2px rgba(var(--amethyst-500-rgb), 0.3), var(--shadow-neu-inset)',
+          borderColor: 'var(--amethyst-400)',
         }
       default:
         return {

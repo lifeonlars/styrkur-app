@@ -262,7 +262,7 @@ export default function WorkoutGroup({
               )}
               style={{
                 background: set.isCompleted 
-                  ? 'linear-gradient(145deg, rgba(46, 125, 95, 0.35), rgba(37, 101, 76, 0.25), rgba(28, 77, 57, 0.15))'
+                  ? 'var(--surface-success)'
                   : undefined
               }}
             >

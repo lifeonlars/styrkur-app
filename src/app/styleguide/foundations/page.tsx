@@ -11,6 +11,7 @@ import {
 } from '@/components/styleguide/StyleGuideComponents'
 import { Card } from '@/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/ui/tabs'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Check, Target, Palette, Type } from 'lucide-react'
 
 export default function FoundationsPage() {
@@ -188,6 +189,296 @@ export default function FoundationsPage() {
                   </div>
                   <h4 className="text-white font-medium mb-1">Success</h4>
                   <code className="text-xs text-norse-gold">--icon-success</code>
+                </div>
+              </div>
+            </div>
+            
+            {/* Context Surface Integration Testing */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-white mb-4">Context Surface Integration Testing</h3>
+              <p className="text-gray-400 text-sm mb-4">Real-world component examples demonstrating context surfaces in action</p>
+              
+              {/* WorkoutGroup Set Completion Examples */}
+              <div className="mb-6">
+                <h4 className="text-white font-medium mb-3">WorkoutGroup Set States</h4>
+                <div className="space-y-3">
+                  <div className="p-4 rounded-lg border border-green-700/20" style={{ background: 'var(--surface-success)' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Set 1 ✓</span>
+                      <span className="text-xs text-white/80">Completed</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs">A</span>
+                      <span className="text-sm text-white">Barbell Squat</span>
+                      <span className="text-sm text-white/90 ml-auto">3 × 12 @ 80kg</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 rounded-lg border border-red-700/20" style={{ background: 'var(--surface-danger)' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Set 2 ✗</span>
+                      <span className="text-xs text-white/80">Failed</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs">A</span>
+                      <span className="text-sm text-white">Barbell Squat</span>
+                      <span className="text-sm text-white/90 ml-auto">2 × 12 @ 80kg</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 rounded-lg border border-purple-700/20" style={{ background: 'var(--surface-warning)' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Set 3 ⚠</span>
+                      <span className="text-xs text-white/80">Form Check</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs">A</span>
+                      <span className="text-sm text-white">Barbell Squat</span>
+                      <span className="text-sm text-white/90 ml-auto">3 × 12 @ 80kg (RPE 9+)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 rounded-lg border border-blue-700/20" style={{ background: 'var(--surface-info)' }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Rest Timer</span>
+                      <span className="text-xs text-white/80">Active</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-white">Next: Deadlifts</span>
+                      <span className="text-sm text-white/90 ml-auto">2:30 remaining</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Component Integration Examples */}
+              <div className="mb-6">
+                <h4 className="text-white font-medium mb-3">Component Integration Examples</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Card with semantic text tokens */}
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h4 style={{ color: 'var(--text-primary)' }} className="font-medium mb-2">Component with Semantic Tokens</h4>
+                    <p style={{ color: 'var(--text-secondary)' }} className="text-sm mb-2">This card uses semantic text tokens for proper hierarchy</p>
+                    <p style={{ color: 'var(--text-muted)' }} className="text-xs">Muted helper text with proper contrast</p>
+                    <div className="mt-3 flex gap-2">
+                      <button 
+                        className="px-3 py-1 rounded text-xs font-medium"
+                        style={{ 
+                          backgroundColor: 'var(--surface-success)', 
+                          color: 'var(--text-primary)',
+                          border: '1px solid var(--border-success)'
+                        }}
+                      >
+                        Success Action
+                      </button>
+                      <button 
+                        className="px-3 py-1 rounded text-xs font-medium"
+                        style={{ 
+                          backgroundColor: 'var(--surface-danger)', 
+                          color: 'var(--text-primary)',
+                          border: '1px solid var(--border-danger)'
+                        }}
+                      >
+                        Danger Action
+                      </button>
+                    </div>
+                  </Card>
+                  
+                  {/* Form component with semantic tokens */}
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h4 style={{ color: 'var(--text-primary)' }} className="font-medium mb-2">Form with Semantic Styling</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <label style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium block mb-1">
+                          Exercise Name
+                        </label>
+                        <input 
+                          type="text" 
+                          placeholder="Enter exercise name"
+                          className="w-full px-3 py-2 rounded text-sm"
+                          style={{ 
+                            backgroundColor: 'var(--input-bg)',
+                            borderColor: 'var(--border-default)',
+                            color: 'var(--text-primary)'
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium block mb-1">
+                          Weight (kg)
+                        </label>
+                        <input 
+                          type="number" 
+                          placeholder="80"
+                          className="w-full px-3 py-2 rounded text-sm"
+                          style={{ 
+                            backgroundColor: 'var(--input-bg)',
+                            borderColor: 'var(--border-focus)',
+                            color: 'var(--text-primary)'
+                          }}
+                        />
+                        <span style={{ color: 'var(--text-muted)' }} className="text-xs">
+                          Focus state with semantic border
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              
+              {/* Input State Validation */}
+              <div className="mb-6">
+                <h4 className="text-white font-medium mb-3">Input State Validation</h4>
+                <p className="text-gray-400 text-xs mb-4">Updated input states using new semantic border tokens and context colors</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h5 className="text-white font-medium mb-3">Error & Success States</h5>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Success Input</label>
+                        <input 
+                          type="text" 
+                          value="Valid input value"
+                          className="input input-default input-success w-full"
+                          readOnly
+                        />
+                        <span className="text-xs text-green-400 mt-1 block">✓ Uses --border-success semantic token</span>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Error Input</label>
+                        <input 
+                          type="text" 
+                          value="Invalid input value"
+                          className="input input-default input-error w-full"
+                          readOnly
+                        />
+                        <span className="text-xs text-red-400 mt-1 block">✗ Uses --border-danger semantic token</span>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h5 className="text-white font-medium mb-3">Warning & Focus States</h5>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Warning Input</label>
+                        <input 
+                          type="text" 
+                          value="Amethyst warning state"
+                          className="input input-default input-warning w-full"
+                          readOnly
+                        />
+                        <span className="text-xs text-purple-400 mt-1 block">⚠ Uses --border-warning (Amethyst) semantic token</span>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Default Focus</label>
+                        <input 
+                          type="text" 
+                          placeholder="Click to see focus state"
+                          className="input input-default w-full"
+                        />
+                        <span className="text-xs text-gray-400 mt-1 block">Uses --border-focus (Norse Gold) semantic token</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              
+              {/* Select Dropdown State Validation */}
+              <div className="mb-6">
+                <h4 className="text-white font-medium mb-3">Select Dropdown State Validation</h4>
+                <p className="text-gray-400 text-xs mb-4">Select dropdowns with updated semantic border tokens matching Input component states</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h5 className="text-white font-medium mb-3">Error & Success Selects</h5>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Success Select</label>
+                        <Select>
+                          <SelectTrigger className="w-full" variant="success">
+                            <SelectValue placeholder="Valid selection made" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="valid">Valid Option</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <span className="text-xs text-green-400 mt-1 block">✓ Uses --border-success semantic token</span>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Error Select</label>
+                        <Select>
+                          <SelectTrigger className="w-full" variant="error">
+                            <SelectValue placeholder="Invalid selection" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="invalid">Invalid Option</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <span className="text-xs text-red-400 mt-1 block">✗ Uses --border-danger semantic token</span>
+                      </div>
+                    </div>
+                  </Card>
+                  
+                  <Card depth="subtle" surface="convex" className="p-4">
+                    <h5 className="text-white font-medium mb-3">Warning & Default Selects</h5>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Warning Select</label>
+                        <Select>
+                          <SelectTrigger className="w-full" variant="warning">
+                            <SelectValue placeholder="Amethyst warning state" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="warning">Warning Option</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <span className="text-xs text-purple-400 mt-1 block">⚠ Uses --border-warning (Amethyst) semantic token</span>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 block mb-1">Default Select</label>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Click to see focus state" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="default">Default Option</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <span className="text-xs text-gray-400 mt-1 block">Uses --border-focus (Norse Gold) semantic token</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              
+              {/* Validation Checklist */}
+              <div className="p-4 bg-neu-surface/50 rounded-lg border border-neu-light/10">
+                <h4 className="text-norse-gold font-medium mb-3">Integration Validation Checklist</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 className="text-white font-medium text-sm mb-2">Context Surfaces ✓</h5>
+                    <ul className="text-xs text-gray-300 space-y-1">
+                      <li>• Success highlighting with proper gradient + opacity</li>
+                      <li>• Danger/error states clearly distinguishable</li>
+                      <li>• Warning states with appropriate visual emphasis</li>
+                      <li>• Info states subtle but noticeable</li>
+                      <li>• Text remains readable on all surface backgrounds</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="text-white font-medium text-sm mb-2">Component Integration ✓</h5>
+                    <ul className="text-xs text-gray-300 space-y-1">
+                      <li>• Semantic text tokens provide clear hierarchy</li>
+                      <li>• Background tokens work with neumorphic system</li>
+                      <li>• Border tokens integrate with component states</li>
+                      <li>• Context surfaces compatible with Card component</li>
+                      <li>• Input states updated to use semantic border tokens</li>
+                      <li>• Select dropdowns updated to match Input semantic tokens</li>
+                      <li>• Warning states now use Amethyst (--border-warning)</li>
+                      <li>• Error/success states use --border-danger/--border-success</li>
+                      <li>• No conflicts with existing utility classes</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
