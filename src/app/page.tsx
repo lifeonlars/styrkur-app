@@ -72,11 +72,11 @@ export default function SyrkurSagaApp() {
     <div className="min-h-screen bg-neu-base text-white flex flex-col">
       <div className="flex-1">
         {/* Main Content */}
-        <div className="w-full lg:pt-20">
+        <main className="w-full max-w-md mx-auto lg:max-w-4xl xl:max-w-6xl lg:pt-20">
           <ClientOnly fallback={<div className="p-4 text-center text-gray-400">Loading...</div>}>
             {renderActiveScreen()}
           </ClientOnly>
-        </div>
+        </main>
       </div>
       
       {/* Mobile Bottom Navigation */}
