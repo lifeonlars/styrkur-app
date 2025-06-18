@@ -18,6 +18,90 @@
   --neu-light: #383b42;      /* Light charcoal */
   --neu-lighter: #3f4248;    /* Lightest charcoal */
   
+  /* === PRIMITIVE COLOR SCALES === */
+  /* Unified 9-color scales (100-900) optimized for dark theme with mathematical consistency */
+  /* These are base tokens that map to semantic usage contexts */
+  
+  /* Norse Gold - Primary accent and branding */
+  --norse-gold-100: #E8D4A0;
+  --norse-gold-200: #DFCA8D;
+  --norse-gold-300: #C3A869; /* Current anchor */
+  --norse-gold-400: #A08F56;
+  --norse-gold-500: #7D7643;
+  --norse-gold-600: #646039;
+  --norse-gold-700: #4E4A2F;
+  --norse-gold-800: #383425;
+  --norse-gold-900: #221E1B;
+
+  /* Forest - Success, positive actions, growth */
+  --forest-100: #7FE89F;
+  --forest-200: #66E085;
+  --forest-300: #22C55E; /* Current anchor */
+  --forest-400: #1BA64A;
+  --forest-500: #148736;
+  --forest-600: #106B2B;
+  --forest-700: #0D5522;
+  --forest-800: #0A3F19;
+  --forest-900: #07290F;
+
+  /* Amethyst - Warning, caution, mystical elements (replaces Wood) */
+  --amethyst-100: #C7B3F7;
+  --amethyst-200: #B899F5;
+  --amethyst-300: #8B5CF6; /* Anchor */
+  --amethyst-400: #7549E3;
+  --amethyst-500: #5F36D0;
+  --amethyst-600: #4C2BA6;
+  --amethyst-700: #3A227C;
+  --amethyst-800: #281952;
+  --amethyst-900: #161028;
+
+  /* Ocean - Information, links, trust */
+  --ocean-100: #93C5FD;
+  --ocean-200: #7DB3FB;
+  --ocean-300: #3B82F6; /* Current anchor */
+  --ocean-400: #2F6EE3;
+  --ocean-500: #235AD0;
+  --ocean-600: #1C48A6;
+  --ocean-700: #16367C;
+  --ocean-800: #102452;
+  --ocean-900: #0A1228;
+
+  /* Blood - Danger, errors, critical actions */
+  --blood-100: #FCA5A5;
+  --blood-200: #FB9191;
+  --blood-300: #EF4444; /* Current anchor */
+  --blood-400: #DC3737;
+  --blood-500: #C92A2A;
+  --blood-600: #A12222;
+  --blood-700: #791A1A;
+  --blood-800: #511212;
+  --blood-900: #290A0A;
+
+  /* Stone - Light utility for text, borders, lighter elements */
+  --stone-100: #E4E4E7;
+  --stone-200: #D4D4D8;
+  --stone-300: #A1A1AA;
+  --stone-400: #85858D;
+  --stone-500: #6A6A70;
+  --stone-600: #52525B;
+  --stone-700: #3F3F46;
+  --stone-800: #27272A;
+  --stone-900: #18181B;
+
+  /* Iron - Dark foundation for app backgrounds, dark surfaces */
+  --iron-100: #71717A; /* Added for completion */
+  --iron-200: #3D424F; /* Starting point */
+  --iron-300: #353A45;
+  --iron-400: #2D313B;
+  --iron-500: #252831;
+  --iron-600: #1D1F27;
+  --iron-700: #15161D;
+  --iron-800: #0D0E13;
+  --iron-900: #050509;
+
+  /* === LEGACY COMPATIBILITY COLORS === */
+  /* Keep existing color tokens functional during transition period */
+  
   /* Norse Gold Metallic Accents - Original Norse gold #C3A869 based */
   --norse-gold: #C3A869;        /* Original Norse gold from styleguide */
   --norse-gold-light: #D4BC7F;  /* Light Norse gold */
@@ -25,41 +109,44 @@
   --norse-gold-darker: #8D7A42; /* Darker Norse gold */
   --norse-accent: #B8A260;      /* Norse accent */
   
-  /* Context Colors - Forest (Success) */
-  --forest-300: #4AE5A8;
-  --forest-400: #3BC692;
-  --forest-500: #2E7D5F;
-  --forest-600: #25654C;
-  --forest-700: #1C4D39;
+  /* Legacy Context Colors - Keep for backward compatibility */
+  /* Use primitive color scales (above) for new implementations */
   
-  /* Blood (Error) */
-  --blood-300: #F87171;
-  --blood-400: #EF4444;
-  --blood-500: #A83232;
-  --blood-600: #8B2828;
-  --blood-700: #6F1F1F;
+  /* Forest (Success) - LEGACY */
+  --forest-300-legacy: #4AE5A8;
+  --forest-400-legacy: #3BC692;
+  --forest-500-legacy: #2E7D5F;
+  --forest-600-legacy: #25654C;
+  --forest-700-legacy: #1C4D39;
   
-  /* Ocean (Info) */
-  --ocean-300: #7DD3FC;
-  --ocean-400: #38BDF8;
-  --ocean-500: #375A74;
-  --ocean-600: #2D4A5F;
-  --ocean-700: #243A4A;
+  /* Blood (Error) - LEGACY */
+  --blood-300-legacy: #F87171;
+  --blood-400-legacy: #EF4444;
+  --blood-500-legacy: #A83232;
+  --blood-600-legacy: #8B2828;
+  --blood-700-legacy: #6F1F1F;
   
-  /* Wood (Warning) */
+  /* Ocean (Info) - LEGACY */
+  --ocean-300-legacy: #7DD3FC;
+  --ocean-400-legacy: #38BDF8;
+  --ocean-500-legacy: #375A74;
+  --ocean-600-legacy: #2D4A5F;
+  --ocean-700-legacy: #243A4A;
+  
+  /* Wood (Warning) - LEGACY, replaced by Amethyst */
   --wood-300: #A78BFA;
   --wood-400: #8B5CF6;
   --wood-500: #5C4533;
   --wood-600: #4A3729;
   --wood-700: #38291F;
   
-  /* Iron (Neutral) */
-  --iron-200: #4B5563;
-  --iron-300: #3B3F46;
-  --iron-400: #374151;
-  --iron-500: #2D3138;
-  --iron-600: #1F2937;
-  --iron-700: #111827;
+  /* Iron (Neutral) - LEGACY, use new Iron scale above */
+  --iron-200-legacy: #4B5563;
+  --iron-300-legacy: #3B3F46;
+  --iron-400-legacy: #374151;
+  --iron-500-legacy: #2D3138;
+  --iron-600-legacy: #1F2937;
+  --iron-700-legacy: #111827;
 
   /* === BORDER SYSTEM === */
   
@@ -263,16 +350,170 @@
   --z-index-tooltip: 1200;
   --z-index-overlay: 1300;
 
-  /* === TEXT COLORS === */
+  /* === RGB VARIANTS FOR PRIMITIVE TOKENS === */
+  /* Required for rgba() usage in semantic tokens */
   
-  /* Text color hierarchy */
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.8);
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --text-subtle: rgba(255, 255, 255, 0.4);
-  --text-inverse: #000000;
-  --text-accent: var(--norse-gold);
+  /* Norse Gold RGB variants */
+  --norse-gold-500-rgb: 125, 118, 67;    /* From #7D7643 */
+  --norse-gold-600-rgb: 100, 96, 57;     /* From #646039 */
+  --norse-gold-700-rgb: 78, 74, 47;      /* From #4E4A2F */
   
+  /* Forest RGB variants */
+  --forest-500-rgb: 20, 135, 54;         /* From #148736 */
+  --forest-600-rgb: 16, 107, 43;         /* From #106B2B */
+  --forest-700-rgb: 13, 85, 34;          /* From #0D5522 */
+  
+  /* Blood RGB variants */
+  --blood-500-rgb: 201, 42, 42;          /* From #C92A2A */
+  --blood-600-rgb: 161, 34, 34;          /* From #A12222 */
+  --blood-700-rgb: 121, 26, 26;          /* From #791A1A */
+  
+  /* Amethyst RGB variants */
+  --amethyst-500-rgb: 95, 54, 208;       /* From #5F36D0 */
+  --amethyst-600-rgb: 76, 43, 166;       /* From #4C2BA6 */
+  --amethyst-700-rgb: 58, 34, 124;       /* From #3A227C */
+  
+  /* Ocean RGB variants */
+  --ocean-500-rgb: 35, 90, 208;          /* From #235AD0 */
+  --ocean-600-rgb: 28, 72, 166;          /* From #1C48A6 */
+  --ocean-700-rgb: 22, 54, 124;          /* From #16367C */
+  
+  /* Iron RGB variants */
+  --iron-900-rgb: 5, 5, 9;               /* From #050509 */
+  --iron-800-rgb: 13, 14, 19;            /* From #0D0E13 */
+  --iron-700-rgb: 21, 22, 29;            /* From #15161D */
+  --iron-600-rgb: 29, 31, 39;            /* From #1D1F27 */
+  --iron-500-rgb: 37, 40, 49;            /* From #252831 */
+  --iron-400-rgb: 45, 49, 59;            /* From #2D313B */
+
+  /* === SEMANTIC TOKEN SYSTEM === */
+  /* Functional color tokens mapped from primitives for specific usage contexts */
+  /* Components should use semantic tokens, not primitive colors directly */
+
+  /* === CONTEXT SURFACE TOKENS === */
+  /* Surface tokens for contextual backgrounds with consistent gradient structure */
+
+  /* Success Surface - Forest-based */
+  --surface-success: linear-gradient(135deg, 
+    rgba(var(--forest-500-rgb), 0.35), 
+    rgba(var(--forest-600-rgb), 0.25), 
+    rgba(var(--forest-700-rgb), 0.15)
+  );
+
+  /* Danger Surface - Blood-based */
+  --surface-danger: linear-gradient(135deg, 
+    rgba(var(--blood-500-rgb), 0.35), 
+    rgba(var(--blood-600-rgb), 0.25), 
+    rgba(var(--blood-700-rgb), 0.15)
+  );
+
+  /* Warning Surface - Amethyst-based */
+  --surface-warning: linear-gradient(135deg, 
+    rgba(var(--amethyst-500-rgb), 0.35), 
+    rgba(var(--amethyst-600-rgb), 0.25), 
+    rgba(var(--amethyst-700-rgb), 0.15)
+  );
+
+  /* Info Surface - Ocean-based */
+  --surface-info: linear-gradient(135deg, 
+    rgba(var(--ocean-500-rgb), 0.35), 
+    rgba(var(--ocean-600-rgb), 0.25), 
+    rgba(var(--ocean-700-rgb), 0.15)
+  );
+
+  /* === TEXT SEMANTIC TOKENS === */
+  /* Text hierarchy using stone primitive tokens for consistent information hierarchy */
+
+  /* Primary Text Hierarchy */
+  --text-primary: var(--stone-100);       /* High contrast main text */
+  --text-secondary: var(--stone-300);     /* Secondary content */
+  --text-muted: var(--stone-500);         /* Subtle text, captions */
+  --text-disabled: var(--stone-700);      /* Disabled state text */
+
+  /* Context Text Colors */
+  --text-success: var(--forest-300);      /* Success messages */
+  --text-danger: var(--blood-300);        /* Error messages */
+  --text-warning: var(--amethyst-300);    /* Warning messages */
+  --text-info: var(--ocean-300);          /* Info messages */
+
+  /* Special Text */
+  --text-accent: var(--norse-gold-300);   /* Primary accent text */
+  --text-inverse: var(--iron-900);        /* Text on light backgrounds */
+
   /* Placeholder text */
-  --text-placeholder: rgba(255, 255, 255, 0.4);
+  --text-placeholder: var(--stone-600);   /* Input placeholder text */
+
+  /* === BORDER SEMANTIC TOKENS === */
+  /* Border system for different interaction states and contexts */
+
+  /* Neutral Borders */
+  --border-subtle: var(--stone-800);      /* Subtle dividers */
+  --border-default: var(--stone-700);     /* Standard borders */
+  --border-strong: var(--stone-600);      /* Emphasized borders */
+
+  /* Interactive Borders */
+  --border-focus: var(--ocean-400);       /* Focus rings */
+  --border-hover: var(--stone-500);       /* Hover state borders */
+
+  /* Context Borders */
+  --border-success: var(--forest-400);    /* Success state borders */
+  --border-danger: var(--blood-400);      /* Error state borders */
+  --border-warning: var(--amethyst-400);  /* Warning state borders */
+  --border-info: var(--ocean-400);        /* Info state borders */
+
+  /* === ICON SEMANTIC TOKENS === */
+  /* Icon colors for different contexts and interaction states */
+
+  /* Primary Icon Colors */
+  --icon-primary: var(--stone-200);       /* Main icons */
+  --icon-secondary: var(--stone-400);     /* Secondary icons */
+  --icon-muted: var(--stone-600);         /* Subtle icons */
+
+  /* Interactive Icons */
+  --icon-accent: var(--norse-gold-300);   /* Primary accent icons */
+  --icon-hover: var(--stone-100);         /* Hover state */
+
+  /* Context Icons */
+  --icon-success: var(--forest-400);      /* Success icons */
+  --icon-danger: var(--blood-400);        /* Error icons */
+  --icon-warning: var(--amethyst-400);    /* Warning icons */
+  --icon-info: var(--ocean-400);          /* Info icons */
+
+  /* === BACKGROUND SEMANTIC TOKENS === */
+  /* Background hierarchy using iron primitive tokens for consistent depth */
+
+  /* Background Hierarchy */
+  --bg-primary: var(--iron-900);          /* Main app background */
+  --bg-secondary: var(--iron-800);        /* Secondary backgrounds */
+  --bg-tertiary: var(--iron-700);         /* Card backgrounds */
+
+  /* Interactive Backgrounds */
+  --bg-hover: var(--iron-600);            /* Hover states */
+  --bg-active: var(--iron-500);           /* Active/pressed states */
+  --bg-selected: var(--iron-400);         /* Selected states */
+
+  /* Overlay Backgrounds */
+  --bg-overlay: rgba(var(--iron-900-rgb), 0.80);  /* Modal overlays */
+  --bg-backdrop: rgba(var(--iron-900-rgb), 0.60); /* Backdrop blur */
+
+  /* === COMPONENT-SPECIFIC SEMANTIC TOKENS === */
+  /* Semantic tokens for specific component types */
+
+  /* Form Elements */
+  --input-bg: var(--iron-700);            /* Input field backgrounds */
+  --input-bg-focus: var(--iron-600);      /* Focused input backgrounds */
+  --input-bg-disabled: var(--iron-800);   /* Disabled input backgrounds */
+
+  /* Button Backgrounds */
+  --button-primary-bg: var(--norse-gold-300);
+  --button-secondary-bg: var(--iron-600);
+  --button-ghost-bg: transparent;
+
+  /* === LEGACY TEXT COLORS === */
+  /* Keep existing text tokens for backward compatibility */
+  --text-legacy-primary: #ffffff;
+  --text-legacy-secondary: rgba(255, 255, 255, 0.8);
+  --text-legacy-muted: rgba(255, 255, 255, 0.6);
+  --text-legacy-subtle: rgba(255, 255, 255, 0.4);
+  --text-legacy-accent: var(--norse-gold);
 }

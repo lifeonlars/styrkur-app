@@ -66,9 +66,27 @@
 
 /* SURFACE SUCCESS: Forest accent with readable text contrast */
 .surface-success {
-  /* Use design-tokens gradient for consistency */
-  background: var(--gradient-neu-forest-metallic);
-  color: var(--text-primary); /* White text on dark forest background */
+  /* Use new semantic token for consistency */
+  background: var(--surface-success);
+  color: var(--text-primary); /* White text on success background */
+}
+
+/* SURFACE DANGER: Blood accent for error states */
+.surface-danger {
+  background: var(--surface-danger);
+  color: var(--text-primary); /* White text on danger background */
+}
+
+/* SURFACE WARNING: Amethyst accent for warning states */
+.surface-warning {
+  background: var(--surface-warning);
+  color: var(--text-primary); /* White text on warning background */
+}
+
+/* SURFACE INFO: Ocean accent for informational states */
+.surface-info {
+  background: var(--surface-info);
+  color: var(--text-primary); /* White text on info background */
 }
 
 /* === BORDER GRADIENT UTILITIES === */
