@@ -3,8 +3,7 @@ import { X, Check, Clock, Target } from 'lucide-react'
 import { Workout, Exercise, WorkoutSessionState, GroupSessionLog, GroupSetLog, ExerciseInSetLog, WorkoutSessionSummary } from '@/types'
 import { saveWorkoutSession, clearWorkoutSession, saveWorkoutToHistory, savePausedWorkoutSession, hasCompletedSets } from '@/lib/sessionStorage'
 import { fetchExercises } from '@/lib/wger'
-import LoggedExerciseCard from './LoggedExerciseCard'
-import GroupedExerciseCard from './GroupedExerciseCard'
+import WorkoutGroup from '@/components/ui/workout-group'
 
 interface WorkoutLoggingModalProps {
   workout: Workout
@@ -538,77 +537,20 @@ export default function WorkoutLoggingModal({
               </div>
             </div>
           )}
-          {!isLoadingExercises && Object.entries(session.groupLogs).map(([groupId, groupLog]) => {
-            // For single exercises, use the original LoggedExerciseCard
-            if (groupLog.groupType === 'single') {
-              const exercise = groupLog.setLogs[0]?.exercises[0]
-              if (!exercise) return null
-
-              // Convert grouped structure back to legacy format for LoggedExerciseCard
-              const legacyExerciseLog = {
-                exerciseId: exercise.exerciseId,
-                exerciseData: exercise.exerciseData,
-                groupId: groupLog.groupId,
-                groupType: groupLog.groupType,
-                plannedSets: groupLog.plannedSets,
-                setLogs: groupLog.setLogs.map(setLog => ({
-                  setNumber: setLog.setNumber,
-                  reps: setLog.exercises[0]?.reps || 0,
-                  weight: setLog.exercises[0]?.weight || 0,
-                  rpe: groupLog.groupRPE, // RPE is now at group level for single exercises
-                  isCompleted: setLog.exercises[0]?.isCompleted || false,
-                  completedAt: setLog.completedAt,
-                  notes: setLog.exercises[0]?.notes
-                })),
-                exerciseNotes: groupLog.groupNotes
+          {!isLoadingExercises && Object.entries(session.groupLogs).map(([groupId, groupLog]) => (
+            <WorkoutGroup
+              key={groupId}
+              groupLog={groupLog}
+              onUpdateSet={(setIndex, updates) => updateGroupSet(groupId, setIndex, updates)}
+              onUpdateExerciseInSet={(setIndex, exerciseIndex, updates) => 
+                updateExerciseInSet(groupId, setIndex, exerciseIndex, updates)
               }
-
-              return (
-                <LoggedExerciseCard
-                  key={groupId}
-                  exercise={exercise.exerciseData}
-                  exerciseLog={legacyExerciseLog}
-                  onUpdateSetLog={(setIndex, updates) => {
-                    // Convert legacy updates back to grouped format
-                    const groupUpdates: Partial<GroupSetLog> = {
-                      isCompleted: updates.isCompleted,
-                      completedAt: updates.completedAt
-                    }
-                    updateGroupSet(groupId, setIndex, groupUpdates)
-                    
-                    // Update exercise data
-                    const exerciseUpdates: Partial<ExerciseInSetLog> = {
-                      reps: updates.reps,
-                      weight: updates.weight,
-                      isCompleted: updates.isCompleted || false,
-                      notes: updates.notes
-                    }
-                    updateExerciseInSet(groupId, setIndex, 0, exerciseUpdates)
-                  }}
-                  onAddSet={() => addGroupSet(groupId)}
-                  onRemoveSet={(setIndex) => removeGroupSet(groupId, setIndex)}
-                  onUpdateNotes={(notes) => updateGroupNotes(groupId, notes)}
-                  onUpdateGroupRPE={(rpe) => updateGroupRPE(groupId, rpe)}
-                />
-              )
-            }
-
-            // For supersets and circuits, use the new GroupedExerciseCard
-            return (
-              <GroupedExerciseCard
-                key={groupId}
-                groupLog={groupLog}
-                onUpdateSet={(setIndex, updates) => updateGroupSet(groupId, setIndex, updates)}
-                onUpdateExerciseInSet={(setIndex, exerciseIndex, updates) => 
-                  updateExerciseInSet(groupId, setIndex, exerciseIndex, updates)
-                }
-                onAddSet={() => addGroupSet(groupId)}
-                onRemoveSet={(setIndex) => removeGroupSet(groupId, setIndex)}
-                onUpdateGroupNotes={(notes) => updateGroupNotes(groupId, notes)}
-                onUpdateGroupRPE={groupLog.groupType !== 'circuit' ? (rpe) => updateGroupRPE(groupId, rpe) : undefined}
-              />
-            )
-          })}
+              onAddSet={() => addGroupSet(groupId)}
+              onRemoveSet={(setIndex) => removeGroupSet(groupId, setIndex)}
+              onUpdateGroupNotes={(notes) => updateGroupNotes(groupId, notes)}
+              onUpdateGroupRPE={groupLog.groupType !== 'circuit' ? (rpe) => updateGroupRPE(groupId, rpe) : undefined}
+            />
+          ))}
         </div>
       </div>
     </div>

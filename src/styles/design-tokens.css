@@ -148,6 +148,11 @@
   --gradient-neu-gold-dark: linear-gradient(145deg, #B8A260, #A89253, #8D7A42);
   --gradient-neu-gold-subtle: linear-gradient(145deg, rgba(195, 168, 105, 0.12), rgba(184, 162, 96, 0.06));
   
+  /* Forest success metallic gradients - sophisticated green with proper light/dark tones */
+  --gradient-neu-forest-metallic: linear-gradient(145deg, #2E7D5F, #25654C, #1C4D39);
+  --gradient-neu-forest-light: linear-gradient(145deg, #3BC692, #2E7D5F, #25654C);
+  --gradient-neu-forest-subtle: linear-gradient(145deg, rgba(46, 125, 95, 0.12), rgba(37, 101, 76, 0.06));
+  
   /* Deep charcoal gradients inspired by the neumorphic examples */
   --gradient-neu-base: linear-gradient(145deg, #2c2f36, #252831);
   --gradient-neu-elevated: linear-gradient(145deg, #2f3239, #28292f);

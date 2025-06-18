@@ -64,6 +64,13 @@
   color: var(--text-inverse); /* Use design token for dark text */
 }
 
+/* SURFACE SUCCESS: Forest accent with readable text contrast */
+.surface-success {
+  /* Use design-tokens gradient for consistency */
+  background: var(--gradient-neu-forest-metallic);
+  color: var(--text-primary); /* White text on dark forest background */
+}
+
 /* === BORDER GRADIENT UTILITIES === */
 /* Neumorphic border system for crisp Tesla Cybertruck definition */
 

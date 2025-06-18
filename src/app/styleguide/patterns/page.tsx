@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import MuscleHighlighter from '@/components/muscle-map/MuscleHighlighter'
 import WorkoutCard from '@/components/ui/workout-card'
+import WorkoutGroup from '@/components/ui/workout-group'
 import { Grid3x3, Zap, Clock, Dumbbell, Play, Eye } from 'lucide-react'
 
 export default function PatternsPage() {
@@ -304,7 +305,431 @@ export default function PatternsPage() {
           </div>
         </div>
       </ComponentShowcase>
-      
+
+      <ComponentShowcase title="WorkoutGroup - Unified Logging Component">
+        <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+          <h4 className="text-white font-medium mb-4">Unified Workout Logging Component</h4>
+          <p className="text-gray-400 text-sm mb-6">
+            The WorkoutGroup component replaces LoggedExerciseCard and GroupedExerciseCard with a single, 
+            unified component that handles all three workout logging variants: single exercises, supersets, and circuits.
+          </p>
+          
+          <div className="space-y-8">
+            {/* Single Exercise Variant */}
+            <div>
+              <h5 className="text-norse-gold font-medium mb-4">Single Exercise Variant</h5>
+              <WorkoutGroup
+                groupLog={{
+                  groupId: "single-1",
+                  groupType: "single",
+                  plannedSets: 3,
+                  groupRPE: 8,
+                  setLogs: [
+                    {
+                      setNumber: 1,
+                      exercises: [{
+                        exerciseId: "bench-press",
+                        exerciseData: {
+                          id: "bench-press",
+                          name: "Bench Press",
+                          bodyPart: "chest",
+                          equipment: "barbell",
+                          target: "pectorals",
+                          primaryMuscles: ["pectorals"],
+                          secondaryMuscles: ["triceps", "anterior deltoid"],
+                          primaryMuscleIds: [4],
+                          secondaryMuscleIds: [5, 15],
+                          muscleGroup: "chest",
+                          instructions: [],
+                          category: 0,
+                          uuid: "bench-press-uuid",
+                          icon: "💪",
+                          isWeighted: true
+                        },
+                        reps: 8,
+                        weight: 80,
+                        isCompleted: true
+                      }],
+                      isCompleted: true,
+                      completedAt: new Date()
+                    },
+                    {
+                      setNumber: 2,
+                      exercises: [{
+                        exerciseId: "bench-press",
+                        exerciseData: {
+                          id: "bench-press",
+                          name: "Bench Press",
+                          bodyPart: "chest",
+                          equipment: "barbell",
+                          target: "pectorals",
+                          primaryMuscles: ["pectorals"],
+                          secondaryMuscles: ["triceps", "anterior deltoid"],
+                          primaryMuscleIds: [4],
+                          secondaryMuscleIds: [5, 15],
+                          muscleGroup: "chest",
+                          instructions: [],
+                          category: 0,
+                          uuid: "bench-press-uuid",
+                          icon: "💪",
+                          isWeighted: true
+                        },
+                        reps: 8,
+                        weight: 82.5,
+                        isCompleted: false
+                      }],
+                      isCompleted: false
+                    },
+                    {
+                      setNumber: 3,
+                      exercises: [{
+                        exerciseId: "bench-press",
+                        exerciseData: {
+                          id: "bench-press",
+                          name: "Bench Press",
+                          bodyPart: "chest",
+                          equipment: "barbell",
+                          target: "pectorals",
+                          primaryMuscles: ["pectorals"],
+                          secondaryMuscles: ["triceps", "anterior deltoid"],
+                          primaryMuscleIds: [4],
+                          secondaryMuscleIds: [5, 15],
+                          muscleGroup: "chest",
+                          instructions: [],
+                          category: 0,
+                          uuid: "bench-press-uuid",
+                          icon: "💪",
+                          isWeighted: true
+                        },
+                        reps: 0,
+                        weight: 0,
+                        isCompleted: false
+                      }],
+                      isCompleted: false
+                    }
+                  ],
+                  groupNotes: "Focus on controlled eccentric"
+                }}
+                onUpdateSet={() => {}}
+                onUpdateExerciseInSet={() => {}}
+                onAddSet={() => {}}
+                onRemoveSet={() => {}}
+                onUpdateGroupNotes={() => {}}
+                onUpdateGroupRPE={() => {}}
+              />
+            </div>
+
+            {/* Superset Variant */}
+            <div>
+              <h5 className="text-norse-gold font-medium mb-4">Superset Variant</h5>
+              <WorkoutGroup
+                groupLog={{
+                  groupId: "superset-1",
+                  groupType: "superset",
+                  plannedSets: 3,
+                  groupRPE: 7.5,
+                  setLogs: [
+                    {
+                      setNumber: 1,
+                      exercises: [
+                        {
+                          exerciseId: "pull-ups",
+                          exerciseData: {
+                            id: "pull-ups",
+                            name: "Pull-ups",
+                            bodyPart: "back",
+                            equipment: "body weight",
+                            target: "latissimus dorsi",
+                            primaryMuscles: ["latissimus dorsi"],
+                            secondaryMuscles: ["biceps", "rhomboids"],
+                            primaryMuscleIds: [2],
+                            secondaryMuscleIds: [1, 13],
+                            muscleGroup: "back",
+                            instructions: [],
+                            category: 0,
+                            uuid: "pull-ups-uuid",
+                            icon: "💪",
+                            isWeighted: false
+                          },
+                          reps: 6,
+                          weight: 0,
+                          isCompleted: true
+                        },
+                        {
+                          exerciseId: "push-ups",
+                          exerciseData: {
+                            id: "push-ups",
+                            name: "Push-ups",
+                            bodyPart: "chest",
+                            equipment: "body weight",
+                            target: "pectorals",
+                            primaryMuscles: ["pectorals"],
+                            secondaryMuscles: ["triceps", "anterior deltoid"],
+                            primaryMuscleIds: [4],
+                            secondaryMuscleIds: [5, 15],
+                            muscleGroup: "chest",
+                            instructions: [],
+                            category: 0,
+                            uuid: "push-ups-uuid",
+                            icon: "💪",
+                            isWeighted: false
+                          },
+                          reps: 12,
+                          weight: 0,
+                          isCompleted: true
+                        }
+                      ],
+                      isCompleted: true,
+                      completedAt: new Date()
+                    },
+                    {
+                      setNumber: 2,
+                      exercises: [
+                        {
+                          exerciseId: "pull-ups",
+                          exerciseData: {
+                            id: "pull-ups",
+                            name: "Pull-ups",
+                            bodyPart: "back",
+                            equipment: "body weight",
+                            target: "latissimus dorsi",
+                            primaryMuscles: ["latissimus dorsi"],
+                            secondaryMuscles: ["biceps", "rhomboids"],
+                            primaryMuscleIds: [2],
+                            secondaryMuscleIds: [1, 13],
+                            muscleGroup: "back",
+                            instructions: [],
+                            category: 0,
+                            uuid: "pull-ups-uuid",
+                            icon: "💪",
+                            isWeighted: false
+                          },
+                          reps: 5,
+                          weight: 0,
+                          isCompleted: false
+                        },
+                        {
+                          exerciseId: "push-ups",
+                          exerciseData: {
+                            id: "push-ups",
+                            name: "Push-ups",
+                            bodyPart: "chest",
+                            equipment: "body weight",
+                            target: "pectorals",
+                            primaryMuscles: ["pectorals"],
+                            secondaryMuscles: ["triceps", "anterior deltoid"],
+                            primaryMuscleIds: [4],
+                            secondaryMuscleIds: [5, 15],
+                            muscleGroup: "chest",
+                            instructions: [],
+                            category: 0,
+                            uuid: "push-ups-uuid",
+                            icon: "💪",
+                            isWeighted: false
+                          },
+                          reps: 10,
+                          weight: 0,
+                          isCompleted: false
+                        }
+                      ],
+                      isCompleted: false
+                    }
+                  ]
+                }}
+                onUpdateSet={() => {}}
+                onUpdateExerciseInSet={() => {}}
+                onAddSet={() => {}}
+                onRemoveSet={() => {}}
+                onUpdateGroupNotes={() => {}}
+                onUpdateGroupRPE={() => {}}
+              />
+            </div>
+
+            {/* Circuit Variant */}
+            <div>
+              <h5 className="text-norse-gold font-medium mb-4">Circuit Variant</h5>
+              <WorkoutGroup
+                groupLog={{
+                  groupId: "circuit-1",
+                  groupType: "circuit",
+                  plannedSets: 3,
+                  setLogs: [
+                    {
+                      setNumber: 1,
+                      exercises: [
+                        {
+                          exerciseId: "burpees",
+                          exerciseData: {
+                            id: "burpees",
+                            name: "Burpees",
+                            bodyPart: "full body",
+                            equipment: "body weight",
+                            target: "full body",
+                            primaryMuscles: ["full body"],
+                            secondaryMuscles: [],
+                            primaryMuscleIds: [10, 11, 4, 2],
+                            secondaryMuscleIds: [],
+                            muscleGroup: "full-body",
+                            instructions: [],
+                            category: 0,
+                            uuid: "burpees-uuid",
+                            icon: "🔥",
+                            isWeighted: false
+                          },
+                          reps: 15,
+                          weight: 0,
+                          isCompleted: true
+                        },
+                        {
+                          exerciseId: "mountain-climbers",
+                          exerciseData: {
+                            id: "mountain-climbers",
+                            name: "Mountain Climbers",
+                            bodyPart: "core",
+                            equipment: "body weight",
+                            target: "core",
+                            primaryMuscles: ["core"],
+                            secondaryMuscles: ["shoulders"],
+                            primaryMuscleIds: [12],
+                            secondaryMuscleIds: [5],
+                            muscleGroup: "core",
+                            instructions: [],
+                            category: 0,
+                            uuid: "mountain-climbers-uuid",
+                            icon: "🏔️",
+                            isWeighted: false
+                          },
+                          reps: 20,
+                          weight: 0,
+                          isCompleted: true
+                        },
+                        {
+                          exerciseId: "jump-squats",
+                          exerciseData: {
+                            id: "jump-squats",
+                            name: "Jump Squats",
+                            bodyPart: "legs",
+                            equipment: "body weight",
+                            target: "quadriceps",
+                            primaryMuscles: ["quadriceps", "glutes"],
+                            secondaryMuscles: ["calves"],
+                            primaryMuscleIds: [10, 11],
+                            secondaryMuscleIds: [9],
+                            muscleGroup: "legs",
+                            instructions: [],
+                            category: 0,
+                            uuid: "jump-squats-uuid",
+                            icon: "🦵",
+                            isWeighted: false
+                          },
+                          reps: 12,
+                          weight: 0,
+                          isCompleted: true
+                        }
+                      ],
+                      isCompleted: true,
+                      completedAt: new Date()
+                    },
+                    {
+                      setNumber: 2,
+                      exercises: [
+                        {
+                          exerciseId: "burpees",
+                          exerciseData: {
+                            id: "burpees",
+                            name: "Burpees",
+                            bodyPart: "full body",
+                            equipment: "body weight",
+                            target: "full body",
+                            primaryMuscles: ["full body"],
+                            secondaryMuscles: [],
+                            primaryMuscleIds: [10, 11, 4, 2],
+                            secondaryMuscleIds: [],
+                            muscleGroup: "full-body",
+                            instructions: [],
+                            category: 0,
+                            uuid: "burpees-uuid",
+                            icon: "🔥",
+                            isWeighted: false
+                          },
+                          reps: 12,
+                          weight: 0,
+                          isCompleted: false
+                        },
+                        {
+                          exerciseId: "mountain-climbers",
+                          exerciseData: {
+                            id: "mountain-climbers",
+                            name: "Mountain Climbers",
+                            bodyPart: "core",
+                            equipment: "body weight",
+                            target: "core",
+                            primaryMuscles: ["core"],
+                            secondaryMuscles: ["shoulders"],
+                            primaryMuscleIds: [12],
+                            secondaryMuscleIds: [5],
+                            muscleGroup: "core",
+                            instructions: [],
+                            category: 0,
+                            uuid: "mountain-climbers-uuid",
+                            icon: "🏔️",
+                            isWeighted: false
+                          },
+                          reps: 18,
+                          weight: 0,
+                          isCompleted: false
+                        },
+                        {
+                          exerciseId: "jump-squats",
+                          exerciseData: {
+                            id: "jump-squats",
+                            name: "Jump Squats",
+                            bodyPart: "legs",
+                            equipment: "body weight",
+                            target: "quadriceps",
+                            primaryMuscles: ["quadriceps", "glutes"],
+                            secondaryMuscles: ["calves"],
+                            primaryMuscleIds: [10, 11],
+                            secondaryMuscleIds: [9],
+                            muscleGroup: "legs",
+                            instructions: [],
+                            category: 0,
+                            uuid: "jump-squats-uuid",
+                            icon: "🦵",
+                            isWeighted: false
+                          },
+                          reps: 10,
+                          weight: 0,
+                          isCompleted: false
+                        }
+                      ],
+                      isCompleted: false
+                    }
+                  ]
+                }}
+                onUpdateSet={() => {}}
+                onUpdateExerciseInSet={() => {}}
+                onAddSet={() => {}}
+                onRemoveSet={() => {}}
+                onUpdateGroupNotes={() => {}}
+              />
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-neu-card rounded-lg">
+            <h5 className="text-norse-gold font-medium mb-2">Key Features Implemented:</h5>
+            <ul className="text-sm text-gray-300 space-y-1">
+              <li>• <strong>Success Surface Highlighting:</strong> Completed sets use the new surface-success variant</li>
+              <li>• <strong>Unified Interface:</strong> Single component handles all three workout types</li>
+              <li>• <strong>Design System Integration:</strong> Uses Card, Input, Textarea, Select, and Button components</li>
+              <li>• <strong>Variant-Specific Layouts:</strong> Single exercise table vs grouped exercise grid</li>
+              <li>• <strong>RPE Support:</strong> Group-level RPE for single exercises and supersets (not circuits)</li>
+              <li>• <strong>Norse Styling:</strong> Consistent neumorphic design with Norse gold accents</li>
+              <li>• <strong>Responsive Design:</strong> Optimized for both mobile and desktop interaction</li>
+            </ul>
+          </div>
+        </div>
+      </ComponentShowcase>
 
       <ComponentShowcase title="Future Expansion">
         <div className="p-6 bg-neu-surface shadow-neu rounded-xl">

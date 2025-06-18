@@ -43,7 +43,7 @@ export interface CardProps
   loading?: boolean
   hoverLift?: boolean
   depth?: 'sunken' | 'flat' | 'subtle' | 'elevated'
-  surface?: 'concave' | 'flat' | 'convex' | 'gold'
+  surface?: 'concave' | 'flat' | 'convex' | 'gold' | 'success'
   border?: 'transparent' | 'subtle' | 'crisp' | 'glow'
 }
 

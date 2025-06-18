@@ -58,14 +58,14 @@ Refactoring workout-related components into a unified, reusable system using the
 ---
 
 ### **Phase 3: Success Surface Variant** ✅
-**Status**: Pending Phase 2  
+**Status**: Pending - Need to verify existence  
 **Estimated Time**: 15-20 minutes  
-**Priority**: Medium - Needed for workout groups
+**Priority**: Medium - Needed for workout group completion states
 
 **Scope**:
-- Add success surface variant to design tokens
-- Implement forest colors at 50% opacity with concave gradient
-- Create green highlighting system for completed states
+- Verify if success surface variant exists in design tokens
+- If not, create success surface variant using forest colors at 50% opacity
+- Implement concave gradient depth for completed states
 - Update design system documentation
 
 **Files Affected**:
@@ -73,39 +73,49 @@ Refactoring workout-related components into a unified, reusable system using the
 - Component variant systems
 - Styleguide documentation
 
+---
+
+### **Phase 4A: WorkoutGroup Component (Logging)** 🏋️‍♂️
+**Status**: Ready to implement  
+**Estimated Time**: 90-120 minutes  
+**Priority**: High - Core workout logging functionality
+
+**Scope**:
+- Create unified WorkoutGroup component with Single/Superset/Circuit variants
+- Integrate proper Input, Checkbox, Select components from design system
+- Implement success surface highlighting for completed sets
+- Clean up duplicate custom components
+- Apply Norse neumorphic styling and design tokens
+- Maintain existing functionality while improving reusability
+
+**Files Affected**:
+- `components/ui/workout-group.tsx` (new unified component)
+- Various workout logging pages using existing group components
+- Remove duplicate/custom input components
+- Styleguide patterns page updates
+
 **Key Features**:
-- `surface="success"` variant
-- Concave gradient depth
-- 50% opacity forest colors
-- Consistent with Norse neumorphic system
+- Props-based variants (single/superset/circuit)
+- Completion state highlighting with success surface
+- Unified input components (no custom duplicates)
+- "Add Set" dashed button pattern
+- RPE and timing integration
+- Norse neumorphic styling throughout
 
 ---
 
-### **Phase 4: WorkoutGroup Components** 🏋️‍♂️
-**Status**: Pending Phases 1-3  
+### **Phase 4B: WorkoutGroup Component (Planning)** 📋
+**Status**: Future phase after 4A completion  
 **Estimated Time**: 60-90 minutes  
-**Priority**: High - Core functionality components
+**Priority**: Medium - Planning interface improvement
 
 **Scope**:
-- Create ExerciseGroup component (Single/Superset/Circuit)
-- Create SetLogger component with completion states
-- Create ExercisePlanner component
-- Unify logging and planning interfaces
-- Implement "Add Set" dashed button pattern
+- Extend WorkoutGroup component for planning context
+- Same Single/Superset/Circuit variants but for exercise selection
+- Consistent styling with logging variant
+- Exercise addition/removal workflows
 
-**Files Affected**:
-- `components/ui/exercise-group.tsx` (new)
-- `components/ui/set-logger.tsx` (new) 
-- `components/ui/exercise-planner.tsx` (new)
-- Various workout logging/planning pages
-- Styleguide patterns page
-
-**Key Features**:
-- Single/Superset/Circuit variants
-- Interactive set completion with success highlighting
-- Consistent form patterns
-- Dashed border "Add" buttons
-- RPE and timing integration
+**Dependencies**: Phase 4A must be completed first
 
 ---
 
