@@ -9,7 +9,7 @@ import { Button } from '@/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog, ExerciseGroupType } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
-import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
+import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
 import { cn } from '@/lib/utils'
 
 // RPE options for select components
@@ -98,7 +98,20 @@ export default function WorkoutGroup({
   }
 
   const getVariantSpecificHeader = () => {
-    const IconComponent = getGroupTypeIconComponent(groupLog.groupType)
+    const getIconComponent = () => {
+      switch (groupLog.groupType) {
+        case 'single':
+          return ExerciseGroupSingle
+        case 'superset':
+          return ExerciseGroupSuperset
+        case 'circuit':
+          return ExerciseGroupCircuit
+        default:
+          return ExerciseGroupSingle
+      }
+    }
+    
+    const IconComponent = getIconComponent()
     
     switch (groupLog.groupType) {
       case 'single':
