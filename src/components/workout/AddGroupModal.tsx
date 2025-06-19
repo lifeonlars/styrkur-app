@@ -24,7 +24,7 @@ const rpeOptions = [
 
 // Timing style options
 const timingStyleOptions = [
-  { value: "", label: "None" },
+  { value: "none", label: "None" },
   { value: "AMRAP", label: "AMRAP (As Many Rounds As Possible)" },
   { value: "EMOM", label: "EMOM (Every Minute On the Minute)" },
   { value: "HIIT", label: "HIIT (High Intensity Interval Training)" }
@@ -43,7 +43,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
   const [sets, setSets] = useState(initialEntry?.sets || 3)
   const [restBetweenExercises, setRestBetweenExercises] = useState(initialEntry?.restBetweenExercises || 15)
   const [restAfterGroup, setRestAfterGroup] = useState(initialEntry?.restAfterGroup || 90)
-  const [timingStyle, setTimingStyle] = useState<TimingStyle | ''>(initialEntry?.timingStyle || '')
+  const [timingStyle, setTimingStyle] = useState<TimingStyle | 'none'>(initialEntry?.timingStyle || 'none')
   const [showExerciseSearch, setShowExerciseSearch] = useState(false)
   const [availableExercises, setAvailableExercises] = useState<Exercise[]>([])
   
@@ -163,7 +163,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
       sets,
       restBetweenExercises: groupType === 'circuit' && restBetweenExercises > 0 ? restBetweenExercises : undefined,
       restAfterGroup: restAfterGroup > 0 ? restAfterGroup : undefined,
-      timingStyle: timingStyle || undefined,
+      timingStyle: timingStyle === 'none' ? undefined : timingStyle,
       // Add RPE fields based on group type
       ...(groupType !== 'circuit' && { groupRPE }),
       // Circuits have no RPE fields
@@ -308,7 +308,7 @@ export default function AddGroupModal({ onSave, onCancel, initialEntry }: AddGro
           {groupType === 'circuit' && (
             <div>
               <label className="block text-gray-300 text-sm font-medium mb-2">Timing Style (optional)</label>
-              <Select value={timingStyle || ""} onValueChange={(value) => setTimingStyle(value as TimingStyle | '')}>
+              <Select value={timingStyle} onValueChange={(value) => setTimingStyle(value as TimingStyle | 'none')}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select timing style" />
                 </SelectTrigger>
