@@ -7,6 +7,7 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { Button } from '@/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card'
+import { Chip } from '@/ui/chip'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog, ExerciseGroupType } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
@@ -134,9 +135,9 @@ export default function WorkoutGroup({
             {/* First row: Group chip, exercise list, and expand button */}
             <div className="flex items-start justify-between mb-2">
               <div className="flex flex-col gap-2">
-                <span className="px-2 py-1 text-xs font-medium bg-norse-gold text-black rounded-full w-fit">
+                <Chip variant="outlined">
                   {getGroupTypeLabel()}
-                </span>
+                </Chip>
                 {/* Compact exercise list aligned with chip */}
                 {renderExerciseList()}
               </div>
@@ -231,9 +232,9 @@ export default function WorkoutGroup({
                 setShowExerciseDetail(true)
               }}
             >
-              <span className="w-5 h-5 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs flex-shrink-0">
+              <Chip variant="outlined" size="label">
                 {String.fromCharCode(65 + exerciseIndex)}
-              </span>
+              </Chip>
               <span className="text-sm text-white font-medium">{exercise.exerciseData.name}</span>
               <Info className="w-3 h-3 text-gray-400" />
             </div>

@@ -3,6 +3,7 @@ import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info, X } from 'lucide
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
+import { Chip } from '@/ui/chip'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { getGroupTypeIconComponent } from '@/lib/groupTypeUtils'
@@ -113,13 +114,9 @@ export default function GroupedExerciseCard({
             <div className="flex-shrink-0 mt-1">{getGroupTypeDisplay()}</div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <span className={`text-xs px-2 py-1 rounded font-medium ${
-                  groupLog.groupType === 'superset' ? 'bg-blue-500/20 text-blue-400' :
-                  groupLog.groupType === 'circuit' ? 'bg-purple-500/20 text-purple-400' :
-                  'bg-gray-500/20 text-gray-400'
-                }`}>
+                <Chip variant="outlined">
                   {groupLog.groupType.charAt(0).toUpperCase() + groupLog.groupType.slice(1)}
-                </span>
+                </Chip>
                 {groupLog.label && (
                   <span className="text-white font-heading font-medium">{groupLog.label}</span>
                 )}
@@ -131,7 +128,7 @@ export default function GroupedExerciseCard({
                   const label = String.fromCharCode(65 + index) // A, B, C, etc.
                   return (
                     <div key={index} className="flex items-center gap-2 text-sm">
-                      <span className="text-white font-medium">{label}:</span>
+                      <Chip variant="outlined" size="label">{label}</Chip>
                       <span className="text-gray-300">{exercise.name}</span>
                       <button
                         onClick={() => handleShowExerciseDetail(index)}
