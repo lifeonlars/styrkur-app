@@ -803,6 +803,8 @@ export default function ComponentsPage() {
                     </Chip>
                     <Chip variant="neutral-bordered">Bordered</Chip>
                     <Chip variant="neutral-bordered" icon={<Filter />}>Filter</Chip>
+                    <Chip variant="outlined">Outlined</Chip>
+                    <Chip variant="outlined" icon={<Star />}>Featured</Chip>
                   </div>
                 </div>
 
@@ -856,6 +858,7 @@ export default function ComponentsPage() {
                   <p className="text-gray-400 text-sm mb-4">Chips with selected state and context-specific ring glows</p>
                   <div className="flex flex-wrap gap-3">
                     <Chip variant="neutral" selected>Selected Neutral</Chip>
+                    <Chip variant="outlined" selected>Selected Outlined</Chip>
                     <Chip variant="success" selected icon={<Check />}>Selected Success</Chip>
                     <Chip variant="danger" selected icon={<X />}>Selected Danger</Chip>
                     <Chip variant="warning" selected icon={<Bell />}>Selected Warning</Chip>
@@ -942,6 +945,30 @@ export default function ComponentsPage() {
                     </div>
                   </div>
                 </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Exercise Sequence Indicators</h4>
+                  <p className="text-gray-400 text-sm mb-4">Outlined chips for high-contrast exercise labeling</p>
+                  <div className="space-y-3 p-4 bg-neu-card rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Chip variant="outlined">A</Chip>
+                      <span className="text-white">Burpees</span>
+                      <span className="text-gray-400 text-sm ml-auto">30 seconds</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Chip variant="outlined">B</Chip>
+                      <span className="text-white">Mountain Climbers</span>
+                      <span className="text-gray-400 text-sm ml-auto">30 seconds</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Chip variant="outlined">C</Chip>
+                      <span className="text-white">Jump Squats</span>
+                      <span className="text-gray-400 text-sm ml-auto">30 seconds</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </ComponentShowcase>
 
@@ -962,6 +989,13 @@ export default function ComponentsPage() {
                       <h5 className="text-norse-gold font-medium mb-2">Chip with Icon</h5>
                       <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
 {`<Chip variant="success" icon={<Check />}>Completed</Chip>`}
+                      </pre>
+                    </div>
+
+                    <div className="p-4 bg-neu-card rounded-lg">
+                      <h5 className="text-norse-gold font-medium mb-2">Outlined Chip (High Contrast)</h5>
+                      <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
+{`<Chip variant="outlined">A</Chip>`}
                       </pre>
                     </div>
                     

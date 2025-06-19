@@ -3,7 +3,7 @@ import { X } from "lucide-react"
 import styles from "./chip.module.css"
 
 export interface ChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "neutral" | "neutral-bordered" | "success" | "danger" | "warning" | "info" | "gold"
+  variant?: "neutral" | "neutral-bordered" | "success" | "danger" | "warning" | "info" | "gold" | "outlined"
   size?: "default" | "label"
   selected?: boolean
   removable?: boolean

@@ -161,6 +161,27 @@
   }
 }
 
+/* Outlined variant */
+.chip-outlined {
+  background: var(--bg-tertiary);
+  color: var(--norse-gold-300);
+  border: 1px solid var(--norse-gold-400);
+  
+  &:hover {
+    background: var(--bg-secondary);
+    border-color: var(--norse-gold-300);
+    box-shadow: var(--shadow-neu-subtle);
+    transform: translateY(-1px);
+  }
+  
+  &:active, &.chip-selected {
+    background: var(--bg-primary);
+    border-color: var(--norse-gold-500);
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(1px);
+  }
+}
+
 /* === SELECTED STATE WITH CONTEXT GLOWS === */
 
 .chip-success.chip-selected {
@@ -203,6 +224,13 @@
   box-shadow: var(--shadow-neu-inset);
   ring: 2px;
   ring-color: var(--stone-400);
+  ring-opacity: 0.6;
+}
+
+.chip-outlined.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--norse-gold-400);
   ring-opacity: 0.6;
 }
 
