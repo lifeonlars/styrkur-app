@@ -114,7 +114,11 @@ export default function GroupedExerciseCard({
             <div className="flex-shrink-0 mt-1">{getGroupTypeDisplay()}</div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Chip variant="outlined">
+                <Chip 
+                  variant="outlined"
+                  className="w-fit"
+                  style={{ pointerEvents: 'none' }}
+                >
                   {groupLog.groupType.charAt(0).toUpperCase() + groupLog.groupType.slice(1)}
                 </Chip>
                 {groupLog.label && (
@@ -128,7 +132,13 @@ export default function GroupedExerciseCard({
                   const label = String.fromCharCode(65 + index) // A, B, C, etc.
                   return (
                     <div key={index} className="flex items-center gap-2 text-sm">
-                      <Chip variant="outlined" size="label">{label}</Chip>
+                      <Chip 
+                        variant="outlined" 
+                        size="label"
+                        className="w-6 h-6 flex-shrink-0 p-0 min-w-0"
+                      >
+                        {label}
+                      </Chip>
                       <span className="text-gray-300">{exercise.name}</span>
                       <button
                         onClick={() => handleShowExerciseDetail(index)}

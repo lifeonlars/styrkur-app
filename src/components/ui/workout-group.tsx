@@ -128,14 +128,17 @@ export default function WorkoutGroup({
     
     return (
       <div className="flex items-start gap-4">
-        {/* Icon on the left */}
-        <IconComponent className="w-12 h-12 text-norse-gold flex-shrink-0" />
         <div className="flex-1">
           <div className="mb-3">
-            {/* First row: Group chip, exercise list, and expand button */}
+            {/* First row: Group chip with icon, exercise list, and expand button */}
             <div className="flex items-start justify-between mb-2">
               <div className="flex flex-col gap-2">
-                <Chip variant="outlined">
+                <Chip 
+                  variant="outlined" 
+                  icon={<IconComponent className="w-4 h-4" />}
+                  className="w-fit"
+                  style={{ pointerEvents: 'none' }}
+                >
                   {getGroupTypeLabel()}
                 </Chip>
                 {/* Compact exercise list aligned with chip */}
@@ -232,7 +235,11 @@ export default function WorkoutGroup({
                 setShowExerciseDetail(true)
               }}
             >
-              <Chip variant="outlined" size="label">
+              <Chip 
+                variant="outlined" 
+                size="label"
+                className="w-6 h-6 flex-shrink-0 p-0 min-w-0"
+              >
                 {String.fromCharCode(65 + exerciseIndex)}
               </Chip>
               <span className="text-sm text-white font-medium">{exercise.exerciseData.name}</span>
