@@ -147,7 +147,7 @@
 
 /* Gold variant */
 .chip-gold {
-  background: var(--gradient-neu-gold-metallic);
+  background: var(--surface-gold);
   color: var(--text-inverse);
   border: 1px solid var(--norse-gold-400);
   

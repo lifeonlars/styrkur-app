@@ -421,6 +421,9 @@
     rgba(var(--ocean-700-rgb), 0.15)
   );
 
+  /* Gold Surface - Norse Gold accent surface */
+  --surface-gold: var(--gradient-neu-gold-metallic);
+
   /* === TEXT SEMANTIC TOKENS === */
   /* Text hierarchy using stone primitive tokens for consistent information hierarchy */
 

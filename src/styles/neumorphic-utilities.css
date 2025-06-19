@@ -59,8 +59,8 @@
 
 /* SURFACE GOLD: Norse accent with readable text contrast */
 .surface-gold {
-  /* Use design-tokens gradient for consistency */
-  background: var(--gradient-neu-gold-metallic);
+  /* Use semantic token for consistency with other surface utilities */
+  background: var(--surface-gold);
   color: var(--text-inverse); /* Use design token for dark text */
 }
 
