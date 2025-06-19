@@ -6,11 +6,12 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card'
-import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target } from 'lucide-react'
+import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target, Tag, Filter, Bell, Zap, Award, Users } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/ui/dialog'
 import { showToast } from '@/ui/sonner'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet'
+import { Chip } from '@/ui/chip'
 
 export default function ComponentsPage() {
   const [activeSubsection, setActiveSubsection] = useState('overview')
@@ -24,7 +25,7 @@ export default function ComponentsPage() {
     { id: 'modals', label: 'Modals' },
     { id: 'notifications', label: 'Toasts' },
     { id: 'mobile', label: 'Mobile Nav' },
-    { id: 'ui-elements', label: 'UI Elements' },
+    { id: 'chips', label: 'Chips' },
   ]
 
   const renderContent = () => {
@@ -774,66 +775,237 @@ export default function ComponentsPage() {
           </div>
         )
 
-      case 'ui-elements':
+      case 'chips':
         return (
           <div className="space-y-8">
-            {/* Refactoring Notice */}
-            <div className="p-4 bg-wood-500/10 border border-wood-500/20 rounded-xl">
-              <h3 className="text-wood-400 font-medium mb-2">🔄 Future Refactoring</h3>
-              <p className="text-wood-400 text-sm">
-                These components will be converted to the utility system in a future update. Currently kept for reference and legacy compatibility.
-              </p>
-            </div>
+            {/* Introduction */}
+            <Card depth="subtle" surface="convex" border="subtle">
+              <CardHeader>
+                <CardTitle className="text-xl">🏷️ Chips Component System</CardTitle>
+                <CardDescription>
+                  Interactive tag elements for filtering, categorization, and user selections. 
+                  Fully integrated with the semantic token system for consistent context highlighting.
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-            <ComponentShowcase title="Chips">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div className="flex flex-wrap gap-2">
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-norse-gold text-black rounded-full shadow-neu-gold text-sm font-medium">
-                    <Star className="w-3 h-3" />
-                    <span>Featured</span>
-                  </div>
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-neu-card text-gray-300 rounded-full shadow-neu text-sm">
-                    <Dumbbell className="w-3 h-3" />
-                    <span>Strength</span>
-                  </div>
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-neu-card text-gray-300 rounded-full shadow-neu text-sm">
-                    <Target className="w-3 h-3" />
-                    <span>Cardio</span>
-                  </div>
-                  <div className="flex items-center space-x-2 px-3 py-1 bg-neu-card text-gray-300 rounded-full shadow-neu text-sm">
-                    <Clock className="w-3 h-3" />
-                    <span>30 min</span>
-                    <button className="text-gray-400 hover:text-white">
-                      <X className="w-3 h-3" />
-                    </button>
+            {/* Basic Variants */}
+            <ComponentShowcase title="Basic Variants">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Neutral Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Standard chips for general categorization and tags</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Chip variant="neutral">Tag</Chip>
+                    <Chip variant="neutral" icon={<Tag />}>Category</Chip>
+                    <Chip variant="neutral" removable onRemove={() => showToast.info('Chip removed')}>
+                      Removable
+                    </Chip>
+                    <Chip variant="neutral-bordered">Bordered</Chip>
+                    <Chip variant="neutral-bordered" icon={<Filter />}>Filter</Chip>
                   </div>
                 </div>
-                <div className="text-xs text-gray-400">Removable chip example with close button</div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Context Variants</h4>
+                  <p className="text-gray-400 text-sm mb-4">Semantic variants using context surface tokens for state communication</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Chip variant="success" icon={<Check />}>Completed</Chip>
+                    <Chip variant="danger" icon={<X />}>Failed</Chip>
+                    <Chip variant="warning" icon={<Bell />}>Pending</Chip>
+                    <Chip variant="info" icon={<Clock />}>In Progress</Chip>
+                    <Chip variant="gold" icon={<Award />}>Premium</Chip>
+                  </div>
+                </div>
               </div>
             </ComponentShowcase>
 
-            <ComponentShowcase title="Icon Variations">
-              <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
-                  {[
-                    { icon: Star, name: 'Star' },
-                    { icon: Heart, name: 'Heart' },
-                    { icon: Calendar, name: 'Calendar' },
-                    { icon: Clock, name: 'Clock' },
-                    { icon: User, name: 'User' },
-                    { icon: Settings, name: 'Settings' },
-                    { icon: Dumbbell, name: 'Dumbbell' },
-                    { icon: Target, name: 'Target' },
-                  ].map(({ icon: Icon, name }) => (
-                    <div key={name} className="flex flex-col items-center space-y-2">
-                      <div className="p-3 bg-neu-card shadow-neu rounded-xl group hover:shadow-neu-hover transition-all duration-200">
-                        <Icon className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors" />
-                      </div>
-                      <span className="text-xs text-gray-400">{name}</span>
-                    </div>
-                  ))}
+            {/* Size Variants */}
+            <ComponentShowcase title="Size Variants">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Default Size (36px height)</h4>
+                  <p className="text-gray-400 text-sm mb-4">Standard size for general use cases</p>
+                  <div className="flex flex-wrap gap-3 items-center">
+                    <Chip size="default" variant="neutral">Standard</Chip>
+                    <Chip size="default" variant="success" icon={<Dumbbell />}>Strength Training</Chip>
+                    <Chip size="default" variant="warning" icon={<Clock />} removable>30 minutes</Chip>
+                    <Chip size="default" variant="gold" icon={<Star />}>Featured Workout</Chip>
+                  </div>
                 </div>
-                <div className="text-xs text-gray-400">Hover to see interactive states</div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Label Size (24px height)</h4>
+                  <p className="text-gray-400 text-sm mb-4">Compact size for labels and dense layouts</p>
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <Chip size="label" variant="neutral">Tag</Chip>
+                    <Chip size="label" variant="success" icon={<Check />}>Done</Chip>
+                    <Chip size="label" variant="danger" icon={<X />} removable>Error</Chip>
+                    <Chip size="label" variant="info" icon={<Users />}>Team</Chip>
+                    <Chip size="label" variant="gold" icon={<Zap />}>Pro</Chip>
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+
+            {/* Interactive States */}
+            <ComponentShowcase title="Interactive States">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Selection States</h4>
+                  <p className="text-gray-400 text-sm mb-4">Chips with selected state and context-specific ring glows</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Chip variant="neutral" selected>Selected Neutral</Chip>
+                    <Chip variant="success" selected icon={<Check />}>Selected Success</Chip>
+                    <Chip variant="danger" selected icon={<X />}>Selected Danger</Chip>
+                    <Chip variant="warning" selected icon={<Bell />}>Selected Warning</Chip>
+                    <Chip variant="info" selected icon={<Clock />}>Selected Info</Chip>
+                    <Chip variant="gold" selected icon={<Award />}>Selected Gold</Chip>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Disabled State</h4>
+                  <p className="text-gray-400 text-sm mb-4">Non-interactive chips with reduced opacity</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Chip variant="neutral" disabled>Disabled</Chip>
+                    <Chip variant="success" disabled icon={<Check />}>Disabled Success</Chip>
+                    <Chip variant="warning" disabled icon={<Bell />} removable>Disabled Removable</Chip>
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+
+            {/* Real-world Examples */}
+            <ComponentShowcase title="Real-world Examples">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Workout Filters</h4>
+                  <p className="text-gray-400 text-sm mb-4">Exercise categorization and filtering system</p>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      <Chip variant="gold" icon={<Star />} selected>Featured</Chip>
+                      <Chip variant="success" icon={<Dumbbell />}>Strength</Chip>
+                      <Chip variant="info" icon={<Heart />}>Cardio</Chip>
+                      <Chip variant="warning" icon={<Target />}>Flexibility</Chip>
+                      <Chip variant="neutral" icon={<Users />}>Team</Chip>
+                    </div>
+                    <div className="text-xs text-gray-500">Click to filter workouts by category</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Active Filters</h4>
+                  <p className="text-gray-400 text-sm mb-4">Currently applied filters with remove functionality</p>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      <Chip size="label" variant="success" icon={<Dumbbell />} removable>Upper Body</Chip>
+                      <Chip size="label" variant="warning" icon={<Clock />} removable>30-45 min</Chip>
+                      <Chip size="label" variant="info" icon={<Target />} removable>Beginner</Chip>
+                      <Chip size="label" variant="neutral" icon={<Users />} removable>Solo</Chip>
+                    </div>
+                    <div className="text-xs text-gray-500">Active filters - click × to remove</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-medium mb-4">Progress Tags</h4>
+                  <p className="text-gray-400 text-sm mb-4">Workout completion and progress indicators</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Bench Press</span>
+                        <Chip size="label" variant="success" icon={<Check />}>Completed</Chip>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Squats</span>
+                        <Chip size="label" variant="warning" icon={<Clock />}>In Progress</Chip>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Deadlifts</span>
+                        <Chip size="label" variant="danger" icon={<X />}>Skipped</Chip>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Pull-ups</span>
+                        <Chip size="label" variant="gold" icon={<Award />}>PR!</Chip>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Plank</span>
+                        <Chip size="label" variant="info" icon={<Zap />}>New Exercise</Chip>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white">Cooldown</span>
+                        <Chip size="label" variant="neutral">Optional</Chip>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+
+            {/* Implementation Guide */}
+            <ComponentShowcase title="Implementation Guide">
+              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div>
+                  <h4 className="text-white font-medium mb-4">Usage Examples</h4>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-neu-card rounded-lg">
+                      <h5 className="text-norse-gold font-medium mb-2">Basic Chip</h5>
+                      <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
+{`<Chip variant="neutral">Tag</Chip>`}
+                      </pre>
+                    </div>
+                    
+                    <div className="p-4 bg-neu-card rounded-lg">
+                      <h5 className="text-norse-gold font-medium mb-2">Chip with Icon</h5>
+                      <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
+{`<Chip variant="success" icon={<Check />}>Completed</Chip>`}
+                      </pre>
+                    </div>
+                    
+                    <div className="p-4 bg-neu-card rounded-lg">
+                      <h5 className="text-norse-gold font-medium mb-2">Removable Chip</h5>
+                      <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
+{`<Chip 
+  variant="warning" 
+  removable 
+  onRemove={() => handleRemove(id)}
+>
+  Filter Tag
+</Chip>`}
+                      </pre>
+                    </div>
+                    
+                    <div className="p-4 bg-neu-card rounded-lg">
+                      <h5 className="text-norse-gold font-medium mb-2">Selected State</h5>
+                      <pre className="text-xs text-gray-400 font-mono overflow-x-auto">
+{`<Chip 
+  variant="info" 
+  selected={isSelected}
+  onClick={() => setSelected(!isSelected)}
+>
+  Selectable
+</Chip>`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-neu-card rounded-lg">
+                  <h5 className="text-white font-medium mb-2">Component Features</h5>
+                  <ul className="text-xs text-gray-400 space-y-1">
+                    <li>• Full semantic token integration for consistent theming</li>
+                    <li>• Context-specific ring glows for selected states</li>
+                    <li>• Icon support with automatic sizing</li>
+                    <li>• Removable functionality with stop propagation</li>
+                    <li>• Two size variants (default 36px, label 24px)</li>
+                    <li>• Accessible with proper ARIA attributes</li>
+                    <li>• Norse neumorphic design with hover/active states</li>
+                    <li>• TypeScript support with proper prop interfaces</li>
+                  </ul>
+                </div>
               </div>
             </ComponentShowcase>
           </div>

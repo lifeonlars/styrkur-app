@@ -1,0 +1,260 @@
+/* Chip Component - CSS Module */
+/* Norse-themed Neumorphic Design System */
+
+/* === BASE CHIP === */
+
+.chip {
+  /* Core chip properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: all 200ms ease;
+  cursor: pointer;
+  position: relative;
+  
+  /* Focus handling */
+  &:focus-visible {
+    outline: none;
+    ring: 2px;
+    ring-offset: 2px;
+    ring-offset-color: var(--neu-background);
+    ring-color: var(--border-focus);
+  }
+  
+  /* Disabled state */
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* === SIZE VARIANTS === */
+
+.chip-default {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 9999px; /* Fully rounded */
+  font-size: 14px;
+  gap: 6px;
+}
+
+.chip-label {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  gap: 4px;
+}
+
+/* === VARIANT STYLES === */
+
+/* Neutral variant */
+.chip-neutral {
+  background: var(--neu-surface);
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Neutral bordered variant */
+.chip-neutral-bordered {
+  background: var(--neu-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Success variant */
+.chip-success {
+  background: var(--surface-success);
+  color: var(--text-primary);
+  border: 1px solid var(--border-success);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Danger variant */
+.chip-danger {
+  background: var(--surface-danger);
+  color: var(--text-primary);
+  border: 1px solid var(--border-danger);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Warning variant */
+.chip-warning {
+  background: var(--surface-warning);
+  color: var(--text-primary);
+  border: 1px solid var(--border-warning);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Info variant */
+.chip-info {
+  background: var(--surface-info);
+  color: var(--text-primary);
+  border: 1px solid var(--border-info);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* Gold variant */
+.chip-gold {
+  background: var(--surface-gold);
+  color: var(--text-inverse);
+  border: 1px solid var(--norse-gold-400);
+  
+  &:hover {
+    box-shadow: var(--shadow-neu-subtle);
+  }
+  
+  &:active, &.chip-selected {
+    box-shadow: var(--shadow-neu-inset);
+    transform: translateY(0.5px);
+  }
+}
+
+/* === SELECTED STATE WITH CONTEXT GLOWS === */
+
+.chip-success.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--forest-400);
+  ring-opacity: 0.6;
+}
+
+.chip-danger.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--blood-400);
+  ring-opacity: 0.6;
+}
+
+.chip-warning.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--amethyst-400);
+  ring-opacity: 0.6;
+}
+
+.chip-info.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--ocean-400);
+  ring-opacity: 0.6;
+}
+
+.chip-gold.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--norse-gold-300);
+  ring-opacity: 0.6;
+}
+
+.chip-neutral.chip-selected,
+.chip-neutral-bordered.chip-selected {
+  box-shadow: var(--shadow-neu-inset);
+  ring: 2px;
+  ring-color: var(--stone-400);
+  ring-opacity: 0.6;
+}
+
+/* === ICON SIZING === */
+
+.chip-icon {
+  flex-shrink: 0;
+}
+
+.chip-default .chip-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.chip-label .chip-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* === REMOVE BUTTON === */
+
+.chip-remove {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  transition: var(--transition-colors);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  &:focus-visible {
+    outline: none;
+    ring: 1px;
+    ring-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.chip-default .chip-remove {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+}
+
+.chip-label .chip-remove {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
+}
+
+/* === TEXT CONTENT === */
+
+.chip-text {
+  flex: 1;
+  text-align: left;
+}
