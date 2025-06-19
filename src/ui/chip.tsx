@@ -58,15 +58,21 @@ const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
         )}
         <span className={styles['chip-text']}>{children}</span>
         {removable && (
-          <button
+          <span
             className={styles['chip-remove']}
             onClick={handleRemove}
-            disabled={disabled}
             aria-label="Remove"
-            tabIndex={-1}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleRemove(e as any)
+              }
+            }}
           >
             <X className={styles['chip-icon']} />
-          </button>
+          </span>
         )}
       </button>
     )

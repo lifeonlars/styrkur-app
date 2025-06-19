@@ -228,6 +228,10 @@
   flex-shrink: 0;
   border-radius: 9999px;
   transition: var(--transition-colors);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -237,6 +241,10 @@
     outline: none;
     ring: 1px;
     ring-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.3);
   }
 }
 
