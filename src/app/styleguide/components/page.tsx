@@ -33,9 +33,9 @@ export default function ComponentsPage() {
       case 'overview':
         return (
           <div className="space-y-8">
-            <Card variant="elevated" border="glow">
+            <Card variant="elevated">
               <CardHeader>
-                <CardTitle className="text-xl">🎯 CSS Modules Refactor Complete</CardTitle>
+                <CardTitle className="text-h2">🎯 CSS Modules Refactor Complete</CardTitle>
               </CardHeader>
               <CardContent>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -781,7 +781,7 @@ export default function ComponentsPage() {
             {/* Introduction */}
             <Card depth="subtle" surface="convex" border="subtle">
               <CardHeader>
-                <CardTitle className="text-xl">🏷️ Chips Component System</CardTitle>
+                <CardTitle className="text-h2">🏷️ Chips Component System</CardTitle>
                 <CardDescription>
                   Interactive tag elements for filtering, categorization, and user selections. 
                   Fully integrated with the semantic token system for consistent context highlighting.

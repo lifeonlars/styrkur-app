@@ -99,7 +99,7 @@ export default function StyleGuideOverview() {
 
       {/* Section Navigation */}
       <div>
-        <h2 className="text-2xl font-semibold text-white mb-6">Design System Sections</h2>
+        <h2 className="text-h2 text-white mb-6">Design System Sections</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {sections.map((section) => {
             const Icon = section.icon

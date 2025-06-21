@@ -43,7 +43,7 @@ export default function FoundationsPage() {
         <TabsContent value="semantics">
           {/* Semantic Token System */}
           <div>
-            <h2 className="text-xl font-semibold text-white mb-4">Semantic Token System</h2>
+            <h2 className="text-h2 text-white mb-4">Semantic Token System</h2>
             <p className="text-gray-400 text-sm mb-6">
               Functional color tokens mapped from primitives for specific usage contexts. 
               Components should use semantic tokens, not primitive colors directly.
@@ -51,7 +51,7 @@ export default function FoundationsPage() {
             
             {/* Context Surfaces Demo */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-white mb-4">Context Surfaces</h3>
+              <h3 className="text-h3 text-white mb-4">Context Surfaces</h3>
               <p className="text-gray-400 text-sm mb-4">Context surfaces with consistent gradient structure for different states</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card depth="subtle" surface="success" className="p-4">
@@ -79,7 +79,7 @@ export default function FoundationsPage() {
             
             {/* Text Hierarchy Demo */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-white mb-4">Text Hierarchy</h3>
+              <h3 className="text-h3 text-white mb-4">Text Hierarchy</h3>
               <p className="text-gray-400 text-sm mb-4">Semantic text tokens mapped from Stone primitive scale</p>
               <div className="space-y-3 p-6 bg-neu-surface rounded-xl">
                 <div className="flex items-center justify-between">
@@ -121,7 +121,7 @@ export default function FoundationsPage() {
             
             {/* Border Examples */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-white mb-4">Border System</h3>
+              <h3 className="text-h3 text-white mb-4">Border System</h3>
               <p className="text-gray-400 text-sm mb-4">Semantic border tokens for different interaction states and contexts</p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="p-4 rounded-lg bg-neu-surface" style={{border: '1px solid var(--border-subtle)'}}>
@@ -159,7 +159,7 @@ export default function FoundationsPage() {
             
             {/* Icon Examples */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-white mb-4">Icon Color System</h3>
+              <h3 className="text-h3 text-white mb-4">Icon Color System</h3>
               <p className="text-gray-400 text-sm mb-4">Semantic icon tokens for different contexts and states</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="flex flex-col items-center p-4 bg-neu-surface rounded-lg">
@@ -500,7 +500,7 @@ export default function FoundationsPage() {
         <TabsContent value="primitives">
           {/* Norse Gold Palette */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Norse Gold Palette</h2>
+            <h2 className="text-h2 text-white mb-4">Norse Gold Palette</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {colors.map((color) => (
                 <ColorSwatch key={color.var} {...color} />
@@ -510,7 +510,7 @@ export default function FoundationsPage() {
 
           {/* Primitive Color Scales */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Primitive Color Scales</h2>
+            <h2 className="text-h2 text-white mb-4">Primitive Color Scales</h2>
             <p className="text-gray-400 text-sm mb-6">
               Unified 9-color scales (100-900) optimized for dark theme with mathematical consistency.
               These are base tokens that map to semantic usage contexts.
@@ -627,7 +627,7 @@ export default function FoundationsPage() {
           
           {/* Background Hierarchy */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Background Hierarchy</h2>
+            <h2 className="text-h2 text-white mb-4">Background Hierarchy</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {backgroundColors.map((color) => (
                 <ColorSwatch key={color.var} {...color} />
@@ -637,7 +637,7 @@ export default function FoundationsPage() {
 
           {/* Legacy Context Colors */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Legacy Context Colors</h2>
+            <h2 className="text-h2 text-white mb-4">Legacy Context Colors</h2>
             <p className="text-gray-400 text-sm mb-4">Legacy semantic colors - use primitive color scales above for new implementations</p>
             
             {/* Group colors by type */}
@@ -670,7 +670,7 @@ export default function FoundationsPage() {
 
           {/* Gradients */}
           <div>
-            <h2 className="text-xl font-semibold text-white mb-4">Gradients</h2>
+            <h2 className="text-h2 text-white mb-4">Gradients</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {gradients.map((gradient) => (
                 <GradientSwatch key={gradient.var} {...gradient} />
@@ -825,7 +825,7 @@ export default function FoundationsPage() {
 
           {/* Utility System */}
           <div>
-            <h2 className="text-xl font-semibold text-white mb-4">🔧 Utility System</h2>
+            <h2 className="text-h2 text-white mb-4">🔧 Utility System</h2>
             <p className="text-gray-400 text-sm mb-6">Complete neumorphic utility system with depth, surface, and border utilities that can be combined for maximum design flexibility.</p>
             
             {/* Depth Utilities */}
@@ -989,7 +989,7 @@ export default function FoundationsPage() {
       
       {/* Implementation Reference */}
       <div>
-        <h2 className="text-xl font-semibold text-white mb-4">📚 Implementation Reference</h2>
+        <h2 className="text-h2 text-white mb-4">📚 Implementation Reference</h2>
         <Card variant="elevated" className="p-6">
           <h3 className="text-lg font-medium text-white mb-4">Design Token Integration</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
