@@ -1,14 +1,6 @@
-import { Inter, Cinzel } from 'next/font/google'
 import './globals.css'
 import { forceIncludeClasses } from '@/lib/css-test'
 import { Toaster } from '@/ui/sonner'
-
-const inter = Inter({ subsets: ['latin'] })
-const cinzel = Cinzel({ 
-  subsets: ['latin'],
-  variable: '--font-cinzel',
-  display: 'swap'
-})
 
 export const metadata = {
   title: 'Syrkur Saga - Your Strength Journey',
@@ -25,7 +17,7 @@ export default function RootLayout({
   
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} ${cinzel.variable} bg-neu-base text-white min-h-screen`}>
+      <body className="bg-neu-base text-white min-h-screen">
         {children}
         <Toaster />
       </body>

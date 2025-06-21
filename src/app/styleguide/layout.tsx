@@ -70,7 +70,7 @@ export default function StyleGuideLayout({
                 className="h-8 w-8"
               />
               <div>
-                <h1 className="text-2xl font-bold text-white font-heading">Styrkur Design System</h1>
+                <h1 className="text-h1 text-white" style={{fontSize: '1.5rem'}}>Styrkur Design System</h1>
                 <p className="text-sm text-gray-400">Norse-themed neumorphic component library</p>
               </div>
             </div>

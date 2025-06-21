@@ -11,7 +11,7 @@ export default function HistoryScreen() {
             <NavHistory className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-xl font-medium font-heading">History</h1>
+            <h1 className="text-h2 text-white" style={{fontSize: '1.25rem'}}>History</h1>
             <p className="text-gray-400 text-sm">Your workout history and progress</p>
           </div>
         </div>
@@ -24,7 +24,7 @@ export default function HistoryScreen() {
             <NavHistory className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-2xl font-light mb-2 font-heading">Workout History</h1>
+            <h1 className="text-h1 text-white mb-2" style={{fontSize: '2rem'}}>Workout History</h1>
             <p className="text-gray-400">Track your progress and analyze your training</p>
           </div>
         </div>
@@ -58,13 +58,13 @@ export default function HistoryScreen() {
 
       {/* Charts Section */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center font-heading">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <BarChart3 className="w-5 h-5 mr-2 text-[#C3A869]" />
           Progress Charts
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-content1 rounded-xl p-4">
-            <h3 className="text-white font-medium mb-3 font-heading">Volume Progression</h3>
+            <h3 className="text-h3 text-white mb-3">Volume Progression</h3>
             <div className="h-32 bg-content2 rounded flex items-center justify-center">
               <div className="text-center text-gray-400">
                 <TrendingUp className="w-8 h-8 mx-auto mb-2" />
@@ -73,7 +73,7 @@ export default function HistoryScreen() {
             </div>
           </div>
           <div className="bg-content1 rounded-xl p-4">
-            <h3 className="text-white font-medium mb-3 font-heading">Personal Records</h3>
+            <h3 className="text-h3 text-white mb-3">Personal Records</h3>
             <div className="h-32 bg-content2 rounded flex items-center justify-center">
               <div className="text-center text-gray-400">
                 <BarChart3 className="w-8 h-8 mx-auto mb-2" />
@@ -87,7 +87,7 @@ export default function HistoryScreen() {
       {/* Filters */}
       <section className="p-4 lg:p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-white font-medium flex items-center font-heading">
+          <h2 className="text-h2 text-white flex items-center">
             <History className="w-5 h-5 mr-2 text-[#C3A869]" />
             Recent Workouts
           </h2>
@@ -120,7 +120,7 @@ export default function HistoryScreen() {
           {/* Empty State */}
           <div className="bg-content1/50 rounded-xl p-8 text-center border border-divider">
             <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-white font-medium mb-2 font-heading">No Workouts Logged Yet</h3>
+            <h3 className="text-h3 text-white mb-2">No Workouts Logged Yet</h3>
             <p className="text-gray-400 text-sm mb-4">
               You haven't logged any workouts yet. Start training to see your history here.
             </p>
@@ -156,7 +156,7 @@ export default function HistoryScreen() {
 
       {/* Consistency Calendar */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-medium mb-4 flex items-center font-heading">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
           Training Consistency
         </h2>

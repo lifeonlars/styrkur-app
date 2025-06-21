@@ -31,7 +31,7 @@ export default function PlanScreen({
             <NavPlan className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-xl font-heading font-medium">Plan</h1>
+            <h2 className="text-h2 text-white" style={{fontSize: '1.25rem'}}>Plan</h2>
             <p className="text-gray-400 text-sm">Training planning and organization</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function PlanScreen({
             <NavPlan className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-2xl font-heading font-light mb-2">Training Plan</h1>
+            <h1 className="text-h1 text-white mb-2" style={{fontSize: '2rem'}}>Training Plan</h1>
             <p className="text-gray-400">Organize your workouts and training blocks</p>
           </div>
         </div>

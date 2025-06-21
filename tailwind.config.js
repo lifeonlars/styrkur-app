@@ -9,8 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-cinzel)', 'serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        heading: ['Roboto Flex', 'sans-serif'],
+        display: ['Tundra Display', 'Orbitron', 'monospace'],
       },
       // Enhanced border radius for softer, more organic Cybertruck-style shapes
       borderRadius: {

@@ -519,4 +519,21 @@
   --text-legacy-muted: rgba(255, 255, 255, 0.6);
   --text-legacy-subtle: rgba(255, 255, 255, 0.4);
   --text-legacy-accent: var(--norse-gold);
+
+  /* === TYPOGRAPHY SYSTEM === */
+  /* Three-tier Norse-inspired typography system */
+
+  /* Font Family Definitions */
+  --font-family-display: 'Tundra Display', 'Orbitron', monospace;
+  --font-family-heading: 'Roboto Flex', sans-serif;
+  --font-family-body: 'Manrope', sans-serif;
+
+  /* Roboto Flex variable axis presets - baseline from H4 (600 weight, 1.1rem) */
+  --heading-h2-settings: 'opsz' 36, 'GRAD' 100, 'wdth' 120;
+  --heading-h3-settings: 'opsz' 24, 'GRAD' 100, 'wdth' 110;
+  --heading-h4-settings: 'opsz' 18, 'GRAD' 100, 'wdth' 100;
+
+  /* Responsive scaling factors */
+  --heading-scale-mobile: 0.85;
+  --heading-scale-desktop: 1;
 }

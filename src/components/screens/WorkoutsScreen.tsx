@@ -152,7 +152,7 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
             <NavWorkouts className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-xl font-heading font-medium">Workouts</h1>
+            <h2 className="text-h2 text-white" style={{fontSize: '1.25rem'}}>Workouts</h2>
             <p className="text-gray-400 text-sm">Start and log your training sessions</p>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function WorkoutsScreen({ workouts, onSaveWorkout, onUpdateWorkou
             <NavWorkouts className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-2xl font-heading font-light mb-2">Training Sessions</h1>
+            <h1 className="text-h1 text-white mb-2" style={{fontSize: '2rem'}}>Training Sessions</h1>
             <p className="text-gray-400">Ready to train? Start a workout below</p>
           </div>
         </div>

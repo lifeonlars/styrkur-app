@@ -30,7 +30,7 @@ export default function PatternsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white font-heading mb-2">Patterns</h1>
+        <h1 className="text-h1 text-white mb-2">Patterns</h1>
         <p className="text-gray-400">Workout-specific interface patterns and layouts</p>
       </div>
 

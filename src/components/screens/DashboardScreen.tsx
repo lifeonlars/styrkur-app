@@ -133,7 +133,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
             <NavDashboard className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl font-heading font-light text-white mb-2">Syrkur Saga</h1>
+            <h1 className="text-h1 text-white mb-2" style={{fontSize: '1.5rem'}}>Syrkur Saga</h1>
             <p className="text-gray-400 text-sm">Your strength journey unfolds</p>
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
             <NavDashboard className="w-16 h-16 text-[#C3A869]" />
           </div>
           <div className="flex-1">
-            <h1 className="text-white text-2xl font-heading font-light mb-2">Welcome back, Lars</h1>
+            <h2 className="text-h2 text-white mb-2">Welcome back, Lars</h2>
             <p className="text-gray-400">Ready to conquer today's challenges</p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* Upcoming Workout Section */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
           Today's Focus
         </h2>
@@ -174,7 +174,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* Weekly Progress Card */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <TrendingUp className="w-5 h-5 mr-2 text-[#C3A869]" />
           This Week
         </h2>
@@ -198,7 +198,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* Progress & Achievements */}
       <section className="p-4 lg:p-6">
-        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <Target className="w-5 h-5 mr-2 text-[#C3A869]" />
           Progress & Achievements
         </h2>
@@ -235,7 +235,7 @@ export default function DashboardScreen({ workouts, onStartWorkout, onNavigate }
 
       {/* Recent Workouts */}
       <div className="p-4 lg:p-6">
-        <h2 className="text-white font-heading font-medium mb-4 flex items-center">
+        <h2 className="text-h2 text-white mb-4 flex items-center">
           <Trophy className="w-5 h-5 mr-2 text-[#C3A869]" />
           Your Arsenal
         </h2>

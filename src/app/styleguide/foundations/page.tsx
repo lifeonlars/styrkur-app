@@ -20,7 +20,7 @@ export default function FoundationsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white font-heading mb-2">Foundations</h1>
+        <h1 className="text-h1 text-white mb-2">Foundations</h1>
         <p className="text-gray-400">Design tokens, semantic colors, and typography for the Norse neumorphic system</p>
       </div>
 
@@ -680,19 +680,146 @@ export default function FoundationsPage() {
         </TabsContent>
 
         <TabsContent value="typography">
-          {/* Typography */}
+          {/* Norse Typography System */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Typography Styles</h2>
-            <div className="space-y-4 p-6 bg-neu-surface shadow-neu rounded-xl">
-              <h1 className="text-4xl font-bold text-white font-heading">Heading 1 - Cinzel</h1>
-              <h2 className="text-3xl font-semibold text-white font-heading">Heading 2 - Cinzel</h2>
-              <h3 className="text-2xl font-medium text-white">Heading 3 - Inter</h3>
-              <h4 className="text-xl font-medium text-white">Heading 4 - Inter</h4>
-              <p className="text-base text-white">Body text - Inter Regular</p>
-              <p className="text-sm text-gray-300">Small text - Inter Regular</p>
-              <p className="text-xs text-gray-400">Extra small text - Inter Regular</p>
-              <p className="text-base font-medium text-norse-gold">Norse Gold Text</p>
-              <p className="text-base text-gradient">Gradient Text</p>
+            <h2 className="text-h2 text-white mb-4">Norse Typography System</h2>
+            <p className="text-gray-400 text-sm mb-6">
+              Three-tier Norse-inspired typography system balancing distinctive brand identity, 
+              flexible functionality, and superior readability within the neumorphic design language.
+            </p>
+            
+            {/* Typography Hierarchy */}
+            <div className="space-y-8">
+              {/* Tier 1: Tundra Display */}
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="mb-4">
+                  <h3 className="text-h3 text-white mb-2">Tier 1: Tundra Display</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    <strong className="text-norse-gold">Self-hosted display font</strong> • 
+                    Reserved for H1 elements, main titles, and logo text • 
+                    Embodies Norse mythology with commanding presence
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <h1 className="text-h1 text-white mb-2">STYRKUR SAGA</h1>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .text-h1 • font-family: 'Tundra Display'
+                    </code>
+                  </div>
+                  <div>
+                    <h1 className="text-h1 text-norse-gold">STRENGTH & HONOR</h1>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .text-h1 .text-norse-gold • With metallic gradient
+                    </code>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tier 2: Roboto Flex */}
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="mb-4">
+                  <h3 className="text-h3 text-white mb-2">Tier 2: Roboto Flex</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    <strong className="text-norse-gold">Variable font with responsive sizing & consistent Grade 100</strong> • 
+                    Used for H2, H3, H4, and UI headings • 
+                    Fluid typography with proportional scaling and width differentiation
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <h2 className="text-h2 text-white mb-1">Major Section Heading</h2>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .text-h2 • clamp(1.3rem, 3vw, 1.6rem) • opsz: 36, GRAD: 100, wdth: 120
+                    </code>
+                  </div>
+                  <div>
+                    <h3 className="text-h3 text-white mb-1">Subsection Heading</h3>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .text-h3 • clamp(1.15rem, 2.5vw, 1.35rem) • opsz: 24, GRAD: 100, wdth: 110
+                    </code>
+                  </div>
+                  <div>
+                    <h4 className="text-h4 text-white mb-1">Component Label</h4>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .text-h4 • 1.1rem • opsz: 18, GRAD: 100, wdth: 100
+                    </code>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tier 3: Manrope */}
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="mb-4">
+                  <h3 className="text-h3 text-white mb-2">Tier 3: Manrope</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    <strong className="text-norse-gold">Google Fonts • Weight range: 200-800</strong> • 
+                    Used for body text, UI labels, and data • 
+                    Optimized for readability with subtle geometric character
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-base text-white font-body mb-1">
+                      Primary body text with excellent readability and clean geometric forms. 
+                      Perfect for workout descriptions, exercise instructions, and data tables.
+                    </p>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">
+                      .font-body • font-family: 'Manrope'
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <span className="font-body font-normal text-gray-300">Normal (400)</span>
+                    <span className="font-body font-medium text-gray-300">Medium (500)</span>
+                    <span className="font-body font-semibold text-gray-300">Semibold (600)</span>
+                    <span className="font-body font-bold text-gray-300">Bold (700)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Font Family Utilities */}
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="mb-4">
+                  <h3 className="text-h3 text-white mb-2">Font Family Utilities</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    Utility classes for applying font families independently of semantic heading levels
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-display text-white">NORSE DISPLAY TEXT</span>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">.font-display</code>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-heading text-white">Roboto Flex Heading</span>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">.font-heading</code>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-body text-white">Manrope body text</span>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">.font-body</code>
+                  </div>
+                </div>
+              </div>
+
+              {/* Special Text Effects */}
+              <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                <div className="mb-4">
+                  <h3 className="text-h3 text-white mb-2">Norse Gold Text Effects</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    Metallic gradient text effect for accent text and special emphasis
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-lg text-norse-gold font-heading mb-1">Nordic Metallic Gradient</p>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">.text-norse-gold</code>
+                  </div>
+                  <div>
+                    <h2 className="text-h2 text-norse-gold">LEGENDARY STRENGTH</h2>
+                    <code className="text-xs text-norse-gold bg-neu-card px-2 py-1 rounded">.text-h2 .text-norse-gold</code>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

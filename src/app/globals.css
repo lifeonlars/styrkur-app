@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Google Fonts - Norse Typography System */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto+Flex:opsz,wght,wdth,GRAD@8..144,100..1000,25..151,-200..150&display=swap');
+
+/* Tundra Display - Self-hosted Norse display font */
+@font-face {
+  font-family: 'Tundra Display';
+  src: url('/assets/fonts/tundra-webfont.woff2') format('woff2'),
+       url('/assets/fonts/tundra-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Import design tokens for CSS Modules approach */
 @import '../styles/design-tokens.css';
 
@@ -46,7 +59,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -304,5 +317,65 @@ textarea::placeholder {
   /* Override Tailwind text-xs with 13px globally */
   .text-xs {
     font-size: 13px !important;
+  }
+
+  /* === NORSE TYPOGRAPHY UTILITIES === */
+  /* Three-tier typography system utility classes */
+
+  /* Font Family Utilities */
+  .font-display {
+    font-family: var(--font-family-display);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .font-heading {
+    font-family: var(--font-family-heading);
+  }
+
+  .font-body {
+    font-family: var(--font-family-body);
+  }
+
+  /* Heading Utilities */
+  .text-h1 {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .text-h2 {
+    font-family: var(--font-family-heading);
+    font-variation-settings: var(--heading-h2-settings);
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .text-h3 {
+    font-family: var(--font-family-heading);
+    font-variation-settings: var(--heading-h3-settings);
+    font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .text-h4 {
+    font-family: var(--font-family-heading);
+    font-variation-settings: var(--heading-h4-settings);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* Norse Gold Metallic Text Effect */
+  .text-norse-gold {
+    background: linear-gradient(135deg, var(--norse-gold-100), var(--norse-gold-300), var(--norse-gold-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

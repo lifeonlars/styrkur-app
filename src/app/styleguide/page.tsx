@@ -67,7 +67,7 @@ export default function StyleGuideOverview() {
       {/* Design Philosophy */}
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-white font-heading mb-2">Styrkur Design System</h1>
+          <h1 className="text-h1 text-white mb-2">Styrkur Design System</h1>
           <p className="text-gray-400 text-lg">Norse mythology meets Scandinavian minimalism with neumorphic styling</p>
         </div>
 

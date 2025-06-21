@@ -50,7 +50,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
       <div className="flex-1 flex items-center justify-center pb-20 lg:pb-0 lg:pt-24">
         <div className="text-center">
           <div className="text-6xl mb-4">⚔️</div>
-          <h2 className="text-white text-xl font-medium mb-2 font-heading">Ready for Battle</h2>
+          <h2 className="text-h2 text-white mb-2">Ready for Battle</h2>
           <p className="text-gray-400 mb-6">Starting workout session...</p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
       <div className="bg-background p-4 border-b border-divider sticky top-0 lg:top-24 z-10">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-white text-lg font-medium font-heading">{workoutSession.title}</h1>
+            <h1 className="text-h1 text-white" style={{fontSize: '1.125rem'}}>{workoutSession.title}</h1>
             <p className="text-gray-400 text-sm">
               {workoutSession.startTime.toLocaleTimeString()}
             </p>
@@ -86,7 +86,7 @@ export default function TrainScreen({ currentWorkout, onEndWorkout }: TrainScree
               <div className="flex items-center mb-3">
                 <span className="text-2xl mr-3">{exerciseData?.icon}</span>
                 <div className="flex-1">
-                  <h3 className="text-white font-medium font-heading">{exerciseData?.name}</h3>
+                  <h3 className="text-h3 text-white">{exerciseData?.name}</h3>
                   <p className="text-gray-400 text-sm">
                     {exercise.sets} × {exercise.reps} @ {exercise.weight || exercise.load}kg
                   </p>

@@ -7,14 +7,14 @@ export default function BrandPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white font-heading mb-2">Brand</h1>
+        <h1 className="text-h1 text-white mb-2">Brand</h1>
         <p className="text-gray-400">Logo variations, icons, and brand assets</p>
       </div>
 
       <ComponentShowcase title="Brand Story">
         <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
           <div className="max-w-3xl">
-            <h3 className="text-xl font-heading font-semibold text-white mb-4">Styrkur Saga</h3>
+            <h3 className="text-h3 text-white mb-4">Styrkur Saga</h3>
             <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
               <p>
                 <strong className="text-norse-gold">Styrkur</strong> (pronounced "STEER-kur") means "strength" in Old Norse. 
