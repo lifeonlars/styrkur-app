@@ -153,10 +153,26 @@ export default function BrandPage() {
             </div>
           </div>
 
-          {/* Usage guidelines */}
+          {/* Icon Size Guidelines */}
           <div className="pt-4 border-t border-gray-700">
-            <h4 className="text-white font-medium mb-3">Usage Guidelines</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+            <h4 className="text-white font-medium mb-3">Icon Size Guidelines</h4>
+            <div className="p-4 bg-neu-card rounded-lg mb-4">
+              <p className="text-sm text-norse-gold font-medium mb-2">⚠️ Minimum Icon Size Rule</p>
+              <p className="text-sm text-gray-300">
+                <strong>All icons must be at least 12x12px (3x3 grid units)</strong> to ensure readability and accessibility compliance. 
+                This applies to Lucide icons, brand glyphs, and custom iconography.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm text-gray-300">
+              <div>
+                <p className="font-medium text-white mb-2">Standard Sizes:</p>
+                <ul className="space-y-1 text-xs">
+                  <li>• <strong>12px (w-3 h-3):</strong> Minimum size - status indicators</li>
+                  <li>• <strong>16px (w-4 h-4):</strong> Small UI icons in buttons</li>
+                  <li>• <strong>24px (w-6 h-6):</strong> Standard interactive icons</li>
+                  <li>• <strong>32px (w-8 h-8):</strong> Larger interactive elements</li>
+                </ul>
+              </div>
               <div>
                 <p className="font-medium text-white mb-2">Do:</p>
                 <ul className="space-y-1 text-xs">
@@ -164,6 +180,7 @@ export default function BrandPage() {
                   <li>• Use on contrasting backgrounds</li>
                   <li>• Scale proportionally</li>
                   <li>• Use provided file formats</li>
+                  <li>• <strong>Follow 12px minimum size rule</strong></li>
                 </ul>
               </div>
               <div>
@@ -172,7 +189,8 @@ export default function BrandPage() {
                   <li>• Stretch or distort the logo</li>
                   <li>• Change colors or add effects</li>
                   <li>• Use on busy backgrounds</li>
-                  <li>• Scale below minimum sizes</li>
+                  <li>• <strong>Scale icons below 12x12px</strong></li>
+                  <li>• Use inconsistent icon sizes in same context</li>
                 </ul>
               </div>
             </div>

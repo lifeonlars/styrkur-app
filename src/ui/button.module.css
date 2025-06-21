@@ -191,11 +191,11 @@
   /* Transparent background */
   background: transparent;
   
-  /* 2px dashed border using iron-200 */
-  border: 2px dashed var(--iron-200);
+  /* 2px dashed border using stone-400 for better contrast */
+  border: 2px dashed var(--stone-400);
   
-  /* Iron-200 text color */
-  color: var(--iron-200);
+  /* Stone-400 text color for better contrast */
+  color: var(--stone-400);
   
   /* Hover state */
   &:hover:not(:disabled) {

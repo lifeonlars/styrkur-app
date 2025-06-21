@@ -12,6 +12,7 @@ import { GroupSessionLog, GroupSetLog, ExerciseInSetLog, ExerciseGroupType } fro
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
 import { cn } from '@/lib/utils'
+import cardStyles from '@/ui/card.module.css'
 
 // RPE options for select components
 const rpeOptions = [
@@ -217,7 +218,7 @@ export default function WorkoutGroup({
           }}
         >
           <span className="text-sm text-white font-medium">{exercise.name}</span>
-          <Info className="w-4 h-4 text-gray-400" />
+          <Info className="w-6 h-6 text-gray-400" />
         </div>
       )
     } else {
@@ -237,13 +238,13 @@ export default function WorkoutGroup({
             >
               <Chip 
                 variant="outlined" 
-                size="label"
-                className="w-6 h-6 flex-shrink-0 p-0 min-w-0"
+                size="default"
+                className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
               >
                 {String.fromCharCode(65 + exerciseIndex)}
               </Chip>
               <span className="text-sm text-white font-medium">{exercise.exerciseData.name}</span>
-              <Info className="w-3 h-3 text-gray-400" />
+              <Info className="w-6 h-6 text-gray-400" />
             </div>
           ))}
         </div>
@@ -295,9 +296,13 @@ export default function WorkoutGroup({
                 {set.exercises.map((exercise, exerciseIndex) => (
                   <div key={exercise.exerciseId} className="flex items-center gap-3">
                     {groupLog.groupType !== 'single' && (
-                      <span className="w-6 h-6 rounded-full bg-norse-gold text-black font-medium flex items-center justify-center text-xs flex-shrink-0">
+                      <Chip 
+                        variant="outlined" 
+                        size="default"
+                        className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
+                      >
                         {String.fromCharCode(65 + exerciseIndex)}
-                      </span>
+                      </Chip>
                     )}
                     
                     {/* Reps input */}
@@ -390,12 +395,12 @@ export default function WorkoutGroup({
   return (
     <>
       <Card depth="subtle" surface="convex" className={cn("w-full", className)}>
-        <CardHeader className="pb-3">
+        <CardHeader className={cardStyles['card-header-reduced']}>
           {getVariantSpecificHeader()}
         </CardHeader>
         
         {isExpanded && (
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-2">
             {renderSetLoggingTable()}
             {renderNotesSection()}
           </CardContent>

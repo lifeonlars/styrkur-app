@@ -134,8 +134,8 @@ export default function GroupedExerciseCard({
                     <div key={index} className="flex items-center gap-2 text-sm">
                       <Chip 
                         variant="outlined" 
-                        size="label"
-                        className="w-6 h-6 flex-shrink-0 p-0 min-w-0"
+                        size="default"
+                        className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
                       >
                         {label}
                       </Chip>
@@ -145,7 +145,7 @@ export default function GroupedExerciseCard({
                         className="p-1 rounded bg-content2 text-gray-400 hover:bg-gray-600 transition"
                         title="Exercise details & muscle map"
                       >
-                        <Info className="w-3 h-3" />
+                        <Info className="w-6 h-6" />
                       </button>
                     </div>
                   )
@@ -276,8 +276,14 @@ export default function GroupedExerciseCard({
                       </div>
 
                       {/* Exercise Letter (A, B, C) */}
-                      <div className="col-span-1 text-center text-white font-medium">
-                        {String.fromCharCode(65 + exerciseIndex)}
+                      <div className="col-span-1 flex justify-center">
+                        <Chip 
+                          variant="outlined" 
+                          size="default"
+                          className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
+                        >
+                          {String.fromCharCode(65 + exerciseIndex)}
+                        </Chip>
                       </div>
 
                       {/* Reps */}

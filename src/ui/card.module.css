@@ -52,6 +52,11 @@
   padding: var(--spacing-6);
 }
 
+/* Reduced bottom padding variant for workout group cards */
+.card-header-reduced {
+  padding-bottom: var(--spacing-1-5); /* 6px - following 8px soft grid */
+}
+
 .card-title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
