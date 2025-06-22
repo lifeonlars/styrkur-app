@@ -1,4 +1,5 @@
 import { Plus, Edit, Trash2, Calendar, Target } from 'lucide-react'
+import { Button } from '@/ui/button'
 
 interface TrainingBlock {
   id: number
@@ -61,7 +62,7 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
   const getStatusColor = (status: TrainingBlock['status']) => {
     switch (status) {
       case 'active':
-        return 'bg-[#C3A869]/20 border-[#C3A869]/30 text-[#C3A869]'
+        return 'bg-norse-gold/20 border-norse-gold/30 text-norse-gold'
       case 'completed':
         return 'bg-green-900/20 border-green-700/30 text-green-400'
       case 'planned':
@@ -87,22 +88,24 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
   return (
     <div className="space-y-6">
       {/* Create Block Section */}
-      <div className="bg-gray-800 rounded-xl p-6">
+      <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-6">
         <div className="text-center">
-          <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Target className="w-6 h-6 text-[#C3A869]" />
+          <div className="w-12 h-12 bg-norse-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Target className="w-6 h-6 text-norse-gold" />
           </div>
           <h3 className="text-white font-heading font-medium mb-2">Create Training Block</h3>
           <p className="text-gray-400 text-sm mb-4">
             Organize workouts into focused training phases (3-8 weeks)
           </p>
-          <button
-            className="bg-gray-700/50 text-gray-500 px-6 py-3 rounded-xl font-medium cursor-not-allowed"
+          <Button
+            variant="flat"
+            size="default"
+            className="text-gray-500 cursor-not-allowed"
             disabled
           >
-            <Plus className="w-5 h-5 mr-2 inline" />
+            <Plus className="w-5 h-5 mr-2" />
             Create Block (Coming Soon)
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -144,34 +147,38 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
                   </div>
                   
                   <div className="flex gap-2 ml-4">
-                    <button
+                    <Button
                       onClick={() => handleEditBlock(block)}
-                      className="bg-gray-700/50 text-gray-500 p-1 rounded cursor-not-allowed"
+                      variant="flat"
+                      size="icon"
+                      className="text-gray-500 cursor-not-allowed"
                       title="Edit block (Coming Soon)"
                       disabled
                     >
                       <Edit className="w-4 h-4" />
-                    </button>
+                    </Button>
                     
-                    <button
+                    <Button
                       onClick={() => handleDeleteBlock(block)}
-                      className="bg-red-900/30 text-red-500 p-1 rounded cursor-not-allowed"
+                      variant="flat"
+                      size="icon"
+                      className="text-red-500 cursor-not-allowed"
                       title="Delete block (Coming Soon)"
                       disabled
                     >
                       <Trash2 className="w-4 h-4" />
-                    </button>
+                    </Button>
                   </div>
                 </div>
 
                 {block.status === 'active' && (
-                  <div className="mt-3 pt-3 border-t border-[#C3A869]/20">
+                  <div className="mt-3 pt-3 border-t border-norse-gold/20">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-gray-400">Week 2 of 6</span>
-                      <span className="text-[#C3A869]">33% complete</span>
+                      <span className="text-norse-gold">33% complete</span>
                     </div>
-                    <div className="mt-2 bg-gray-700 rounded-full h-1">
-                      <div className="bg-[#C3A869] h-1 rounded-full" style={{ width: '33%' }}></div>
+                    <div className="mt-2 bg-neu-card rounded-full h-1">
+                      <div className="bg-norse-gold h-1 rounded-full" style={{ width: '33%' }}></div>
                     </div>
                   </div>
                 )}
@@ -179,7 +186,7 @@ export default function TrainingBlockTab(props: TrainingBlockTabProps) {
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
+          <div className="bg-neu-surface/50 depth-subtle surface-flat border-neu-subtle rounded-xl p-8 text-center">
             <div className="text-4xl mb-4">📊</div>
             <h3 className="text-white font-heading font-medium mb-2">No Training Blocks</h3>
             <p className="text-gray-400 text-sm mb-4">

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { X, Plus } from 'lucide-react'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
+import { Button } from '@/ui/button'
 import { Workout, WorkoutForm, WorkoutEntry, Exercise } from '@/types'
 import { fetchExercises } from '@/lib/wger'
 import WorkoutEntryCard from './WorkoutEntryCard'
@@ -110,9 +111,9 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
           <h2 className="text-white text-xl font-medium">
             {initialWorkout ? 'Edit Workout' : 'Create Workout'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
+          <Button onClick={onClose} variant="flat" size="icon" className="text-gray-400 hover:text-white">
             <X className="w-6 h-6" />
-          </button>
+          </Button>
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -134,13 +135,15 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                 <h3 className="text-white font-medium">
                   Workout Structure ({workoutForm.entries.length} groups)
                 </h3>
-                <button
+                <Button
                   onClick={() => setShowAddGroup(true)}
-                  className="flex items-center gap-2 bg-[#C3A869] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
+                  variant="primary"
+                  size="default"
+                  className="flex items-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
                   Add Exercises
-                </button>
+                </Button>
               </div>
 
               {workoutForm.entries.length === 0 ? (
@@ -166,13 +169,15 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
                   ))}
                   
                   {/* Add Another Group Button */}
-                  <button
+                  <Button
                     onClick={() => setShowAddGroup(true)}
-                    className="w-full py-4 border-2 border-dashed border-gray-600 hover:border-[#C3A869] text-gray-400 hover:text-[#C3A869] rounded-lg transition-colors flex items-center justify-center gap-2"
+                    variant="dashed"
+                    size="default"
+                    className="w-full py-4 flex items-center justify-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
                     Add Exercises
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
@@ -205,20 +210,24 @@ export default function WorkoutFormModal({ onSave, onClose, initialWorkout }: Wo
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-divider flex gap-3">
-          <button
+        <div className="p-6 border-t border-neu-subtle flex gap-3">
+          <Button
             onClick={handleSave}
             disabled={!canSave}
-            className="flex-1 bg-[#C3A869] text-black py-3 rounded-xl font-medium hover:bg-[#C3A869]/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="primary"
+            size="default"
+            className="flex-1 py-3"
           >
             {initialWorkout ? 'Update Workout' : 'Create Workout'}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={onClose}
-            className="flex-1 bg-gray-700 text-white py-3 rounded-xl font-medium hover:bg-gray-600 transition"
+            variant="outline"
+            size="default"
+            className="flex-1 py-3"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
 

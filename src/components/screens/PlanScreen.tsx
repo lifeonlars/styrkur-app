@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Dumbbell, Target } from 'lucide-react'
 import { Workout } from '@/types'
 import { NavPlan } from '@/components/icons'
+import { Button } from '@/ui/button'
 import ActiveTrainingSection from '@/components/plan/ActiveTrainingSection'
 import WorkoutTab from '@/components/plan/WorkoutTab'
 import TrainingBlockTab from '@/components/plan/TrainingBlockTab'
@@ -25,10 +26,10 @@ export default function PlanScreen({
   return (
     <div className="flex-1 overflow-y-auto pb-20 lg:pb-0 lg:pt-24">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-background p-4 border-b border-divider">
+      <div className="lg:hidden bg-neu-background p-4 border-b border-neu-subtle">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 pt-1">
-            <NavPlan className="w-16 h-16 text-[#C3A869]" />
+            <NavPlan className="w-16 h-16 text-norse-gold" />
           </div>
           <div className="flex-1">
             <h2 className="text-h2 text-white" style={{fontSize: '1.25rem'}}>Plan</h2>
@@ -41,7 +42,7 @@ export default function PlanScreen({
       <div className="hidden lg:block p-6">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 pt-1">
-            <NavPlan className="w-16 h-16 text-[#C3A869]" />
+            <NavPlan className="w-16 h-16 text-norse-gold" />
           </div>
           <div className="flex-1">
             <h1 className="text-h1 text-white mb-2" style={{fontSize: '2rem'}}>Training Plan</h1>
@@ -56,30 +57,26 @@ export default function PlanScreen({
       {/* 2. Workout & Block Tabs */}
       <section className="p-4 lg:p-6">
         {/* Tab Navigation */}
-        <div className="bg-content1 rounded-xl overflow-hidden mb-6">
+        <div className="depth-subtle surface-flat border-neu-subtle rounded-xl overflow-hidden mb-6">
           <div className="flex">
-            <button
+            <Button
               onClick={() => setActiveTab('workouts')}
-              className={`flex-1 px-6 py-4 text-sm font-medium transition flex items-center justify-center gap-2 ${
-                activeTab === 'workouts'
-                  ? 'bg-[#C3A869] text-black'
-                  : 'text-gray-400 hover:text-white hover:bg-content2'
-              }`}
+              variant={activeTab === 'workouts' ? 'primary' : 'outline'}
+              size="default"
+              className="flex-1 rounded-none justify-center gap-2"
             >
               <Dumbbell className="w-4 h-4" />
               Workouts
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setActiveTab('blocks')}
-              className={`flex-1 px-6 py-4 text-sm font-medium transition flex items-center justify-center gap-2 ${
-                activeTab === 'blocks'
-                  ? 'bg-[#C3A869] text-black'
-                  : 'text-gray-400 hover:text-white hover:bg-content2'
-              }`}
+              variant={activeTab === 'blocks' ? 'primary' : 'outline'}
+              size="default"
+              className="flex-1 rounded-none justify-center gap-2"
             >
               <Target className="w-4 h-4" />
               Training Blocks
-            </button>
+            </Button>
           </div>
         </div>
 

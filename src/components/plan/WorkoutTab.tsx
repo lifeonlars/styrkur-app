@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Plus, Search, CheckCircle } from 'lucide-react'
 import { Input } from '@/ui/input'
+import { Button } from '@/ui/button'
 import { Workout } from '@/types'
 import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
 import EnhancedWorkoutCard from './EnhancedWorkoutCard'
@@ -80,22 +81,24 @@ export default function WorkoutTab({
   return (
     <div className="space-y-6">
       {/* Create Workout Section */}
-      <div className="bg-content1 rounded-xl p-6">
+      <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-6">
         <div className="text-center">
-          <div className="w-12 h-12 bg-[#C3A869]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Plus className="w-6 h-6 text-[#C3A869]" />
+          <div className="w-12 h-12 bg-norse-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Plus className="w-6 h-6 text-norse-gold" />
           </div>
           <h3 className="text-white font-heading font-medium mb-2">Create New Workout</h3>
           <p className="text-gray-400 text-sm mb-4">
             Build standalone workouts with exercises, supersets, and circuits
           </p>
-          <button
+          <Button
             onClick={() => setShowCreateWorkout(true)}
-            className="bg-[#C3A869] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#C3A869]/80 transition flex items-center gap-2 mx-auto"
+            variant="primary"
+            size="default"
+            className="flex items-center gap-2 mx-auto"
           >
             <Plus className="w-5 h-5" />
             Create Workout
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -117,12 +120,14 @@ export default function WorkoutTab({
           <div className="flex gap-2 flex-wrap">
             <span className="text-gray-400 text-sm">Tags:</span>
             {['strength', 'upper', 'lower', 'cardio', 'circuit'].map(tag => (
-              <button
+              <Button
                 key={tag}
-                className="px-2 py-1 bg-content2 text-gray-300 rounded text-sm hover:bg-gray-600 transition"
+                variant="flat"
+                size="sm"
+                className="px-2 py-1 text-gray-300 text-sm"
               >
                 {tag}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -154,7 +159,7 @@ export default function WorkoutTab({
             ))}
           </div>
         ) : (
-          <div className="bg-content1/50 rounded-xl p-8 text-center border border-divider">
+          <div className="bg-neu-surface/50 depth-subtle surface-flat border-neu-subtle rounded-xl p-8 text-center">
             <div className="text-4xl mb-4">💪</div>
             <h3 className="text-white font-heading font-medium mb-2">
               {searchTerm ? 'No workouts found' : 'No workouts yet'}
@@ -166,12 +171,13 @@ export default function WorkoutTab({
               }
             </p>
             {!searchTerm && (
-              <button
+              <Button
                 onClick={() => setShowCreateWorkout(true)}
-                className="bg-[#C3A869] text-black px-6 py-2 rounded-lg font-medium hover:bg-[#C3A869]/80 transition"
+                variant="primary"
+                size="default"
               >
                 Create First Workout
-              </button>
+              </Button>
             )}
           </div>
         )}

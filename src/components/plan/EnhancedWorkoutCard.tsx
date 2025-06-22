@@ -1,4 +1,5 @@
 import { Edit, Trash2, Calendar, Tag, Hash, Weight, RotateCcw } from 'lucide-react'
+import { Button } from '@/ui/button'
 import { Workout } from '@/types'
 import { calculateWorkoutMetrics, formatWeight, getGroupTypeLabel } from '@/lib/workoutUtils'
 import { getWorkoutGroupTypeIcon } from '@/lib/groupTypeUtils'
@@ -31,7 +32,7 @@ export default function EnhancedWorkoutCard({
     
     return parts.map((part, index) => 
       regex.test(part) ? (
-        <span key={index} className="bg-[#C3A869]/30 text-[#C3A869] px-1 rounded">
+        <span key={index} className="bg-norse-gold/30 text-norse-gold px-1 rounded">
           {part}
         </span>
       ) : part
@@ -39,14 +40,14 @@ export default function EnhancedWorkoutCard({
   }
 
   return (
-    <div className="bg-content1 rounded-xl p-4 border border-divider hover:border-gray-600 transition">
+    <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-4 hover:border-neu-border transition">
       <div className="flex justify-between items-start mb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <h4 className="text-white font-heading font-medium truncate">
               {highlightText(workout.title, searchTerm)}
             </h4>
-            <div className="text-[#C3A869]" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
+            <div className="text-norse-gold" title={getGroupTypeLabel(metrics.hasSuperset, metrics.hasCircuit)}>
               {getWorkoutGroupTypeIcon(metrics.hasSuperset, metrics.hasCircuit, { className: "w-5 h-5" })}
             </div>
           </div>
@@ -69,55 +70,61 @@ export default function EnhancedWorkoutCard({
         </div>
         
         <div className="flex gap-2 ml-4 flex-shrink-0">
-          <button
+          <Button
             onClick={() => onEdit(workout)}
-            className="bg-content2 text-white p-1 rounded hover:bg-gray-600 transition"
+            variant="flat"
+            size="icon"
+            className="text-white"
             title="Edit workout"
           >
             <Edit className="w-4 h-4" />
-          </button>
+          </Button>
           
-          <button
+          <Button
             onClick={() => onDelete(workout)}
-            className="bg-red-900/50 text-red-400 p-1 rounded hover:bg-red-900 transition"
+            variant="flat"
+            size="icon"
+            className="text-red-400 hover:text-red-300"
             title="Delete workout"
           >
             <Trash2 className="w-4 h-4" />
-          </button>
+          </Button>
           
           {/* Placeholder for future "Assign to Week" functionality */}
-          <button
-            className="bg-content2/50 text-gray-500 p-1 rounded cursor-not-allowed"
+          <Button
+            variant="flat"
+            size="icon"
+            className="text-gray-500 cursor-not-allowed"
             title="Assign to Week (Coming Soon)"
             disabled
           >
             <Calendar className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Workout Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
         <div className="flex items-center gap-1 text-sm">
-          <Hash className="w-3 h-3 text-[#C3A869]" />
+          <Hash className="w-3 h-3 text-norse-gold" />
           <span className="text-gray-400">Sets:</span>
           <span className="text-white font-medium">{metrics.totalSets}</span>
         </div>
         
         <div className="flex items-center gap-1 text-sm">
-          <RotateCcw className="w-3 h-3 text-[#C3A869]" />
+          <RotateCcw className="w-3 h-3 text-norse-gold" />
           <span className="text-gray-400">Reps:</span>
           <span className="text-white font-medium">{metrics.totalReps}</span>
         </div>
         
         <div className="flex items-center gap-1 text-sm">
-          <Weight className="w-3 h-3 text-[#C3A869]" />
+          <Weight className="w-3 h-3 text-norse-gold" />
           <span className="text-gray-400">Volume:</span>
           <span className="text-white font-medium">{formatWeight(metrics.totalWeight)}</span>
         </div>
         
         <div className="flex items-center gap-1 text-sm">
-          <span className="text-[#C3A869]">💪</span>
+          <span className="text-norse-gold">💪</span>
           <span className="text-gray-400">Exercises:</span>
           <span className="text-white font-medium">{metrics.exerciseNames.length}</span>
         </div>
@@ -131,7 +138,7 @@ export default function EnhancedWorkoutCard({
             {workout.tags.map(tag => (
               <span 
                 key={tag} 
-                className="px-2 py-1 bg-content2 text-gray-300 rounded text-sm"
+                className="px-2 py-1 bg-neu-card text-gray-300 rounded text-sm"
               >
                 {highlightText(tag, searchTerm)}
               </span>

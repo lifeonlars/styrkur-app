@@ -1,4 +1,5 @@
 import { Calendar, Play, Eye } from 'lucide-react'
+import { Button } from '@/ui/button'
 
 interface ActiveTrainingSectionProps {
   // Future props for active plans and schedules
@@ -37,26 +38,26 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
   return (
     <section className="p-4 lg:p-6">
       <h2 className="text-white font-heading font-medium mb-4 flex items-center">
-        <Calendar className="w-5 h-5 mr-2 text-[#C3A869]" />
+        <Calendar className="w-5 h-5 mr-2 text-norse-gold" />
         Active Training Context
       </h2>
 
       {hasActivePlan ? (
         <div className="space-y-4">
           {/* Active Plan Summary */}
-          <div className="bg-[#C3A869]/10 border border-[#C3A869]/30 rounded-xl p-4">
+          <div className="bg-norse-gold/10 border border-norse-gold/30 depth-subtle surface-flat rounded-xl p-4">
             <h3 className="text-white font-heading font-medium mb-1">{activePlan.name}</h3>
-            <p className="text-[#C3A869] text-sm mb-1">{activePlan.block}</p>
+            <p className="text-norse-gold text-sm mb-1">{activePlan.block}</p>
             <p className="text-gray-400 text-sm">{activePlan.description}</p>
           </div>
 
           {/* Weekly Schedule Overview */}
-          <div className="bg-gray-800 rounded-xl p-4">
+          <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-4">
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-white font-heading font-medium text-sm">This Week</h3>
-              <button className="text-[#C3A869] text-sm hover:text-[#C3A869]/80">
+              <Button variant="flat" size="sm" className="text-norse-gold text-sm">
                 Edit Schedule
-              </button>
+              </Button>
             </div>
             <div className="grid grid-cols-7 gap-1">
               {weeklySchedule.map((day, index) => (
@@ -64,13 +65,13 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
                   key={day.day} 
                   className={`rounded p-2 text-center text-sm ${
                     day.day === todayName 
-                      ? 'bg-[#C3A869]/20 border border-[#C3A869]/30' 
-                      : 'bg-gray-700'
+                      ? 'bg-norse-gold/20 border border-norse-gold/30' 
+                      : 'bg-neu-card'
                   }`}
                 >
                   <div className="text-white font-medium mb-1">{day.day}</div>
                   <div className={`text-sm ${
-                    day.assigned ? 'text-[#C3A869]' : 'text-gray-400'
+                    day.assigned ? 'text-norse-gold' : 'text-gray-400'
                   }`}>
                     {day.workout}
                   </div>
@@ -80,7 +81,7 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
           </div>
 
           {/* Next Workout Card */}
-          <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+          <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-4">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <h3 className="text-white font-heading font-medium mb-1">Next: {nextWorkout.name}</h3>
@@ -91,20 +92,20 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
                 </div>
               </div>
               <div className="flex gap-2">
-                <button className="bg-gray-700 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition flex items-center gap-1">
+                <Button variant="flat" size="sm" className="text-white flex items-center gap-1">
                   <Eye className="w-3 h-3" />
                   View
-                </button>
-                <button className="bg-[#C3A869] text-black px-3 py-1 rounded text-sm font-medium hover:bg-[#C3A869]/80 transition flex items-center gap-1">
+                </Button>
+                <Button variant="primary" size="sm" className="flex items-center gap-1">
                   <Play className="w-3 h-3" />
                   Start
-                </button>
+                </Button>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+        <div className="bg-neu-surface/50 depth-subtle surface-flat border-neu-subtle rounded-xl p-6 text-center">
           <div className="text-3xl mb-3">🎯</div>
           <h3 className="text-white font-heading font-medium mb-2">No Active Training Plan</h3>
           <p className="text-gray-400 text-sm mb-4">
