@@ -7,7 +7,7 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { Button } from '@/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card'
-import { Chip } from '@/ui/chip'
+// import { Chip } from '@/ui/chip' // TODO: Create chip component
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog, ExerciseGroupType } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'
 import { ExerciseGroupSingle, ExerciseGroupSuperset, ExerciseGroupCircuit } from '@/components/icons'
@@ -134,14 +134,10 @@ export default function WorkoutGroup({
             {/* First row: Group chip with icon, exercise list, and expand button */}
             <div className="flex items-start justify-between mb-2">
               <div className="flex flex-col gap-2">
-                <Chip 
-                  variant="outlined" 
-                  icon={<IconComponent className="w-4 h-4" />}
-                  className="w-fit"
-                  style={{ pointerEvents: 'none' }}
-                >
+                <span className="flex items-center gap-2 px-3 py-1 bg-neu-surface border border-neu-light/20 rounded-lg text-sm text-gray-300">
+                  <IconComponent className="w-4 h-4" />
                   {getGroupTypeLabel()}
-                </Chip>
+                </span>
                 {/* Compact exercise list aligned with chip */}
                 {renderExerciseList()}
               </div>
@@ -236,13 +232,9 @@ export default function WorkoutGroup({
                 setShowExerciseDetail(true)
               }}
             >
-              <Chip 
-                variant="outlined" 
-                size="default"
-                className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
-              >
+              <span className="h-9 w-9 flex-shrink-0 flex items-center justify-center bg-neu-surface border border-neu-light/20 rounded-lg text-sm text-gray-300">
                 {String.fromCharCode(65 + exerciseIndex)}
-              </Chip>
+              </span>
               <span className="text-sm text-white font-medium">{exercise.exerciseData.name}</span>
               <Info className="w-6 h-6 text-gray-400" />
             </div>
@@ -296,13 +288,9 @@ export default function WorkoutGroup({
                 {set.exercises.map((exercise, exerciseIndex) => (
                   <div key={exercise.exerciseId} className="flex items-center gap-3">
                     {groupLog.groupType !== 'single' && (
-                      <Chip 
-                        variant="outlined" 
-                        size="default"
-                        className="h-9 w-9 flex-shrink-0 p-0 min-w-0"
-                      >
+                      <span className="h-9 w-9 flex-shrink-0 flex items-center justify-center bg-neu-surface border border-neu-light/20 rounded-lg text-sm text-gray-300">
                         {String.fromCharCode(65 + exerciseIndex)}
-                      </Chip>
+                      </span>
                     )}
                     
                     {/* Reps input */}
