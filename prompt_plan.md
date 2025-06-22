@@ -1,255 +1,303 @@
-# Color System Refactor - Prompt Plan
+# Exercise Groups Implementation - Claude Code Prompt Plan
 
-## Overview
-Complete overhaul of the color system to establish proper primitive → semantic token architecture following Tailwind/Radix best practices. This will create a cleaner, more maintainable foundation for the Norse neumorphic design system.
+## Project Overview
+Enhance the Nordic fitness tracking PWA with advanced exercise grouping capabilities including supersets, circuits, complexes, and various execution formats (HIIT, EMOM, AMRAP) with rep schemes (pyramids, descending patterns).
 
-## Phase Structure
+## Core Requirements
 
-### **Phase CS1: Primitive Color Scale Generation** 🎨
-**Status**: Ready to implement  
-**Estimated Time**: 60-90 minutes  
-**Priority**: High - Foundation for all other phases
+### Data Structure
+- **Group Types**: Single, Superset, Circuit, Complex
+- **Execution Styles**: Standard, HIIT, EMOM, AMRAP  
+- **Rep Schemes**: Standard, Pyramid (15-3-15, 10-1-10), Descending (10-1, 21-3, 15-3), Ascending (EMOM)
+- **Multi-exercise selection** with flexible grouping
+- **Digital notebook approach** for logging (no complex timers)
 
-**Scope**:
-- Generate 9-color scales (100-900) for all primitive colors
-- Anchor existing colors as 500-level in new scales
-- Replace "Wood" with "Amethyst" (Norse purple naming)
-- Regenerate Iron scale for consistent blue-grey progression
-- Create clean, mathematically consistent color progressions
+### Visual Design
+- **Neumorphic Scandinavian minimalism**
+- **Standard chips** for group types
+- **Small label chips** for execution styles and rep schemes
+- **Vertical connecting lines** with subtle depth for exercise connections
+- **Mobile-first responsive design**
 
-**Primitive Colors to Generate**:
-- `norse-gold` (anchor: #C3A869 as 500)
-- `forest` (anchor: current forest-500)
-- `amethyst` (replace wood, Norse purple theme)
-- `ocean` (anchor: current ocean-500) 
-- `blood` (anchor: current blood-500)
-- `iron` (regenerate for consistent cool-grey progression)
+### UX Principles
+- Multi-select exercises then choose grouping
+- Dual-path access for EMOM ascending
+- Clear visual hierarchy during planning and logging
+- Simple set completion tracking
+- Overall workout duration only
 
-**Deliverables**:
-- CSS custom properties for all primitive scales
-- Color value calculations and hex codes
-- Visual validation of color progressions
+## Implementation Phases
 
----
+### Phase 1: Data Model Foundation
+**Goal**: Establish robust data structures and TypeScript interfaces
 
-### **Phase CS2: Semantic Token Architecture** 🔗
-**Status**: Depends on CS1  
-**Estimated Time**: 45-60 minutes  
-**Priority**: High - Core semantic layer
-
-**Scope**:
-- Define semantic token categories (surface, text, border, icon)
-- Map primitive tokens to semantic purposes
-- Create context surface variants (success, danger, warning, info)
-- Establish semantic naming conventions
-- Document token usage guidelines
-
-**Semantic Categories**:
+#### Prompt 1A: Core Data Models
 ```
-Surface Tokens:
-- surface-success (forest-based with gradient + opacity)
-- surface-danger (blood-based with gradient + opacity)  
-- surface-warning (amethyst-based with gradient + opacity)
-- surface-info (ocean-based with gradient + opacity)
+Create TypeScript interfaces and types for the exercise groups system:
 
-Text Tokens:
-- text-primary, text-secondary, text-muted
-- text-success, text-danger, text-warning, text-info
+1. Enhanced ExerciseGroup interface supporting:
+   - groupType: 'single' | 'superset' | 'circuit' | 'complex'
+   - executionStyle: 'standard' | 'hiit' | 'emom' | 'amrap'
+   - repScheme with patterns and weight progression
+   - exercises array with proper relationships
+   
+2. RepScheme interface for:
+   - Pattern definitions (10-1, 21-3, 15-3, 10-1-10, 15-3-15, 1-ascending)
+   - Weight progression for pyramids
+   - Set auto-generation logic
+   
+3. Update existing Workout and WorkoutEntry models to support new grouping
 
-Border Tokens:
-- border-subtle, border-strong, border-focus
-- border-success, border-danger, border-warning, border-info
+4. Migration strategy from current single exercise approach
 
-Icon Tokens:
-- icon-primary, icon-secondary, icon-accent
-- icon-success, icon-danger, icon-warning, icon-info
+Ensure backwards compatibility and clean separation of concerns.
 ```
 
-**Technical Implementation**:
-- Follow current success surface pattern (3-level gradient)
-- 35%, 25%, 25% opacity structure for context surfaces
-- CSS custom property mapping from primitives
+#### Prompt 1B: Data Validation & Utils
+```
+Create validation utilities and helper functions for exercise groups:
 
----
+1. Group size validation (2-3 for supersets, 3-15 for circuits/complexes)
+2. Execution style compatibility logic (when to show/hide rep schemes)
+3. Rep scheme pattern generators and validators
+4. Weight progression calculators for pyramids
+5. Exercise compatibility checks for complexes (same equipment)
 
-### **Phase CS3: Styleguide Tab Interface** 📑
-**Status**: ✅ Ready to implement  
-**Estimated Time**: 30-45 minutes  
-**Priority**: Medium - Presentation layer
+Include comprehensive unit tests for all validation logic.
+```
 
-**Scope**:
-- Create three-tab interface for color foundations
-- Organize content: Semantics (primary) | Primitives (reference) | Typography (separated)
-- Implement Norse-styled tab component with smooth transitions
-- Migrate existing content to appropriate tabs
+### Phase 2: Planning Interface Components
+**Goal**: Build the exercise group creation and editing UI
 
-**Tab Structure**:
-1. **Semantics Tab** (Primary focus):
-   - Context surfaces with live examples
-   - Text hierarchy demonstrations
-   - Border and icon token showcases
-   - Usage guidelines (do/don't examples)
+#### Prompt 2A: Exercise Selection Modal Enhancement
+```
+Enhance the exercise selection modal to support:
 
-2. **Primitives Tab** (Developer reference):
-   - Swatch book display with hover interactions
-   - Color generation logic documentation
-   - CSS variable outputs for copy-paste
-   - System architecture explanation
+1. Multi-select capability with visual indicators
+2. Grouping options after selection:
+   - "Add as Individual Groups" 
+   - "Add as Single Group"
+3. Dynamic group type selection based on exercise count
+4. Preview of resulting groups before confirmation
 
-3. **Typography Tab** (Separated concerns):
-   - Font hierarchy and sizing
-   - Semantic text token integration
-   - Context text color examples
-   - Clean typography documentation
+Maintain existing single-select functionality while adding multi-select.
+Use neumorphic design principles with proper touch targets for mobile.
+```
 
-**Technical Implementation**:
-- Tab component integration (check existing or create Norse-styled)
-- Tab state management and smooth transitions
-- Responsive design for mobile tab navigation
-- Content migration from existing foundations page
+#### Prompt 2B: Group Configuration Components
+```
+Create components for configuring exercise groups:
 
----
+1. GroupTypeSelector - Default size (36px) chips for Single/Superset/Circuit/Complex
+2. ExecutionStyleSelector - Label size (24px) chips that hide when incompatible with rep schemes
+3. RepSchemeSelector - Label size (24px) chips with pattern previews and explanations
+4. WeightProgressionConfig - For pyramid weight settings with start/peak weight inputs
+5. GroupPreview - Shows resulting sets with reps/weights before confirmation
+6. DuplicateGroupAction - Simple exact duplication, user modifies as needed
 
-### **Phase CS4: Migration & Integration** 🔄
-**Status**: Depends on CS1-3  
-**Estimated Time**: 60-90 minutes  
-**Priority**: High - System integration and validation
+Handle the dual-path EMOM ascending selection (accessible from both rep scheme and execution style).
+Include validation feedback, pattern explanations, and duplicate group workflow.
+Use proper chip sizing to maintain visual hierarchy.
+```
 
-**Scope**:
-- Test semantic tokens with existing components
-- Update component examples to demonstrate token usage
-- Validate no visual regressions across styleguide
-- Create migration documentation for existing components
-- Prepare for team adoption of new token system
+#### Prompt 2C: Enhanced WorkoutEntryCard
+```
+Update the WorkoutEntryCard component for the planning view:
 
-**Integration Tasks**:
-- **Component Testing**: Validate semantic tokens work with Card, Button, Form components
-- **WorkoutGroup Integration**: Test context surfaces work with completion states
-- **Visual Regression Testing**: Ensure existing designs maintain consistency
-- **Performance Validation**: Check CSS bundle size impact
-- **Documentation**: Create migration guide for development team
+1. Visual group connections with neumorphic vertical lines
+2. Chip display using correct sizes:
+   - Default size (36px) chips for group types (Single/Superset/Circuit/Complex)
+   - Label size (24px) chips for execution styles and rep schemes
+3. Rep scheme pattern indicators and previews
+4. Collapsible/expandable group details
+5. Enhanced reordering support:
+   - Existing: Inter-group reordering (arrows up/down)
+   - New: Intra-group exercise reordering using arrows within groups
+   - Consistent mobile-friendly arrow controls throughout
+6. Quick actions:
+   - Duplicate group (creates exact copy, user edits as needed)
+   - Split group into individual exercises
+   - Normalize weights across group exercises
 
-**Migration Strategy**:
-- Keep both old and new token systems during transition
-- Update styleguide components to showcase new tokens
-- Test semantic tokens in real component contexts
-- Document breaking changes and update procedures
-- Create adoption timeline for development team
+Ensure mobile optimization with proper spacing and touch targets.
+Maintain clean visual hierarchy with Scandinavian minimalism.
+```
 
-**Testing Priorities**:
-1. **Context Surfaces**: Success highlighting in WorkoutGroup components
-2. **Text Hierarchy**: Semantic text tokens across all styleguide sections
-3. **Background System**: Iron/stone tokens in app layout contexts
-4. **Border Integration**: Semantic borders in form and card components
+### Phase 3: Logging Interface Updates
+**Goal**: Digital notebook approach for workout execution
 
-**Success Validation**:
-- All semantic tokens functional in component contexts
-- Context surfaces ready for WorkoutGroup completion states
-- Clear migration path documented for team
-- No performance regressions from token additions
+#### Prompt 3A: Enhanced GroupedExerciseCard
+```
+Update the logging interface components:
 
----
+1. GroupedExerciseCard showing exercise connections
+2. Simple set completion tracking (tap to mark complete)
+3. Visual progress indicators for group completion
+4. Rep scheme pattern guidance without complex timers
+5. Notes capability for each group
+6. Clear "what's next" indicators
 
-### **Phase CS5: System Cleanup & Documentation** 📚
-**Status**: Depends on CS4  
-**Estimated Time**: 30-45 minutes  
-**Priority**: Medium - Polish and documentation
+Focus on readability and quick interaction in gym environment.
+No built-in timers - rely on external timing sources.
+```
 
-**Scope**:
-- Remove legacy color tokens and unused variables
-- Update design system documentation
-- Create developer guidelines for semantic token usage
-- Document color accessibility compliance
-- Finalize color system architecture
+#### Prompt 3B: Workout Progress Tracking
+```
+Create workout session tracking:
 
-**Documentation Deliverables**:
-- Primitive → semantic mapping reference
-- Usage guidelines for each semantic category
-- Color accessibility audit results
-- Migration guide for existing components
-- Best practices for extending the color system
+1. Overall workout timer (start/stop only)
+2. Group completion status
+3. Exercise progression indicators
+4. Simple rest period suggestions (no active timing)
+5. Workout summary and statistics
+6. Auto-save functionality for interrupted sessions
 
----
+Maintain simplicity while providing useful progress feedback.
+```
 
-## Design System Dependencies
+### Phase 4: Advanced Features & Polish
+**Goal**: Enhanced UX and edge case handling
 
-### **Required Integration Points**:
-- Norse neumorphic utility classes (depth, surface, border)
-- Card component system (surface variants)
-- Form components (context states)
-- Button variants (semantic color applications)
+#### Prompt 4A: Template System
+```
+Implement exercise group templates:
 
-### **Color Accessibility Standards**:
-- WCAG AA compliance for all text colors
-- Sufficient contrast ratios for context colors
-- Colorblind-friendly differentiation
-- High contrast mode compatibility
+1. Save common group configurations as templates
+2. Quick template application to new workouts
+3. Template library with common patterns
+4. Community/preset templates for popular workout styles
+5. Template versioning and updates
 
-### **Technical Requirements**:
-- CSS custom property architecture
-- Consistent naming conventions
-- Minimal bundle size impact
-- IE11 fallback considerations (if needed)
+Make templates easily discoverable and applicable.
+```
 
-## Implementation Strategy
+#### Prompt 4B: Smart Suggestions & Analytics
+```
+Add intelligent features:
 
-### **Phase Execution Order**:
-1. **CS1**: Generate primitive scales (foundation)
-2. **CS2**: Create semantic mappings (core functionality)  
-3. **CS3**: Build styleguide interface (presentation)
-4. **CS4**: Integrate and test (validation)
-5. **CS5**: Clean up and document (polish)
+1. Exercise compatibility suggestions for groups
+2. Weight progression recommendations based on history
+3. Rest period suggestions based on group type
+4. Performance analytics for different execution styles
+5. Progression tracking for rep scheme improvements
 
-### **Quality Gates**:
-- After CS1: All primitive scales validated for mathematical consistency
-- After CS2: Semantic tokens tested with existing components
-- After CS3: Styleguide interface provides clear documentation
-- After CS4: No visual regressions, migration path clear
-- After CS5: Complete color system ready for team adoption
+Focus on helpful suggestions without overwhelming the interface.
+```
 
-### **Risk Mitigation**:
-- **Scope creep**: Keep phases focused and separate
-- **Visual consistency**: Test semantic tokens against existing components
-- **Performance impact**: Minimize CSS custom property bloat
-- **Migration complexity**: Maintain backward compatibility during transition
+#### Prompt 4C: Import/Export & Sharing
+```
+Enable workout portability:
 
-## Success Criteria
+1. Export workouts with group configurations
+2. Import from common fitness app formats
+3. Share workout templates with other users
+4. Backup/restore functionality
+5. Cross-device synchronization
 
-### **Technical Goals**:
-1. ✅ Clean primitive → semantic token architecture
-2. ✅ Consistent 9-color scales across all primitives  
-3. ✅ Context surface variants working with neumorphic system
-4. ✅ Zero visual regressions in existing components
-5. ✅ Clear migration path for component updates
+Ensure data integrity and privacy in all sharing features.
+```
 
-### **User Experience Goals**:
-1. ✅ Intuitive color system for designers and developers
-2. ✅ Clear documentation and usage guidelines
-3. ✅ Consistent visual language across all contexts
-4. ✅ Accessible color combinations meeting WCAG standards
-5. ✅ Scalable system for future color additions
+### Phase 5: Mobile Optimization & Performance
+**Goal**: PWA excellence and performance optimization
 
-### **Design System Goals**:
-1. ✅ Industry-standard token architecture (Tailwind/Radix approach)
-2. ✅ Norse aesthetic maintained throughout
-3. ✅ Clean separation between primitives and semantics
-4. ✅ Comprehensive styleguide documentation
-5. ✅ Foundation for future design system expansion
+#### Prompt 5A: Mobile UX Refinement
+```
+Optimize for mobile PWA usage:
 
-### **Current Status Summary**:
-- ✅ **Phase CS1**: Primitive color scales completed
-- ✅ **Phase CS2**: Semantic token architecture completed  
-- 🔄 **Phase CS3**: Tab interface ready for implementation
-- ⏳ **Phase CS4**: Integration testing pending
-- ⏳ **Phase CS5**: Cleanup and documentation pending
+1. Touch gesture support (swipe actions, long press)
+2. Haptic feedback for set completion
+3. Screen orientation handling
+4. Offline capability enhancement
+5. Battery usage optimization
+6. Background app refresh handling
 
-### **Critical Path**:
-1. **Complete CS3** → Organized presentation of color system
-2. **Execute CS4** → Validate tokens work in real components  
-3. **Context Surfaces Priority** → Essential for WorkoutGroup completion states
-4. **Migration Documentation** → Prepare team for token adoption
+Test extensively on various mobile devices and screen sizes.
+```
 
-### **Integration with Other Phases**:
-- **WorkoutGroup Components**: Depends on context surfaces from CS2/CS4
-- **Styleguide Polish**: Benefits from organized CS3 tab interface
-- **Component Updates**: Will use semantic tokens validated in CS4
+#### Prompt 5B: Performance & Caching
+```
+Optimize performance for complex workouts:
+
+1. Efficient rendering of large workout groups
+2. Smart caching of exercise data and templates
+3. Lazy loading of workout history
+4. Optimized state management for real-time updates
+5. Memory usage optimization for long workout sessions
+
+Ensure smooth performance even with complex multi-group workouts.
+```
+
+## Development Guidelines
+
+### Code Quality
+- **TypeScript strict mode** throughout
+- **Comprehensive unit tests** for all business logic
+- **Integration tests** for component interactions
+- **Accessibility compliance** (WCAG 2.1 AA)
+- **Performance budgets** and monitoring
+
+### Design System
+- **Consistent neumorphic styling** across all components
+- **Responsive breakpoints** for mobile-first design
+- **Design tokens** for colors, spacing, typography
+- **Component documentation** and storybook entries
+
+### Data Management
+- **Immutable state updates** using proper Redux patterns
+- **Optimistic updates** for better UX
+- **Error boundary** implementation
+- **Data migration** strategies for schema changes
+
+## Testing Strategy
+
+### Unit Tests
+- Data validation functions
+- Rep scheme generators
+- Weight progression calculators
+- Component logic isolation
+
+### Integration Tests
+- Workout creation flow
+- Group configuration workflows
+- Logging session management
+- Data persistence and retrieval
+
+### E2E Tests
+- Complete workout planning to execution
+- Multi-device synchronization
+- Offline/online state transitions
+- Performance under load
+
+## Success Metrics
+
+### UX Metrics
+- Time to create complex workouts (target: <2 minutes)
+- User error rates in group configuration
+- Workout completion rates
+- User satisfaction scores
+
+### Technical Metrics
+- Component render performance
+- Bundle size impact
+- Battery usage efficiency
+- Offline capability reliability
+
+## Risk Mitigation
+
+### Complexity Management
+- **Phased rollout** with feature flags
+- **Progressive enhancement** approach
+- **Fallback to simple mode** for unsupported features
+- **Clear migration paths** for existing users
+
+### Performance Risks
+- **Regular performance auditing**
+- **Component lazy loading** strategies
+- **State optimization** for complex workouts
+- **Memory leak prevention**
+
+## Conclusion
+
+This prompt plan provides a structured approach to implementing advanced exercise grouping while maintaining the app's core simplicity and Nordic design principles. The phased approach allows for iterative development and testing, ensuring each component works well before adding complexity.
+
+The focus on practical gym usage (digital notebook vs complex timers) and mobile-first design should result in a tool that users actually want to use during workouts, rather than fighting with complex interfaces while trying to exercise.
