@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useMemo } from 'react'
-import { User, Zap, RotateCcw, Target, Info } from 'lucide-react'
-import { Chip } from '@/ui/chip'
+import React, { useMemo, useState } from 'react'
+import { Info } from 'lucide-react'
 import { Button } from '@/ui/button'
+import { Card, CardContent } from '@/ui/card'
 import { Exercise } from '@/types'
 import { EnhancedExerciseGroupType } from '@/types/exercise-groups'
 import { 
@@ -15,6 +15,12 @@ import {
   suggestGroupType,
   getGroupTypeDisplayName 
 } from '@/utils/exercise-groups'
+import { 
+  SingleExerciseIcon, 
+  SupersetIcon, 
+  CircuitIcon, 
+  ComplexIcon 
+} from './icons/GroupTypeIcons'
 
 // ================================================================================================
 // COMPONENT PROPS
@@ -49,7 +55,7 @@ const GROUP_TYPE_OPTIONS: GroupTypeOption[] = [
     type: 'single',
     label: 'Single',
     description: 'Individual exercises performed separately with full rest between each',
-    icon: User,
+    icon: SingleExerciseIcon,
     minExercises: 1,
     maxExercises: 1
   },
@@ -57,7 +63,7 @@ const GROUP_TYPE_OPTIONS: GroupTypeOption[] = [
     type: 'superset',
     label: 'Superset',
     description: 'Multiple exercises performed back-to-back with minimal rest',
-    icon: Zap,
+    icon: SupersetIcon,
     minExercises: 2,
     maxExercises: 3
   },
@@ -65,7 +71,7 @@ const GROUP_TYPE_OPTIONS: GroupTypeOption[] = [
     type: 'circuit',
     label: 'Circuit',
     description: 'Sequence of exercises performed in rounds with rest between rounds',
-    icon: RotateCcw,
+    icon: CircuitIcon,
     minExercises: 3,
     maxExercises: 15
   },
@@ -73,7 +79,7 @@ const GROUP_TYPE_OPTIONS: GroupTypeOption[] = [
     type: 'complex',
     label: 'Complex',
     description: 'Multiple exercises using the same equipment without putting it down',
-    icon: Target,
+    icon: ComplexIcon,
     minExercises: 2,
     maxExercises: 8,
     requiresCompatibility: true
@@ -81,25 +87,33 @@ const GROUP_TYPE_OPTIONS: GroupTypeOption[] = [
 ]
 
 // ================================================================================================
-// TOOLTIP COMPONENT
+// GROUP TYPE CARD COMPONENT
 // ================================================================================================
 
-interface GroupTypeTooltipProps {
+interface GroupTypeCardProps {
   option: GroupTypeOption
   exerciseCount: number
   exercises: Exercise[]
-  isEnabled: boolean
   isSelected: boolean
+  isEnabled: boolean
+  isRecommended: boolean
+  onClick: () => void
+  showTooltip?: boolean
 }
 
-function GroupTypeTooltip({ 
-  option, 
-  exerciseCount, 
-  exercises, 
-  isEnabled, 
-  isSelected 
-}: GroupTypeTooltipProps) {
-  const validation = validateGroupSize(option.type, exerciseCount)
+function GroupTypeCard({
+  option,
+  exerciseCount,
+  exercises,
+  isSelected,
+  isEnabled,
+  isRecommended,
+  onClick,
+  showTooltip = true
+}: GroupTypeCardProps) {
+  const IconComponent = option.icon
+  
+  // Get equipment compatibility info for complex type
   const compatibilityInfo = option.requiresCompatibility && exercises.length > 1 
     ? {
         isCompatible: canFormComplex(exercises),
@@ -107,52 +121,136 @@ function GroupTypeTooltip({
       }
     : null
 
+  // Get exercise count range
+  const exerciseRange = option.minExercises === option.maxExercises 
+    ? `${option.minExercises} exercise${option.minExercises > 1 ? 's' : ''}`
+    : `${option.minExercises}-${option.maxExercises} exercises`
+
+  // Determine card styling
+  const cardClass = `
+    relative cursor-pointer group
+    ${isEnabled ? 'hover:scale-[1.02] active:scale-[0.98]' : 'cursor-not-allowed'}
+    ${isSelected ? 'shadow-neu-gold border-neu-gold-light' : ''}
+    ${isRecommended && !isSelected ? 'border-neu-gold-subtle' : ''}
+  `
+
+  // Apply styling with design tokens
+  const cardStyle = {
+    transition: 'all var(--transition-default)',
+    ...(isSelected && {
+      boxShadow: 'var(--shadow-neu-gold)',
+      border: '1px solid var(--border-neu-gold-light)'
+    }),
+    ...(isRecommended && !isSelected && {
+      border: '1px solid var(--border-neu-gold-subtle)'
+    })
+  }
+
   return (
-    <div className="absolute z-50 bg-neu-dark border border-neu-light/20 rounded-lg p-3 shadow-neu-elevated max-w-xs -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full">
-      <div className="text-sm text-white font-medium mb-2">{option.label}</div>
-      <div className="text-xs text-gray-400 mb-2">{option.description}</div>
-      
-      <div className="space-y-1">
-        <div className="text-xs text-gray-300">
-          Exercises: {option.minExercises}
-          {option.maxExercises !== option.minExercises && `-${option.maxExercises}`}
+    <Card 
+      className={cardClass}
+      style={cardStyle}
+      surface={isSelected ? "convex" : "flat"}
+      depth={isSelected ? "elevated" : "subtle"}
+      onClick={() => isEnabled && onClick()}
+    >
+      <CardContent style={{ padding: 'var(--spacing-6)' }} className="text-center">
+        {/* Recommended Badge */}
+        {isRecommended && (
+          <div 
+            className="absolute font-medium"
+            style={{
+              top: 'calc(-1 * var(--spacing-2))',
+              right: 'calc(-1 * var(--spacing-2))',
+              background: 'var(--norse-gold-300)',
+              color: 'var(--iron-900)',
+              fontSize: 'var(--font-size-xs)',
+              padding: 'var(--spacing-1) var(--spacing-2)',
+              borderRadius: 'var(--radius-full)'
+            }}
+          >
+            Recommended
+          </div>
+        )}
+
+        {/* Large Icon */}
+        <div style={{ marginBottom: 'var(--spacing-4)' }} className="flex justify-center">
+          <IconComponent 
+            color={isSelected ? 'accent' : 'primary'}
+            size={48} 
+          />
         </div>
+
+        {/* Title */}
+        <h3 
+          style={{
+            fontSize: 'var(--font-size-lg)',
+            fontWeight: 'var(--font-weight-semibold)',
+            color: 'var(--text-primary)',
+            marginBottom: 'var(--spacing-2)'
+          }}
+        >
+          {option.label}
+        </h3>
+
+        {/* Description */}
+        <p 
+          style={{
+            fontSize: 'var(--font-size-xs)',
+            color: 'var(--text-secondary)',
+            marginBottom: 'var(--spacing-2)',
+            lineHeight: 'var(--line-height-tight)'
+          }}
+        >
+          {option.description}
+        </p>
         
+        {/* Exercise Count */}
+        <p 
+          style={{
+            fontSize: 'var(--font-size-sm)',
+            color: 'var(--text-secondary)',
+            marginBottom: 'var(--spacing-3)'
+          }}
+        >
+          {exerciseRange}
+        </p>
+
+        {/* Equipment Compatibility (for complex) */}
         {compatibilityInfo && (
-          <div className="text-xs">
-            <span className={compatibilityInfo.isCompatible ? 'text-green-400' : 'text-yellow-400'}>
-              Equipment: {compatibilityInfo.isCompatible ? 'Compatible' : 'Mixed'}
-            </span>
-            {compatibilityInfo.sharedEquipment.length > 0 && (
-              <div className="text-gray-400 mt-1">
-                Shared: {compatibilityInfo.sharedEquipment.join(', ')}
-              </div>
-            )}
+          <div style={{ marginBottom: 'var(--spacing-3)' }}>
+            <div 
+              style={{
+                fontSize: 'var(--font-size-xs)',
+                padding: 'var(--spacing-1) var(--spacing-2)',
+                borderRadius: 'var(--radius-sm)',
+                border: compatibilityInfo.isCompatible 
+                  ? '1px solid var(--border-success)' 
+                  : '1px solid var(--border-warning)',
+                background: 'transparent',
+                color: compatibilityInfo.isCompatible 
+                  ? 'var(--text-success)' 
+                  : 'var(--text-warning)'
+              }}
+            >
+              {compatibilityInfo.isCompatible ? '✓ Equipment Compatible' : '⚠ Mixed Equipment'}
+            </div>
           </div>
         )}
-        
-        {!validation.isValid && (
-          <div className="text-xs text-red-400">
-            {validation.errors.map(error => error.message).join(', ')}
-          </div>
-        )}
-        
-        {validation.errors.filter(error => error.suggestion).length > 0 && (
-          <div className="text-xs text-blue-400">
-            {validation.errors.filter(error => error.suggestion).map(error => error.suggestion).join(', ')}
-          </div>
-        )}
-        
-        {validation.warnings.length > 0 && (
-          <div className="text-xs text-yellow-400">
-            {validation.warnings.map(warning => warning.message).join(', ')}
-          </div>
-        )}
-      </div>
-      
-      {/* Tooltip arrow */}
-      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neu-light/20"></div>
-    </div>
+
+        {/* Status Indicator */}
+        <div style={{ fontSize: 'var(--font-size-xs)' }}>
+          {!isEnabled ? (
+            <span style={{ color: 'var(--text-danger)' }}>Not Available</span>
+          ) : isSelected ? (
+            <span style={{ color: 'var(--text-accent)', fontWeight: 'var(--font-weight-medium)' }}>Selected</span>
+          ) : (
+            <span style={{ color: 'var(--text-muted)' }}>Available</span>
+          )}
+        </div>
+
+      </CardContent>
+    </Card>
   )
 }
 
@@ -213,112 +311,135 @@ export default function GroupTypeSelector({
   // ================================================================================================
 
   return (
-    <div className="space-y-3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium text-white">Group Type</h3>
-          {showTooltips && (
-            <Button
-              variant="flat"
-              size="icon"
-              className="h-5 w-5 p-0"
-              title="Group type determines how exercises are performed together"
+      <div className="text-center">
+        <h3 
+          style={{
+            fontSize: 'var(--font-size-xl)',
+            fontWeight: 'var(--font-weight-semibold)',
+            color: 'var(--text-primary)',
+            marginBottom: 'var(--spacing-2)'
+          }}
+        >
+          Choose Group Type
+        </h3>
+        <p 
+          style={{
+            fontSize: 'var(--font-size-sm)',
+            color: 'var(--text-secondary)'
+          }}
+        >
+          Select how your {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''} should be performed together
+        </p>
+      </div>
+
+      {/* Group Type Cards */}
+      <div 
+        className={`grid ${
+          compact 
+            ? 'grid-cols-2 md:grid-cols-4' 
+            : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-4'
+        }`}
+        style={{ gap: 'var(--spacing-4)' }}
+      >
+        {optionStates.map(({ option, isEnabled, isRecommended, isSelected }) => (
+          <GroupTypeCard
+            key={option.type}
+            option={option}
+            exerciseCount={exerciseCount}
+            exercises={exercises}
+            isSelected={isSelected}
+            isEnabled={isEnabled}
+            isRecommended={isRecommended}
+            onClick={() => handleOptionClick(option.type, isEnabled)}
+            showTooltip={showTooltips}
+          />
+        ))}
+      </div>
+
+      {/* Smart Recommendations */}
+      {suggestions.length > 0 && !selectedType && (
+        <div 
+          style={{
+            background: 'transparent',
+            border: '1px solid var(--border-neu-gold-light)',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--spacing-4)'
+          }}
+        >
+          <h4 
+            style={{
+              fontSize: 'var(--font-size-sm)',
+              fontWeight: 'var(--font-weight-medium)',
+              color: 'var(--text-accent)',
+              marginBottom: 'var(--spacing-2)'
+            }}
+          >
+            💡 Smart Recommendations
+          </h4>
+          <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>
+            Based on your {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''}, we recommend: {' '}
+            <span 
+              style={{ 
+                color: 'var(--text-accent)', 
+                fontWeight: 'var(--font-weight-medium)' 
+              }}
             >
-              <Info className="w-3 h-3" />
-            </Button>
-          )}
+              {suggestions.map(type => 
+                GROUP_TYPE_OPTIONS.find(opt => opt.type === type)?.label
+              ).join(' or ')}
+            </span>
+          </p>
         </div>
-        <div className="text-xs text-gray-400">
-          {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''}
-        </div>
-      </div>
+      )}
 
-      {/* Group Type Options */}
-      <div className={`grid gap-3 ${compact ? 'grid-cols-2' : 'grid-cols-1 sm:grid-cols-2'}`}>
-        {optionStates.map(({ option, isEnabled, isRecommended, isSelected }) => {
-          const IconComponent = option.icon
-          
-          return (
-            <div key={option.type} className="relative group">
-              <Chip
-                selected={isSelected}
-                onClick={() => handleOptionClick(option.type, isEnabled)}
-                disabled={!isEnabled}
-                size="default" // 36px height for primary importance
-                variant={isSelected ? 'primary' : 'secondary'}
-                className={`
-                  w-full justify-start gap-3 px-4 py-3 h-12 transition-all duration-200
-                  ${isEnabled ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50'}
-                  ${isRecommended && !isSelected ? 'ring-2 ring-primary/30' : ''}
-                  ${isSelected ? 'shadow-neu-elevated' : 'shadow-neu-flat'}
-                `}
-                icon={<IconComponent className="w-5 h-5" />}
-              >
-                <div className="flex-1 text-left">
-                  <div className="font-medium text-sm">{option.label}</div>
-                  {!compact && (
-                    <div className="text-xs text-gray-400 mt-1 line-clamp-1">
-                      {option.description}
-                    </div>
-                  )}
-                </div>
-                
-                {isRecommended && (
-                  <div className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                    Recommended
-                  </div>
-                )}
-              </Chip>
-
-              {/* Tooltip on hover */}
-              {showTooltips && (
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                  <GroupTypeTooltip
-                    option={option}
-                    exerciseCount={exerciseCount}
-                    exercises={exercises}
-                    isEnabled={isEnabled}
-                    isSelected={isSelected}
-                  />
-                </div>
-              )}
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Selected Type Info */}
+      {/* Selected Type Summary */}
       {selectedType && (
-        <div className="bg-neu-light/5 border border-neu-light/10 rounded-lg p-3">
-          <div className="flex items-center gap-2 mb-2">
+        <div 
+          className="depth-sunken surface-concave"
+          style={{
+            border: '1px solid var(--border-neu-subtle)',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--spacing-4)'
+          }}
+        >
+          <div className="flex items-start" style={{ gap: 'var(--spacing-3)' }}>
             {(() => {
               const selectedOption = GROUP_TYPE_OPTIONS.find(opt => opt.type === selectedType)
-              const IconComponent = selectedOption?.icon || User
-              return <IconComponent className="w-4 h-4 text-primary" />
+              const IconComponent = selectedOption?.icon || SingleExerciseIcon
+              return (
+                <IconComponent 
+                  color="accent"
+                  size={24}
+                  style={{ marginTop: 'var(--spacing-1)' }}
+                />
+              )
             })()}
-            <span className="text-sm font-medium text-white">
-              {getGroupTypeDisplayName(selectedType)}
-            </span>
-          </div>
-          <div className="text-xs text-gray-400">
-            {GROUP_TYPE_OPTIONS.find(opt => opt.type === selectedType)?.description}
+            <div className="flex-1">
+              <h4 
+                style={{
+                  fontSize: 'var(--font-size-sm)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  color: 'var(--text-primary)',
+                  marginBottom: 'var(--spacing-1)'
+                }}
+              >
+                {getGroupTypeDisplayName(selectedType)} Selected
+              </h4>
+              <p 
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  color: 'var(--text-secondary)'
+                }}
+              >
+                {GROUP_TYPE_OPTIONS.find(opt => opt.type === selectedType)?.description}
+              </p>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Validation Messages */}
-      {!disabled && (
-        <div className="space-y-1">
-          {optionStates
-            .filter(({ validation, isEnabled }) => !validation.isValid && !isEnabled)
-            .map(({ option, validation }) => (
-              <div key={option.type} className="text-xs text-yellow-400 bg-yellow-500/10 p-2 rounded border border-yellow-500/20">
-                <span className="font-medium">{option.label}:</span> {validation.errors.join(', ')}
-              </div>
-            ))}
-        </div>
-      )}
     </div>
   )
 }

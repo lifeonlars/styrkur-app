@@ -6,7 +6,7 @@ import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
 import { ComponentShowcase } from '@/components/styleguide/StyleGuideComponents'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card'
-import { Plus, Settings, Heart, Share, Download, Edit, Trash2, Search, Check, X, Star, Clock, Calendar, User, Dumbbell, Target, Tag, Filter, Bell, Zap, Award, Users } from 'lucide-react'
+import { Plus, Settings, Heart, Trash2, Check, X, Star, Clock, Calendar, User, Dumbbell, Tag, Filter, Bell, Zap, Award, Users } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/ui/dialog'
 import { showToast } from '@/ui/sonner'
@@ -15,14 +15,8 @@ import { Chip } from '@/ui/chip'
 
 // Exercise Groups Phase 2B Components
 import GroupTypeSelector from '@/components/workout/GroupTypeSelector'
-import ExecutionStyleSelector from '@/components/workout/ExecutionStyleSelector'
-import RepSchemeSelector from '@/components/workout/RepSchemeSelector'
-import WeightProgressionConfig from '@/components/workout/WeightProgressionConfig'
-import GroupPreview from '@/components/workout/GroupPreview'
-import ValidationFeedback, { createValidationMessage } from '@/components/workout/ValidationFeedback'
-import DuplicateGroupAction from '@/components/workout/DuplicateGroupAction'
-import GroupConfigurationModal from '@/components/workout/GroupConfigurationModal'
 import GroupConfigurationPanel from '@/components/workout/GroupConfigurationPanel'
+import { SingleExerciseIcon, SupersetIcon, CircuitIcon, ComplexIcon } from '@/components/workout/icons/GroupTypeIcons'
 
 // Helper function to create mock exercises for styleguide
 const createMockExercise = (id: string, name: string, muscleGroup: string, equipment: string) => ({
@@ -1335,494 +1329,632 @@ showToast.default('General notification')`}
 
       case 'exercise-groups':
         return (
-          <div className="space-y-8">
-            {/* Introduction */}
-            <Card depth="subtle" surface="convex" border="subtle">
-              <CardHeader>
-                <CardTitle className="text-h2">🏋️ Exercise Groups Configuration</CardTitle>
-                <CardDescription>
-                  Phase 2B component system for configuring exercise groups with different types, execution styles, 
-                  rep schemes, and weight progressions. Includes dual-path EMOM ascending logic and real-time validation.
+          <div className="space-y-12">
+            {/* Hero Introduction */}
+            <Card depth="elevated" surface="convex" border="subtle">
+              <CardHeader className="text-center pb-8">
+                <CardTitle className="text-h1 mb-4">🏋️ Exercise Groups</CardTitle>
+                <CardDescription className="text-lg max-w-2xl mx-auto">
+                  Configure how exercises work together - from single movements to complex training flows. 
+                  Smart recommendations guide you to the perfect setup.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            {/* Group Type Selector */}
-            <ComponentShowcase title="Group Type Selector - 36px Chip Hierarchy">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Different Exercise Counts</h4>
-                  <p className="text-gray-400 text-sm mb-4">Group type availability changes based on exercise count and equipment compatibility</p>
-                  
-                  <div className="space-y-6">
-                    {/* 1 Exercise - Only Single available */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">1 Exercise (Only Single Available)</h5>
-                      <GroupTypeSelector
-                        selectedType="single"
-                        exerciseCount={1}
-                        exercises={[createMockExercise('1', 'Bench Press', 'chest', 'barbell')]}
-                        onChange={(type) => showToast.info(`Selected: ${type}`)}
+            {/* Overview Section */}
+            <ComponentShowcase title="📖 How Exercise Groups Work">
+              <div 
+                className="depth-subtle surface-flat"
+                style={{
+                  borderRadius: 'var(--radius-xl)',
+                  padding: 'var(--spacing-8)'
+                }}
+              >
+                <div 
+                  className="grid grid-cols-2 md:grid-cols-4"
+                  style={{ gap: 'var(--spacing-6)', marginBottom: 'var(--spacing-8)' }}
+                >
+                  <div className="text-center">
+                    <div 
+                      className="flex items-center justify-center mx-auto"
+                      style={{
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      <SingleExerciseIcon 
+                        color="primary"
+                        size={48} 
                       />
                     </div>
-
-                    {/* 2 Exercises - Single, Superset */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">2 Exercises (Single, Superset Available)</h5>
-                      <GroupTypeSelector
-                        selectedType="superset"
-                        exerciseCount={2}
-                        exercises={[
-                          createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
-                          createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
-                        ]}
-                        onChange={(type) => showToast.info(`Selected: ${type}`)}
-                      />
-                    </div>
-
-                    {/* 5 Exercises - Single, Superset, Circuit */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">5 Exercises (Single, Superset, Circuit Available)</h5>
-                      <GroupTypeSelector
-                        selectedType="circuit"
-                        exerciseCount={5}
-                        exercises={[
-                          createMockExercise('1', 'Push-ups', 'chest', 'bodyweight'),
-                          createMockExercise('2', 'Squats', 'legs', 'bodyweight'),
-                          createMockExercise('3', 'Pull-ups', 'back', 'bodyweight'),
-                          createMockExercise('4', 'Lunges', 'legs', 'bodyweight'),
-                          createMockExercise('5', 'Plank', 'core', 'bodyweight')
-                        ]}
-                        onChange={(type) => showToast.info(`Selected: ${type}`)}
-                      />
-                    </div>
-
-                    {/* 5 Exercises with Same Equipment - Complex Also Available */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">5 Exercises with Compatible Equipment (Complex Also Available)</h5>
-                      <GroupTypeSelector
-                        selectedType="complex"
-                        exerciseCount={5}
-                        exercises={[
-                          createMockExercise('1', 'Deadlift', 'back', 'barbell'),
-                          createMockExercise('2', 'Bent-over Row', 'back', 'barbell'),
-                          createMockExercise('3', 'Romanian Deadlift', 'back', 'barbell'),
-                          createMockExercise('4', 'Upright Row', 'shoulders', 'barbell'),
-                          createMockExercise('5', 'Barbell Curl', 'arms', 'barbell')
-                        ]}
-                        onChange={(type) => showToast.info(`Selected: ${type}`)}
-                      />
-                    </div>
+                    <h4 
+                      style={{
+                        color: 'var(--text-primary)',
+                        fontWeight: 'var(--font-weight-semibold)',
+                        marginBottom: 'var(--spacing-2)'
+                      }}
+                    >
+                      Single
+                    </h4>
+                    <p 
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)'
+                      }}
+                    >
+                      Individual exercises with full rest between sets
+                    </p>
                   </div>
+                  
+                  <div className="text-center">
+                    <div 
+                      className="flex items-center justify-center mx-auto"
+                      style={{
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      <SupersetIcon 
+                        color="primary"
+                        size={48} 
+                      />
+                    </div>
+                    <h4 
+                      style={{
+                        color: 'var(--text-primary)',
+                        fontWeight: 'var(--font-weight-semibold)',
+                        marginBottom: 'var(--spacing-2)'
+                      }}
+                    >
+                      Superset
+                    </h4>
+                    <p 
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)'
+                      }}
+                    >
+                      2-3 exercises back-to-back for intensity
+                    </p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div 
+                      className="flex items-center justify-center mx-auto"
+                      style={{
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      <CircuitIcon 
+                        color="primary"
+                        size={48} 
+                      />
+                    </div>
+                    <h4 
+                      style={{
+                        color: 'var(--text-primary)',
+                        fontWeight: 'var(--font-weight-semibold)',
+                        marginBottom: 'var(--spacing-2)'
+                      }}
+                    >
+                      Circuit
+                    </h4>
+                    <p 
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)'
+                      }}
+                    >
+                      Multiple rounds of exercise sequences
+                    </p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div 
+                      className="flex items-center justify-center mx-auto"
+                      style={{
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      <ComplexIcon 
+                        color="primary"
+                        size={48} 
+                      />
+                    </div>
+                    <h4 
+                      style={{
+                        color: 'var(--text-primary)',
+                        fontWeight: 'var(--font-weight-semibold)',
+                        marginBottom: 'var(--spacing-2)'
+                      }}
+                    >
+                      Complex
+                    </h4>
+                    <p 
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)'
+                      }}
+                    >
+                      Same equipment, seamless transitions
+                    </p>
+                  </div>
+                </div>
+                
+                <div 
+                  className="text-center"
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid var(--border-neu-gold-light)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-4)'
+                  }}
+                >
+                  <h5 
+                    style={{
+                      color: 'var(--text-accent)',
+                      fontWeight: 'var(--font-weight-medium)',
+                      marginBottom: 'var(--spacing-2)'
+                    }}
+                  >
+                    💡 Smart Selection
+                  </h5>
+                  <p 
+                    style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: 'var(--font-size-sm)'
+                    }}
+                  >
+                    The system automatically recommends the best group type based on your exercise count and equipment compatibility
+                  </p>
                 </div>
               </div>
             </ComponentShowcase>
 
-            {/* Execution Style Selector */}
-            <ComponentShowcase title="Execution Style Selector - 24px Secondary Chips">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Compatibility with Rep Schemes</h4>
-                  <p className="text-gray-400 text-sm mb-4">Execution style options change based on selected rep scheme compatibility</p>
-                  
-                  <div className="space-y-6">
-                    {/* Standard rep scheme - All options available */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">With Standard Rep Scheme (All Options Available)</h5>
-                      <ExecutionStyleSelector
-                        selectedStyle="standard"
-                        repScheme="standard"
-                        onChange={(style) => showToast.info(`Selected: ${style}`)}
-                        onStyleConfigChange={(config) => showToast.info(`Config: ${JSON.stringify(config)}`)}
-                      />
-                    </div>
-
-                    {/* Pyramid rep scheme - Only Standard available */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">With Pyramid Rep Scheme (Only Standard Available)</h5>
-                      <ExecutionStyleSelector
-                        selectedStyle="standard"
-                        repScheme="pyramid"
-                        onChange={(style) => showToast.info(`Selected: ${style}`)}
-                        onStyleConfigChange={(config) => showToast.info(`Config: ${JSON.stringify(config)}`)}
-                      />
-                    </div>
-
-                    {/* Ascending rep scheme - Standard + EMOM available */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">With Ascending Rep Scheme (EMOM Preferred)</h5>
-                      <ExecutionStyleSelector
-                        selectedStyle="EMOM"
-                        repScheme="ascending"
-                        onChange={(style) => showToast.info(`Selected: ${style}`)}
-                        onStyleConfigChange={(config) => showToast.info(`Config: ${JSON.stringify(config)}`)}
-                      />
-                    </div>
-                  </div>
-                </div>
+            {/* Prominent Group Type Selection */}
+            <ComponentShowcase title="🎯 Group Type Selection">
+              <div 
+                className="depth-subtle surface-flat"
+                style={{
+                  borderRadius: 'var(--radius-xl)',
+                  padding: 'var(--spacing-8)'
+                }}
+              >
+                <h4 
+                  className="text-center"
+                  style={{
+                    color: 'var(--text-primary)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    marginBottom: 'var(--spacing-6)'
+                  }}
+                >
+                  Experience the New Card-Based Selection
+                </h4>
+                
+                <GroupTypeSelector
+                  selectedType="superset"
+                  exerciseCount={2}
+                  exercises={[
+                    createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
+                    createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
+                  ]}
+                  onChange={(type) => showToast.success(`Selected: ${type} - Perfect choice!`)}
+                />
               </div>
             </ComponentShowcase>
 
-            {/* Rep Scheme Selector */}
-            <ComponentShowcase title="Rep Scheme Selector - Pattern Previews">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">All Rep Scheme Types with Patterns</h4>
-                  <p className="text-gray-400 text-sm mb-4">Different rep schemes with expandable pattern options and previews</p>
-                  
-                  <div className="space-y-6">
-                    {/* Standard */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Standard Rep Scheme</h5>
-                      <RepSchemeSelector
-                        selectedScheme="standard"
-                        executionStyle="standard"
-                        onChange={(scheme, pattern) => showToast.info(`Selected: ${scheme}${pattern ? ` (${pattern})` : ''}`)}
-                      />
-                    </div>
-
-                    {/* Descending */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Descending Rep Scheme</h5>
-                      <RepSchemeSelector
-                        selectedScheme="descending"
-                        selectedPattern="21-3"
-                        executionStyle="standard"
-                        onChange={(scheme, pattern) => showToast.info(`Selected: ${scheme}${pattern ? ` (${pattern})` : ''}`)}
-                      />
-                    </div>
-
-                    {/* Pyramid */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Pyramid Rep Scheme</h5>
-                      <RepSchemeSelector
-                        selectedScheme="pyramid"
-                        selectedPattern="10-1-10"
-                        executionStyle="standard"
-                        onChange={(scheme, pattern) => showToast.info(`Selected: ${scheme}${pattern ? ` (${pattern})` : ''}`)}
-                      />
-                    </div>
-
-                    {/* Ascending - EMOM Special */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Ascending Rep Scheme (EMOM Ascending)</h5>
-                      <RepSchemeSelector
-                        selectedScheme="ascending"
-                        selectedPattern="1-rep"
-                        executionStyle="EMOM"
-                        onChange={(scheme, pattern) => showToast.info(`Selected: ${scheme}${pattern ? ` (${pattern})` : ''}`)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Weight Progression Config */}
-            <ComponentShowcase title="Weight Progression Config - Pyramid Schemes">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Weight Progression Examples</h4>
-                  <p className="text-gray-400 text-sm mb-4">Configure automatic weight progression for pyramid rep schemes</p>
-                  
-                  <div className="space-y-6">
-                    {/* 10-1-10 pyramid example */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">10-1-10 Pyramid (50kg start, 100kg peak)</h5>
-                      <WeightProgressionConfig
-                        repPattern={[10, 8, 6, 4, 2, 1, 2, 4, 6, 8, 10]}
-                        startWeight={50}
-                        peakWeight={100}
-                        onStartWeightChange={(weight) => showToast.info(`Start weight: ${weight}kg`)}
-                        onPeakWeightChange={(weight) => showToast.info(`Peak weight: ${weight}kg`)}
-                        weightUnit="kg"
-                        exerciseName="Bench Press"
-                      />
-                    </div>
-
-                    {/* 15-3-15 pyramid example */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">15-3-15 Pyramid (30kg start, 80kg peak)</h5>
-                      <WeightProgressionConfig
-                        repPattern={[15, 12, 9, 6, 3, 6, 9, 12, 15]}
-                        startWeight={30}
-                        peakWeight={80}
-                        onStartWeightChange={(weight) => showToast.info(`Start weight: ${weight}kg`)}
-                        onPeakWeightChange={(weight) => showToast.info(`Peak weight: ${weight}kg`)}
-                        weightUnit="kg"
-                        exerciseName="Dumbbell Curl"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Group Preview */}
-            <ComponentShowcase title="Group Preview - Generated Sets & Stats">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Group Preview Examples</h4>
-                  <p className="text-gray-400 text-sm mb-4">Preview of configured groups with generated sets and statistics</p>
-                  
-                  <div className="space-y-6">
-                    {/* Circuit example */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Circuit Group Preview</h5>
-                      <GroupPreview
-                        group={{
-                          type: 'circuit',
-                          label: 'HIIT Circuit',
-                          repScheme: { type: 'descending', autoGenerate: true, pattern: '15-3' },
-                          executionStyle: { style: 'HIIT', workInterval: 45, restInterval: 15 },
-                          estimatedDuration: 25
+            {/* Configuration Flow Example */}
+            <ComponentShowcase title="⚙️ Real Configuration Flow">
+              <div 
+                className="depth-subtle surface-flat"
+                style={{
+                  borderRadius: 'var(--radius-xl)',
+                  padding: 'var(--spacing-8)'
+                }}
+              >
+                <h4 
+                  className="text-center"
+                  style={{
+                    color: 'var(--text-primary)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    marginBottom: 'var(--spacing-6)'
+                  }}
+                >
+                  "Create a Push/Pull Superset" - Step by Step
+                </h4>
+                
+                <div 
+                  className="grid grid-cols-1 lg:grid-cols-3"
+                  style={{ gap: 'var(--spacing-6)' }}
+                >
+                  {/* Step 1 */}
+                  <div 
+                    className="depth-subtle surface-convex text-center"
+                    style={{
+                      border: '1px solid var(--border-neu-subtle)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: 'var(--spacing-6)'
+                    }}
+                  >
+                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
+                      <div 
+                        className="flex items-center justify-center mx-auto"
+                        style={{
+                          width: 'var(--spacing-8)',
+                          height: 'var(--spacing-8)',
+                          background: 'var(--surface-gold)',
+                          borderRadius: 'var(--radius-full)',
+                          marginBottom: 'var(--spacing-2)'
                         }}
-                        exercises={[
-                          createMockExercise('1', 'Burpees', 'full-body', 'bodyweight'),
-                          createMockExercise('2', 'Mountain Climbers', 'core', 'bodyweight'),
-                          createMockExercise('3', 'Jump Squats', 'legs', 'bodyweight')
-                        ]}
-                        expanded={true}
-                        showDuration={true}
-                      />
-                    </div>
-
-                    {/* Superset example */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Superset Group Preview</h5>
-                      <GroupPreview
-                        group={{
-                          type: 'superset',
-                          label: 'Push/Pull Superset',
-                          repScheme: { type: 'standard', autoGenerate: false },
-                          executionStyle: { style: 'standard' },
-                          estimatedDuration: 15
+                      >
+                        <span 
+                          style={{
+                            color: 'var(--text-inverse)',
+                            fontWeight: 'var(--font-weight-semibold)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          1
+                        </span>
+                      </div>
+                      <h5 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontWeight: 'var(--font-weight-medium)'
                         }}
-                        exercises={[
-                          createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
-                          createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
-                        ]}
-                        expanded={true}
-                        showDuration={true}
-                      />
+                      >
+                        Select Group Type
+                      </h5>
+                    </div>
+                    <p 
+                      className="text-center"
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)',
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      Perfect for 2 exercises that target opposing muscle groups
+                    </p>
+                    <div className="text-center">
+                      <div 
+                        className="inline-flex items-center"
+                        style={{
+                          gap: 'var(--spacing-2)',
+                          background: 'transparent',
+                          border: '1px solid var(--border-neu-gold-light)',
+                          padding: 'var(--spacing-2) var(--spacing-3)',
+                          borderRadius: 'var(--radius-lg)'
+                        }}
+                      >
+                        <SupersetIcon 
+                          color="accent"
+                          size={20} 
+                        />
+                        <span 
+                          style={{
+                            color: 'var(--text-accent)',
+                            fontWeight: 'var(--font-weight-medium)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          Superset
+                        </span>
+                      </div>
                     </div>
                   </div>
+
+                  {/* Step 2 */}
+                  <div 
+                    className="depth-subtle surface-convex text-center"
+                    style={{
+                      border: '1px solid var(--border-neu-subtle)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: 'var(--spacing-6)'
+                    }}
+                  >
+                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
+                      <div 
+                        className="flex items-center justify-center mx-auto"
+                        style={{
+                          width: 'var(--spacing-8)',
+                          height: 'var(--spacing-8)',
+                          background: 'var(--surface-gold)',
+                          borderRadius: 'var(--radius-full)',
+                          marginBottom: 'var(--spacing-2)'
+                        }}
+                      >
+                        <span 
+                          style={{
+                            color: 'var(--text-inverse)',
+                            fontWeight: 'var(--font-weight-semibold)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          2
+                        </span>
+                      </div>
+                      <h5 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontWeight: 'var(--font-weight-medium)'
+                        }}
+                      >
+                        Choose Timing
+                      </h5>
+                    </div>
+                    <p 
+                      className="text-center"
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)',
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      Standard timing works best for strength supersets
+                    </p>
+                    <div className="text-center">
+                      <div 
+                        className="inline-flex items-center"
+                        style={{
+                          gap: 'var(--spacing-2)',
+                          background: 'rgba(var(--neu-light), 0.1)',
+                          padding: 'var(--spacing-2) var(--spacing-3)',
+                          borderRadius: 'var(--radius-lg)'
+                        }}
+                      >
+                        <span 
+                          style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: 'var(--font-weight-medium)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          Standard Timing
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div 
+                    className="depth-subtle surface-convex text-center"
+                    style={{
+                      border: '1px solid var(--border-neu-subtle)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: 'var(--spacing-6)'
+                    }}
+                  >
+                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
+                      <div 
+                        className="flex items-center justify-center mx-auto"
+                        style={{
+                          width: 'var(--spacing-8)',
+                          height: 'var(--spacing-8)',
+                          background: 'var(--surface-success)',
+                          borderRadius: 'var(--radius-full)',
+                          marginBottom: 'var(--spacing-2)'
+                        }}
+                      >
+                        <span 
+                          style={{
+                            color: 'var(--text-primary)',
+                            fontWeight: 'var(--font-weight-semibold)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          ✓
+                        </span>
+                      </div>
+                      <h5 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontWeight: 'var(--font-weight-medium)'
+                        }}
+                      >
+                        Ready to Use
+                      </h5>
+                    </div>
+                    <p 
+                      className="text-center"
+                      style={{
+                        color: 'var(--text-secondary)',
+                        fontSize: 'var(--font-size-sm)',
+                        marginBottom: 'var(--spacing-4)'
+                      }}
+                    >
+                      Your superset is configured and ready for your workout
+                    </p>
+                    <div className="text-center">
+                      <div 
+                        className="inline-flex items-center"
+                        style={{
+                          gap: 'var(--spacing-2)',
+                          background: 'var(--surface-success)',
+                          padding: 'var(--spacing-2) var(--spacing-3)',
+                          borderRadius: 'var(--radius-lg)'
+                        }}
+                      >
+                        <span 
+                          style={{
+                            color: 'var(--text-success)',
+                            fontWeight: 'var(--font-weight-medium)',
+                            fontSize: 'var(--font-size-sm)'
+                          }}
+                        >
+                          Complete
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div 
+                  style={{
+                    marginTop: 'var(--spacing-8)',
+                    background: 'transparent',
+                    border: '1px solid var(--border-neu-gold-light)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--spacing-4)'
+                  }}
+                >
+                  <h5 
+                    className="text-center"
+                    style={{
+                      color: 'var(--text-accent)',
+                      fontWeight: 'var(--font-weight-medium)',
+                      marginBottom: 'var(--spacing-2)'
+                    }}
+                  >
+                    🎯 Why This Works
+                  </h5>
+                  <p 
+                    className="text-center"
+                    style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: 'var(--font-size-sm)'
+                    }}
+                  >
+                    Bench Press (Push) + Bent-over Row (Pull) = Perfect opposing muscle group pairing for efficient training
+                  </p>
                 </div>
               </div>
             </ComponentShowcase>
 
-            {/* Validation Feedback */}
-            <ComponentShowcase title="Validation Feedback - Error States">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Validation Examples</h4>
-                  <p className="text-gray-400 text-sm mb-4">Real-time validation feedback with different message types</p>
-                  
-                  <div className="space-y-6">
-                    {/* Error messages */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Error Messages</h5>
-                      <ValidationFeedback
-                        messages={[
-                          createValidationMessage('error', 'Invalid Group Size', 'Circuit groups require at least 3 exercises', { 
-                            suggestion: 'Add more exercises or choose Superset' 
-                          }),
-                          createValidationMessage('error', 'Equipment Incompatibility', 'Complex groups require exercises with shared equipment')
-                        ]}
-                        onDismiss={(id) => showToast.info(`Dismissed: ${id}`)}
-                      />
-                    </div>
-
-                    {/* Warning messages */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Warning Messages</h5>
-                      <ValidationFeedback
-                        messages={[
-                          createValidationMessage('warning', 'Style Compatibility', 'Pyramid schemes work best with standard timing', {
-                            suggestion: 'Consider using Standard execution style'
-                          })
-                        ]}
-                        onDismiss={(id) => showToast.info(`Dismissed: ${id}`)}
-                      />
-                    </div>
-
-                    {/* Success messages */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Success Messages</h5>
-                      <ValidationFeedback
-                        messages={[
-                          createValidationMessage('success', 'Configuration Valid', 'Your group configuration is ready to use'),
-                          createValidationMessage('info', 'EMOM Ascending', 'Perfect combination for building work capacity', {
-                            suggestion: 'Start conservative with the duration'
-                          })
-                        ]}
-                        onDismiss={(id) => showToast.info(`Dismissed: ${id}`)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Duplicate Group Action */}
-            <ComponentShowcase title="Duplicate Group Action">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Group Duplication</h4>
-                  <p className="text-gray-400 text-sm mb-4">Quick duplication and custom labeling for existing groups</p>
-                  
-                  <div className="space-y-6">
-                    {/* Compact version */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Compact Version</h5>
-                      <DuplicateGroupAction
-                        group={{
-                          id: 'example-group',
-                          type: 'superset',
-                          label: 'Push/Pull Superset',
-                          exercises: [
-                            { exerciseId: '1', sets: 3, reps: 10, weight: 100, rest: 90 },
-                            { exerciseId: '2', sets: 3, reps: 10, weight: 80, rest: 90 }
-                          ],
-                          sets: 3,
-                          restAfterGroup: 120,
-                          repScheme: { type: 'standard', autoGenerate: false },
-                          executionStyle: { style: 'standard' },
-                          estimatedDuration: 15,
-                          totalSets: 6
-                        }}
-                        onDuplicate={(group, label) => showToast.success(`Duplicated: ${label || group.label}`)}
-                        compact={true}
-                      />
-                    </div>
-
-                    {/* Full version */}
-                    <div>
-                      <h5 className="text-norse-gold font-medium mb-2">Full Version with Custom Labeling</h5>
-                      <DuplicateGroupAction
-                        group={{
-                          id: 'example-group-2',
-                          type: 'circuit',
-                          label: 'HIIT Circuit',
-                          exercises: [
-                            { exerciseId: '1', sets: 5, reps: 15, weight: 0, rest: 15 },
-                            { exerciseId: '2', sets: 5, reps: 12, weight: 0, rest: 15 },
-                            { exerciseId: '3', sets: 5, reps: 9, weight: 0, rest: 15 }
-                          ],
-                          sets: 5,
-                          restAfterGroup: 180,
-                          repScheme: { type: 'descending', autoGenerate: true, pattern: '15-3' },
-                          executionStyle: { style: 'HIIT', workInterval: 45, restInterval: 15 },
-                          estimatedDuration: 25,
-                          totalSets: 15
-                        }}
-                        onDuplicate={(group, label) => showToast.success(`Duplicated: ${label || group.label}`)}
-                        compact={false}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Group Configuration Panel */}
-            <ComponentShowcase title="Group Configuration Panel - Complete Workflow">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Full Configuration Panel</h4>
-                  <p className="text-gray-400 text-sm mb-4">Complete step-by-step configuration with auto-advance and validation</p>
-                  
-                  <div className="space-y-4">
-                    <div style={{ height: '600px', overflow: 'hidden' }}>
+            {/* Complete User Journey Demo */}
+            <ComponentShowcase title="🔄 Complete User Journey">
+              <div 
+                className="depth-subtle surface-flat"
+                style={{
+                  borderRadius: 'var(--radius-xl)',
+                  padding: 'var(--spacing-8)'
+                }}
+              >
+                <h4 
+                  className="text-center"
+                  style={{
+                    color: 'var(--text-primary)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    marginBottom: 'var(--spacing-6)'
+                  }}
+                >
+                  From Exercise Selection to Final Group Configuration
+                </h4>
+                
+                <div className="max-w-4xl mx-auto">
+                  {/* Fixed Height Container for Configuration Panel */}
+                  <div 
+                    className="depth-subtle surface-convex overflow-hidden"
+                    style={{
+                      border: '1px solid var(--border-neu-subtle)',
+                      borderRadius: 'var(--radius-xl)'
+                    }}
+                  >
+                    <div className="h-[600px] relative">
                       <GroupConfigurationPanel
                         exercises={[
                           createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
                           createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
                         ]}
-                        onSave={(group) => showToast.success(`Saved: ${group.label}`)}
+                        onSave={(group) => showToast.success(`🎉 Created: ${group.label} with ${group.exercises.length} exercises!`)}
                         onCancel={() => showToast.info('Configuration cancelled')}
                         weightUnit="kg"
-                        autoAdvance={true}
+                        autoAdvance={false}
                         showPreview={true}
-                        title="Configure Superset"
+                        compact={false}
+                        title="Create Your Perfect Superset"
                       />
                     </div>
-                    
-                    <div className="p-4 bg-neu-card rounded-lg">
-                      <h5 className="text-white font-medium mb-2">Panel Features</h5>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• Step-by-step configuration with progress indicators</li>
-                        <li>• Auto-advance when steps are completed</li>
-                        <li>• Real-time validation with error prevention</li>
-                        <li>• Dual-path EMOM ascending logic</li>
-                        <li>• Clickable step progress bar for navigation</li>
-                        <li>• Smart defaults and compatibility checking</li>
-                        <li>• Mobile-optimized with thumb-friendly controls</li>
-                        <li>• Integrated preview with generated sets</li>
-                      </ul>
-                    </div>
                   </div>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Complete Configuration Modal */}
-            <ComponentShowcase title="Complete Configuration Modal">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Group Configuration Modal</h4>
-                  <p className="text-gray-400 text-sm mb-4">Complete configuration workflow with step progression and validation</p>
                   
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Superset Configuration */}
-                      <div>
-                        <h5 className="text-norse-gold font-medium mb-2">Configure Superset</h5>
-                        <GroupConfigurationModal
-                          isOpen={false}
-                          onClose={() => {}}
-                          onSave={(group) => showToast.success(`Saved: ${group.label}`)}
-                          exercises={[
-                            createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
-                            createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
-                          ]}
-                          title="Configure Superset"
-                          weightUnit="kg"
-                        />
-                        <Button 
-                          variant="primary" 
-                          onClick={() => showToast.info('Modal would open here')}
-                          className="w-full"
-                        >
-                          Open Superset Configuration
-                        </Button>
-                      </div>
-
-                      {/* Circuit Configuration */}
-                      <div>
-                        <h5 className="text-norse-gold font-medium mb-2">Configure Circuit</h5>
-                        <Button 
-                          variant="primary" 
-                          onClick={() => showToast.info('Circuit configuration modal would open')}
-                          className="w-full"
-                        >
-                          Open Circuit Configuration
-                        </Button>
-                      </div>
+                  {/* Journey Benefits */}
+                  <div 
+                    className="grid grid-cols-1 md:grid-cols-3"
+                    style={{
+                      marginTop: 'var(--spacing-8)',
+                      gap: 'var(--spacing-4)'
+                    }}
+                  >
+                    <div 
+                      className="text-center"
+                      style={{
+                        background: 'var(--surface-success)',
+                        border: '1px solid var(--border-success)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4)'
+                      }}
+                    >
+                      <h5 
+                        style={{
+                          color: 'var(--text-success)',
+                          fontWeight: 'var(--font-weight-medium)',
+                          marginBottom: 'var(--spacing-2)'
+                        }}
+                      >
+                        🎯 Smart Guidance
+                      </h5>
+                      <p 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontSize: 'var(--font-size-sm)'
+                        }}
+                      >
+                        Automatic recommendations based on your exercise selection
+                      </p>
                     </div>
-
-                    <div className="p-4 bg-neu-card rounded-lg">
-                      <h5 className="text-white font-medium mb-2">Modal Features</h5>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• Step-by-step configuration workflow</li>
-                        <li>• Real-time validation with error prevention</li>
-                        <li>• Dual-path EMOM ascending logic</li>
-                        <li>• Progressive step indicators</li>
-                        <li>• Smart defaults based on exercise selection</li>
-                        <li>• Mobile-optimized with thumb-friendly interactions</li>
-                        <li>• Auto-save and draft state persistence</li>
-                        <li>• Accessibility compliant with ARIA labels</li>
-                      </ul>
+                    
+                    <div 
+                      className="text-center"
+                      style={{
+                        background: 'var(--surface-info)',
+                        border: '1px solid var(--border-info)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4)'
+                      }}
+                    >
+                      <h5 
+                        style={{
+                          color: 'var(--text-info)',
+                          fontWeight: 'var(--font-weight-medium)',
+                          marginBottom: 'var(--spacing-2)'
+                        }}
+                      >
+                        ⚡ Real-time Validation
+                      </h5>
+                      <p 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontSize: 'var(--font-size-sm)'
+                        }}
+                      >
+                        Instant feedback prevents configuration errors
+                      </p>
+                    </div>
+                    
+                    <div 
+                      className="text-center"
+                      style={{
+                        background: 'var(--surface-warning)',
+                        border: '1px solid var(--border-warning)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4)'
+                      }}
+                    >
+                      <h5 
+                        style={{
+                          color: 'var(--text-warning)',
+                          fontWeight: 'var(--font-weight-medium)',
+                          marginBottom: 'var(--spacing-2)'
+                        }}
+                      >
+                        🔧 Complete Control
+                      </h5>
+                      <p 
+                        style={{
+                          color: 'var(--text-primary)',
+                          fontSize: 'var(--font-size-sm)'
+                        }}
+                      >
+                        Advanced options for power users, simple defaults for beginners
+                      </p>
                     </div>
                   </div>
                 </div>
