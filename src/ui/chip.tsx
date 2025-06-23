@@ -51,9 +51,12 @@ const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
       >
         {icon && (
           <span className={`${styles['chip-icon']}`}>
-            {React.cloneElement(icon as React.ReactElement, {
-              className: `${styles['chip-icon']} ${(icon as React.ReactElement).props.className || ''}`
-            })}
+            {React.isValidElement(icon) 
+              ? React.cloneElement(icon, {
+                  className: `${styles['chip-icon']} ${(icon.props as any)?.className || ''}`
+                } as any)
+              : icon
+            }
           </span>
         )}
         <span className={styles['chip-text']}>{children}</span>

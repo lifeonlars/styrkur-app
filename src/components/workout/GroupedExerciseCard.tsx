@@ -3,6 +3,7 @@ import { Check, Plus, ChevronDown, ChevronUp, StickyNote, Info, X } from 'lucide
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
+import { Button } from '@/ui/button'
 import { Chip } from '@/ui/chip'
 import { GroupSessionLog, GroupSetLog, ExerciseInSetLog } from '@/types'
 import ExerciseInfoModal from '@/components/workout/ExerciseInfoModal'

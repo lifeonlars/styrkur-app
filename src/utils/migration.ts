@@ -109,7 +109,7 @@ export function migrateWorkout(workout: Workout): Workout {
   
   return {
     ...workout,
-    entries: enhancedEntries
+    entries: enhancedEntries as WorkoutEntry[]
   }
 }
 
@@ -218,7 +218,7 @@ function migrateLegacyWorkout(workout: Workout): Workout {
 
   return {
     ...workout,
-    entries
+    entries: entries as WorkoutEntry[]
   }
 }
 

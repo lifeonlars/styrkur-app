@@ -55,7 +55,7 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
           <div className="bg-neu-surface depth-subtle surface-flat border-neu-subtle rounded-xl p-4">
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-white font-heading font-medium text-sm">This Week</h3>
-              <Button variant="flat" size="sm" className="text-norse-gold text-sm">
+              <Button variant="flat" size="default" className="text-norse-gold text-sm">
                 Edit Schedule
               </Button>
             </div>
@@ -92,11 +92,11 @@ export default function ActiveTrainingSection(props: ActiveTrainingSectionProps)
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button variant="flat" size="sm" className="text-white flex items-center gap-1">
+                <Button variant="flat" size="default" className="text-white flex items-center gap-1">
                   <Eye className="w-3 h-3" />
                   View
                 </Button>
-                <Button variant="primary" size="sm" className="flex items-center gap-1">
+                <Button variant="primary" size="default" className="flex items-center gap-1">
                   <Play className="w-3 h-3" />
                   Start
                 </Button>

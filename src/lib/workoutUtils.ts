@@ -4,6 +4,7 @@ export interface WorkoutMetrics {
   totalSets: number
   totalReps: number
   totalWeight: number
+  heaviestWeight: number
   exerciseNames: string[]
   hasSuperset: boolean
   hasCircuit: boolean
@@ -14,6 +15,7 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
   let totalSets = 0
   let totalReps = 0
   let totalWeight = 0
+  let heaviestWeight = 0
   const exerciseNames: string[] = []
   let hasSuperset = false
   let hasCircuit = false
@@ -50,6 +52,11 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
         const exerciseReps = exerciseConfig.reps || 0
         const exerciseWeight = exerciseConfig.weight || 0
         
+        // Track heaviest weight
+        if (exerciseWeight > heaviestWeight) {
+          heaviestWeight = exerciseWeight
+        }
+        
         // For each set in the entry, add the reps and weight
         totalReps += entrySets * exerciseReps
         totalWeight += entrySets * exerciseReps * exerciseWeight
@@ -63,6 +70,11 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
       totalSets += exercise.sets
       totalReps += exercise.sets * exercise.reps
       totalWeight += exercise.sets * exercise.reps * exercise.weight
+      
+      // Track heaviest weight
+      if (exercise.weight > heaviestWeight) {
+        heaviestWeight = exercise.weight
+      }
       
       if (exercise.exerciseData?.name && !exerciseNames.includes(exercise.exerciseData.name)) {
         exerciseNames.push(exercise.exerciseData.name)
@@ -78,6 +90,11 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
         totalSets += supersetSets
         totalReps += supersetSets * exercise.reps
         totalWeight += supersetSets * exercise.reps * exercise.weight
+        
+        // Track heaviest weight
+        if (exercise.weight > heaviestWeight) {
+          heaviestWeight = exercise.weight
+        }
         
         if (exercise.exerciseData?.name && !exerciseNames.includes(exercise.exerciseData.name)) {
           exerciseNames.push(exercise.exerciseData.name)
@@ -95,6 +112,11 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
         totalReps += circuitSets * exercise.reps
         totalWeight += circuitSets * exercise.reps * exercise.weight
         
+        // Track heaviest weight
+        if (exercise.weight > heaviestWeight) {
+          heaviestWeight = exercise.weight
+        }
+        
         if (exercise.exerciseData?.name && !exerciseNames.includes(exercise.exerciseData.name)) {
           exerciseNames.push(exercise.exerciseData.name)
         }
@@ -106,6 +128,7 @@ export function calculateWorkoutMetrics(workout: Workout): WorkoutMetrics {
     totalSets,
     totalReps,
     totalWeight,
+    heaviestWeight,
     exerciseNames,
     hasSuperset,
     hasCircuit,

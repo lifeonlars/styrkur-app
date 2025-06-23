@@ -405,6 +405,74 @@ export function getGroupTypeDisplayName(groupType: EnhancedExerciseGroupType): s
 // ================================================================================================
 
 /**
+ * Check if exercises can form a complex based on equipment compatibility
+ */
+export function canFormComplex(exercises: Exercise[]): boolean {
+  if (exercises.length < 2) return false
+  
+  const equipmentSets = exercises.map(ex => 
+    new Set(ex.equipment.toLowerCase().split(/[\s,&]+/).filter(Boolean))
+  )
+  
+  // Find intersection of all equipment sets
+  const sharedEquipment = equipmentSets.reduce((intersection, currentSet) => {
+    return new Set(Array.from(intersection).filter(item => currentSet.has(item)))
+  })
+  
+  return sharedEquipment.size > 0
+}
+
+/**
+ * Get shared equipment across exercises
+ */
+export function getSharedEquipment(exercises: Exercise[]): string[] {
+  if (exercises.length === 0) return []
+  
+  const equipmentSets = exercises.map(ex => 
+    new Set(ex.equipment.toLowerCase().split(/[\s,&]+/).filter(Boolean))
+  )
+  
+  // Find intersection of all equipment sets
+  let sharedEquipment = equipmentSets[0]
+  for (let i = 1; i < equipmentSets.length; i++) {
+    sharedEquipment = new Set(Array.from(sharedEquipment).filter(item => equipmentSets[i].has(item)))
+  }
+  
+  return Array.from(sharedEquipment)
+}
+
+/**
+ * Estimate group duration based on type and exercise count
+ */
+export function estimateGroupDuration(
+  groupType: EnhancedExerciseGroupType,
+  exerciseCount: number
+): number {
+  const baseTimePerExercise = 3 // minutes
+  const setupTime = 2 // minutes
+  
+  switch (groupType) {
+    case 'single':
+      return baseTimePerExercise + setupTime
+    
+    case 'superset':
+      // Less rest between exercises in superset
+      return (exerciseCount * baseTimePerExercise * 0.8) + setupTime
+    
+    case 'circuit':
+      // Multiple rounds, more total time
+      return (exerciseCount * baseTimePerExercise * 1.2) + setupTime
+    
+    case 'complex':
+      // Minimal transitions, more efficient
+      return (exerciseCount * baseTimePerExercise * 0.7) + setupTime
+    
+    default:
+      return exerciseCount * baseTimePerExercise + setupTime
+  }
+}
+
+/**
  * Estimate workout duration for an enhanced workout entry
  */
 export function estimateWorkoutDuration(entry: EnhancedWorkoutEntry): number {

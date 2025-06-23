@@ -35,8 +35,6 @@ const Select = React.forwardRef<
   return (
     <SelectPrimitive.Root 
       {...props} 
-      // Prevent layout shift by disabling modal behavior and scrollbar compensation
-      modal={false}
     />
   )
 })
@@ -329,5 +327,4 @@ export {
   SelectScrollUpButton,
   SelectScrollDownButton,
   selectTriggerVariants,
-  type SelectTriggerProps,
 }

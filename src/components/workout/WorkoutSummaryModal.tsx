@@ -52,7 +52,7 @@ export default function WorkoutSummaryModal({ workout, isOpen, onClose }: Workou
         secondaryMuscleIds: exerciseData.secondaryMuscleIds || [],
         name: exerciseData.name
       } : null
-    }).filter(Boolean)
+    }).filter((ex): ex is NonNullable<typeof ex> => ex !== null)
   ) || []
 
   return (

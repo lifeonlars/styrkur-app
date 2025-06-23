@@ -123,7 +123,7 @@ export default function WorkoutTab({
               <Button
                 key={tag}
                 variant="flat"
-                size="sm"
+                size="default"
                 className="px-2 py-1 text-gray-300 text-sm"
               >
                 {tag}

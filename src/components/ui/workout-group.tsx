@@ -144,8 +144,8 @@ export default function WorkoutGroup({
               <div className="flex items-start gap-2">
                 {/* Expand/collapse button - always visible, aligned to top */}
                 <Button
-                  variant="ghost"
-                  size="sm"
+                  variant="flat"
+                  size="default"
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="h-8 w-8 p-0"
                 >
@@ -272,8 +272,8 @@ export default function WorkoutGroup({
                   <span className="text-sm font-medium text-gray-300">{setLabel} {set.setNumber}</span>
                   {groupLog.setLogs.length > 1 && (
                     <Button
-                      variant="ghost"
-                      size="sm"
+                      variant="flat"
+                      size="default"
                       onClick={() => onRemoveSet(setIndex)}
                       className="h-6 w-6 p-0 text-red-400 hover:text-red-300 hover:bg-red-900/20"
                     >
@@ -320,8 +320,8 @@ export default function WorkoutGroup({
                     
                     {/* Completion checkbox */}
                     <Button
-                      variant="ghost"
-                      size="sm"
+                      variant="flat"
+                      size="default"
                       onClick={() => toggleSetCompletion(setIndex, exerciseIndex)}
                       className={cn(
                         "h-9 w-9 p-0 rounded-lg transition-all border-2 flex-shrink-0",
@@ -358,8 +358,8 @@ export default function WorkoutGroup({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <Button
-            variant="ghost"
-            size="sm"
+            variant="flat"
+            size="default"
             onClick={() => setShowNotes(!showNotes)}
             className="flex items-center gap-2 text-gray-400 hover:text-gray-300"
           >
