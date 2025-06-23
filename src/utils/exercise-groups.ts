@@ -410,9 +410,13 @@ export function getGroupTypeDisplayName(groupType: EnhancedExerciseGroupType): s
 export function canFormComplex(exercises: Exercise[]): boolean {
   if (exercises.length < 2) return false
   
-  const equipmentSets = exercises.map(ex => 
-    new Set(ex.equipment.toLowerCase().split(/[\s,&]+/).filter(Boolean))
-  )
+  const equipmentSets = exercises.map(ex => {
+    // Handle both string and array equipment formats
+    const equipmentStr = Array.isArray(ex.equipment) 
+      ? ex.equipment.join(' ')
+      : ex.equipment || ''
+    return new Set(equipmentStr.toLowerCase().split(/[\s,&]+/).filter(Boolean))
+  })
   
   // Find intersection of all equipment sets
   const sharedEquipment = equipmentSets.reduce((intersection, currentSet) => {
@@ -428,9 +432,13 @@ export function canFormComplex(exercises: Exercise[]): boolean {
 export function getSharedEquipment(exercises: Exercise[]): string[] {
   if (exercises.length === 0) return []
   
-  const equipmentSets = exercises.map(ex => 
-    new Set(ex.equipment.toLowerCase().split(/[\s,&]+/).filter(Boolean))
-  )
+  const equipmentSets = exercises.map(ex => {
+    // Handle both string and array equipment formats
+    const equipmentStr = Array.isArray(ex.equipment) 
+      ? ex.equipment.join(' ')
+      : ex.equipment || ''
+    return new Set(equipmentStr.toLowerCase().split(/[\s,&]+/).filter(Boolean))
+  })
   
   // Find intersection of all equipment sets
   let sharedEquipment = equipmentSets[0]
