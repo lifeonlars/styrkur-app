@@ -3,7 +3,7 @@ import { Plus, Search, CheckCircle } from 'lucide-react'
 import { Input } from '@/ui/input'
 import { Button } from '@/ui/button'
 import { Workout } from '@/types'
-import WorkoutFormModal from '@/components/workout/WorkoutFormModal'
+import WorkoutFormModal from '@/components/workout/EnhancedWorkoutFormModal'
 import EnhancedWorkoutCard from './EnhancedWorkoutCard'
 
 interface WorkoutTabProps {

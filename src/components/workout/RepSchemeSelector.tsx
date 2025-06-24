@@ -6,10 +6,8 @@ import {
   TrendingDown, 
   Triangle, 
   TrendingUp, 
-  Info, 
   ChevronDown, 
-  ChevronUp,
-  Clock
+  ChevronUp
 } from 'lucide-react'
 import { Chip } from '@/ui/chip'
 import { Button } from '@/ui/button'
@@ -69,10 +67,9 @@ const REP_SCHEME_OPTIONS: RepSchemeOption[] = [
   {
     type: 'descending',
     label: 'Descending',
-    description: 'Start high, decrease reps each set - great for strength endurance',
+    description: 'Start high, decrease reps each set',
     icon: TrendingDown,
-    compatibleExecutionStyles: ['standard', 'HIIT'],
-    incompatibleExecutionStyles: ['EMOM', 'AMRAP'],
+    compatibleExecutionStyles: ['standard'],
     patterns: [
       {
         id: '10-1',
@@ -100,10 +97,9 @@ const REP_SCHEME_OPTIONS: RepSchemeOption[] = [
   {
     type: 'pyramid',
     label: 'Pyramid',
-    description: 'Up then down - build to peak then descend for maximum volume',
+    description: 'Up then down - build to peak then descend',
     icon: Triangle,
     compatibleExecutionStyles: ['standard'],
-    incompatibleExecutionStyles: ['HIIT', 'EMOM', 'AMRAP'],
     patterns: [
       {
         id: '10-1-10',
@@ -124,10 +120,9 @@ const REP_SCHEME_OPTIONS: RepSchemeOption[] = [
   {
     type: 'ascending',
     label: 'Ascending',
-    description: 'Start low, increase each minute - perfect for EMOM workouts',
+    description: 'Start low, increase each set',
     icon: TrendingUp,
-    compatibleExecutionStyles: ['EMOM'],
-    incompatibleExecutionStyles: ['standard', 'HIIT', 'AMRAP'],
+    compatibleExecutionStyles: ['standard', 'EMOM'],
     patterns: [
       {
         id: '1-rep',
@@ -208,19 +203,23 @@ function isSchemeCompatible(scheme: RepSchemeType, executionStyle: ExecutionStyl
 }
 
 function getIncompatibilityReason(scheme: RepSchemeType, executionStyle: ExecutionStyle): string {
-  if (scheme === 'descending' && (executionStyle === 'EMOM' || executionStyle === 'AMRAP')) {
-    return 'Descending rep schemes work best with standard timing or HIIT intervals'
+  if (scheme === 'descending' && executionStyle !== 'standard') {
+    return 'Descending patterns require standard execution timing'
   }
   
   if (scheme === 'pyramid' && executionStyle !== 'standard') {
-    return 'Pyramid schemes require standard execution for proper progression'
+    return 'Pyramid patterns require standard execution timing'
   }
   
-  if (scheme === 'ascending' && executionStyle !== 'EMOM') {
-    return 'Ascending reps are designed specifically for EMOM workouts'
+  if (scheme === 'ascending' && executionStyle === 'HIIT') {
+    return 'Ascending patterns work with standard or EMOM execution'
   }
   
-  return 'This combination may not provide optimal training stimulus'
+  if (scheme === 'ascending' && executionStyle === 'AMRAP') {
+    return 'Ascending patterns work with standard or EMOM execution'
+  }
+  
+  return 'This combination is not technically compatible'
 }
 
 // ================================================================================================
@@ -304,22 +303,9 @@ export default function RepSchemeSelector({
   return (
     <div className="space-y-3">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium text-white">Rep Scheme</h3>
-          <Button
-            variant="flat"
-            size="icon"
-            className="h-5 w-5 p-0"
-            title="Rep scheme determines the pattern of reps across sets"
-          >
-            <Info className="w-3 h-3" />
-          </Button>
-        </div>
-        <div className="text-xs text-gray-400 flex items-center gap-1">
-          <Clock className="w-3 h-3" />
-          {executionStyle}
-        </div>
+      <div>
+        <h3 className="text-sm font-medium text-white mb-1">Rep Scheme</h3>
+        <p className="text-xs text-gray-400">Choose how reps change across sets</p>
       </div>
 
       {/* Rep Scheme Options */}
@@ -335,7 +321,7 @@ export default function RepSchemeSelector({
                 onClick={() => handleSchemeSelect(option.type)}
                 disabled={!isEnabled}
                 size="label" // 24px height for secondary importance
-                variant={isSelected ? 'primary' : 'secondary'}
+                variant={isSelected ? 'gold' : 'gold-outline'}
                 className={`
                   w-full justify-start gap-3 px-3 py-2 h-auto min-h-[2rem] transition-all duration-200
                   ${isEnabled ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed opacity-50'}
@@ -406,27 +392,6 @@ export default function RepSchemeSelector({
         </div>
       )}
 
-      {/* EMOM Ascending Special Notice */}
-      {selectedScheme === 'ascending' && executionStyle === 'EMOM' && (
-        <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">EMOM Ascending</span>
-          </div>
-          <div className="text-xs text-blue-300">
-            Perfect combination! Start with 1 rep on minute 1, then 2 reps on minute 2, and so on. 
-            Great for building work capacity and mental toughness.
-          </div>
-        </div>
-      )}
-
-      {/* Help Text */}
-      {!compact && (
-        <div className="text-xs text-gray-500">
-          💡 Rep schemes create different training stimuli. Standard offers flexibility, 
-          while patterns provide structured progression and variety.
-        </div>
-      )}
     </div>
   )
 }

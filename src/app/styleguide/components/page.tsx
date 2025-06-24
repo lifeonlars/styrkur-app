@@ -1335,700 +1335,306 @@ showToast.default('General notification')`}
               <CardHeader className="text-center pb-8">
                 <CardTitle className="text-h1 mb-4">🏋️ Exercise Groups</CardTitle>
                 <CardDescription className="text-lg max-w-2xl mx-auto">
-                  Configure how exercises work together - from single movements to complex training flows. 
-                  Smart recommendations guide you to the perfect setup.
+                  Component library for configuring how exercises work together - from individual movements to complex training flows.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            {/* Overview Section */}
-            <ComponentShowcase title="📖 How Exercise Groups Work">
-              <div 
-                className="depth-subtle surface-flat"
-                style={{
-                  borderRadius: 'var(--radius-xl)',
-                  padding: 'var(--spacing-8)'
-                }}
-              >
-                <div 
-                  className="grid grid-cols-2 md:grid-cols-4"
-                  style={{ gap: 'var(--spacing-6)', marginBottom: 'var(--spacing-8)' }}
-                >
-                  <div className="text-center">
-                    <div 
-                      className="flex items-center justify-center mx-auto"
-                      style={{
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      <SingleExerciseIcon 
-                        color="primary"
-                        size={48} 
-                      />
-                    </div>
-                    <h4 
-                      style={{
-                        color: 'var(--text-primary)',
-                        fontWeight: 'var(--font-weight-semibold)',
-                        marginBottom: 'var(--spacing-2)'
-                      }}
-                    >
-                      Single
-                    </h4>
-                    <p 
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)'
-                      }}
-                    >
-                      Individual exercises with full rest between sets
-                    </p>
-                  </div>
+            {/* 📦 Core Components */}
+            <ComponentShowcase title="📦 Core Components">
+              <div className="space-y-8">
+                
+                {/* GroupTypeSelector */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">GroupTypeSelector</h4>
+                  <p className="text-gray-400 text-sm mb-6">Group type selection with card-based interface</p>
                   
-                  <div className="text-center">
+                  <div 
+                    className="depth-subtle surface-flat"
+                    style={{
+                      borderRadius: 'var(--radius-xl)',
+                      padding: 'var(--spacing-6)'
+                    }}
+                  >
                     <div 
-                      className="flex items-center justify-center mx-auto"
-                      style={{
-                        marginBottom: 'var(--spacing-4)'
-                      }}
+                      className="grid grid-cols-2 md:grid-cols-4"
+                      style={{ gap: 'var(--spacing-4)' }}
                     >
-                      <SupersetIcon 
-                        color="primary"
-                        size={48} 
-                      />
+                      <div className="text-center p-4 bg-neu-light/5 border border-neu-light/10 rounded-lg">
+                        <div 
+                          className="flex items-center justify-center mx-auto"
+                          style={{ marginBottom: 'var(--spacing-3)' }}
+                        >
+                          <SingleExerciseIcon color="primary" size={48} />
+                        </div>
+                        <h5 className="text-white font-medium mb-2">Single</h5>
+                        <p className="text-xs text-gray-400">Individual exercises performed separately with full rest between each</p>
+                      </div>
+
+                      <div className="text-center p-4 shadow-neu-gold border-neu-gold-light bg-neu-light/5 border rounded-lg">
+                        <div 
+                          className="flex items-center justify-center mx-auto"
+                          style={{ marginBottom: 'var(--spacing-3)' }}
+                        >
+                          <SupersetIcon color="accent" size={48} />
+                        </div>
+                        <h5 className="text-norse-gold font-medium mb-2">Superset</h5>
+                        <p className="text-xs text-gray-400">Multiple exercises (2-3) performed back-to-back with minimal rest</p>
+                        <div className="mt-2 text-xs text-norse-gold font-medium">Selected</div>
+                      </div>
+
+                      <div className="text-center p-4 bg-neu-light/5 border border-neu-light/10 rounded-lg">
+                        <div 
+                          className="flex items-center justify-center mx-auto"
+                          style={{ marginBottom: 'var(--spacing-3)' }}
+                        >
+                          <CircuitIcon color="primary" size={48} />
+                        </div>
+                        <h5 className="text-white font-medium mb-2">Circuit</h5>
+                        <p className="text-xs text-gray-400">Sequence of exercises (3 or more) performed in rounds with rest between rounds</p>
+                      </div>
+
+                      <div className="text-center p-4 bg-neu-light/5 border border-neu-light/10 rounded-lg">
+                        <div 
+                          className="flex items-center justify-center mx-auto"
+                          style={{ marginBottom: 'var(--spacing-3)' }}
+                        >
+                          <ComplexIcon color="primary" size={48} />
+                        </div>
+                        <h5 className="text-white font-medium mb-2">Complex</h5>
+                        <p className="text-xs text-gray-400">Multiple exercises (2 or more) using the same equipment without putting it down</p>
+                      </div>
                     </div>
-                    <h4 
-                      style={{
-                        color: 'var(--text-primary)',
-                        fontWeight: 'var(--font-weight-semibold)',
-                        marginBottom: 'var(--spacing-2)'
-                      }}
-                    >
-                      Superset
-                    </h4>
-                    <p 
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)'
-                      }}
-                    >
-                      2-3 exercises back-to-back for intensity
-                    </p>
                   </div>
+                </div>
+
+                {/* ExecutionStyleSelector */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">ExecutionStyleSelector</h4>
+                  <p className="text-gray-400 text-sm mb-6">Execution style selection with technical filtering</p>
                   
-                  <div className="text-center">
-                    <div 
-                      className="flex items-center justify-center mx-auto"
-                      style={{
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      <CircuitIcon 
-                        color="primary"
-                        size={48} 
-                      />
+                  <div 
+                    className="depth-subtle surface-flat"
+                    style={{
+                      borderRadius: 'var(--radius-xl)',
+                      padding: 'var(--spacing-6)'
+                    }}
+                  >
+                    <h5 className="text-white font-medium mb-3">Execution Style Selection</h5>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                      <Chip variant="gold" size="label" className="justify-center">
+                        Standard
+                      </Chip>
+                      <Chip variant="gold-outline" size="label" className="justify-center">
+                        HIIT
+                      </Chip>
+                      <Chip variant="gold-outline" size="label" className="justify-center">
+                        EMOM
+                      </Chip>
+                      <Chip variant="gold-outline" size="label" className="justify-center">
+                        AMRAP
+                      </Chip>
                     </div>
-                    <h4 
-                      style={{
-                        color: 'var(--text-primary)',
-                        fontWeight: 'var(--font-weight-semibold)',
-                        marginBottom: 'var(--spacing-2)'
-                      }}
-                    >
-                      Circuit
-                    </h4>
-                    <p 
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)'
-                      }}
-                    >
-                      Multiple rounds of exercise sequences
-                    </p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div 
-                      className="flex items-center justify-center mx-auto"
-                      style={{
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      <ComplexIcon 
-                        color="primary"
-                        size={48} 
-                      />
-                    </div>
-                    <h4 
-                      style={{
-                        color: 'var(--text-primary)',
-                        fontWeight: 'var(--font-weight-semibold)',
-                        marginBottom: 'var(--spacing-2)'
-                      }}
-                    >
-                      Complex
-                    </h4>
-                    <p 
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)'
-                      }}
-                    >
-                      Same equipment, seamless transitions
+                    <p className="text-xs text-gray-400">
+                      Technical filtering example: HIIT limits rep schemes to Standard only
                     </p>
                   </div>
                 </div>
-                
-                <div 
-                  className="text-center"
-                  style={{
-                    background: 'transparent',
-                    border: '1px solid var(--border-neu-gold-light)',
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-4)'
-                  }}
-                >
-                  <h5 
+
+                {/* RepSchemeSelector */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">RepSchemeSelector</h4>
+                  <p className="text-gray-400 text-sm mb-6">Rep scheme selection with pattern previews</p>
+                  
+                  <div 
+                    className="depth-subtle surface-flat"
                     style={{
-                      color: 'var(--text-accent)',
-                      fontWeight: 'var(--font-weight-medium)',
-                      marginBottom: 'var(--spacing-2)'
+                      borderRadius: 'var(--radius-xl)',
+                      padding: 'var(--spacing-6)'
                     }}
                   >
-                    💡 Smart Selection
-                  </h5>
-                  <p 
-                    style={{
-                      color: 'var(--text-secondary)',
-                      fontSize: 'var(--font-size-sm)'
-                    }}
-                  >
-                    The system automatically recommends the best group type based on your exercise count and equipment compatibility
-                  </p>
+                    <h5 className="text-white font-medium mb-3">Rep Scheme Selection</h5>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <Chip variant="gold-outline" size="label" className="justify-center">
+                          Standard
+                        </Chip>
+                        <Chip variant="gold" size="label" className="justify-center">
+                          21-3 Descending
+                        </Chip>
+                        <Chip variant="gold-outline" size="label" className="justify-center">
+                          10-1-10 Pyramid
+                        </Chip>
+                        <Chip variant="gold-outline" size="label" className="justify-center">
+                          Ascending EMOM
+                        </Chip>
+                      </div>
+                      
+                      <div 
+                        className="depth-sunken surface-concave"
+                        style={{
+                          border: '1px solid var(--border-neu-subtle)',
+                          borderRadius: 'var(--radius-lg)',
+                          padding: 'var(--spacing-4)'
+                        }}
+                      >
+                        <p className="text-sm text-gray-300 mb-2">Selected Pattern Preview:</p>
+                        <p className="text-xs text-gray-400 font-mono">21, 18, 15, 12, 9, 6, 3 reps</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ComponentShowcase>
 
-            {/* Prominent Group Type Selection */}
-            <ComponentShowcase title="🎯 Group Type Selection">
-              <div 
-                className="depth-subtle surface-flat"
-                style={{
-                  borderRadius: 'var(--radius-xl)',
-                  padding: 'var(--spacing-8)'
-                }}
-              >
-                <h4 
-                  className="text-center"
-                  style={{
-                    color: 'var(--text-primary)',
-                    fontWeight: 'var(--font-weight-semibold)',
-                    marginBottom: 'var(--spacing-6)'
-                  }}
-                >
-                  Experience the New Card-Based Selection
-                </h4>
+            {/* 🔗 Component Interactions */}
+            <ComponentShowcase title="🔗 Component Interactions">
+              <div className="space-y-6">
                 
-                <GroupTypeSelector
-                  selectedType="superset"
-                  exerciseCount={2}
-                  exercises={[
-                    createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
-                    createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
-                  ]}
-                  onChange={(type) => showToast.success(`Selected: ${type} - Perfect choice!`)}
-                />
-              </div>
-            </ComponentShowcase>
-
-            {/* Configuration Flow Example */}
-            <ComponentShowcase title="⚙️ Real Configuration Flow">
-              <div 
-                className="depth-subtle surface-flat"
-                style={{
-                  borderRadius: 'var(--radius-xl)',
-                  padding: 'var(--spacing-8)'
-                }}
-              >
-                <h4 
-                  className="text-center"
-                  style={{
-                    color: 'var(--text-primary)',
-                    fontWeight: 'var(--font-weight-semibold)',
-                    marginBottom: 'var(--spacing-6)'
-                  }}
-                >
-                  "Create a Push/Pull Superset" - Step by Step
-                </h4>
-                
-                <div 
-                  className="grid grid-cols-1 lg:grid-cols-3"
-                  style={{ gap: 'var(--spacing-6)' }}
-                >
-                  {/* Step 1 */}
-                  <div 
-                    className="depth-subtle surface-convex text-center"
-                    style={{
-                      border: '1px solid var(--border-neu-subtle)',
-                      borderRadius: 'var(--radius-lg)',
-                      padding: 'var(--spacing-6)'
-                    }}
-                  >
-                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
-                      <div 
-                        className="flex items-center justify-center mx-auto"
-                        style={{
-                          width: 'var(--spacing-8)',
-                          height: 'var(--spacing-8)',
-                          background: 'var(--surface-gold)',
-                          borderRadius: 'var(--radius-full)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        <span 
-                          style={{
-                            color: 'var(--text-inverse)',
-                            fontWeight: 'var(--font-weight-semibold)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          1
-                        </span>
-                      </div>
-                      <h5 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontWeight: 'var(--font-weight-medium)'
-                        }}
-                      >
-                        Select Group Type
-                      </h5>
-                    </div>
-                    <p 
-                      className="text-center"
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)',
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      Perfect for 2 exercises that target opposing muscle groups
-                    </p>
-                    <div className="text-center">
-                      <div 
-                        className="inline-flex items-center"
-                        style={{
-                          gap: 'var(--spacing-2)',
-                          background: 'transparent',
-                          border: '1px solid var(--border-neu-gold-light)',
-                          padding: 'var(--spacing-2) var(--spacing-3)',
-                          borderRadius: 'var(--radius-lg)'
-                        }}
-                      >
-                        <SupersetIcon 
-                          color="accent"
-                          size={20} 
-                        />
-                        <span 
-                          style={{
-                            color: 'var(--text-accent)',
-                            fontWeight: 'var(--font-weight-medium)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          Superset
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div 
-                    className="depth-subtle surface-convex text-center"
-                    style={{
-                      border: '1px solid var(--border-neu-subtle)',
-                      borderRadius: 'var(--radius-lg)',
-                      padding: 'var(--spacing-6)'
-                    }}
-                  >
-                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
-                      <div 
-                        className="flex items-center justify-center mx-auto"
-                        style={{
-                          width: 'var(--spacing-8)',
-                          height: 'var(--spacing-8)',
-                          background: 'var(--surface-gold)',
-                          borderRadius: 'var(--radius-full)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        <span 
-                          style={{
-                            color: 'var(--text-inverse)',
-                            fontWeight: 'var(--font-weight-semibold)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          2
-                        </span>
-                      </div>
-                      <h5 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontWeight: 'var(--font-weight-medium)'
-                        }}
-                      >
-                        Choose Timing
-                      </h5>
-                    </div>
-                    <p 
-                      className="text-center"
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)',
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      Standard timing works best for strength supersets
-                    </p>
-                    <div className="text-center">
-                      <div 
-                        className="inline-flex items-center"
-                        style={{
-                          gap: 'var(--spacing-2)',
-                          background: 'rgba(var(--neu-light), 0.1)',
-                          padding: 'var(--spacing-2) var(--spacing-3)',
-                          borderRadius: 'var(--radius-lg)'
-                        }}
-                      >
-                        <span 
-                          style={{
-                            color: 'var(--text-primary)',
-                            fontWeight: 'var(--font-weight-medium)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          Standard Timing
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div 
-                    className="depth-subtle surface-convex text-center"
-                    style={{
-                      border: '1px solid var(--border-neu-subtle)',
-                      borderRadius: 'var(--radius-lg)',
-                      padding: 'var(--spacing-6)'
-                    }}
-                  >
-                    <div style={{ marginBottom: 'var(--spacing-4)' }}>
-                      <div 
-                        className="flex items-center justify-center mx-auto"
-                        style={{
-                          width: 'var(--spacing-8)',
-                          height: 'var(--spacing-8)',
-                          background: 'var(--surface-success)',
-                          borderRadius: 'var(--radius-full)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        <span 
-                          style={{
-                            color: 'var(--text-primary)',
-                            fontWeight: 'var(--font-weight-semibold)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          ✓
-                        </span>
-                      </div>
-                      <h5 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontWeight: 'var(--font-weight-medium)'
-                        }}
-                      >
-                        Ready to Use
-                      </h5>
-                    </div>
-                    <p 
-                      className="text-center"
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: 'var(--font-size-sm)',
-                        marginBottom: 'var(--spacing-4)'
-                      }}
-                    >
-                      Your superset is configured and ready for your workout
-                    </p>
-                    <div className="text-center">
-                      <div 
-                        className="inline-flex items-center"
-                        style={{
-                          gap: 'var(--spacing-2)',
-                          background: 'var(--surface-success)',
-                          padding: 'var(--spacing-2) var(--spacing-3)',
-                          borderRadius: 'var(--radius-lg)'
-                        }}
-                      >
-                        <span 
-                          style={{
-                            color: 'var(--text-success)',
-                            fontWeight: 'var(--font-weight-medium)',
-                            fontSize: 'var(--font-size-sm)'
-                          }}
-                        >
-                          Complete
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div 
-                  style={{
-                    marginTop: 'var(--spacing-8)',
-                    background: 'transparent',
-                    border: '1px solid var(--border-neu-gold-light)',
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--spacing-4)'
-                  }}
-                >
-                  <h5 
-                    className="text-center"
-                    style={{
-                      color: 'var(--text-accent)',
-                      fontWeight: 'var(--font-weight-medium)',
-                      marginBottom: 'var(--spacing-2)'
-                    }}
-                  >
-                    🎯 Why This Works
-                  </h5>
-                  <p 
-                    className="text-center"
-                    style={{
-                      color: 'var(--text-secondary)',
-                      fontSize: 'var(--font-size-sm)'
-                    }}
-                  >
-                    Bench Press (Push) + Bent-over Row (Pull) = Perfect opposing muscle group pairing for efficient training
-                  </p>
-                </div>
-              </div>
-            </ComponentShowcase>
-
-            {/* Complete User Journey Demo */}
-            <ComponentShowcase title="🔄 Complete User Journey">
-              <div 
-                className="depth-subtle surface-flat"
-                style={{
-                  borderRadius: 'var(--radius-xl)',
-                  padding: 'var(--spacing-8)'
-                }}
-              >
-                <h4 
-                  className="text-center"
-                  style={{
-                    color: 'var(--text-primary)',
-                    fontWeight: 'var(--font-weight-semibold)',
-                    marginBottom: 'var(--spacing-6)'
-                  }}
-                >
-                  From Exercise Selection to Final Group Configuration
-                </h4>
-                
-                <div className="max-w-4xl mx-auto">
-                  {/* Fixed Height Container for Configuration Panel */}
-                  <div 
-                    className="depth-subtle surface-convex overflow-hidden"
-                    style={{
-                      border: '1px solid var(--border-neu-subtle)',
-                      borderRadius: 'var(--radius-xl)'
-                    }}
-                  >
-                    <div className="h-[600px] relative">
-                      <GroupConfigurationPanel
-                        exercises={[
-                          createMockExercise('1', 'Bench Press', 'chest', 'barbell'),
-                          createMockExercise('2', 'Bent-over Row', 'back', 'barbell')
-                        ]}
-                        onSave={(group) => showToast.success(`🎉 Created: ${group.label} with ${group.exercises.length} exercises!`)}
-                        onCancel={() => showToast.info('Configuration cancelled')}
-                        weightUnit="kg"
-                        autoAdvance={false}
-                        showPreview={true}
-                        compact={false}
-                        title="Create Your Perfect Superset"
-                      />
-                    </div>
-                  </div>
+                {/* Technical Filtering Logic */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Technical Filtering Logic</h4>
+                  <p className="text-gray-400 text-sm mb-6">How execution style affects rep scheme options</p>
                   
-                  {/* Journey Benefits */}
-                  <div 
-                    className="grid grid-cols-1 md:grid-cols-3"
-                    style={{
-                      marginTop: 'var(--spacing-8)',
-                      gap: 'var(--spacing-4)'
-                    }}
-                  >
+                  <div className="space-y-4">
                     <div 
-                      className="text-center"
+                      className="depth-sunken surface-concave"
                       style={{
-                        background: 'var(--surface-success)',
-                        border: '1px solid var(--border-success)',
+                        border: '1px solid var(--border-neu-subtle)',
                         borderRadius: 'var(--radius-lg)',
                         padding: 'var(--spacing-4)'
                       }}
                     >
-                      <h5 
-                        style={{
-                          color: 'var(--text-success)',
-                          fontWeight: 'var(--font-weight-medium)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        🎯 Smart Guidance
-                      </h5>
-                      <p 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontSize: 'var(--font-size-sm)'
-                        }}
-                      >
-                        Automatic recommendations based on your exercise selection
-                      </p>
+                      <h5 className="text-white font-medium mb-2">Standard Execution</h5>
+                      <p className="text-gray-400 text-sm mb-2">All rep schemes available</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-2 py-1 bg-neu-light/10 text-xs text-gray-300 rounded">Standard</span>
+                        <span className="px-2 py-1 bg-neu-light/10 text-xs text-gray-300 rounded">Descending</span>
+                        <span className="px-2 py-1 bg-neu-light/10 text-xs text-gray-300 rounded">Pyramid</span>
+                        <span className="px-2 py-1 bg-neu-light/10 text-xs text-gray-300 rounded">Ascending</span>
+                      </div>
                     </div>
                     
                     <div 
-                      className="text-center"
+                      className="depth-sunken surface-concave"
                       style={{
-                        background: 'var(--surface-info)',
-                        border: '1px solid var(--border-info)',
+                        border: '1px solid var(--border-neu-subtle)',
                         borderRadius: 'var(--radius-lg)',
                         padding: 'var(--spacing-4)'
                       }}
                     >
-                      <h5 
-                        style={{
-                          color: 'var(--text-info)',
-                          fontWeight: 'var(--font-weight-medium)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        ⚡ Real-time Validation
-                      </h5>
-                      <p 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontSize: 'var(--font-size-sm)'
-                        }}
-                      >
-                        Instant feedback prevents configuration errors
-                      </p>
-                    </div>
-                    
-                    <div 
-                      className="text-center"
-                      style={{
-                        background: 'var(--surface-warning)',
-                        border: '1px solid var(--border-warning)',
-                        borderRadius: 'var(--radius-lg)',
-                        padding: 'var(--spacing-4)'
-                      }}
-                    >
-                      <h5 
-                        style={{
-                          color: 'var(--text-warning)',
-                          fontWeight: 'var(--font-weight-medium)',
-                          marginBottom: 'var(--spacing-2)'
-                        }}
-                      >
-                        🔧 Complete Control
-                      </h5>
-                      <p 
-                        style={{
-                          color: 'var(--text-primary)',
-                          fontSize: 'var(--font-size-sm)'
-                        }}
-                      >
-                        Advanced options for power users, simple defaults for beginners
-                      </p>
+                      <h5 className="text-white font-medium mb-2">HIIT Execution</h5>
+                      <p className="text-gray-400 text-sm mb-2">Standard rep scheme only (timed intervals conflict)</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-2 py-1 bg-norse-gold/20 text-xs text-norse-gold rounded">Standard</span>
+                        <span className="px-2 py-1 bg-gray-700 text-xs text-gray-500 rounded">Descending</span>
+                        <span className="px-2 py-1 bg-gray-700 text-xs text-gray-500 rounded">Pyramid</span>
+                        <span className="px-2 py-1 bg-gray-700 text-xs text-gray-500 rounded">Ascending</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ComponentShowcase>
 
-            {/* Implementation Summary */}
-            <ComponentShowcase title="Implementation Summary">
-              <div className="space-y-6 p-6 bg-neu-surface shadow-neu rounded-xl">
-                <div>
-                  <h4 className="text-white font-medium mb-4">Phase 2B Components Overview</h4>
-                  <p className="text-gray-400 text-sm mb-4">Complete exercise group configuration system with Nordic theming and validation</p>
+                {/* Dual-Path EMOM Access */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Dual-Path EMOM Access</h4>
+                  <p className="text-gray-400 text-sm mb-6">Ascending patterns accessible through multiple paths</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div 
+                      className="depth-sunken surface-concave"
+                      style={{
+                        border: '1px solid var(--border-neu-subtle)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4)'
+                      }}
+                    >
+                      <h5 className="text-white font-medium mb-2">Path 1: Rep Scheme</h5>
+                      <p className="text-gray-400 text-xs mb-3">Select "Ascending" from rep schemes when EMOM is chosen</p>
+                      <div className="space-y-2">
+                        <div className="text-xs text-gray-400">1. Choose EMOM execution</div>
+                        <div className="text-xs text-gray-400">2. Select Ascending rep scheme</div>
+                        <div className="text-xs text-norse-gold">→ 1, 2, 3, 4, 5... pattern</div>
+                      </div>
+                    </div>
+
+                    <div 
+                      className="depth-sunken surface-concave"
+                      style={{
+                        border: '1px solid var(--border-neu-subtle)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4)'
+                      }}
+                    >
+                      <h5 className="text-white font-medium mb-2">Path 2: EMOM Config</h5>
+                      <p className="text-gray-400 text-xs mb-3">Choose "Ascending" pattern in EMOM configuration</p>
+                      <div className="space-y-2">
+                        <div className="text-xs text-gray-400">1. Choose EMOM execution</div>
+                        <div className="text-xs text-gray-400">2. Set Pattern: Ascending</div>
+                        <div className="text-xs text-norse-gold">→ Same result, different path</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ComponentShowcase>
+
+            {/* 🎨 Design Standards */}
+            <ComponentShowcase title="🎨 Design Standards">
+              <div className="space-y-6">
+                
+                {/* Chip Hierarchy System */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Chip Hierarchy System</h4>
+                  <p className="text-gray-400 text-sm mb-6">Visual hierarchy using different chip sizes</p>
+                  
+                  <div className="space-y-6">
                     <div>
-                      <h5 className="text-norse-gold font-medium mb-3">Core Components</h5>
-                      <ul className="text-sm text-gray-300 space-y-2">
-                        <li>✅ <strong>GroupTypeSelector</strong> - 36px chip hierarchy</li>
-                        <li>✅ <strong>ExecutionStyleSelector</strong> - 24px secondary chips</li>
-                        <li>✅ <strong>RepSchemeSelector</strong> - Pattern previews</li>
-                        <li>✅ <strong>WeightProgressionConfig</strong> - Pyramid progression</li>
-                        <li>✅ <strong>GroupPreview</strong> - Set generation & stats</li>
-                        <li>✅ <strong>ValidationFeedback</strong> - Real-time validation</li>
-                        <li>✅ <strong>DuplicateGroupAction</strong> - Group duplication</li>
-                        <li>✅ <strong>GroupConfigurationModal</strong> - Master component</li>
-                      </ul>
+                      <h5 className="text-white font-medium mb-3">Default Size (36px) - Group Types</h5>
+                      <p className="text-gray-400 text-sm mb-3">Primary decision, most important</p>
+                      <div className="flex gap-3 flex-wrap">
+                        <Button variant="primary" size="default">Superset</Button>
+                        <Button variant="outline" size="default">Circuit</Button>
+                      </div>
                     </div>
                     
                     <div>
-                      <h5 className="text-norse-gold font-medium mb-3">Key Features</h5>
-                      <ul className="text-sm text-gray-300 space-y-2">
-                        <li>🎯 <strong>Visual Hierarchy</strong> - 36px/24px chip system</li>
-                        <li>🔄 <strong>Dual-path EMOM</strong> - Ascending logic integration</li>
-                        <li>✅ <strong>Phase 1B Integration</strong> - Full validation</li>
-                        <li>🎨 <strong>Nordic Theming</strong> - Neumorphic design</li>
-                        <li>📱 <strong>Mobile Optimized</strong> - Thumb-friendly</li>
-                        <li>♿ <strong>Accessibility</strong> - ARIA compliant</li>
-                        <li>⚡ <strong>Real-time Validation</strong> - Error prevention</li>
-                        <li>🔧 <strong>TypeScript Support</strong> - Full type safety</li>
-                      </ul>
+                      <h5 className="text-white font-medium mb-3">Label Size (24px) - Execution & Rep Schemes</h5>
+                      <p className="text-gray-400 text-sm mb-3">Secondary information, smaller</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <Chip variant="gold" size="label">Standard</Chip>
+                        <Chip variant="gold-outline" size="label">21-3</Chip>
+                      </div>
                     </div>
                   </div>
+                </div>
+
+                {/* Component API Documentation */}
+                <div className="p-6 bg-neu-surface shadow-neu rounded-xl">
+                  <h4 className="text-white font-medium mb-4">Component API Example</h4>
+                  <p className="text-gray-400 text-sm mb-6">TypeScript interfaces and usage patterns</p>
                   
-                  <div className="mt-6 p-4 bg-neu-card rounded-lg">
-                    <h5 className="text-white font-medium mb-2">Integration Status</h5>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <h6 className="text-norse-gold font-medium mb-1">✅ Complete</h6>
-                        <ul className="text-xs text-gray-400 space-y-1">
-                          <li>• All 8 components implemented</li>
-                          <li>• Styleguide integration</li>
-                          <li>• Component composition</li>
-                          <li>• Validation integration</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h6 className="text-warning font-medium mb-1">🔄 In Progress</h6>
-                        <ul className="text-xs text-gray-400 space-y-1">
-                          <li>• Workout planning integration</li>
-                          <li>• Redux state management</li>
-                          <li>• User journey testing</li>
-                          <li>• Performance optimization</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h6 className="text-info font-medium mb-1">📋 Next Steps</h6>
-                        <ul className="text-xs text-gray-400 space-y-1">
-                          <li>• Wire into workout flow</li>
-                          <li>• Add to exercise selection</li>
-                          <li>• Complete user testing</li>
-                          <li>• Production deployment</li>
-                        </ul>
-                      </div>
-                    </div>
+                  <div 
+                    className="depth-sunken surface-concave"
+                    style={{
+                      border: '1px solid var(--border-neu-subtle)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: 'var(--spacing-4)'
+                    }}
+                  >
+                    <pre className="text-xs text-gray-300 overflow-x-auto">
+{`interface GroupTypeSelectorProps {
+  selectedType: GroupType
+  onChange: (type: GroupType) => void
+  disabled?: boolean
+}
+
+// Usage
+<GroupTypeSelector 
+  selectedType="superset"
+  onChange={(type) => setGroupType(type)}
+/>`}
+                    </pre>
                   </div>
                 </div>
               </div>

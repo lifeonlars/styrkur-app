@@ -1,267 +1,184 @@
-# Revised Exercise Groups Implementation - Balanced Approach Prompt Plan
+# Updated Phase 2 Prompt Plan - Progressive Disclosure Implementation
 
-## Project Overview
-Enhance the Nordic fitness tracking PWA with exercise grouping capabilities using a balanced approach: helpful technical logic without unpredictable intelligence, respecting user autonomy while preventing technical incompatibilities.
+## Context
+Based on our refined approach, Phase 2 now involves more substantial work than originally planned. We need to clean up existing broken examples AND implement a complete new workflow using progressive disclosure.
 
-## Core Philosophy
+## Revised Phase 2 Structure
 
-### What We Include: Helpful Technical Logic
-- **Execution style compatibility**: HIIT/AMRAP → Standard rep scheme only
-- **Sensible filtering**: EMOM → Standard or Ascending rep schemes  
-- **Dual-path EMOM Ascending**: Accessible from both rep scheme and execution style selections
-- **Exercise count guidance**: Suggest ranges (2-3 for supersets) without enforcing
-
-### What We Exclude: Unpredictable Intelligence
-- Equipment compatibility detection and suggestions
-- Smart group type recommendations based on selections
-- "Recommended" badges and training advice
-- Automatic disabling based on exercise count or content
-- Paternalistic training guidance
-
-### Result: Clean, Predictable, Respectful
-Users get helpful structure without AI making training decisions for them.
-
-## Revised Implementation Phases
-
-### Phase 1: Solid Foundation ✅ (Complete)
-- **1A**: Core data models with clean interfaces
-- **1B**: Validation utilities with sensible technical logic only
-
-### Phase 2: Clean Planning Interface (Current Focus)
-- **2A**: Multi-select exercise modal with clean grouping options
-- **2B**: Group configuration components with balanced logic  
-- **2C**: Integration and styleguide cleanup (balanced approach)
-- **2D**: Enhanced WorkoutEntryCard for planning view
-
-### Phase 3: Simple Logging Interface  
-- **3A**: Digital notebook logging components
-- **3B**: Group progress tracking without complex timers
-- **3C**: Workout session management
-
-### Phase 4: Polish & Optimization
-- **4A**: Performance optimization and mobile polish
-- **4B**: Accessibility audit and enhancements
-
-## Phase 2 Detailed Breakdown
-
-### Phase 2A: Exercise Selection Enhancement ✅ (Done)
+### Phase 2A: Exercise Selection Enhancement ✅ (Complete)
 Multi-select modal with clean grouping options.
 
-### Phase 2B: Balanced Group Configuration ✅ (Done)
-Components with sensible technical logic, no AI suggestions.
+### Phase 2B: Group Configuration Components ✅ (Complete)  
+Individual components with balanced technical logic.
 
-### Phase 2C: Clean Integration & Polish (Current)
-**Goal**: Integrate components with balanced approach, clean styleguide
+### Phase 2C: Styleguide Cleanup + Patterns Organization (Current)
+**Scope**: Clean up broken examples, reorganize styleguide structure
 
-#### Prompt 2C: Integration with Balanced Logic
+#### Prompt 2C-1: Styleguide Cleanup
 ```
-Update the exercise group configuration integration to implement balanced approach:
+Clean up the exercise groups section in the styleguide:
 
-1. Remove all smart suggestions and "intelligence"
-   - No equipment compatibility detection
-   - No "recommended" badges
-   - No exercise count-based disabling
-   - No training advice or guidance
+1. Remove all broken workflow examples
+   - Delete "From Exercise Selection to Final Group Configuration"
+   - Remove smart guidance references and validation summaries
+   - Remove multi-step modal examples
 
-2. Implement sensible technical logic only
-   - HIIT/AMRAP execution → Standard rep scheme only
-   - EMOM execution → Standard or Ascending rep schemes
-   - Standard execution → All rep schemes available
-   - Clear explanations when options are filtered
+2. Focus on individual component documentation
+   - GroupTypeSelector with updated descriptions
+   - ExecutionStyleSelector with technical filtering
+   - RepSchemeSelector with pattern examples
+   - Component interaction patterns only
 
-3. Clean group type descriptions with exercise guidance
-   - Single: "Individual exercises performed separately with full rest between each"
-   - Superset: "Multiple exercises (2-3) performed back-to-back with minimal rest"  
-   - Circuit: "Sequence of exercises (3 or more) performed in rounds with rest between rounds"
-   - Complex: "Multiple exercises (2 or more) using the same equipment without putting it down"
-
-4. Dual-path EMOM Ascending implementation
-   - Accessible from rep scheme selection (sets execution to EMOM)
-   - Accessible from execution style selection (shows ascending option)
-   - Both paths result in identical configuration
-
-5. Clean user flow: Group Type → Execution Style → Rep Scheme → Exercises
-   - All group types always available
-   - Technical filtering explained clearly
-   - No surprise restrictions or smart behavior
-
-6. Styleguide simplification
-   - Focus on user flow examples, not component combinations
-   - Real scenarios: "Create Push/Pull Superset", "Build Cardio Circuit"
-   - Remove confusing multi-state displays
-   - Clean, focused documentation
-
-Integration should feel predictable and respectful of user training decisions.
+3. Keep design standards and component library patterns
+   - Chip hierarchy (36px vs 24px)
+   - Neumorphic styling examples
+   - Mobile responsiveness patterns
 ```
 
-### Phase 2D: Enhanced WorkoutEntryCard
-**Goal**: Update planning view components for exercise groups
-
-#### Prompt 2D: Planning View Integration
+#### Prompt 2C-2: Patterns Page Creation
 ```
-Update the WorkoutEntryCard and planning interface for exercise groups:
+Create new Patterns section in styleguide for complex components:
 
-1. Visual group representation
-   - Default size (36px) chips for group types
-   - Label size (24px) chips for execution styles and rep schemes
-   - Clean visual connections between grouped exercises
-   - Neumorphic vertical lines connecting group exercises
+1. Add Patterns page to styleguide navigation
+   - Separate from basic Components page
+   - Tab-based navigation for different pattern types
+
+2. Move complex examples to Patterns
+   - Exercise Group Configuration Flow (when implemented)
+   - Muscle Highlighter pattern
+   - Other multi-component workflows
+
+3. Organize pattern documentation
+   - Complete workflow examples
+   - Multi-component state management
+   - Real-world usage scenarios
+```
+
+### Phase 2D: Progressive Disclosure Implementation (New Major Phase)
+**Scope**: Implement the actual working exercise group configuration flow
+
+#### Prompt 2D-1: App Integration Foundation  
+```
+Integrate exercise group configuration into the existing workout creation flow:
+
+1. Identify current workout creation modal/flow
+2. Plan integration points for exercise group configuration
+3. Update existing workout state management for groups
+4. Create data flow between group configuration and workout creation
+```
+
+#### Prompt 2D-2: Progressive Disclosure Component
+```
+Create the main progressive disclosure configuration component:
+
+1. Implement GroupConfigurationPanel with progressive disclosure
+   - Single page with expanding sections
+   - Previous choices always visible
+   - Easy mind-changing and real-time updates
+   - Mobile-optimized vertical stacking
+
+2. Section implementations:
+   - GroupTypeSection (always expanded when active)
+   - ExecutionStyleSection (appears when group type selected)
+   - RepSchemeSection (filtered by execution style)
+   - WeightProgressionSection (conditional for pyramids)
+   - ConfigurationPreview (always visible)
+
+3. Integration with existing components
+   - Use Phase 2B components as building blocks
+   - Maintain consistent styling and behavior
+   - Handle state management cleanly
+```
+
+#### Prompt 2D-3: Modal Integration & User Flow
+```
+Integrate progressive disclosure into workout creation flow:
+
+1. Replace or enhance current "Add Exercises" workflow
+2. Implement the user flow:
+   - Create workout → Add exercises → Configure group → Select exercises → Add to workout
+3. Handle state management between configuration and exercise selection
+4. Ensure clean integration with existing workout planning interface
+5. Test complete user journey end-to-end
+```
+
+#### Prompt 2D-4: Patterns Page Integration
+```
+Add the working exercise group configuration flow to Patterns page:
+
+1. Document the complete configuration flow pattern
+2. Show real examples with working state management
+3. Demonstrate component composition and interaction
+4. Include mobile responsiveness examples
+5. Document integration patterns with existing app flows
+```
+
+### Phase 2E: Enhanced WorkoutEntryCard (Moved from 2C)
+**Scope**: Update planning view for exercise groups display
+
+#### Prompt 2E: Planning View Updates
+```
+Update WorkoutEntryCard and planning interface for exercise groups:
+
+1. Visual group representation in planning view
+   - Group type chips (36px) and style/scheme chips (24px)
+   - Visual connections between grouped exercises
+   - Clean group display with proper hierarchy
 
 2. Group management features
    - Arrow-based reordering (inter-group and intra-group)
-   - Duplicate group functionality (exact copy, user edits)
-   - Split group into individual exercises
+   - Duplicate group functionality
    - Edit group configuration
+   - Split group into individual exercises
 
-3. Clean group display
-   - Group type prominently displayed
-   - Execution style and rep scheme as secondary info
-   - Exercise list with clear grouping indicators
-   - Rep pattern preview for non-standard schemes
-
-4. Mobile-optimized layout
-   - Touch-friendly controls
-   - Proper spacing and visual hierarchy
-   - Collapsible/expandable group details
-   - Thumb-friendly interaction zones
-
-5. Integration with existing workout planning
-   - Seamless addition to current workout flow
-   - Consistent visual design with app theme
-   - Clean state management
-   - Proper error handling
-
-Focus on clean, functional interface that makes exercise groups feel natural.
+3. Integration with new configuration flow
+   - Edit button opens progressive disclosure panel
+   - Consistent state management
+   - Proper error handling and validation
 ```
 
-## Phase 3: Digital Notebook Logging
+## Why This Expanded Structure?
 
-### Phase 3A: Simple Logging Components
-```
-Create logging interface components with digital notebook approach:
+### 1. **More Realistic Scope**
+The progressive disclosure implementation is substantial work that affects:
+- Styleguide organization
+- App workflow integration  
+- State management patterns
+- Component composition
+- User experience design
 
-1. GroupedExerciseCard for workout execution
-   - Clear visual indication of exercise grouping
-   - Simple set completion tracking (tap to mark complete)
-   - Rep scheme pattern guidance without timers
-   - Rest period suggestions (no active timing)
+### 2. **Better Separation of Concerns**
+- **2C**: Clean up existing mess, reorganize documentation
+- **2D**: Build the actual working feature (4 sub-prompts)
+- **2E**: Update planning view to display groups
 
-2. Workout progress tracking
-   - Overall workout timer only (start/stop)
-   - Group completion indicators
-   - "What's next" guidance
-   - Simple notes capability
+### 3. **Logical Dependencies**
+- Can't document patterns until we build them
+- Need clean styleguide before adding new patterns
+- Progressive disclosure must work before updating planning view
 
-3. No complex timer integration
-   - Rely on gym environment for interval timing
-   - Focus on completion tracking and guidance
-   - Clean, readable format for gym use
-   - Battery-efficient implementation
+### 4. **Iterative Development**
+Each prompt builds on the previous:
+- 2C-1: Clean slate
+- 2C-2: New organization
+- 2D-1: Integration foundation
+- 2D-2: Core functionality
+- 2D-3: User flow completion
+- 2D-4: Documentation
+- 2E: Planning view enhancement
 
-Digital notebook philosophy: helpful tracking without complex automation.
-```
+## Estimated Effort
+**Phase 2C**: Medium (cleanup + reorganization)
+**Phase 2D**: Large (new feature implementation)  
+**Phase 2E**: Medium (planning view updates)
 
-### Phase 3B: Session Management
-```
-Implement workout session management:
+**Total**: Significant expansion from original Phase 2 scope, but more realistic for delivering a complete, working exercise groups feature.
 
-1. Session state handling
-   - Auto-save progress during workout
-   - Resume interrupted sessions
-   - Clean session completion flow
+## Success Criteria
+- ✅ Clean styleguide with proper component/pattern separation
+- ✅ Working progressive disclosure configuration flow
+- ✅ Complete user journey from workout creation to exercise group addition
+- ✅ Enhanced planning view that displays exercise groups clearly
+- ✅ Documented patterns for future development reference
 
-2. Progress visualization
-   - Group completion status
-   - Exercise progression through workout
-   - Simple statistics and summary
-
-3. Mobile optimization
-   - Offline capability
-   - Efficient rendering for long workouts
-   - Touch-optimized controls
-   - Minimal battery usage
-
-Focus on reliability and simplicity for real gym use.
-```
-
-## Phase 4: Polish & Performance
-
-### Phase 4A: Mobile & Performance Optimization
-```
-Optimize for PWA excellence:
-
-1. Mobile experience refinement
-   - Touch gesture optimization
-   - Screen orientation handling
-   - Haptic feedback for interactions
-   - PWA app-like behavior
-
-2. Performance optimization
-   - Efficient rendering of complex workouts
-   - Smart caching of exercise data
-   - Optimized state management
-   - Memory usage optimization
-
-3. Offline enhancement
-   - Full offline workout capability
-   - Data synchronization when online
-   - Robust error handling
-```
-
-### Phase 4B: Accessibility & Quality
-```
-Ensure excellent accessibility and quality:
-
-1. Accessibility compliance
-   - WCAG 2.1 AA compliance
-   - Screen reader optimization
-   - Keyboard navigation
-   - High contrast support
-
-2. Quality assurance
-   - Comprehensive testing suite
-   - Performance monitoring
-   - User experience validation
-   - Cross-device compatibility
-
-3. Documentation and maintenance
-   - Component documentation
-   - User guide integration
-   - Maintenance procedures
-```
-
-## Success Metrics
-
-### User Experience
-- **Predictable behavior**: Users can learn and expect consistent interface logic
-- **Respectful autonomy**: App provides structure without making training decisions
-- **Clean workflow**: Smooth progression from group configuration to workout execution
-- **Mobile excellence**: Outstanding experience on mobile devices in gym environment
-
-### Technical Quality
-- **Performance**: Smooth interactions even with complex multi-group workouts
-- **Reliability**: Robust operation in real-world gym usage scenarios
-- **Maintainability**: Clean, well-documented code that's easy to extend
-- **Accessibility**: Full compliance with accessibility standards
-
-## Implementation Guidelines
-
-### Code Quality Standards
-- TypeScript strict mode throughout
-- Comprehensive unit and integration testing
-- Performance budgets and monitoring
-- Accessibility compliance validation
-
-### Design Consistency
-- Neumorphic Scandinavian minimalism maintained
-- Mobile-first responsive design
-- Consistent component patterns
-- Design token system adherence
-
-### User-Centered Development
-- Real gym usage scenarios testing
-- Iterative feedback incorporation
-- Progressive enhancement approach
-- Battery and performance consciousness
-
-This revised plan reflects our balanced philosophy: helpful structure without AI decision-making, clean technical logic without unpredictable intelligence, and respect for user training autonomy.
+This expanded structure acknowledges the real scope while maintaining logical progression and clear deliverables.

@@ -1,12 +1,10 @@
 'use client'
 
 import React, { useMemo } from 'react'
-import { Play, Zap, Clock, Infinity, Info, AlertTriangle } from 'lucide-react'
+import { Play, Zap, Clock, Infinity } from 'lucide-react'
 import { Chip } from '@/ui/chip'
-import { Button } from '@/ui/button'
 import { 
   ExecutionStyle, 
-  RepSchemeType, 
   ExecutionStyleConfig 
 } from '@/types/exercise-groups'
 
@@ -16,11 +14,9 @@ import {
 
 export interface ExecutionStyleSelectorProps {
   selectedStyle: ExecutionStyle
-  repScheme: RepSchemeType
   onChange: (style: ExecutionStyle) => void
   onStyleConfigChange?: (config: ExecutionStyleConfig) => void
   disabled?: boolean
-  showIncompatibleOptions?: boolean
   compact?: boolean
 }
 
@@ -33,8 +29,6 @@ interface ExecutionStyleOption {
   label: string
   description: string
   icon: React.ComponentType<{ className?: string }>
-  compatibleRepSchemes: RepSchemeType[]
-  incompatibleRepSchemes?: RepSchemeType[]
   defaultConfig?: Partial<ExecutionStyleConfig>
 }
 
@@ -42,9 +36,8 @@ const EXECUTION_STYLE_OPTIONS: ExecutionStyleOption[] = [
   {
     style: 'standard',
     label: 'Standard',
-    description: 'Traditional set and rest approach with full recovery between sets',
+    description: 'Traditional rest between sets',
     icon: Play,
-    compatibleRepSchemes: ['standard', 'descending', 'pyramid', 'ascending'],
     defaultConfig: {
       style: 'standard',
       restBetweenSets: 90
@@ -53,10 +46,8 @@ const EXECUTION_STYLE_OPTIONS: ExecutionStyleOption[] = [
   {
     style: 'HIIT',
     label: 'HIIT',
-    description: 'High-intensity intervals with specific work and rest periods',
+    description: 'High-intensity intervals',
     icon: Zap,
-    compatibleRepSchemes: ['standard', 'descending'],
-    incompatibleRepSchemes: ['pyramid', 'ascending'],
     defaultConfig: {
       style: 'HIIT',
       workInterval: 45,
@@ -67,10 +58,8 @@ const EXECUTION_STYLE_OPTIONS: ExecutionStyleOption[] = [
   {
     style: 'EMOM',
     label: 'EMOM',
-    description: 'Every Minute on the Minute - perform exercise at start of each minute',
+    description: 'Every minute on the minute',
     icon: Clock,
-    compatibleRepSchemes: ['standard', 'ascending'],
-    incompatibleRepSchemes: ['descending', 'pyramid'],
     defaultConfig: {
       style: 'EMOM',
       intervalMinutes: 1,
@@ -80,10 +69,8 @@ const EXECUTION_STYLE_OPTIONS: ExecutionStyleOption[] = [
   {
     style: 'AMRAP',
     label: 'AMRAP',
-    description: 'As Many Rounds/Reps As Possible within a time limit',
+    description: 'As many rounds as possible',
     icon: Infinity,
-    compatibleRepSchemes: ['standard'],
-    incompatibleRepSchemes: ['descending', 'pyramid', 'ascending'],
     defaultConfig: {
       style: 'AMRAP',
       durationMinutes: 12
@@ -91,32 +78,6 @@ const EXECUTION_STYLE_OPTIONS: ExecutionStyleOption[] = [
   }
 ]
 
-// ================================================================================================
-// COMPATIBILITY LOGIC
-// ================================================================================================
-
-function isStyleCompatible(style: ExecutionStyle, repScheme: RepSchemeType): boolean {
-  const option = EXECUTION_STYLE_OPTIONS.find(opt => opt.style === style)
-  if (!option) return false
-  
-  return option.compatibleRepSchemes.includes(repScheme)
-}
-
-function getIncompatibilityReason(style: ExecutionStyle, repScheme: RepSchemeType): string {
-  if (style === 'HIIT' && (repScheme === 'pyramid' || repScheme === 'ascending')) {
-    return 'HIIT works best with standard or descending rep schemes'
-  }
-  
-  if (style === 'EMOM' && (repScheme === 'descending' || repScheme === 'pyramid')) {
-    return 'EMOM is designed for standard reps or ascending patterns'
-  }
-  
-  if (style === 'AMRAP' && repScheme !== 'standard') {
-    return 'AMRAP requires standard rep schemes for consistent pacing'
-  }
-  
-  return 'This combination may not provide optimal training stimulus'
-}
 
 // ================================================================================================
 // STYLE CONFIG COMPONENT
@@ -178,30 +139,48 @@ function StyleConfig({ style, config, onChange }: StyleConfigProps) {
       )}
       
       {style === 'EMOM' && (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
           <div>
-            <label className="text-xs text-gray-400 block mb-1">Interval (minutes)</label>
+            <label className="text-xs text-gray-400 block mb-1">Pattern</label>
             <select
-              value={(config as any).intervalMinutes || 1}
-              onChange={(e) => updateConfig({ intervalMinutes: parseInt(e.target.value) })}
+              value={(config as any).pattern || 'standard'}
+              onChange={(e) => updateConfig({ pattern: e.target.value })}
               className="w-full h-8 px-2 text-sm bg-neu-surface border border-neu-light/20 rounded"
             >
-              <option value={1}>1 minute</option>
-              <option value={2}>2 minutes</option>
-              <option value={3}>3 minutes</option>
+              <option value="standard">Standard</option>
+              <option value="ascending">Ascending</option>
             </select>
           </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">Duration (minutes)</label>
-            <input
-              type="number"
-              value={(config as any).durationMinutes || 10}
-              onChange={(e) => updateConfig({ durationMinutes: parseInt(e.target.value) })}
-              className="w-full h-8 px-2 text-sm bg-neu-surface border border-neu-light/20 rounded"
-              min="3"
-              max="30"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs text-gray-400 block mb-1">Interval (minutes)</label>
+              <select
+                value={(config as any).intervalMinutes || 1}
+                onChange={(e) => updateConfig({ intervalMinutes: parseInt(e.target.value) })}
+                className="w-full h-8 px-2 text-sm bg-neu-surface border border-neu-light/20 rounded"
+              >
+                <option value={1}>1 minute</option>
+                <option value={2}>2 minutes</option>
+                <option value={3}>3 minutes</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs text-gray-400 block mb-1">Duration (minutes)</label>
+              <input
+                type="number"
+                value={(config as any).durationMinutes || 10}
+                onChange={(e) => updateConfig({ durationMinutes: parseInt(e.target.value) })}
+                className="w-full h-8 px-2 text-sm bg-neu-surface border border-neu-light/20 rounded"
+                min="3"
+                max="30"
+              />
+            </div>
           </div>
+          {(config as any).pattern === 'ascending' && (
+            <div className="text-xs text-blue-300 bg-blue-500/10 p-2 rounded border border-blue-500/20">
+              Ascending EMOM: Start with 1 rep on minute 1, then 2 reps on minute 2, continuing until time expires
+            </div>
+          )}
         </div>
       )}
       
@@ -228,11 +207,9 @@ function StyleConfig({ style, config, onChange }: StyleConfigProps) {
 
 export default function ExecutionStyleSelector({
   selectedStyle,
-  repScheme,
   onChange,
   onStyleConfigChange,
   disabled = false,
-  showIncompatibleOptions = false,
   compact = false
 }: ExecutionStyleSelectorProps) {
   
@@ -242,20 +219,13 @@ export default function ExecutionStyleSelector({
 
   const optionStates = useMemo(() => {
     return EXECUTION_STYLE_OPTIONS.map(option => {
-      const isCompatible = isStyleCompatible(option.style, repScheme)
       const isSelected = selectedStyle === option.style
-      const isVisible = isCompatible || showIncompatibleOptions || isSelected
-      const incompatibilityReason = !isCompatible ? getIncompatibilityReason(option.style, repScheme) : null
-
       return {
         option,
-        isCompatible,
-        isSelected,
-        isVisible,
-        incompatibilityReason
+        isSelected
       }
     })
-  }, [selectedStyle, repScheme, showIncompatibleOptions])
+  }, [selectedStyle])
 
   const selectedOption = EXECUTION_STYLE_OPTIONS.find(opt => opt.style === selectedStyle)
   const currentConfig = selectedOption?.defaultConfig || { style: selectedStyle }
@@ -268,14 +238,10 @@ export default function ExecutionStyleSelector({
     if (disabled) return
 
     const option = EXECUTION_STYLE_OPTIONS.find(opt => opt.style === style)
-    const isCompatible = isStyleCompatible(style, repScheme)
-
-    if (isCompatible || showIncompatibleOptions) {
-      onChange(style)
-      
-      if (onStyleConfigChange && option?.defaultConfig) {
-        onStyleConfigChange(option.defaultConfig as ExecutionStyleConfig)
-      }
+    onChange(style)
+    
+    if (onStyleConfigChange && option?.defaultConfig) {
+      onStyleConfigChange(option.defaultConfig as ExecutionStyleConfig)
     }
   }
 
@@ -292,61 +258,31 @@ export default function ExecutionStyleSelector({
   return (
     <div className="space-y-3">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium text-white">Execution Style</h3>
-          <Button
-            variant="flat"
-            size="icon"
-            className="h-5 w-5 p-0"
-            title="Execution style determines the timing and structure of your sets"
-          >
-            <Info className="w-3 h-3" />
-          </Button>
-        </div>
-        <div className="text-xs text-gray-400">
-          Rep scheme: {repScheme}
-        </div>
+      <div>
+        <h3 className="text-sm font-medium text-white mb-1">Execution Style</h3>
+        <p className="text-xs text-gray-400">Choose how you want to perform your sets</p>
       </div>
 
       {/* Execution Style Options */}
       <div className={`grid gap-2 ${compact ? 'grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`}>
-        {optionStates
-          .filter(({ isVisible }) => isVisible)
-          .map(({ option, isCompatible, isSelected, incompatibilityReason }) => {
-            const IconComponent = option.icon
-            const isEnabled = !disabled && (isCompatible || showIncompatibleOptions)
-            
-            return (
-              <div key={option.style} className="relative">
-                <Chip
-                  selected={isSelected}
-                  onClick={() => handleStyleSelect(option.style)}
-                  disabled={!isEnabled}
-                  size="label" // 24px height for secondary importance
-                  variant={isSelected ? 'primary' : 'secondary'}
-                  className={`
-                    w-full justify-center gap-2 px-3 py-2 h-8 transition-all duration-200
-                    ${isEnabled ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed'}
-                    ${!isCompatible ? 'opacity-60' : ''}
-                    ${isSelected ? 'shadow-neu-elevated' : 'shadow-neu-flat'}
-                  `}
-                  icon={<IconComponent className="w-4 h-4" />}
-                >
-                  <span className="text-sm font-medium">{option.label}</span>
-                </Chip>
-
-                {/* Incompatibility warning */}
-                {!isCompatible && (
-                  <div className="absolute -top-1 -right-1">
-                    <div className="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
-                      <AlertTriangle className="w-2 h-2 text-black" />
-                    </div>
-                  </div>
-                )}
-              </div>
-            )
-          })}
+        {optionStates.map(({ option, isSelected }) => {
+          const IconComponent = option.icon
+          
+          return (
+            <Chip
+              key={option.style}
+              selected={isSelected}
+              onClick={() => handleStyleSelect(option.style)}
+              disabled={disabled}
+              size="label" // 24px height for secondary importance
+              variant={isSelected ? 'gold' : 'gold-outline'}
+              className="w-full justify-center gap-2 px-3 py-2 h-8 transition-all duration-200 cursor-pointer hover:scale-105"
+              icon={<IconComponent className="w-4 h-4" />}
+            >
+              <span className="text-sm font-medium">{option.label}</span>
+            </Chip>
+          )
+        })}
       </div>
 
       {/* Selected Style Info */}
@@ -371,26 +307,7 @@ export default function ExecutionStyleSelector({
         </div>
       )}
 
-      {/* Compatibility Warnings */}
-      {optionStates.some(({ isSelected, isCompatible }) => isSelected && !isCompatible) && (
-        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm font-medium text-yellow-400">Compatibility Warning</span>
-          </div>
-          <div className="text-xs text-yellow-300">
-            {optionStates.find(({ isSelected }) => isSelected)?.incompatibilityReason}
-          </div>
-        </div>
-      )}
 
-      {/* Help Text */}
-      {!compact && (
-        <div className="text-xs text-gray-500">
-          💡 Execution style affects how you perform your sets. Standard is most versatile, 
-          while specialized styles create specific training stimuli.
-        </div>
-      )}
     </div>
   )
 }
